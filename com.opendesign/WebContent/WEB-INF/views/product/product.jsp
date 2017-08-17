@@ -29,7 +29,7 @@
 					<a href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
 				</div>
 				<div class="last btn-red"><a href="javascript:goPage('/product/productRegi.do', true);" class="btn-product">디자인 등록</a></div>
-				<button class="btn-help btn-red" type="button">도움말</button>
+				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');"> 도움말</button>
 			</div>
 			<ul id="ing-product-list" class="list-type1"></ul>
 		</div>
@@ -270,5 +270,41 @@ function goDetailView(itemType, seq) {
 		});
 	}
 </script>
+
+	<!-- 도움말 모달 -->
+
+	<div class="modal" id="help-modal">
+		<div class="bg"></div>
+		<div class="modal-inner helpModal">
+			<div class="modal-body">
+				<h3 align="center">쉬운 디자인</h3>
+				<div class="row">
+					<h4>1. 디자인 등록</h4>
+					<p>상단 메뉴에서 디자인 페이지로 이동합니다.</p>
+					<img class="img-responsive mt-5"src="/resources/image/help/design-process.png">
+					<p>로그인 후 디자인 등록 버튼을 클릭합니다.</p>
+					<img class="img-responsive mt-5"src="/resources/image/help/design-process2.png">
+					<img class="img-responsive mt-5"src="/resources/image/help/design-process4.png">
+					<p>디자인 등록창에서 디자인명, 카테고리, 라이센스, 태그, 디자인 파일, 그 외 첨부파일을 등록하여 완료합니다.</p>
+					<img class="img-responsive mt-5"src="/resources/image/help/design-process3.png">
+					<h4>2. 새 디자인</h4>
+					<p>기존에 있는 디자인 작품을 새롭게 변형하거나 추가하여 새로운 디자인을 만드는 것을 의미합니다.<br>
+					디자인 상세 페이지에서 기존 디자인 작품을 올린 디자이너의 공유 범위를 CC라이센스를 통해 확인할 수 있습니다. 
+					공유 및 재 생산이 가능한 작품일 경우, 새 디자인 버튼을 클릭하면 출처 등이 자동으로 등록되며 
+					기존 디자인 작품의 소스를 다운받아 새롭게 디자인 작품을 등록할 수 있습니다. </p>
+					<img class="img-responsive mt-5"src="/resources/image/help/easy.png">
+					<h4>3. 원본 보기</h4>
+					<p>원본 보기 버튼을 클릭하면 기존 작품이 어떠한 작품에서 파생되었는지를 확인할 수 있습니다.
+					<br>이를 통해 디자인 공유가 쉬워지고 원본이 보호받을 수 있으며, 그 안에서 누구나 쉽게 디자인할 수 있습니다.</p>
+					<img class="img-responsive mt-5"src="/resources/image/help/easy4.png">
+					<h4>4. 수정 & 삭제</h4>
+					<p>디자인 상세 창에서 썸네일 사진 하단에 수정 버튼을 클릭하여 수정할 수 있습니다. 삭제 버튼 클릭시 삭제가 가능합니다.</p>
+					<img class="img-responsive mt-5"src="/resources/image/help/product4.png">
+				</div>
+			</div>
+			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+		</div>
+	</div>
+				
 </body>
 </html>
