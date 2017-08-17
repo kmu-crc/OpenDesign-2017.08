@@ -1,26 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="footer">
 	<div class="inner">
+		<p class="footer-copyright">©2017 Open Design Inc.</p>
 		<ul class="policy">
-			<li><a href="javascript:modalShow('#modal_introduece');">오픈소스디자인 소개</a></li>
-			<li><a href="javascript:modalShow('#modal_use');">이용약관</a></li>
-			<li><a href="javascript:modalShow('#modal_personal');">개인정보처리방침</a></li>
-			<li><a href="javascript:modalShow('#modal_contact');">저작권표기안내</a></li>
-			<!-- li><a href="#">고객센터</a></li-->
+			<li class="footer-li"><a href="javascript:modalShow('#modal_introduece');">오픈소스디자인 소개</a></li>
+			<li class="footer-li"><a href="javascript:modalShow('#modal_use');">이용약관</a></li>
+			<li class="footer-li"><a href="javascript:modalShow('#modal_personal');">개인정보처리방침</a></li>
+			<li class="footer-li"><a href="javascript:modalShow('#modal_contact');">저작권표기안내</a></li>
 		</ul>
-
-		<h2 class="skip">사이트 정보</h2>
-		<p class="footer-logo">
-			<img src="/resources/image/common/logo.png" alt="open src Design">
-		</p>
-		<div class="site-info">
-			<address>
-				<p>02707 서울특별시 성북구 정릉로 77 국민대학교 TEL 02.910.4114</p>
-				<p>KOOMIN UNIVERSITY, 77 JEONGNEUNG-RO, SEONGBUK-GU, SEOUL,
-					02727, KOREA</p>
-			</address>
-			<p>COPYRIGNT&copy;2012 KOOKMIN UNIVERSITY.ALL RIGHTS RESERVED</p>
-		</div>
 	</div>
 </div>
 
@@ -31,8 +18,7 @@
 	<div class="modal-inner">
 		<div class="rule-box">
 			<h1>쉬운 디자인, 함께 하는 디자인</h1>
-			
-			
+					
 			<p class="txt">디자인은 인간의 창의성을 담는 그릇입니다. 창의력이 핵심 경쟁력이 될 미래는 디자인 중심 사회가 될 것입니다.<br>
 			세계 각국은 디자인의 중요성을 깨달아 디자인에 대한 투자를 늘리고 있지만 아직 대부분의 사람들에게 디자인은 어려운 분야입니다.<br> 
 			사람들이 쉽게 디자인을 접하고, 경험하며, 배울 수 있는 디자인 인프라 구축이 중요한 시점입니다.</p>

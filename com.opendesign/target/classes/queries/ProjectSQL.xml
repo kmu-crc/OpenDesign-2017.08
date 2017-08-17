@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProjectSQL">
+
+	<!--  -->
+	<sql id="where_project_list" >
+		WHERE 1=1 
+		<!-- 그룹상세 페이지 처리 -->
+		<if test=' schMyGroup == null or schMyGroup == "" '>
+		AND ( 
+			public_yn = 'Y'
+			<if test=' memberSeq != null ' >
+			OR P.seq IN (
+				SELECT
+					project_seq
+				FROM t_project_member PM
+				WHERE member_seq = #{memberSeq}
+		
+			)
+			OR P.owner_seq = #{memberSeq}
+			</if>
+		)
+		</if>
+		
+		<!-- 그룹상세 페이지 처리 -->
+		<if test=' schMyGroup != null and schMyGroup != "" ' >
+		AND P.seq IN (
+			SELECT
+				PGP.project_seq
+			FROM t_pgroup PG
+			JOIN t_pgroup_project PGP
+				ON PG.seq = PGP.project_group_seq
+			WHERE PG.seq = #{schMyGroup}
+		)
+		</if>
+		
+		<if test=' schProjectName != null and schProjectName != "" ' >
+		AND 
+		UPPER(P.project_name) LIKE CONCAT('%',UPPER(#{schProjectName}),'%')
+		</if>
+		
+		<if test=' schCate != null and schCate != "" ' >
+		AND P.seq IN (
+			SELECT
+				project_seq
+			FROM t_project_category PC
+			WHERE PC.category_code LIKE CONCAT( #{schCate}, '%' )
+			OR PC.category_code = '*'
+		)
+		</if>
+		<if test=' schProgressStatus != null and schProgressStatus != "" ' >
+		AND P.progress_status = #{schProgressStatus}
+		</if>
+		
+		<!-- 통합검색 -->
+		<if test=' searchWord != null and searchWord != "" ' >
+		AND 
+		( 
+			UPPER(P.project_name) LIKE CONCAT( '%', UPPER(#{searchWord}), '%' ) 
+			OR 
+			UPPER(PM.uname) LIKE CONCAT( '%', UPPER(#{searchWord}), '%' )
+			
+			OR
+				P.seq IN 
+				(
+				SELECT A.project_seq 
+				FROM t_project_category A 
+				JOIN t_category B
+				ON A.category_code = B.category_code
+				WHERE B.category_name = #{searchWord}
+				)
+		)
+		</if>
+		
+		
+	</sql>
+	
+	<!--  -->
+	<select id="selectProjectCount" parameterType="hashmap" resultType="java.lang.Integer" >
+		SELECT
+			COUNT(*)
+		FROM v_project P
+		JOIN t_member PM
+			ON P.owner_seq = PM.seq
+		<include refid="where_project_list" />
+	</select>
+	
+	<!-- 디자인 프로젝트 조회 -->
+	<select id="selectProjectList" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" > 
+		SELECT
+			P.seq
+			, P.owner_seq AS ownerSeq
+			, PM.uname AS ownerName
+			, P.public_yn AS publicYn
+			, P.project_name AS projectName
+			, P.progress_status AS progressStatus
+			, P.file_url AS fileUrl
+			, P.file_name AS fileName
+			, P.register_time AS registerTime
+			, P.update_time AS updateTime
+			<if test=" memberSeq != null " >
+			, (CASE 
+				WHEN owner_seq = ${memberSeq} THEN 1
+				ELSE  0
+			  END) AS isProjectOwner
+            , IFNULL( (SELECT 1 FROM t_project_member WHERE member_seq = ${memberSeq} AND project_seq = P.seq ), 0 ) AS isProjectMember
+			</if>
+			, (
+				SELECT COUNT(*) FROM t_project_member
+				WHERE project_seq = P.seq
+			) AS projectMemberCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S1_PS
+				JOIN v_project_work S1_PW ON S1_PW.project_subject_seq = S1_PS.seq
+				WHERE S1_PS.project_seq = P.seq
+			) AS projectWorkCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S2_PS
+				JOIN v_project_work S2_PW ON S2_PW.project_subject_seq = S2_PS.seq
+				JOIN t_project_work_ver S2_PWV ON S2_PWV.project_work_seq = S2_PW.seq
+				WHERE S2_PS.project_seq = P.seq
+			) AS projectWorkFileCnt
+			,(
+		        SELECT
+					COUNT(*)
+				FROM t_project_work_like A
+				WHERE
+		        	A.project_work_seq = P.seq
+		    ) AS likeCnt
+		FROM v_project P
+		JOIN t_member PM
+			ON P.owner_seq = PM.seq
+		<include refid="where_project_list" />
+		ORDER BY P.update_time DESC
+		LIMIT #{page_count}, #{limit_count}
+	</select>
+	
+	<select id="selectMyProject" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" >
+		SELECT 
+			seq
+			, owner_seq AS ownerSeq
+			, public_yn AS publicYn
+			, project_name AS projectName
+			, progress_status AS progressStatus
+			, file_url AS fileUrl
+			, file_name AS fileName
+			, register_time AS registerTime
+			, update_time AS updateTime
+		FROM v_project
+		WHERE owner_seq = #{memberSeq}
+		<choose>
+			<when test=" projectSeq != null " >
+			AND seq = #{projectSeq}
+			</when>
+			<otherwise>
+			ORDER BY update_time ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 프로젝트 정보조회 -->
+	<select id="selectProjectInfo" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" >
+		SELECT 
+			seq
+			, owner_seq AS ownerSeq
+			, public_yn AS publicYn
+			, project_name AS projectName
+			, progress_status AS progressStatus
+			, file_url AS fileUrl
+			, file_name AS fileName
+			, register_time AS registerTime
+			, update_time AS updateTime
+			<if test=" memberSeq != null " >
+			, (CASE 
+				WHEN owner_seq = ${memberSeq} THEN 1
+				ELSE  0
+			  END) AS isProjectOwner
+            , IFNULL( (SELECT 1 FROM t_project_member WHERE member_seq = ${memberSeq} AND project_seq = P.seq ), 0 ) AS isProjectMember
+			</if>
+		FROM v_project P
+		WHERE seq = #{projectSeq}
+	</select>
+	
+	<select id="selectProjectCategoryByProjectSeq" parameterType="java.lang.Integer" resultType="com.opendesign.vo.CategoryVO" >
+		SELECT
+			C.category_code AS categoryCode
+			, C.category_name AS categoryName
+			, C.depth
+		FROM t_project_category PC
+		JOIN v_project P
+			ON PC.project_seq = P.seq
+		JOIN t_category C
+			ON PC.category_code = C.category_code
+		WHERE PC.project_seq = #{projectSeq}
+		ORDER BY C.category_name ASC
+	</select>
+	
+	<select id="selectProjectMemberByProjectSeq" parameterType="java.lang.Integer" resultType="com.opendesign.vo.ProjectMemberVO" >
+		SELECT
+			M.uname
+			, M.email
+		FROM t_project_member PM
+		JOIN v_project P
+			ON PM.project_seq = P.seq
+		JOIN t_member M
+			ON PM.member_seq = M.seq
+		WHERE PM.project_seq = #{projectSeq}
+		ORDER BY M.uname ASC, M.email ASC
+	</select>
+	
+	<select id="selectFindMember" parameterType="hashmap" resultType="com.opendesign.vo.ProjectMemberVO" >
+		SELECT
+			uname
+			, email
+		FROM t_member
+		WHERE ( 
+			UPPER(uname) LIKE CONCAT('%',UPPER(#{schWord}),'%')
+			OR
+			LOWER(email) LIKE CONCAT('%',LOWER(#{schWord}),'%')
+		)
+		ORDER BY uname ASC, email ASC
+	</select>
+	
+	<select id="selectMyProjectGroupList" parameterType="hashmap" resultType="com.opendesign.vo.ProjectGroupVO" >
+		SELECT 
+			seq
+			, group_name AS groupName
+			, member_seq AS memberSeq
+			, register_time AS registerTime
+			, update_time AS updateTime
+		FROM t_pgroup
+		WHERE member_seq = #{memberSeq}
+		<if test=" seq != null " >
+			AND seq = #{seq}
+		</if>
+		ORDER BY group_name ASC
+	</select>
+	
+	<select id="selectMyGroupProjectList" parameterType="com.opendesign.vo.ProjectGroupVO" resultType="com.opendesign.vo.ProjectVO" >
+		SELECT 
+			P.seq
+			, P.owner_seq AS ownerSeq
+			, P.public_yn AS publicYn
+			, P.project_name AS projectName
+			, P.progress_status AS progressStatus
+			, P.file_url AS fileUrl
+			, P.file_name AS fileName
+			, P.register_time AS registerTime
+			, P.update_time AS updateTime
+		FROM t_pgroup G
+		JOIN t_pgroup_project GP
+			ON G.seq = GP.project_group_seq
+		JOIN v_project P
+			ON GP.project_seq = P.seq
+		WHERE G.seq = #{seq}
+			AND G.member_seq = #{memberSeq}
+		ORDER BY P.update_time ASC
+	</select>
+	
+	<insert id="insertMyGroup" parameterType="com.opendesign.vo.ProjectGroupVO" >
+		INSERT INTO t_pgroup (
+			group_name, member_seq, register_time, update_time
+		) VALUES (
+			#{groupName}, #{memberSeq}, #{registerTime}, #{updateTime}
+		)
+		<selectKey keyProperty="seq" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteMyGroupProject" parameterType="com.opendesign.vo.ProjectGroupVO" >
+		DELETE FROM t_pgroup_project WHERE project_group_seq = (
+			SELECT seq FROM t_pgroup WHERE seq = #{seq} AND member_seq = #{memberSeq}
+		)
+	</delete>
+	
+	<delete id="deleteMyGroupProjectBySeqs" parameterType="hashmap" >
+		DELETE FROM t_pgroup_project WHERE project_group_seq = #{groupSeq}
+			AND project_seq IN 
+			<foreach item="projectSeq" index="index" collection="projectSeqs" open="(" separator="," close=")">
+       		#{projectSeq}
+			</foreach>
+	</delete>
+	
+	<insert id="insertMyGroupProject" parameterType="hashmap" >
+		INSERT INTO t_pgroup_project (
+			project_group_seq, project_seq, register_time
+		)
+		SELECT
+			#{groupSeq}, P.seq, #{registerTime}
+		FROM v_project P
+		WHERE P.seq IN 
+		<foreach item="projectSeq" index="index" collection="projectSeqs" open="(" separator="," close=")">
+       		#{projectSeq}
+		</foreach>
+	</insert>
+	
+	<delete id="deleteMyGroup" parameterType="com.opendesign.vo.ProjectGroupVO" >
+		DELETE FROM t_pgroup WHERE seq = #{seq} AND member_seq = #{memberSeq}
+	</delete>
+	
+	<insert id="insertProject" parameterType="com.opendesign.vo.ProjectVO" >
+		INSERT INTO t_project (
+			project_name, owner_seq, file_url, file_name, public_yn, progress_status
+			, register_time, update_time
+		) VALUES (
+			#{projectName}, #{ownerSeq}, #{fileUrl}, #{fileName}, #{publicYn}, #{progressStatus}
+			, #{registerTime}, #{updateTime}
+		)
+		<selectKey keyProperty="seq" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateProject" parameterType="com.opendesign.vo.ProjectVO" >
+		UPDATE t_project SET
+			project_name = #{projectName}
+		<if test=" fileUrl != null ">
+			, file_url = #{fileUrl}
+			, file_name = #{fileName}
+		</if>
+			, public_yn = #{publicYn}
+			, update_time = #{updateTime}
+			, progress_status = #{progressStatus}
+		WHERE seq = #{seq}
+			AND owner_seq = #{ownerSeq}
+	</update>
+	
+	<insert id="insertProjectCategory" parameterType="hashmap" >
+		INSERT INTO t_project_category (
+			category_code, project_seq, register_time
+		) VALUES (
+			#{categoryCode}, #{projectSeq}, #{registerTime}
+		)
+	</insert>
+	
+	<delete id="deleteProjectCategory" parameterType="java.lang.Integer" >
+		DELETE FROM t_project_category WHERE project_seq = #{projectSeq}
+	</delete>
+	
+	<insert id="insertProjectMember" parameterType="hashmap" >
+		INSERT INTO t_project_member (
+			member_seq, project_seq, register_time
+		) 
+		SELECT
+			seq, #{projectSeq}, #{registerTime}
+		FROM t_member
+		WHERE email IN
+		<foreach item="email" index="index" collection="emails" open="(" separator="," close=")">
+       		#{email}
+		</foreach>
+	</insert>
+	
+	<delete id="deleteProjectMember" parameterType="java.lang.Integer" >
+		DELETE FROM t_project_member WHERE project_seq = #{projectSeq}
+	</delete>
+	
+	<!-- 프로젝트 삭제 -->
+	<update id="deleteProject" parameterType="com.opendesign.vo.ProjectVO" >
+		UPDATE t_project
+		SET del_flag = 'Y'
+		WHERE seq = #{seq}
+			AND owner_seq = #{ownerSeq}
+	</update>
+	
+
+	<!-- 주제 추가 -->
+	<insert id="insertProjectSubject" parameterType="com.opendesign.vo.ProjectSubjectVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		         t_project_subject  (
+		             project_seq 
+		            , subject_name 
+		            , member_seq 
+		            , register_time 
+		        )
+		    VALUES
+		        (
+		            #{projectSeq}
+		            ,#{subjectName}
+		            ,#{memberSeq}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	<!-- 주제 수정 -->
+	<update id="updateProjectSubject" parameterType="com.opendesign.vo.ProjectSubjectVO"> 
+		<![CDATA[
+		UPDATE t_project_subject
+			SET subject_name = #{subjectName}
+		WHERE 
+			project_seq = #{projectSeq}
+			AND seq = #{subjectSeq}
+		]]>
+	</update>
+	
+	<!-- 주제 삭제 체크 -->
+	<select id="checkDeleteProjectSubject" parameterType="com.opendesign.vo.ProjectSubjectVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        v_project_work T
+		    WHERE
+		        T.project_subject_seq = #{seq}
+		]]>
+	</select>
+	
+	<!-- 주제 삭제 -->
+	<select id="deleteProjectSubject" parameterType="com.opendesign.vo.ProjectSubjectVO" > 
+		<![CDATA[
+		DELETE
+		    FROM
+		        t_project_subject
+		    WHERE
+		        seq = #{seq}
+		]]>
+	</select>
+	
+	<!-- 작품 추가 -->
+	<insert id="insertProjectWork" parameterType="com.opendesign.vo.ProjectWorkVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		         t_project_work  (
+		             title 
+		            , contents 
+		            , project_subject_seq 
+		            , member_seq 
+		            , register_time 
+		            , refer_project_work_seq 
+		            , thumb_uri 
+		        )
+		    VALUES
+		        (
+		           #{title}
+		            ,#{contents}
+		            ,#{projectSubjectSeq}
+		            ,#{memberSeq}
+		            ,#{registerTime}
+		            ,#{referProjectWorkSeq}
+		            ,#{thumbUri}
+		        )
+		]]>
+	</insert>
+	
+	<!-- 작품 버전 추가 -->
+	<insert id="insertProjectWorkVer" parameterType="com.opendesign.vo.ProjectWorkVerVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		         t_project_work_ver  (
+		             project_work_seq 
+		            , ver 
+		            , file_uri 
+		            , register_time 
+		            , filename 
+		        )
+		    VALUES
+		        (
+		            #{projectWorkSeq}
+		            ,#{ver}
+		            ,#{fileUri}
+		            ,#{registerTime}
+		            ,#{filename}
+		        )
+		]]>
+	</insert>
+	
+	<!-- 작품 참여자 추가 -->
+	<insert id="insertProjectWorkMember" parameterType="com.opendesign.vo.ProjectWorkMemberVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		         t_project_work_member  (
+		             member_seq 
+		            , project_work_seq 
+		            , register_time 
+		        )
+		    VALUES
+		        (
+		            #{memberSeq}
+		            ,#{projectWorkSeq}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	<!-- 작품 마지막 ver 조회 -->
+	<select id="selectProjectWorkLastVer" parameterType="com.opendesign.vo.ProjectWorkVO" resultType="com.opendesign.vo.ProjectWorkVO" > 
+		<![CDATA[
+		SELECT
+		  CAST(MAX(CAST(T.ver AS DECIMAL(4,1))) AS CHAR) AS last_ver
+			FROM t_project_work_ver T
+			WHERE T.project_work_seq = #{seq}
+		]]>
+	</select>
+	
+	<!-- 작품 마지막 ver 변경 -->
+	<update id="updateProjectWorkLastVer" parameterType="com.opendesign.vo.ProjectWorkVO" > 
+		<![CDATA[
+		UPDATE
+		        t_project_work T
+		    SET
+		        T.last_ver = #{lastVer}
+		    WHERE
+		        T.seq = #{seq}
+		]]>
+	</update>
+	
+	<!-- sql 작품 상세 조회 -->
+	<sql id="sql_selectProjectWork">
+		
+		SELECT
+		        T.title
+		        ,T.contents
+		        ,T.seq
+		        ,T.project_subject_seq
+		        ,T.member_seq
+		        ,T.register_time
+		        ,T.refer_project_work_seq
+		        ,T.last_ver
+		        ,T.thumb_uri
+		        ,U.seq AS lastVerSeq
+		        ,U.filename AS verFilename
+		        ,U.file_uri AS verFileUri
+		        ,V.uname AS memberName
+		        ,V.member_type AS memberType
+		        ,(
+		            SELECT COUNT(*) FROM t_project_work_like A
+		                WHERE A.project_work_seq = T.seq
+		        ) AS likeCnt
+		        ,(
+		            SELECT COUNT(*) FROM t_project_work_comment A 
+		            	WHERE A.project_work_seq = T.seq
+		        ) AS commentCnt
+		        
+		        <if test=' logonUserSeq != null and logonUserSeq != "" ' >
+				, 
+				(
+					SELECT
+						COUNT(*)
+					FROM t_project_work_like A
+					
+					WHERE
+					A.project_work_seq = T.seq
+			        AND A.member_seq = #{logonUserSeq}
+			        
+			    ) AS curUserLikedYN
+				</if>
+		        
+		    FROM
+		        v_project_work T
+		        	JOIN t_project_work_ver U 
+		        		ON T.seq = U.project_work_seq AND T.last_ver = U.ver
+		        	JOIN t_member V 
+						ON T.member_seq = V.seq		
+		
+	</sql>
+
+	<!-- 작품 상세 조회 -->
+	<select id="selectProjectWork" parameterType="com.opendesign.vo.ProjectWorkVO" resultType="com.opendesign.vo.ProjectWorkVO" > 
+		<include refid="sql_selectProjectWork" />
+		<![CDATA[
+		    WHERE
+		        T.seq = #{seq}
+		]]>
+	</select>
+	
+	
+	<!-- 작품 상세 list 조회 -->
+	<select id="selectProjectWorkList" parameterType="com.opendesign.vo.ProjectWorkVO" resultType="com.opendesign.vo.ProjectWorkVO" > 
+		<include refid="sql_selectProjectWork" />
+		<![CDATA[
+		    WHERE
+		        T.project_subject_seq = #{projectSubjectSeq}
+		    ORDER BY T.register_time DESC
+		]]>
+	</select>
+	
+	<!-- 작품 버전 조회 -->
+	<select id="selectProjectWorkVerList" parameterType="com.opendesign.vo.ProjectWorkVO" resultType="com.opendesign.vo.ProjectWorkVerVO" > 
+		<![CDATA[
+		SELECT
+		        T.project_work_seq
+		        ,T.seq
+		        ,T.ver
+		        ,T.file_uri
+		        ,T.register_time
+		        ,T.filename
+		    FROM
+		        t_project_work_ver T
+		    WHERE
+		        T.project_work_seq = #{seq}
+		    ORDER BY
+		    	CAST(T.ver AS DECIMAL(4,1)) DESC
+		]]>
+	</select>
+	
+	<!-- 작품 참여자 조회 -->
+	<select id="selectProjectWorkMemberList" parameterType="com.opendesign.vo.ProjectWorkVO" resultType="com.opendesign.vo.ProjectWorkMemberVO" > 
+		<![CDATA[
+		SELECT
+		        T. member_seq
+		        ,T. project_work_seq
+		        ,T. register_time
+		        ,U.uname AS memberName
+		        ,U.email AS memberEmail
+		    FROM
+		        t_project_work_member T
+		            JOIN t_member U
+		                ON T.member_seq = U.seq
+		    WHERE
+		        T.project_work_seq = #{seq}
+		    ORDER BY
+		        U.uname
+		]]>
+	</select>
+	
+	<!-- 작품 수정 -->
+	<update id="updateProjectWork" parameterType="com.opendesign.vo.ProjectWorkVO">
+		UPDATE
+		        t_project_work
+		    SET
+		        title = #{title}
+		        ,contents = #{contents}
+		        <if test=" thumbUri != null and thumbUri != '' ">
+		        ,thumb_uri = #{thumbUri}
+		        </if>
+		    WHERE
+		        seq = #{seq}
+	</update>
+	
+	<!-- 작품 버전 삭제 -->
+	<delete id="deleteProjectWorkVer" parameterType="com.opendesign.vo.ProjectWorkVO" > 
+		<![CDATA[
+		DELETE
+		    FROM
+		        t_project_work_ver
+		    WHERE
+		        project_work_seq = #{seq}
+		]]>
+	</delete>
+	
+	<!-- 작품 참여자 삭제 -->
+	<delete id="deleteProjectWorkMember" parameterType="com.opendesign.vo.ProjectWorkVO" > 
+		<![CDATA[
+		DELETE
+		    FROM
+		        t_project_work_member
+		    WHERE
+		        project_work_seq = #{seq}
+		]]>
+	</delete>
+	
+	<!-- 작품 삭제 -->
+	<!-- 삭제 flag:
+		DELETE
+			    FROM
+			        t_project_work
+			    WHERE
+			        seq = #{seq}
+	 -->
+	<delete id="deleteProjectWork" parameterType="com.opendesign.vo.ProjectWorkVO" > 
+		<![CDATA[
+			UPDATE t_project_work
+			SET del_flag = 'Y'
+			WHERE seq = #{seq}
+		]]>
+	</delete>
+	
+	<!-- 작품 주제 조회 -->
+	<select id="selectProjectSubjectList" parameterType="com.opendesign.vo.ProjectSubjectVO" resultType="com.opendesign.vo.ProjectSubjectVO" > 
+		
+		SELECT
+		        T.project_seq
+		        ,T.seq
+		        ,T.subject_name
+		        ,T.member_seq
+		        ,T.register_time
+		 
+		    FROM
+		        t_project_subject T
+		    WHERE
+		        T.project_seq = #{projectSeq}
+		    ORDER BY
+		        T.seq
+		
+	</select>
+	
+	<!-- 작품 퍼가기 팝업 주제 list (자신이 있는 주제 빼고) -->
+	<select id="selectShareProjectSubjectList" parameterType="hashmap" resultType="com.opendesign.vo.ProjectSubjectVO" > 
+		<![CDATA[
+		SELECT
+		        T.project_seq
+		        ,T.seq
+		        ,T.subject_name
+		        ,T.member_seq
+		        ,T.register_time
+		    FROM
+		        t_project_subject T
+		            JOIN (
+		                SELECT
+		                        A.project_subject_seq
+		                        ,B.project_seq
+		                    FROM
+		                        v_project_work A
+		                            JOIN t_project_subject B
+		                                ON A.project_subject_seq = B.seq
+		                    WHERE
+		                        A.seq = #{seq}
+		            ) U
+		                ON T.project_seq = U.project_seq
+		    WHERE
+		        T.seq != U.project_subject_seq
+		    ORDER BY
+		        T.seq
+		]]>
+	</select>
+	
+	
+	<!-- 프로젝트 조회 -->
+	<select id="selectProjectByTypeAndSeq" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" > 
+		<![CDATA[
+			SELECT 
+				seq
+				, owner_seq AS ownerSeq
+				, public_yn AS publicYn
+				, project_name AS projectName
+				, progress_status AS progressStatus
+				, file_url AS fileUrl
+				, file_name AS fileName
+				, register_time AS registerTime
+				, update_time AS updateTime
+			FROM v_project
+			WHERE 1=1
+		]]>
+		<if test=" type == 'S'.toString() and seq != null and seq != '' ">
+			AND seq IN (
+				SELECT A.project_seq 
+				FROM t_project_subject A 
+				WHERE A.seq = #{seq} 
+			) 
+		</if>
+		<if test=" type == 'W'.toString() and seq != null and seq != '' ">
+			AND seq IN (
+				SELECT
+				  B.project_seq
+				FROM v_project_work A
+				  JOIN t_project_subject B
+				    ON A.project_subject_seq = B.seq
+				WHERE A.seq = #{seq}
+			) 
+		</if>
+	</select>
+	
+	
+	<!-- ############# 그룹 new ###################### -->
+	
+	<sql id="sql_selectProjectGroupRequest">
+		<![CDATA[
+		SELECT
+		        T.project_group_seq
+		        ,U.group_name AS projectGroupName
+		        ,U.member_seq AS projectGroupOwnerSeq
+		        ,V.uname AS projectGroupOwnerName
+		        ,T.project_seq
+		        ,W.project_name
+		        ,W.owner_seq AS projectOwnerSeq
+		        ,X.uname AS projectOwnerName
+		        ,T.status
+		        ,T.register_time
+		        ,T.update_time
+		    FROM
+		        t_pgroup_project_req T
+		            JOIN t_pgroup U
+		                ON T.project_group_seq = U.seq
+		            JOIN t_member V
+		                ON U.member_seq = V.seq
+		            JOIN v_project W
+						ON T.project_seq = W.seq
+					JOIN t_member X
+						ON W.owner_seq = X.seq
+		]]>
+	</sql>
+	
+	<!-- 프로젝트 그룹 신청 상황 -->
+	<select id="selectProjectGroupRequestInfo" parameterType="com.opendesign.vo.SearchGroupVO" resultType="com.opendesign.vo.ProjectGroupReqVO" > 
+		<include refid="sql_selectProjectGroupRequest" />
+		<![CDATA[
+		    WHERE T.project_seq = #{schProjectSeq}
+		    	AND T.status in ('0','1')   /* 대기,승인 */
+		]]>
+	</select>
+	
+	<select id="selectProjectGroupRequestBySeq" parameterType="com.opendesign.vo.SearchGroupVO" resultType="com.opendesign.vo.ProjectGroupReqVO" > 
+		<include refid="sql_selectProjectGroupRequest" />
+		<![CDATA[
+		    WHERE T.project_seq = #{schProjectSeq}
+		    	AND T.project_group_seq = #{schGroupSeq}
+		]]>
+	</select>
+	
+	<select id="selectProjectGroupRequestWaitingList" parameterType="com.opendesign.vo.SearchGroupVO" resultType="com.opendesign.vo.ProjectGroupReqVO" > 
+		<include refid="sql_selectProjectGroupRequest" />
+		<![CDATA[
+		    WHERE
+		        T.status = '0' /* 대기 */
+		        AND T.project_group_seq = #{schGroupSeq}
+		]]>
+	</select>
+	
+	<select id="selectProjectGroupListByName" parameterType="com.opendesign.vo.SearchGroupVO" resultType="com.opendesign.vo.ProjectGroupReqVO" > 
+		<![CDATA[
+		SELECT
+				T.seq AS projectGroupSeq
+		        ,T.group_name AS projectGroupName
+		        ,T.member_seq AS projectGroupOwnerSeq
+		        ,V.uname AS projectGroupOwnerName
+		        ,#{schProjectSeq} AS projectSeq
+		    FROM
+		        t_pgroup T
+		            JOIN t_member V
+		                ON T.member_seq = V.seq
+		    WHERE UPPER(T.group_name) LIKE CONCAT('%',UPPER(#{schGroupName}),'%')
+		]]>
+	</select>
+	
+	<select id="checkProjExistInGroup" parameterType="com.opendesign.vo.ProjectGroupReqVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_pgroup_project T
+		    WHERE
+		        T.project_seq = #{projectSeq}
+		        AND T.project_group_seq = #{projectGroupSeq}
+		]]>
+	</select>
+	
+	<select id="checkProjAlreadyRequested" parameterType="com.opendesign.vo.ProjectGroupReqVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_pgroup_project_req T
+		    WHERE
+		        T.status = '0'
+		        AND T.project_seq = #{projectSeq}
+		        AND T.project_group_seq = #{projectGroupSeq}
+		]]>
+	</select>
+	
+	<insert id="insertProjectGroupRequest" parameterType="com.opendesign.vo.ProjectGroupReqVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		        t_pgroup_project_req(
+		            project_group_seq
+		            ,project_seq
+		            ,status
+		            ,register_time
+		            ,update_time
+		        )
+		    VALUES
+		        (
+		            #{projectGroupSeq}
+		            ,#{projectSeq}
+		            ,'0'
+		            ,#{registerTime}
+		            ,#{updateTime}
+		        )
+		]]>
+	</insert>
+	
+	<delete id="deleteProjectGroupRequest" parameterType="com.opendesign.vo.SearchGroupVO"> 
+		<![CDATA[
+		DELETE
+		    FROM
+		        t_pgroup_project_req
+		    WHERE
+		        project_group_seq = #{schGroupSeq}
+		        AND project_seq = #{schProjectSeq}
+		]]>
+	</delete>
+	
+	<delete id="deleteProjectGroupRequestByGroupSeq" parameterType="com.opendesign.vo.SearchGroupVO"> 
+		<![CDATA[
+		DELETE
+		    FROM
+		        t_pgroup_project_req
+		    WHERE
+		        project_group_seq = #{schGroupSeq}
+		]]>
+	</delete>
+	
+	<update id="updateProjectGroupRequestStatus" parameterType="com.opendesign.vo.ProjectGroupReqVO"> 
+		<![CDATA[
+		UPDATE
+		        t_pgroup_project_req
+		    SET
+		        status = #{status}
+		        ,update_time = #{updateTime}
+		    WHERE
+		        project_group_seq = #{projectGroupSeq}
+		        AND project_seq = #{projectSeq}
+		]]>
+	</update>
+	
+	<insert id="insertProjectGroup" parameterType="com.opendesign.vo.ProjectGroupReqVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		        t_pgroup_project(
+		            project_group_seq
+		            ,project_seq
+		            ,register_time
+		        )
+		    VALUES
+		        (
+		            #{projectGroupSeq}
+		            ,#{projectSeq}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	<delete id="deleteProjectGroup" parameterType="com.opendesign.vo.SearchGroupVO"> 
+		<![CDATA[
+		DELETE
+		    FROM
+		        t_pgroup_project
+		    WHERE
+		        project_group_seq = #{schGroupSeq}
+		        AND project_seq = #{schProjectSeq}
+		]]>
+	</delete>
+	
+	<!-- 그룹 탭 -->
+	<sql id="sql_selectGroupPagingList">
+		<![CDATA[
+			SELECT T.seq
+				,T.group_name
+				,T.member_seq
+				,U.uname AS memberName
+				,T.register_time
+				,T.update_time
+				,(
+					SELECT COUNT(*)
+					FROM t_pgroup_project
+					WHERE project_group_seq = T.seq
+					) AS projectCnt /* 프로젝트수 */
+				,(
+					SELECT COUNT(*)
+					FROM t_project_work TA
+					JOIN t_project_subject TB ON TA.project_subject_seq = TB.seq
+					JOIN v_project TC ON TB.project_seq = TC.seq
+					JOIN t_pgroup_project TD ON TC.seq = TD.project_seq
+					WHERE TD.project_group_seq = T.seq
+					) AS workCnt /* 게시물수 */
+				,(
+					SELECT COUNT(*)
+					FROM t_project_member TA
+					JOIN v_project TB ON TA.project_seq = TB.seq
+					JOIN t_pgroup_project TC ON TB.seq = TC.project_seq
+					WHERE TC.project_group_seq = T.seq
+					) AS memberCnt /* 멤버수 */
+			FROM t_pgroup T
+			JOIN t_member U ON T.member_seq = U.seq
+			ORDER BY T.update_time DESC /* 최신순 */
+		]]>
+	</sql>
+	
+	<select id="selectGroupPagingList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.ProjectGroupVO" > 
+		<include refid="sql_selectGroupPagingList" />
+		<![CDATA[
+			LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	<select id="selectGroupAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" > 
+		SELECT COUNT(*) FROM (
+		<include refid="sql_selectGroupPagingList" />
+		) T
+	</select>
+	
+	
+	<!-- ############# ]]그룹 new ###################### -->
+	
+	
+	
+</mapper>

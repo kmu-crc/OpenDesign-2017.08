@@ -8,7 +8,7 @@
 <!-- 회원가입:상세 -->
 <div class="modal" id="join2-modal">
 	<div class="bg"></div>
-	<div class="modal-inner" style="height: 570px;">
+	<div class="modal-inner modal-border">
 		<h1>회원가입</h1>
 		<p class="txt">회원가입을 위해서 프로필 사진,이름, 자기소개를 등록해 주세요!</p>
 		<form name="regForm2" method="post" enctype="multipart/form-data" onsubmit="return false;" >
@@ -20,6 +20,12 @@
 					<img class="pic-profile">
 					<input type="file" name="imageUrlFile" accept="image/x-png, image/jpeg" onchange="imgPreview(event);">
 				</div>
+				<div class="my-pic-info">
+					<p>프로필 사진 형식</p>
+					<p>용량 : ~ 5Mbytes</p>
+					<p>형식 : .png / .jpeg 파일만 가능</p>
+				</div>
+				<div class="clear"></div>
 				<div class="base-info">
 					<input type="text" name="uname" style="border: 2px solid #f5acac;" placeholder="닉네임 또는 회사명 (필수 최대 20자)" maxlength="20">
 					<textarea name="comments" placeholder="자기소개 또는 회사소개 등록(최대 1,000자)" maxlength="1000"></textarea>
@@ -28,13 +34,13 @@
 				<div class="cate-wrap" id="cateWrapMemberReg">
 					<p>나의 카테고리(필수)</p>
 					<div class="select-area custom-select">
-						<input type="text" style="border: 2px solid #f5acac;">
+						<input type="text"><i class="fa fa-caret-down" aria-hidden="true"></i>
 						<select name="cateDepth1" id="cateDepth1">
 							<option value="">전체</option>
 						</select>
 					</div>
 					<div class="select-area custom-select">
-						<input type="text">
+						<input type="text"><i class="fa fa-caret-down" aria-hidden="true"></i>
 						<select name="cateDepth2" >
 							<option value="">전체</option>
 						</select>
@@ -44,8 +50,8 @@
 						<select name="cateDepth3" >
 							<option value=""></option>
 						</select>
-					</div>
-					<button type="button" class="btn-add" ><img src="/resources/image/common/btn_add.png" alt="더하기"></button>
+					</div> 
+					<!-- <button type="button" class="btn-add"><img src="/resources/image/common/btn_add.png" alt="더하기"></button> -->
 					<ul class="cate-list">
 						<!-- <li>의상 <button type="button" >X</button> <input type="hidden" name="memberCateCode" value=""></li> -->
 					</ul>
@@ -57,25 +63,13 @@
 						<option value="" selected="selected">전체</option>
 					</select>
 				</div>
-				<p class="txt" style="clear: both; padding-top: 14px;">디자이너 또는 제작자가 아니라면 체크하지 않아도 됩니다. (중복 선택 가능)
-					<span>* 체크를 하시면 디자이너, 제작자 메뉴에 노출됩니다.</span>
-				</p>
-				<div class="check-wrap">
-					<div class="custom-check">
-						<input type="checkbox" name="memberTypeCheck" value="d" id="designer">
-						<label for="designer">디자이너</label>
-					</div>
-					<div class="custom-check">
-						<input type="checkbox" name="memberTypeCheck" value="p" id="producer">
-						<label for="producer">제작자</label>
-					</div>
-				<div class="check-wrap">
-
-				<!-- <a href="#complete-modal" class="btn-complete btn-modal">완료</a> -->
-				<a href="javascript:regForm2Submit();" class="btn-complete btn-modal">완료</a>
+				<div class="clear"></div>
+				<div class="regi-btn-wrap btn-red">
+					<a href="javascript:regForm2Submit();" class="btn-complete btn-modal">완료</a>
+				</div>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 

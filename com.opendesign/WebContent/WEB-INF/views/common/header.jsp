@@ -12,15 +12,17 @@
 %>
 <style>
 
-	.nav .active > a{color:#fff; border-radius:2px; background:#bebebe;}
+	.nav .active > a{
+		color:#F00;
+		background: none;
+	}
 	
 	.menuSelected {
-		border-radius:2px; 
-		background:#bebebe;
+		
 	}
 	
 	.menuSelected a {
-		color:#fff;
+		font-weight: bold;
 	}
 	
 	#menuBox li a {
@@ -42,25 +44,18 @@
 		display: none;
 	}
 	
-	/* .mainNavCate {
-		border:none;
-	} */
-	
 	.mainNavCate {
-		border-top: 1px solid #b9b9b9;
-	}
+		border:none;
+	} 
 	
 	
-	
+
 	.header{
 		background-color: #fff;
     	width: 100%;
     	position: fixed;
     	z-index:10;
-	}
-	
-	.main-content {
-		padding-top: 129px;
+    	border-bottom: 1px solid #f00;
 	}
 	
 	.project-content {

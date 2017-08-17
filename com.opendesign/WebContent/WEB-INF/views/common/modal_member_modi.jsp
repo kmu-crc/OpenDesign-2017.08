@@ -97,34 +97,7 @@
 						</ul>
 					</dd>
 				</dl>
-				<dl style="clear: both; padding-top: 10px;">
-					<dt>회원 구분</dt>
-					<dd>
-						<p class="txt">디자이너 또는 제작자가 아니라면 체크하지 않아도 됩니다. (중복 선택 가능)
-							<span>* 체크를 하시면 디자이너, 제작자 메뉴에 노출됩니다.</span>
-						</p>
-						<div class="check-wrap">
-							<div class="custom-check">
-                               {{if chkDesigner }}
-								<input type="checkbox" name="memberTypeCheck" checked value="d" id="gubun-designer">
-								<label for="gubun-designer">디자이너</label>
-							   {{else}}
-                                <input type="checkbox" name="memberTypeCheck" value="d" id="gubun-designer">
-								<label for="gubun-designer">디자이너</label>
-                               {{/if}}
-							</div>
-							<div class="custom-check">
-                               {{if chkProDucer }}
-								<input type="checkbox" name="memberTypeCheck" checked value="p" id="gubun-producer">
-								<label for="gubun-producer">제작자</label>
-                               {{else}}
-								<input type="checkbox" name="memberTypeCheck" value="p" id="gubun-producer">
-								<label for="gubun-producer">제작자</label>
-							   {{/if}}
-							</div>
-						<div class="check-wrap">
-					</dd>
-				</dl>
+				<dl style="clear: both; padding-top: 10px;"></dl>
 				<a href="javascript:regModFormSubmit();" class="btn-complete">정보 수정 완료</a>
 			</fieldset>		
 		<button type="button" class="btn-close"><img src="/resources/image/common/btn_closeWhite.gif" alt="닫기"></button>

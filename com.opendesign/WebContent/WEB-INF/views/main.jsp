@@ -16,14 +16,47 @@
 	<!-- //header -->
 
 	<!-- content -->
+	<script type="text/javascript">
+		$(function(){
+			var pageWidth = $('body').innerWidth();
+			$('.visual > .slideWrapper').css('width', pageWidth * 3);
+			$('.visual > .slideWrapper .img-box').css('width', pageWidth);
+			movingSlide(0);
+			
+			function movingSlide(count){
+			    setInterval(function(){
+			        var slide_arr = $('.visual .slideWrapper .img-box');
+			        $('.visual .slideWrapper .img-box').css('display', 'none');
+			        $('.visual .slideWrapper .img-box').removeClass('active');
+			        var active_div = slide_arr[count++ % slide_arr.length];
+			        var id = active_div.getAttribute('id');
+			        $('#'+id).css('display', 'block').addClass('active');
+			    }, 2500);
+			}
+		});
+	</script>
+		
 	<div class="main-content">
 		<div class="visual">
-			<div><img src="/resources/image/main/visual.jpg" alt="Open Source Design은, 디자인 소스의 공유를 통해서 일반인, 디자이너, 제작자 모두가 좋은 디자인 좋은 제품을 만들어 갈 수 있는 환경을 제공해 줍니다."></div>
+			<div class="slideWrapper">
+				<div class="img-box" id="slide-1">
+					<img src="/resources/image/common/main-slide1.png" alt="Open Source Design은, 디자인 소스의 공유를 통해서 일반인, 디자이너, 제작자 모두가 좋은 디자인 좋은 제품을 만들어 갈 수 있는 환경을 제공해 줍니다.">
+				</div>
+				<div class="img-box" id="slide-2">
+					<img src="/resources/image/common/main-slide2.jpg" alt="Open Source Design은, 디자인 소스의 공유를 통해서 일반인, 디자이너, 제작자 모두가 좋은 디자인 좋은 제품을 만들어 갈 수 있는 환경을 제공해 줍니다.">
+				</div>
+				<div class="img-box" id="slide-3">
+					<img src="/resources/image/common/main-slide3.jpg" alt="Open Source Design은, 디자인 소스의 공유를 통해서 일반인, 디자이너, 제작자 모두가 좋은 디자인 좋은 제품을 만들어 갈 수 있는 환경을 제공해 줍니다.">
+				</div>
+			</div>
 		</div>
 
 		<div class="inner">
 			<div class="best">
-				<h2>이달의 Best 디자이너 및 제작자</h2>
+				<div class="best-head">
+					<span class="mainChar">D</span>
+					<span>이달의 디자이너</span>
+				</div>
 				<div class="best-inner">
 					<ul class="list-type2 list1 swiper-wrapper" id="designView">
 						
@@ -35,10 +68,15 @@
 				</div>
 			</div>
 			<div class="recommend">
-				<h2>추천 디자인</h2>
-				<ul class="list-type1 " id="productView">
-					
-				</ul>
+				<div class="best-head">
+					<span class="mainChar">D</span>
+					<span>추천디자인</span>
+				</div>
+				<div class="best-inner">
+					<ul class="list-type1 " id="productView">
+						
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

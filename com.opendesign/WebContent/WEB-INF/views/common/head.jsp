@@ -9,6 +9,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">-->
 <script src="/resources/js/jquery-3.1.0.min.js"></script> 	<!-- for product -->
 <!-- <script src="/resources/js/jquery-3.1.0.js"></script> -->				<!-- for develop -->
+<script src="https://use.fontawesome.com/d36a61a405.js"></script>
 <script src="/resources/js/swiper.min.js"></script>
 <script src="/resources/js/jquery.validate.min.js"></script>		
 <script src="/resources/js/jquery.form.js"></script>

@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DesignerSQL">
+
+	<!-- sql 디자이너 조회 조건 -->
+	<sql id="sql_where_designer_list" >
+		WHERE
+		<choose>
+			<when test=" schMemberDiv == 'D'.toString() ">  /* 디자이너 */
+				(
+		            T.member_type = '11'	/* 디+제 */
+		            OR T.member_type = '10'  /* 디자이너 */
+		        )
+			</when>
+			<otherwise>
+				(
+		            T.member_type = '11'	/* 디+제 */
+		            OR T.member_type = '01'  /* 제작자 */
+		        )
+			</otherwise>
+		</choose>
+		AND T.workCnt > 0
+		<if test=' schCate != null and schCate != "" ' >
+			AND T.seq IN (
+				SELECT A.member_seq 
+				FROM t_member_category A 
+				WHERE A.category_code LIKE CONCAT('',#{schCate},'%')
+				OR A.category_code = '*'
+			)
+		</if>
+		
+		
+		<if test=' searchWord != null and searchWord != "" ' >
+			AND 
+			( 
+				UPPER(T.uname) LIKE CONCAT( '%', UPPER(#{searchWord}), '%' )
+				OR
+				T.seq IN 
+				(
+				SELECT A.member_seq 
+				FROM t_member_category A 
+				JOIN t_category B
+				ON A.category_code = B.category_code
+				WHERE B.category_name = #{searchWord}
+				)
+			)
+		</if>
+		
+		
+	</sql>
+	
+	<!-- 디자이너 목록 데이터: 총개수 -->
+	<select id="selectDesignerAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" >
+		SELECT COUNT(*)
+		FROM (
+			SELECT
+				T.*
+				, (
+			            SELECT
+			                    COUNT(*)
+			                FROM
+			                    v_design_work A
+			                WHERE
+			                    A.member_seq = T.seq
+			        ) AS workCnt /* 작품수 */
+			FROM t_member T
+		) T
+		<include refid="sql_where_designer_list" />
+	</select>
+	
+	<sql id="sql_selectDesignerList" >
+		
+		SELECT * FROM 
+		(
+			SELECT
+			        T.seq
+			        ,T.email
+			        ,T.passwd
+			        ,T.uname
+			        ,T.image_url
+			        ,T.comments
+			        ,T.member_type
+			        ,T.point
+			        ,T.fb_access_token
+			        ,T.register_time
+			        ,T.update_time
+			        ,(
+			            SELECT
+			                    COUNT(*)
+			                FROM
+			                    v_design_work A
+			                WHERE
+			                    A.member_seq = T.seq
+			        ) AS workCnt /* 작품수 */
+			        ,(
+			            SELECT
+			                    COUNT(*)
+			                FROM
+			                    v_design_work A
+			                        JOIN t_design_work_like B
+			                            ON A.seq = B.design_work_seq
+			                WHERE
+			                    A.member_seq = T.seq
+			        ) AS likeCnt  /* 좋아요 */
+			        ,(
+			            SELECT
+			                    IFNULL(
+			                        SUM(A.view_cnt)
+			                        ,0
+			                    )
+			                FROM
+			                    v_design_work A
+			                WHERE
+			                    A.member_seq = T.seq
+			        ) AS viewCnt  /* 조회수 */
+			        ,(
+			            SELECT
+			                    COUNT(*)
+			                FROM
+			                    v_design_work A
+			                        JOIN t_design_work_comment B
+			                            ON A.seq = B.design_work_seq
+			                WHERE
+			                    A.member_seq = T.seq
+			        ) AS cmmtCnt /* 댓글수 */
+			        
+			        <if test=' schLoginUser != null and schLoginUser != "" ' >
+			        ,(
+			            SELECT
+			                    COUNT(*)
+			                FROM
+			                    v_design_work A
+			                        JOIN t_design_work_like B
+			                            ON A.seq = B.design_work_seq
+			                WHERE
+			                    A.member_seq = T.seq
+			               	AND B.member_seq = #{schLoginUser.seq}
+			        ) AS curUserLikedYN /* 로그온 사용자 좋아요 수 */
+			        </if>
+			    FROM
+			        t_member T
+		 ) T
+		
+	</sql>
+	
+	<!-- 디자이너 목록 데이터: 디자이너 리스트 -->
+	<select id="selectDesignerList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.DesignerVO" > 
+		<include refid="sql_selectDesignerList" />
+		
+		<include refid="sql_where_designer_list" />
+		
+		<choose>
+			<when test=" schOrderType == 'H'.toString() ">
+				ORDER BY likeCnt DESC
+			</when>
+			<otherwise>
+				ORDER BY T.update_time DESC
+			</otherwise>
+		</choose>
+			
+		<![CDATA[
+		LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	<!-- 디자이너 조회 -->
+	<select id="selectDesignerBySeq" parameterType="hashmap" resultType="com.opendesign.vo.DesignerVO" > 
+		<include refid="sql_selectDesignerList" />
+		WHERE T.seq = #{seq}
+	</select>
+	
+	<!-- 디자이너 카테고리 list -->
+	<select id="selectMemberCategoryList" parameterType="hashmap" resultType="com.opendesign.vo.MemberCategoryVO" > 
+		<![CDATA[
+		SELECT
+		        T.member_seq
+		        ,T.category_code
+		        ,U.category_name
+		        ,T.register_time
+		    FROM
+		        t_member_category T
+		            JOIN t_category U
+		                ON T.category_code = U.category_code
+		    WHERE
+		        T.member_seq = #{memberSeq}
+		]]>
+	</select>
+	
+	<!-- sql_작품 -->
+	<sql id="sql_selectDesignWork">
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.view_cnt
+		        ,T.title
+		        ,T.license
+		        ,T.point
+		        ,T.thumb_uri
+		        ,T.contents
+		        ,T.register_time
+		        ,T.update_time
+		        ,T.tags
+		        ,T.member_seq
+		        ,U.uname AS memberName
+		        ,(
+		        	SELECT
+		        		GROUP_CONCAT(SU.category_name SEPARATOR ', ')
+				    FROM
+				        t_design_work_category ST
+				            JOIN t_category SU
+				                ON ST.category_code = SU.category_code
+				    WHERE
+				        ST.design_work_seq = T.seq
+				    ORDER BY ST.category_code
+		        ) AS cate_names
+		        ,(
+		            SELECT
+		                    COUNT(*)
+		                FROM
+		                    t_design_work_like A
+		                WHERE
+		                    A.design_work_seq = T.seq
+		        ) AS likeCnt
+		  ]]>
+		  
+		<![CDATA[
+		    FROM
+		        v_design_work T
+		        	LEFT JOIN t_member U ON T.member_seq = U.seq
+		]]>
+	</sql>
+	
+	<!-- 작품  list(인기순) -->
+	<select id="selectDesignWorkList" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" > 
+		<include refid="sql_selectDesignWork" />
+		<![CDATA[
+		    WHERE
+		        T.member_seq = #{memberSeq}
+		    ORDER BY
+		        likeCnt DESC
+		]]>
+	</select>
+	
+	<!-- 작품  조회 -->
+	<select id="selectDesignWorkBySeq" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" > 
+		<include refid="sql_selectDesignWork" />
+		<![CDATA[
+			WHERE
+		        T.seq = #{seq}
+		]]>
+	</select>
+	
+	<!-- 작품 카테고리 list -->
+	<select id="selectDesignWorkCategoryList" parameterType="hashmap" resultType="com.opendesign.vo.CategoryVO" > 
+		<![CDATA[
+		SELECT
+		        T.category_code
+		        ,U.category_name
+		    FROM
+		        t_design_work_category T
+		            JOIN t_category U
+		                ON T.category_code = U.category_code
+		    WHERE
+		        T.design_work_seq = #{designWorkSeq}
+		    ORDER BY T.category_code
+		]]>
+	</select>
+	
+	<!-- 디자인 작품 상세 이미지 -->
+	<select id="selectDesignPreviewImageList" parameterType="hashmap" resultType="com.opendesign.vo.DesignPreviewImageVO" > 
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.design_work_seq
+		        ,T.file_uri
+		        ,T.filename
+		    FROM
+		        t_design_preview_image T
+		    WHERE
+		        T.design_work_seq = #{designWorkSeq}
+		    ORDER BY
+		        T.seq
+		]]>
+	</select>
+	
+	<!-- 디자인 작품 오픈 소스 -->
+	<select id="selectDesignWorkFileList" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkFileVO" > 
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.design_work_seq
+		        ,T.comments
+		        ,T.file_uri
+		        ,T.filename
+		        ,T.register_time
+		    FROM
+		        t_design_work_file T
+		    WHERE
+		        T.design_work_seq = #{designWorkSeq}
+		    ORDER BY
+		        T.seq
+		]]>
+	</select>
+	
+	<!-- 작품 구매 -->
+	<insert id="insertOrder" parameterType="com.opendesign.vo.OrderVO" useGeneratedKeys="true" keyProperty="seq" >
+	 	<![CDATA[
+		INSERT
+		    INTO
+		        t_order(
+		            design_work_seq
+		            ,point
+		            ,delivery_info
+		            ,status
+		            ,member_seq
+		            ,register_time
+		        )
+		    VALUES
+		        (
+		            #{designWorkSeq}
+		            ,#{point}
+		            ,#{deliveryInfo}
+		            ,#{status}
+		            ,#{memberSeq}
+		            ,#{registerTime}
+		        )
+	 	]]>
+	</insert>
+	
+	<!-- 포인트 가감이력 -->
+	<insert id="insertPointHistory" parameterType="com.opendesign.vo.PointHistoryVO" useGeneratedKeys="true" keyProperty="seq" >
+	 	<![CDATA[
+		INSERT
+		    INTO
+		        t_point_history(
+		            sign
+		            ,amount
+		            ,accum_amount
+		            ,register_time
+		            ,member_seq
+		            ,order_seq
+		            ,comments
+		        )
+		    VALUES
+		        (
+		            #{sign}
+		            ,#{amount}
+		            ,#{accumAmount}
+		            ,#{registerTime}
+		            ,#{memberSeq}
+		            ,#{orderSeq}
+		            ,#{comments}
+		        )
+	 	]]>
+	</insert>
+	
+	
+	<!-- ##############################  디자이너 의뢰 ##############################  -->
+	
+	<!-- sql_ -->
+	<sql id="sql_selectDesignRequestBoardList" >
+		<![CDATA[
+		SELECT
+		        T.board_type
+		        ,T.title
+		        ,T.contents
+		        ,T.seq
+		        ,T.member_seq
+		        ,U.uname AS memberName
+		        ,T.register_time
+		        ,T.update_time
+		        ,(
+		            SELECT
+		                    COUNT(*)
+		                FROM
+		                    t_request_board_comment A
+		                WHERE
+		                    A.board_seq = T.seq
+		        ) AS cmmtCnt
+		        /* 댓글수 */
+		    FROM
+		        t_request_board T
+		            JOIN t_member U
+		                ON T.member_seq = U.seq
+		]]>
+	</sql>
+	
+	<!-- sql  -->
+	<sql id="sql_where_selectDesignRequestBoardList" >
+		WHERE
+	    <choose>
+			<when test=" schMemberDiv == 'D'.toString() ">  /* 디자이너 */
+				T.board_type = 'D' /* 디자이너 */
+			</when>
+			<otherwise>
+				T.board_type = 'P' /* 제작자 */
+			</otherwise>
+		</choose>
+		<if test=' schCate != null and schCate != "" ' >
+			AND T.seq IN (
+				SELECT A.board_seq 
+				FROM t_request_board_category A 
+				WHERE A.category_code LIKE CONCAT('',#{schCate},'%')
+				OR A.category_code = '*'
+			)
+		</if>
+		<if test=' schContent != null and schContent != "" ' >
+			AND ( 
+				UPPER(T.title) LIKE CONCAT('%',UPPER(#{schContent}),'%')
+				OR 
+				UPPER(T.contents) LIKE CONCAT('%',UPPER(#{schContent}),'%')
+			)
+		</if>
+	</sql>
+	
+	<!-- 의뢰 게시글 조회 : 총개수 -->
+	<select id="selectDesignRequestBoardAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" >
+		SELECT
+			COUNT(*)
+		FROM t_request_board T
+		<include refid="sql_where_selectDesignRequestBoardList" />
+	</select>
+	
+	
+	<!-- 의뢰 게시글 조회 : list -->
+	<select id="selectDesignRequestBoardList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.RequestBoardVO" > 
+		<include refid="sql_selectDesignRequestBoardList" />
+		
+		<include refid="sql_where_selectDesignRequestBoardList" />
+		
+		ORDER BY T.seq DESC
+			
+		<![CDATA[
+		LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	<!-- 의뢰 게시판 조회 seq -->
+	<select id="selectRequestBoardBySeq" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.RequestBoardVO" > 
+		<include refid="sql_selectDesignRequestBoardList" />
+		<![CDATA[
+		WHERE T.seq = #{schSeq}
+		]]>
+	</select>
+	
+	<!-- 의뢰 게시글 카테고리 : list -->
+	<select id="selectRequestBoardCateList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.CategoryVO" > 
+		<![CDATA[
+		SELECT
+		        T.category_code
+		        ,U.category_name
+		    FROM
+		        t_request_board_category T
+		            JOIN t_category U
+		                ON T.category_code = U.category_code
+		    WHERE
+		        T.board_seq = #{schSeq}
+		    ORDER BY 
+		    	T.category_code
+		]]>
+	</select>
+	
+	<!-- 의뢰 게시글 이미지 : list -->
+	<select id="selectRequestBoardFileList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.RequestBoardFileVO" > 
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.board_seq
+		        ,T.filename
+		        ,T.file_url
+		        ,T.register_time
+		    FROM
+		        t_request_board_file T
+		    WHERE
+		        T.board_seq = #{schSeq}
+		    ORDER BY
+		        T.seq
+		]]>
+	</select>
+	
+	<!-- 의뢰 게시글 댓글 : list -->
+	<select id="selectRequestBoardCmmtList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.RequestBoardCmmtVO" > 
+		<![CDATA[
+		SELECT
+		        T.member_seq
+		        ,U.uname AS memberName
+		        ,U.member_type AS memberType
+		        ,T.board_seq
+		        ,T.contents
+		        ,T.seq
+		        ,T.register_time
+		    FROM
+		        t_request_board_comment T
+		        	JOIN t_member U ON T.member_seq = U.seq
+		    WHERE
+		        T.board_seq = #{schSeq}
+		    ORDER BY
+		        T.register_time DESC
+		]]>
+	</select>
+	
+	<!-- 게시글 추가 -->
+	<insert id="insertRequestBoard" parameterType="com.opendesign.vo.RequestBoardVO" useGeneratedKeys="true" keyProperty="seq" >
+	 	<![CDATA[
+		INSERT
+		    INTO
+		        t_request_board(
+		            board_type
+		            ,title
+		            ,contents
+		            ,member_seq
+		            ,register_time
+		            ,update_time
+		        )
+		    VALUES
+		        (
+		            #{boardType}
+		            ,#{title}
+		            ,#{contents}
+		            ,#{memberSeq}
+		            ,#{registerTime}
+		            ,#{updateTime}
+		        )
+	 	]]>
+	</insert>
+	
+	<!-- 게시글 카테고리 추가 -->
+	<insert id="insertRequestBoardCategory" parameterType="com.opendesign.vo.RequestBoardCateVO" useGeneratedKeys="true" keyProperty="seq" >
+	 	<![CDATA[
+		INSERT
+		    INTO
+		        t_request_board_category(
+		            board_seq
+		            ,category_code
+		        )
+		    VALUES
+		        (
+		            #{boardSeq}
+		            ,#{categoryCode}
+		        )
+	 	]]>
+	</insert>
+	
+	<!-- 게시글 이미지 추가 -->
+	<insert id="insertRequestBoardFile" parameterType="com.opendesign.vo.RequestBoardFileVO" useGeneratedKeys="true" keyProperty="seq" >
+	 	<![CDATA[
+		INSERT
+		    INTO
+		        t_request_board_file(
+		            board_seq
+		            ,filename
+		            ,file_url
+		            ,register_time
+		        )
+		    VALUES
+		        (
+		            #{boardSeq}
+		            ,#{filename}
+		            ,#{fileUrl}
+		            ,#{registerTime}
+		        )
+	 	]]>
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateRequestBoard" parameterType="com.opendesign.vo.RequestBoardVO"  >
+	 	<![CDATA[
+		UPDATE
+		        t_request_board
+		    SET
+		        title = #{title}
+		        ,contents = #{contents}
+		        ,update_time = #{updateTime}
+		    WHERE
+		        seq = #{seq}
+	 	]]>
+	</update>
+	
+	<!-- 게시판 카테고리 삭제 -->
+	<delete id="deleteRequestBoardCategoryByBoardSeq" parameterType="com.opendesign.vo.SearchVO"  >
+	 	<![CDATA[
+		DELETE
+		    FROM
+		        t_request_board_category
+		    WHERE
+		        board_seq = #{schSeq}
+	 	]]>
+	</delete>
+	
+	<!-- 게시판 이미지 삭제 -->
+	<delete id="deleteRequestBoardFileByBoardSeq" parameterType="com.opendesign.vo.SearchVO"  >
+	 	<![CDATA[
+		DELETE
+		    FROM
+		        t_request_board_file
+		    WHERE
+		        board_seq = #{schSeq}
+	 	]]>
+	</delete>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="deleteRequestBoard" parameterType="com.opendesign.vo.SearchVO"  >
+	 	<![CDATA[
+		DELETE
+		    FROM
+		        t_request_board
+		    WHERE
+		        seq = #{schSeq}
+	 	]]>
+	</delete>
+	
+	<!-- ############################## ]] 디자이너 의뢰 ##############################  -->
+	
+	<!--디자이너/제작자 활동내역(좋아요)에 따른 리스트 조회 -->
+	<select id="selectBestDesignerList" parameterType="hashmap" resultType="com.opendesign.vo.DesignerVO">
+		<include refid="sql_selectDesignerList" />
+		WHERE
+		seq IN (
+			SELECT 
+				target_seq
+			FROM
+				t_stat_activities
+			WHERE
+				target_type = '1'
+			AND stat_month = ( SELECT MAX(stat_month) FROM t_stat_activities )
+		)
+	</select>
+	
+	<select id="selectPurchasedWorkCount" parameterType="hashmap" resultType="int" >
+		
+		select COUNT(*) from t_order
+		WHERE design_work_seq = #{workSeq} 
+		AND member_seq = #{memberSeq}
+		
+	</select>
+	
+	
+	<select id="selectDesignerLikesByLogonUser" parameterType="hashmap" resultType="int" >
+		SELECT 
+			COUNT(*) 
+		FROM t_design_work_like A
+		JOIN t_design_work B 
+			ON A.design_work_seq = B.seq
+		JOIN t_member C 
+			ON B.member_seq = C.seq
+		WHERE C.seq = #{designerSeq}
+			AND A.member_seq = #{logonUserSeq}
+		
+	</select>
+	
+	
+	<select id="selectDesignWorkLikesByLogonUser" parameterType="hashmap" resultType="int" >
+		SELECT 
+			COUNT(*) 
+		FROM t_design_work_like A
+		WHERE A.design_work_seq = #{designWorkSeq}
+			AND A.member_seq = #{logonUserSeq}
+	</select>
+	
+	
+	
+	
+</mapper>

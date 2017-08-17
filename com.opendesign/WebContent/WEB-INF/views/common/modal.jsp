@@ -35,23 +35,23 @@
 <!-- 로그인 -->
 <div class="modal" id="login-modal">
 	<div class="bg"></div>
-	<div class="modal-inner">
+	<div class="modal-inner modal-border">
 		<h1>로그인</h1>
 		<form name="loginForm">
 			<fieldset>
 				<legend>로그인</legend>
 				<input type="text" name="email" placeholder="이메일">
-				<input type="password" name="passwd" placeholder="비밀번호">
-				<button type="button" id="btn_modal_login" class="btn">로그인</button> 
+				<input type="password" name="passwd" placeholder="비밀번호" onKeyDown="return checkEnter()">
+				<button type="button" id="btn_modal_login" class="btn btn-red">로그인</button> 
 				<span class="division-line"></span>
-				<button type="button" id="btn_modal_FB_login" class="btn-facebook"><img src="/resources/image/common/blt_facebook.png"> facebook 으로 로그인하기</button>
+				<button type="button" id="btn_modal_FB_login" class="btn-facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> facebook 으로 로그인하기</button>
 				<div class="btn-set">
 					<a href="javascript:requestCaptCha();modalShow('#pw-modal');" class="btn-find">비밀번호 찾기</a>
 					<a href="javascript:modalShow('#join-modal');" class="btn-modal">회원가입</a>
 				</div>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 <script>
@@ -115,6 +115,15 @@ function modalShow(modalIdSel, opts) {
 		});
 	}
 }
+
+function checkEnter(){
+	if (event.keyCode == 13){
+		$('#btn_modal_login').click();
+	}
+}
+
+
+
 /**
  * modal 숨김
  */
@@ -379,7 +388,7 @@ function captchaFormValidRuleInit(){
 <!-- 회원가입 -->
 <div class="modal" id="join-modal">
 	<div class="bg"></div>
-	<div class="modal-inner">
+	<div class="modal-inner modal-border">
 		<h1>회원가입</h1>
 		<form name="regForm" action="" method="post" >
 			<fieldset>
@@ -398,7 +407,7 @@ function captchaFormValidRuleInit(){
 				<!-- button type="button" class="btn-facebook"><img src="/resources/image/common/blt_facebook.png"> facebook 으로 가입하기</button-->
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 <script>
@@ -594,7 +603,7 @@ function addRulePasswdValidate() {
 			</ul>
 		</div>
 		<a class="btn-complete" style="cursor: pointer;" >완료</a>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 <script type="text/javascript">
@@ -790,7 +799,7 @@ function findPassword() {
 <!-- 비밀번호 찾기 -->
 <div class="modal" id="pw-modal">
 	<div class="bg"></div>
-	<div class="modal-inner">
+	<div class="modal-inner modal-border">
 		<h1>비밀번호 찾기</h1>
 		<form name="captchaForm" id="captchaForm">
 			<fieldset>
@@ -807,10 +816,10 @@ function findPassword() {
 				<div class="code">
 					<img alt="보안코드 이미지" id="captChaImage" src="" />
 				</div>
-				<button type="button" onclick="javascript:findPassword();" class="btn-confirm">확인</button>
+				<button type="button" onclick="javascript:findPassword();" class="btn-confirm btn-red">확인</button>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 <script>

@@ -10,33 +10,29 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 .totalsearch {
 	height:42px;
 }
+
 #searchWord {
 	height: 42px;
 	text-indent: 5px;
+	font-style: italic;
+}
+
+.searchBtnWrap{
+	width: 42px;
+	height: 42px;
 }
 
 #searchBtn {
-	height: 42px;
+	line-height: 42px;
+	color: #f00;
+	
 }
 
 </style>
 	<div class="inner">
 		<h1>
-			<a href="/main.do"><img src="/resources/image/common/logo.png" alt="open src Design"></a>
+			<a href="/main.do"><img src="/resources/image/common/logo.jpg" alt="open src Design"></a>
 		</h1>
-		<%--
-		<div class="totalsearch">
-			<form name="inteSearchForm" id="inteSearchForm" action="/search/search.do">
-				<fieldset>
-					<legend>통합검색</legend>
-					<input type="text" name="searchWord" id="searchWord" title="검색어 입력" onkeyup="inteSearch(true);" value="<%=searchWord%>">
-					<button type="button">
-						<img src="/resources/image/common/btn_search.gif" onclick="inteSearch();" alt="검색">
-					</button>
-				</fieldset>
-			</form>
-		</div>
-		--%>
 
 		<div class="util-area">
 			<!-- 통합검색 -->
@@ -45,8 +41,8 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 				<form name="inteSearchForm" id="inteSearchForm" action="/search/search.do">
 					<fieldset>
 						<legend>통합검색</legend>
-						<input type="text" name="searchWord" id="searchWord" title="검색어 입력" onkeyup="inteSearch(true);" value="<%=searchWord%>" />
-						<button type="submit" onclick="return false;"><img id="searchBtn" src="../resources/image/common/btn_search.gif" onclick="inteSearch();"  alt="검색"></button>
+						<input type="text" name="searchWord" id="searchWord" title="검색어 입력" onkeyup="inteSearch(true);" value="<%=searchWord%>" placeholder="search" />
+						<button class="searchBtnWrap" type="submit" onclick="return false;"><i id="searchBtn" class="fa fa-search" aria-hidden="true" onclick="inteSearch();" alt="검색"></i></button>
 					</fieldset>
 				</form>
 			</div>
@@ -58,24 +54,36 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 			<div class="noti">
 				<!-- 메세지가 있을 시 클래스 active 추가-->
 				<div id="msgDiv" class="message ">
-					<a href="javascript:void(0);" onclick="showMsgDiv();" class="btn-modal">메세지</a> <span id="latestMsgNumber" class="number"></span>
+					<a href="javascript:void(0);" onclick="showMsgDiv();" class="btn-modal">
+						<i class="fa fa-comment" aria-hidden="true"></i>
+					</a>
+					<span id="latestMsgNumber" class="number"></span>
 				</div>
 				<!-- 알림이 있을 시 클래스 active 추가-->
 				<div id="alarmDiv" class="alert ">
-					<a href="javascript:void(0);" onclick="showAlarmDiv();" class="btn-modal">알림</a> <span id="latestAlarmNumber" class="number">2</span>
+					<a href="javascript:void(0);" onclick="showAlarmDiv();" class="btn-modal">
+						<i class="fa fa-bell" aria-hidden="true"></i> 
+					</a>
+						<span id="latestAlarmNumber" class="number">2</span>
+				</div>
+				<!-- 마이페이지 -->
+				<div id="mypageDiv" class="mypage">
+						<a href="/user/myPage.do" class="btn-mypage">
+							<i class="fa fa-user" aria-hidden="true"></i> 
+						</a>
 				</div>
 			</div>
 			<% 	} %>
 			<!-- //로그인 했을때만 보임 -->
 			
 			<%	if(CmnUtil.isUserLogin(request)) {	%>
-			<a href="/logout.do" class="btn-logout">로그아웃</a>
+			<a href="/logout.do" class="btn-logout btn-red">로그아웃</a>
 			<% 	} else { %>
-			<a href="javascript:modalShow('#login-modal');" class="btn-login btn-modal">로그인/회원가입</a>
+			<a href="javascript:modalShow('#login-modal');" class="btn-login btn-modal btn-red">로그인/회원가입</a>
 			<% 	} %>
 			
 			<%	if(CmnUtil.isUserLogin(request)) {	%> 
-			<a href="/user/myPage.do" class="btn-mypage">마이페이지</a>
+			<!-- <a href="/user/myPage.do" class="btn-mypage">마이페이지</a>  -->
 			<% 	} %>
 		</div>
 		
@@ -88,13 +96,16 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 						<input type="hidden" name="schMode" /> 
 						<input type="hidden" name="schNewUserSeq" /> 
 						<fieldset>
-							<legend>메시시 검색</legend>
+							<legend class="msg-head">메시지 검색</legend>
 							<input type="text" name="schWord" placeholder="검색" />
-							<button onclick="msgSearchBtnClick();" type="button"><img src="/resources/image/common/btn_msgSearch.png" alt="검색"></button>
+							<button onclick="msgSearchBtnClick();" class="btn-red" type="button">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
 						</fieldset>
 					</form>
 				</div>
-				<p class="latest" id="latestMsgNumber2">최근 받은 메시지 (0)</p>
+				<div class="msg-latest">
+				<legend class="latest msg-head" id="latestMsgNumber2">최근 받은 메시지</legend>
 				<!-- 메시지가 없는 경우
 				<p class="no-msg">편지함에 메시지가 없습니다.</p>
 				-->
@@ -112,8 +123,9 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 					</li>
 					 --%>
 				</ul>
-				<div class="talking-list" style="max-width:357px;">
-					<ul id="msgContentList" class="msg-list culunm" style="max-width:357px; max-height:500px; overflow-y:auto; overflow-x:hidden;">
+				</div>
+				<div class="talking-list">
+					<ul id="msgContentList" class="msg-list culunm">
 						<%--
 						<li class="msg">
 							<div>
@@ -141,13 +153,14 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 						<form name="msgAddForm">
 							<input type="hidden" name="recieveSeq" value="" />
 							<fieldset>
-								<legend>메시지 작성</legend>
+								<legend class="msg-head">메시지 작성</legend>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
-								<button type="button" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
+								<button class="btn-red" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
 							</fieldset>
 						</form>
 					</div>
 				</div>
+				<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 			</div>
 		</div>
 <!-- message -->

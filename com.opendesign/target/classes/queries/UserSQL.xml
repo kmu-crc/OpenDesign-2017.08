@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserSQL">
+
+	<!-- 회원 추가 -->
+	<insert id="insertUser" parameterType="com.opendesign.vo.UserVO"
+		useGeneratedKeys="true" keyProperty="seq"> 
+		<![CDATA[
+		INSERT
+		    INTO
+		        t_member(
+		            email
+		            ,passwd
+		            ,uname
+		            ,image_url
+		            ,comments
+		            ,member_type
+		            ,point
+		            ,fb_access_token
+		            ,register_time
+		            ,update_time
+		            ,sido_seq
+		        )
+		    VALUES
+		        (
+		            #{email}
+		            ,#{passwd}
+		            ,#{uname}
+		            ,#{imageUrl}
+		            ,#{comments}
+		            ,#{memberType}
+		            ,#{point}
+		            ,#{fbAccessToken}
+		           	,#{registerTime}
+		            ,#{updateTime}
+		            ,#{sidoSeq}
+		        )
+		]]>
+	</insert>
+	
+	<!-- 메일 중복체크 -->
+	<select id="checkEmailDup" parameterType="com.opendesign.vo.UserVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_member T
+		    WHERE
+		        T.email = #{email}
+		]]>
+	</select>
+	
+	<!-- 닉네임의 중복 체크 -->
+	<select id="checkUnameDup" parameterType="com.opendesign.vo.UserVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_member T
+		    WHERE
+		        T.uname = #{uname}
+		]]>
+	</select>
+	
+	<!-- 회원 카테고리 추가 -->
+	<insert id="insertMemberCategory" parameterType="com.opendesign.vo.MemberCategoryVO" > 
+		<![CDATA[
+		INSERT
+		    INTO
+		        t_member_category(
+		            member_seq
+		            ,category_code
+		            ,register_time
+		        )
+		    VALUES
+		        (
+		            #{memberSeq}
+		            ,#{categoryCode}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	
+	<!-- 로그인 check -->
+	<select id="loginCheck" parameterType="com.opendesign.vo.UserVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_member T
+		    WHERE
+		        T.email = #{email}
+		        AND T.passwd = #{passwd}
+		]]>
+	</select>
+	
+	
+	<!-- 비밀번호 check -->
+	<select id="passwdCheck" parameterType="com.opendesign.vo.UserVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_member T
+		    WHERE
+		        T.email = #{email}
+		        AND T.passwd = #{passwdOld}
+		]]>
+	</select>
+	
+	
+	
+	<!-- 회원 조회 -->
+	<select id="selectUserByEmail" parameterType="hashmap" resultType="com.opendesign.vo.UserVO" > 
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.email
+		        ,T.passwd
+		        ,T.uname
+		        ,T.image_url
+		        ,T.comments
+		        ,T.member_type
+		        ,T.point
+		        ,T.fb_access_token
+		        ,T.register_time
+		        ,T.update_time
+		    FROM
+		        t_member T
+		    WHERE
+		        T.email = #{email}
+		]]>
+	</select>
+	
+	<!-- 회원 조회 -->
+	<select id="selectUserBySeq" parameterType="hashmap" resultType="com.opendesign.vo.UserVO" > 
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.email
+		        ,T.passwd
+		        ,T.uname
+		        ,T.image_url
+		        ,T.comments
+		        ,T.member_type
+		        ,T.point
+		        ,T.fb_access_token
+		        ,T.register_time
+		        ,T.update_time
+		    FROM
+		        t_member T
+		    WHERE
+		        T.seq = #{schSeq}
+		]]>
+	</select>
+	
+	<!-- 회원 email -> seq 조회 -->
+	<select id="selectMemberSeqsFromEmails" parameterType="hashmap" resultType="string" > 
+		<![CDATA[
+		SELECT
+		        T.seq
+		    FROM
+		        t_member T
+		    WHERE
+		        T.email IN 
+		]]>
+		<foreach item="email" index="index" collection="allEmails" open="(" separator="," close=")">
+       		#{email}
+		</foreach>
+	</select>
+	
+	<!-- 회원 포인트 변경 -->
+	<update id="updateUserPoint" parameterType="com.opendesign.vo.UserVO" > 
+		<![CDATA[
+			UPDATE
+			        t_member
+			    SET
+			        point = #{point}
+			    WHERE
+			        seq = #{seq}
+		]]>
+	</update>
+	
+	<!-- 회원 password 변경 -->
+	<update id="updateUserPassword" parameterType="com.opendesign.vo.UserVO" > 
+		<![CDATA[
+			UPDATE
+			        t_member
+			    SET
+			        passwd = #{passwd}
+			    WHERE
+			        seq = #{seq}
+		]]>
+	</update>
+    
+    
+    <!-- 작품수 -->
+	<select id="selectCntWork" parameterType="hashmap" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        v_design_work T
+		    WHERE
+		        T.member_seq = #{memberSeq}		        
+		]]>
+	</select>
+	
+	 <!-- 총 좋아요 수 프로젝트-->
+	<select id="selectCntLikeProject" parameterType="hashmap" resultType="int" > 
+		<![CDATA[
+		SELECT 
+		       ifnull(count(T.project_work_seq),0) as "cntL"
+		     FROM
+		       t_project_work_like T
+        Where 
+               T.project_work_seq In ( select seq From v_project_work WHERE  member_seq = #{memberSeq} )	       
+		            
+		]]>
+	</select>
+	
+	<!-- 총 좋아요 수 작품-->
+	<select id="selectCntLikeDesign" parameterType="hashmap" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        ifnull(count(T.design_work_seq),0) as "cntL"
+		    FROM
+		        t_design_work_like T
+		    WHERE
+		        T.design_work_seq In ( select seq From v_design_work WHERE  member_seq = #{memberSeq} )	    
+		]]>
+	</select>
+	
+    <!-- 총 메시지 수 -->
+	<select id="selectCntTalk" parameterType="hashmap" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_talk T
+		    WHERE
+		        T.recieve_seq = #{memberSeq}	        
+		]]>
+	</select>
+	
+	<!-- 현재 나의 포인트 -->
+	<select id="selectCntPoint" parameterType="hashmap" resultType="int" > 
+		<![CDATA[		
+		 SELECT
+		         ifnull(T.point,0) as "cntP"
+		    FROM
+		        t_member T Where seq = #{memberSeq}      
+		]]>
+	</select>
+	
+	<!-- 현재 나의 포인트 -->
+	<select id="selectCntMyProduct" parameterType="hashmap" resultType="int" > 
+		<![CDATA[		
+		 SELECT
+		         ifnull(count(T.seq),0) as "cntD"
+		    FROM
+		        v_design_work T Where member_seq = #{memberSeq}      
+		]]>
+	</select>
+	
+	<!-- 회원 카테고리 -> seq 조회 -->
+	<select id="selectMemberCategory" parameterType="hashmap" resultType="com.opendesign.vo.MemberCategoryVO" > 
+		<![CDATA[
+		SELECT
+		        U.category_name as "categoryName",
+		        U.category_code as "categoryCode"
+		    FROM
+		        t_member_category T
+		        JOIN t_category U
+		        ON T.category_code = U.category_code 
+		    WHERE
+		        T.member_seq = #{memberSeq}
+		    ORDER BY
+		        U.category_name
+		]]>
+	</select>
+	
+	<!-- 나의 포르젝트 리스트: 내가 속해있는 프로젝트 -->
+	<select id="selectProjectList" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
+		<![CDATA[
+		SELECT
+		        project_name as "pjname",
+		        seq as "wseq"
+		    FROM
+		        v_project
+		    WHERE
+		        owner_seq = #{memberSeq}
+		        OR seq IN (
+		        	SELECT project_seq 
+		        	FROM t_project_member 
+		        	WHERE member_seq = #{memberSeq}
+		        )
+		    ORDER BY
+		        seq Desc
+		]]>
+	</select>
+	
+	<!-- 나의 그룹 리스트 -->
+	<select id="selectMyGroupList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.ProjectGroupVO" > 
+		<![CDATA[
+		SELECT T.group_name
+			,T.seq
+			,T.member_seq
+			,T.register_time
+			,T.update_time
+		FROM t_pgroup T
+		WHERE T.seq IN (
+				SELECT A.project_group_seq
+				FROM t_pgroup_project A
+				JOIN v_project B ON A.project_seq = B.seq
+				WHERE B.owner_seq = #{schMemberSeq}
+				)
+		ORDER BY T.seq
+		]]>
+	</select>
+	
+	<!-- 나의 최근 등록한 제작물 리스트 -->
+	<select id="selectWorkList" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
+		<![CDATA[
+		SELECT
+		        T.seq as "wseq", 
+		        T.member_seq as "member_seq"
+		    FROM
+		        v_design_work T		       
+		    WHERE
+		        T.member_seq = #{memberSeq}
+		    ORDER BY
+		        T.seq Desc
+		]]>
+	</select>
+	
+	<!-- 나의 최근 등록한 제작물 리스트 -->
+	<select id="selectMyWorkList" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
+		<![CDATA[
+		SELECT		    
+		        T.seq as "wseq",   		       
+		        T.title as "wtitle",
+		        T.thumb_uri as "thumbUri",
+		        T.contents as "wcontests",
+		        T.register_time as "wregistertime", 
+		        T.tags as "wtags",
+		        W.category_name AS wcate,
+		        T.view_cnt as "wvcount",
+                U.uname as "uname"
+		    FROM
+		        v_design_work T
+		        Join t_member U ON T.member_seq = U.seq
+                JOIN t_design_work_category V ON T.seq = V.design_work_seq
+				JOIN t_category W ON V.category_code = W.category_code     
+		    WHERE
+		        T.member_seq = #{memberSeq}
+		    ORDER BY
+		        T.seq Desc
+		]]>
+	</select>
+	
+	<!-- 나의 최근 등록한 제작물 리스트 -->
+	<select id="selectMyWorkLike" parameterType="hashmap" resultType="String" > 
+		<![CDATA[
+		SELECT		    
+		        COUNT(*) as "cntLike"
+		    FROM
+		        t_design_work_like T		         
+		    WHERE
+		        T.design_work_seq = #{Wseq}		   
+		]]>
+	</select>
+	
+	<!-- 나의 관심작품 리스트 -->
+	<select id="selectMyLikelist" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
+		<![CDATA[
+		SELECT		    
+		        T.seq as "wseq",   		       
+		        T.title as "wtitle",
+		        T.thumb_uri as "thumbUri",
+		        T.contents as "wcontests",
+		        T.register_time as "wregistertime", 
+		        T.tags as "wtags",
+		        W.category_name AS wcate,
+		        T.view_cnt as "wvcount",
+                U.uname as "uname"
+		    FROM
+		        v_design_work T
+		        JOIN t_member U  ON T.member_seq = U.seq   
+		        JOIN t_design_work_category V ON T.seq = V.design_work_seq
+				JOIN t_category W ON V.category_code = W.category_code    
+		    WHERE
+		     T.seq IN ( SELECT design_work_seq FROM t_design_work_like Where member_seq = #{memberSeq} )		    
+		    ORDER BY
+		        T.seq Desc
+		]]>
+	</select>
+	
+	<!-- 나의 구입목록 리스트 -->
+	<select id="selectMyOrderlist" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
+		<![CDATA[
+		SELECT		    
+		        T.seq as "wseq",    
+		        T.title as "wtitle",
+		        T.thumb_uri as "thumbUri",		       
+		        C.register_time as "wregistertime",
+		        T.member_seq as memberSeq,
+		        U.seq as useq,
+                U.uname as "uname", 
+                C.point as "oPoint"
+		    FROM  v_design_work T
+		        Join t_member U ON T.member_seq = U.seq
+		        Join t_order C ON T.seq = C.design_work_seq    
+		    WHERE
+		     C.member_seq = #{memberSeq}   
+		    ORDER BY
+		        C.register_time Desc
+		]]>
+	</select>
+	
+	<!-- 나의 포인트 리스트 -->
+	<select id="selectMyPointlist" parameterType="hashmap" resultType="com.opendesign.vo.MyUserPointVO" > 
+		<![CDATA[
+		SELECT	
+				T.sign,
+				CASE	
+				       WHEN T.sign = 'C' Then '구매'
+				       WHEN T.sign = 'S' Then '판매'
+				END as "wsign",    
+		        T.amount as "wamount",   
+		        T.accum_amount as "waccumamount",		       		       
+		        T.register_time as "wregistertime",
+                T.comments as "wcomments"
+		    FROM  t_point_history T		       
+		    WHERE
+		     T.member_seq = #{memberSeq} And T.register_time >= #{fromDate} And T.register_time <= #{toDate}
+		    ORDER BY
+		        T.seq Desc
+		]]>
+	</select>
+	
+	
+	<!-- 나의 회원정보 리스트 -->
+	<select id="selectMyInfoList" parameterType="hashmap" resultType="com.opendesign.vo.UserVO" > 
+		<![CDATA[
+		SELECT  T.seq
+		        ,T.email
+		        ,T.passwd
+		        ,T.uname
+		        ,T.image_url as "imageUrl"
+		        ,T.comments
+		        ,T.member_type as "memberType"
+		        ,T.sido_seq AS sidoSeq
+		    FROM
+		        t_member T
+		    WHERE		       
+		        seq = #{memberSeq}		   
+		]]>
+	</select>
+	
+	<!-- 나의 회원타입 -->
+	<select id="selectMymemberType" parameterType="hashmap" resultType="String"  > 
+		<![CDATA[
+		SELECT  T.member_type as "memberType"
+		    FROM
+		        t_member T
+		    WHERE		       
+		        seq = #{memberSeq}		   
+		]]>
+	</select>
+	
+	<!-- 메일 중복체크 -->
+	<select id="checkEmailDup2" parameterType="com.opendesign.vo.UserVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		        t_member T
+		    WHERE
+		        T.email = #{email} And seq <> #{seq}
+		]]>
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUser" parameterType="com.opendesign.vo.UserVO"> 		
+		UPDATE t_member
+		 SET 
+		 	 comments = #{comments}
+		     <if test=' passwd != null and passwd != "" ' >
+		     ,passwd = #{passwd}
+		     </if>	
+		     ,uname = #{uname}
+		     <if test=' imageUrl != null and imageUrl != "" ' >
+		     ,image_url = #{imageUrl}
+		     </if>	   
+		     ,member_type = #{memberType}
+		     ,update_time= #{updateTime}
+		     ,sido_seq = #{memberSido}
+		   WHERE		       
+		      seq = #{seq}	
+	</update>
+	
+	<!-- 회원 카테고리 삭제 -->
+	<delete id="deleteMemberCategory" parameterType="com.opendesign.vo.UserVO"> 		
+		DELETE FROM t_member_category 		 
+		  WHERE		       
+		    member_seq = #{seq}	
+	</delete>
+	
+	
+	<!-- 시/도 리스트 -->
+	
+	<select id="selectSidoList" resultType="com.opendesign.vo.SidoVO">
+	    SELECT
+	    	seq,
+	    	sido
+	    FROM
+	    	t_zip_code
+	</select>
+	
+	<!-- 회원 시/도 가져오기 -->
+	<select id="selectMemberSido" parameterType="Integer" resultType="String">
+	    SELECT
+	    	sido
+	    FROM
+	    	t_zip_code
+	    WHERE
+	    	seq = #{sidoSeq}
+	</select>
+	
+</mapper>
