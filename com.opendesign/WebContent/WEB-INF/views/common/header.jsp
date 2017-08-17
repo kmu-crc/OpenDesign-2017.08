@@ -87,7 +87,7 @@
 	}
 	
 	.content {
-		padding-top: 220px;
+		padding-top: 180px;
 	}
 	
 </style>
@@ -141,7 +141,7 @@
 						if( $(this) != natureCategory ) {
 							$(this).show();
 						}
-					})				
+					});				
 					
 					$('.nav-cate .depth2 > li').mouseover(function() {
 						if( activeCategory != this ) {

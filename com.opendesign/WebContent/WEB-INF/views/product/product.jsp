@@ -17,22 +17,19 @@
 	<!-- //header -->
 	
 	<!-- custom-btn 처리 -->
-	<script id="tmpl-custom-btn" type="text/x-jsrender">
-				<li class="last"><a href="javascript:goPage('/product/productRegi.do', true);" class="btn-product">디자인 등록</a></li>
-	</script>
-	<script>
-		$(function(){
-			$('.nav-cate').eq(0).find('ul').eq(0).append($('#tmpl-custom-btn').html());
-		});
-	</script>
+
 
 	<!-- content -->
 	<div class="content">
 		<div class="inner">
 			<h2 id="product_all_cnt"  class="title">디자인 (0건)</h2>
-			<div class="sorting">
-				<a href="javascript:sortProduct();" class="first active">최신순</a>
-				<a href="javascript:sortProduct('LIKE');">인기순</a>
+			<div class="product-btn-wrap">
+				<div class="sorting">
+					<a href="javascript:sortProduct();" class="first btn-red active">최신순</a>
+					<a href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
+				</div>
+				<div class="last btn-red"><a href="javascript:goPage('/product/productRegi.do', true);" class="btn-product">디자인 등록</a></div>
+				<button class="btn-help btn-red" type="button">도움말</button>
 			</div>
 			<ul id="ing-product-list" class="list-type1"></ul>
 		</div>
