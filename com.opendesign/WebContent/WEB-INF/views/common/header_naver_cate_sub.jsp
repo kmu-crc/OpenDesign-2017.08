@@ -52,7 +52,7 @@
 <!-- ################ 카테고리 js ############# -->
 <script id="tmpl-navCateTemplete" type="text/x-jsrender">
 <li>
-	<a href="<%=currentUrl %>?schCate={{:categoryCode}}" data-code="{{:categoryCode}}" >{{:categoryName}}</a>
+	<a class="hi" href="<%=currentUrl %>?schCate={{:categoryCode}}" data-code="{{:categoryCode}}" >{{:categoryName}}</a>
 </li>
 </script>
 <script>
