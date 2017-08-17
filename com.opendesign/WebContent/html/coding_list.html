@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>open src design</title>
+<style type="text/css">
+* {margin:0; padding:0; font-family:Gulim; font-size:12px; line-height:14px; color:#666;}
+body {padding:15px;}
+a {text-decoration:none;}
+a:hover{color:#ff0000;}
+h1 {margin:0 0 20px; font-size:14px; color:#000; font-weight:bold; text-align:left;}
+h2{font-size:14px; margin:0 0 10px 10px;}
+ul.tab {overflow:hidden; height:1%; border-bottom:1px solid #ccc;}
+ul.tab li {float:left; height:20px; padding:8px 25px 0 25px; list-style:none; border:1px solid #ccc; border-bottom:0; margin-right:2px;}
+table {border-collapse:collapse; margin:0 0 30px 0; width:100%; border-bottom:1px solid #ccc;}
+table caption {display:none;}
+table caption span {font-size:11px; font-weight:normal; color:#666; margin-left:10px;}
+table th {background-color:#f0f0f0; border:1px solid #ccc; border-bottom:double #ccc; padding:5px;}
+table td {border:1px solid #ccc; padding:5px 5px 5px 10px;}
+table td.name {text-align:center;}
+table td.date {text-align:center; font-family:"verdana"; font-size:11px;}
+table td.date strong {font-size:11px;}
+table td.date span {font-family:"verdana"; font-size:11px;}
+strong {font-family:"verdana"; font-weight:bold; color:#333;}
+em {font-family:"verdana"; font-style:normal;color:#ff0000; font-size:11px;}
+em.today {font-family:"verdana"; font-style:normal; font-weight:bold; color:#ff0000; font-size:11px;}
+span {font-style:normal; color:#ff0000;}
+table td.date span, table td.date span em {display:block; margin-top:3px;}
+table td.note {text-align:left;}
+div.commentBox {background-color:#fafafa; border:1px solid #ccc; margin:10px 0; overflow:hidden; height:1%;}
+div.commentBox div {width:45%; float:left;}
+div.commentBox strong{display:block; margin:10px 10px 5px 10px;}
+div.commentBox ul {margin:5px 10px 10px 10px;  list-style-position:inside;}
+div.commentBox ul li {margin:2px 0;}
+div.commentBox em {font-size:12px;}
+.gab {height:5px; padding:0}
+.cg {color:#ff0000;}
+</style>
+</head>
+<body>
+	<h1>* open src design MarkUp List *</h1>
+
+	<h2></h2>
+	<table>
+		<caption>open src design MarkUp List</caption>
+		<colgroup>
+			<col width="12%" />
+			<col width="12%" />
+			<col width="14%" />
+			<col width="25%" />
+			<col width="6%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+		<tr>
+			<th scope="col">1depth</th>
+			<th scope="col">2depth</th>
+			<th scope="col">3depth</th>
+			<th scope="col">Html File</th>
+			<th scope="col">Date</th>
+			<th scope="col">Note</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td rowspan="6">메인</td>
+			<td>메인</td>
+			<td></td>
+			<td class="file"><a href="main.html" target="_blank">main.html</a></td>
+			<td class="date"></td>
+			<td class="note">로그인, 메시지, 알림, 회원가입, 비밀번호 찾기 모달 포함</td>
+		</tr>
+		<tr>
+			<td><del>메인-old</del></td>
+			<td></td>
+			<td class="file"><del><a href="main_old.html" target="_blank">main_old.html</a></del></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>작품</td>
+			<td></td>
+			<td class="file"><a href="product.html" target="_blank">product.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>디자인 프로젝트</td>
+			<td></td>
+			<td class="file"><a href="project.html" target="_blank">project.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>디자이너</td>
+			<td></td>
+			<td class="file"><a href="designer.html" target="_blank">designer.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>제작자</td>
+			<td></td>
+			<td class="file"><a href="producer.html" target="_blank">producer.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>마이페이지</td>
+			<td></td>
+			<td></td>
+			<td class="file"><a href="mypage.html" target="_blank">mypage.html</a></td>
+			<td class="date"></td>
+			<td class="note">정보 수정 모달 포함</td>
+		</tr>
+		<tr>
+			<td>작품</td>
+			<td>작품 등록</td>
+			<td></td>
+			<td class="file"><a href="product_regi.html" target="_blank">product_regi.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td rowspan="4">디자인 프로젝트</td>
+			<td>프로젝트 생성</td>
+			<td></td>
+			<td class="file"><a href="project_regi.html" target="_blank">project_regi.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>프로젝트 관리</td>
+			<td></td>
+			<td class="file"><a href="project_manage.html" target="_blank">project_manage.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>프로젝트 목록</td>
+			<td></td>
+			<td class="file"><a href="project_list.html" target="_blank">project_list.html</a></td>
+			<td class="date"></td>
+			<td class="note">프로젝트 세부내용, 프로젝트 세부내용 수정, 프로젝트 업로드, 새주제 추가 모달 포함</td>
+		</tr>
+		<tr>
+			<td>그룹 생성, 관리</td>
+			<td></td>
+			<td class="file"><a href="project_group.html" target="_blank">project_group.html</a></td>
+			<td class="date"></td>
+			<td class="note">프로젝트 조회 모달 포함</td>
+		</tr>
+		<tr>
+			<td rowspan="9">디자이너, 제작자</td>
+			<td>포트폴리오</td>
+			<td></td>
+			<td class="file"><a href="portfolio.html" target="_blank">portfolio.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>상세보기</td>
+			<td></td>
+			<td class="file"><a href="product_view.html" target="_blank">product_view.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>구매하기</td>
+			<td></td>
+			<td class="file"><a href="product_purchase.html" target="_blank">product_purchase.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td rowspan="3">디자인 의뢰</td>
+			<td>목록</td>
+			<td class="file"><a href="design_request.html" target="_blank">design_request.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>글쓰기</td>
+			<td class="file"><a href="design_write.html" target="_blank">design_write.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>글수정</td>
+			<td class="file"><a href="design_modi.html" target="_blank">design_modi.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td rowspan="3">제작 의뢰</td>
+			<td>목록</td>
+			<td class="file"><a href="design_request.html" target="_blank">producer_request.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>글쓰기</td>
+			<td class="file">디자인 의뢰와 동일</td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>글수정</td>
+			<td class="file">디자인 의뢰와 동일</td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>검색결과</td>
+			<td></td>
+			<td></td>
+			<td class="file"><a href="search.html" target="_blank">search.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td rowspan="2">이메일 폼</td>
+			<td>비밀번호 찾기</td>
+			<td></td>
+			<td class="file"><a href="mail_password.html" target="_blank">mail_password.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>초대</td>
+			<td></td>
+			<td class="file"><a href="mail_invitation.html" target="_blank">mail_invitation.html</a></td>
+			<td class="date"></td>
+			<td class="note"></td>
+		</tr>
+		<tr>
+			<td>개인정보처리방침</td>
+			<td></td>
+			<td></td>
+			<td class="file"><a href="terms.html" target="_blank">terms.html</a></td>
+			<td class="date"></td>
+			<td class="note">푸터의 개인정보처리방침 클릭시 모달 오픈</td>
+		</tr>
+		</tbody>
+	</table>
+</body>
+</html>

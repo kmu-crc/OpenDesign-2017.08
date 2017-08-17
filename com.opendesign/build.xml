@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="opendesign"
+	xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	
+	<!-- Declare ant-jsch.jar -->
+	<echo>Ant Home : ${ant.home}</echo>
+	<available property="ant-jsch.present" file="${ant.home}/lib/ant-jsch.jar"/>
+	<fail if="ant-jsch.present" message="Please remove ant-jsch.jar from ANT_HOME/lib see [http://ant.apache.org/faq.html#delegating-classloader]"/>
+	<path id="jsch.class.path">
+	  <pathelement location="./antlib/ant-jsch.jar" />
+	  <pathelement location="./antlib/jsch-0.1.49.jar" />
+	</path>
+	<taskdef name="scp" classname="org.apache.tools.ant.taskdefs.optional.ssh.Scp" classpathref="jsch.class.path" />
+	<taskdef name="sshexec" classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec" classpathref="jsch.class.path" />
+	
+	
+	<!-- Test Connect Information -->
+	<property name="test_server.ip" value="113.198.210.237" />
+	<property name="test_server.port" value="10022" />
+	<property name="test_server.upload_dir" value="/home/osd/jenkins_upload" />
+	<property name="test_server.deploy_dir" value="/home/osd/webroot" />
+	<property name="test_username" value="osd" />
+	<property name="test_password" value="osd123!!" />
+	
+	
+	
+	<!-- Set Global Enviroment Variables For using 'MAVEN_HOME' -->
+	<property environment="env"/>
+	
+	<!-- Declare ant-maven-task -->
+	<path id="maven-ant-tasks.classpath" path="antlib/maven-ant-tasks-2.1.3.jar" />
+	
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+						uri="antlib:org.apache.maven.artifact.ant"
+						classpathref="maven-ant-tasks.classpath" />
+	
+	
+	<!-- Set Global Variables -->
+	<property name="maven-home.path" value="${env.MAVEN_HOME}" />
+	<property name="target_project" value="" />
+	
+	<!-- Print Maven Home Directory -->
+	<echo>Maven Home Directory : ${maven-home.path}</echo>
+	
+	
+	<!-- 06-Deploy 'Test Server' -->
+    <target name="00_deploy_test">
+    	
+    	<scp toDir="${test_username}:${test_password}@${test_server.ip}:${test_server.upload_dir}"  port="${test_server.port}" trust="yes" >
+	    	<fileset dir="./"
+	         includes="target/ROOT.war" />
+    	</scp>
+    	
+    	<sshexec host="${test_server.ip}"
+    						         username="${test_username}"
+    						         password="${test_password}"
+    			        			 trust="true"
+    								 port="${test_server.port}"
+    								 command="cd ${test_server.deploy_dir};
+    		jar -xf ${test_server.upload_dir}/target/ROOT.war;
+    		echo '${test_password}'| sudo -S /usr/share/tomcat8/bin/shutdown.sh;
+    		echo '${test_password}'| sudo -S /usr/share/tomcat8/bin/startup.sh;" />
+    		
+    </target>
+	
+	
+</project>

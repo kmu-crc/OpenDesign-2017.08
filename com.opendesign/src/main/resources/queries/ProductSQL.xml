@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProductSQL">
+	
+	<!-- ################## 작품list(완료된 프로젝트 포함)################### -->
+	<sql id="sql_selectProductWithProj" >
+		<!-- 작품 -->
+		SELECT 'W' AS itemType
+			,T.seq
+		    ,T.title
+		    ,T.thumb_uri
+		    ,T.member_seq
+		    ,U.uname AS memberName
+		    ,T.register_time
+		    ,T.update_time
+		    ,(
+				SELECT SU.category_name
+				FROM t_design_work_category ST
+				JOIN t_category SU ON ST.category_code = SU.category_code
+				WHERE ST.design_work_seq = T.seq
+				ORDER BY ST.category_code
+				LIMIT 0,1
+	        	) AS cateName /* 단일 카테고리 */
+		    ,(
+		        SELECT
+					COUNT(*)
+				FROM t_design_work_like A
+				WHERE
+		        	A.design_work_seq = T.seq
+		    	) AS likeCnt
+		    ,T.view_cnt
+			,0 AS projectMemberCnt
+			<if test=' memberSeq != null and memberSeq != "" ' >
+			, 
+			(
+				SELECT
+					COUNT(*)
+				FROM t_design_work_like A
+				WHERE
+		        	A.design_work_seq = T.seq
+		        AND 
+		        	A.member_seq = #{memberSeq}
+		    ) AS curUserLikedYN
+			
+			</if>
+		FROM v_design_work T
+			JOIN t_member U ON U.seq = T.member_seq
+		
+		<where>
+			<if test=' schCate != null and schCate != "" ' >
+				T.seq IN (
+					SELECT
+						design_work_seq
+					FROM t_design_work_category DC
+					WHERE DC.category_code LIKE CONCAT( #{schCate}, '%' )
+					OR DC.category_code = '*'
+				)
+			</if>
+		</where>
+		
+		UNION ALL
+		
+		<!-- 완료된 프로젝트 -->
+		SELECT 'P' AS itemType
+			,T.seq
+			,T.project_name AS title
+			,T.file_url AS thumbUri
+			,T.owner_seq AS memberSeq
+			,U.uname AS memberName
+			,T.register_time
+			,T.update_time
+			,(
+				SELECT SU.category_name
+				FROM t_project_category ST
+				JOIN t_category SU ON ST.category_code = SU.category_code
+				WHERE ST.project_seq = T.seq
+				ORDER BY ST.category_code 
+				LIMIT 0,1
+	        	) AS cateName /* 단일 카테고리 */
+			,(
+				SELECT COUNT(*)
+				FROM t_project_work_like A
+				JOIN v_project_work B ON B.seq = A.project_work_seq
+				JOIN t_project_subject C ON C.seq = B.project_subject_seq
+				JOIN v_project D ON D.seq = C.project_seq
+				WHERE D.seq = T.seq
+				) AS likeCnt
+			,0 AS viewCnt
+			,(
+				SELECT COUNT(*)
+				FROM t_project_member
+				WHERE project_seq = T.seq
+				) AS projectMemberCnt
+			<if test=' memberSeq != null and memberSeq != "" ' >
+			, 
+			(
+				SELECT COUNT(*)
+				FROM t_project_work_like A
+				JOIN v_project_work B ON B.seq = A.project_work_seq
+				JOIN t_project_subject C ON C.seq = B.project_subject_seq
+				JOIN v_project D ON D.seq = C.project_seq
+				WHERE D.seq = T.seq
+		        AND 
+		        	A.member_seq = #{memberSeq}
+		    ) AS curUserLikedYN
+			
+			</if>
+		FROM v_project T
+		JOIN t_member U ON T.owner_seq = U.seq
+		
+		WHERE 
+			T.progress_status = 'C'  /* 완료된것만 */
+			<if test=' schCate != null and schCate != "" ' >
+				AND T.seq IN (
+					SELECT
+						DC.project_seq
+					FROM t_project_category DC
+					WHERE DC.category_code LIKE CONCAT( #{schCate}, '%' )
+					OR DC.category_code = '*'
+				)
+			</if>
+	</sql>
+	
+	<!--  -->
+	<select id="selectProductWithProjCount" parameterType="hashmap" resultType="int" >
+		SELECT count(*)
+		FROM
+		(
+			<include refid="sql_selectProductWithProj" />
+		) A
+	</select>
+	
+	<!-- 디자인 프로젝트 조회 -->
+	<select id="selectProductWithProjList" parameterType="hashmap" resultType="com.opendesign.vo.MainItemVO" >
+		
+		<include refid="sql_selectProductWithProj" />
+		
+		<choose>
+				<when test=' schSort != null and schSort.equals("LIKE") ' >
+				ORDER BY likeCnt DESC
+				</when>
+				<otherwise>
+				ORDER BY update_time DESC	
+				</otherwise>
+		</choose>
+		LIMIT #{page_count}, #{limit_count}
+		
+	</select>
+	<!-- ################## ]]작품list(완료된 프로젝트 포함)################### -->
+	
+	<sql id="select_product" >
+		SELECT
+			DW.seq
+		    ,DW.view_cnt
+		    ,DW.title
+		    ,DW.license
+		    ,DW.point
+		    ,DW.thumb_uri
+		    ,DW.contents
+		    ,DW.register_time
+		    ,DW.update_time
+		    ,DW.tags
+		    ,DW.member_seq
+		    ,U.uname AS memberName
+		    ,(
+	        	SELECT
+	        		GROUP_CONCAT(SU.category_name SEPARATOR ', ')
+			    FROM
+			        t_design_work_category ST
+			            JOIN t_category SU
+			                ON ST.category_code = SU.category_code
+			    WHERE
+			        ST.design_work_seq = DW.seq
+			    ORDER BY ST.category_code
+	        ) AS cate_names
+		    ,(
+		        SELECT
+					COUNT(*)
+				FROM t_design_work_like A
+				WHERE
+		        	A.design_work_seq = DW.seq
+		    ) AS likeCnt
+		FROM v_design_work DW		
+			JOIN t_member U ON U.seq = DW.member_seq
+	</sql>
+	
+	<!--  -->
+	<sql id="where_product_list" >
+		<where>
+			<if test=' schCate != null and schCate != "" ' >
+			DW.seq IN (
+				SELECT
+					design_work_seq
+				FROM t_design_work_category DC
+				WHERE DC.category_code = #{schCate}
+				OR DC.category_code = '*'
+			)
+			</if>
+			
+			
+			<!-- 통합검색 -->
+			<if test=' searchWord != null and searchWord != "" ' >
+			AND 
+			( 
+				UPPER(DW.title) LIKE CONCAT( '%', UPPER(#{searchWord}), '%' ) 
+				OR 
+				UPPER(U.uname) LIKE CONCAT( '%', UPPER(#{searchWord}), '%' )
+				 
+				OR
+				DW.seq IN 
+				(
+				SELECT A.design_work_seq 
+				FROM t_design_work_category A 
+				JOIN t_category B
+				ON A.category_code = B.category_code
+				WHERE B.category_name = #{searchWord}
+				)
+			)
+			</if>
+			
+		</where>
+	</sql>
+	
+	<!--  -->
+	<select id="selectProductCount" parameterType="hashmap" resultType="java.lang.Integer" >
+		SELECT
+			COUNT(*)
+		FROM v_design_work DW
+			JOIN t_member U ON U.seq = DW.member_seq
+		<include refid="where_product_list" />
+	</select>
+	
+	<!-- 디자인 프로젝트 조회 -->
+	<select id="selectProductList" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" >
+		SELECT
+			T.*
+		FROM (
+			<include refid="select_product" />
+			<include refid="where_product_list" />
+		) T
+		<choose>
+			<when test=' schSort != null and schSort.equals("LIKE") ' >
+			ORDER BY T.likeCnt DESC
+			</when>
+			<otherwise>
+			ORDER BY T.update_time DESC	
+			</otherwise>
+		</choose>
+		LIMIT #{page_count}, #{limit_count}
+	</select>
+	
+	<select id="selectMyProduct" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" >
+		<include refid="select_product" />
+		WHERE DW.seq = #{seq}
+			AND DW.member_seq = #{memberSeq} 		
+	</select>
+	
+	<select id="selectProductCategoryByDesignWorkSeq" parameterType="java.lang.Integer" resultType="com.opendesign.vo.CategoryVO" >
+		SELECT
+			C.category_code AS categoryCode
+			, C.category_name AS categoryName
+			, C.depth
+		FROM t_design_work_category PC
+		JOIN v_design_work P
+			ON PC.design_work_seq = P.seq
+		JOIN t_category C
+			ON PC.category_code = C.category_code
+		WHERE PC.design_work_seq = #{designWorkSeq}
+		ORDER BY C.category_name ASC
+	</select>
+	
+	<insert id="insertProduct" parameterType="com.opendesign.vo.DesignWorkVO" >
+		INSERT INTO t_design_work (
+			title, license
+			<if test=' point != null and point != "" '>
+			, point
+			</if>
+			, thumb_uri, contents
+			, tags, member_seq, register_time, update_time
+		) VALUES (
+			#{title}, #{license}
+			<if test=' point != null and point != "" '>
+			, #{point}
+			</if>
+			, #{thumbUri}, #{contents}
+			, #{tags}, #{memberSeq}, #{registerTime}, #{updateTime}
+		)
+		<selectKey keyProperty="seq" resultType="String" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateProduct" parameterType="com.opendesign.vo.DesignWorkVO" >
+		UPDATE t_design_work SET
+			title = #{title}
+		<if test=" thumbUri != null ">
+			, thumb_uri = #{thumbUri}
+		</if>
+			, license = #{license}
+		<choose>
+			<when test=' point != null and point != "" ' >
+			, point = #{point}
+			</when>
+			<otherwise>
+			, point = null
+			</otherwise>
+		</choose>
+			, contents = #{contents}
+			, tags = #{tags}
+			, update_time = #{updateTime}
+		WHERE seq = #{seq}
+			AND member_seq = #{memberSeq}
+	</update>
+	
+	<insert id="insertProductCategory" parameterType="hashmap" >
+		INSERT INTO t_design_work_category (
+			category_code, design_work_seq, register_time
+		) VALUES (
+			#{categoryCode}, #{designWorkSeq}, #{registerTime}
+		)
+	</insert>
+	
+	<delete id="deleteProductCategory" parameterType="java.lang.Integer" >
+		DELETE FROM t_design_work_category WHERE design_work_seq = #{designWorkSeq}
+	</delete>
+	
+	<insert id="insertProductFile" parameterType="com.opendesign.vo.DesignPreviewImageVO" >
+		INSERT INTO t_design_preview_image (
+			design_work_seq, file_uri, filename
+		) VALUES (
+			#{designWorkSeq}, #{fileUri}, #{filename}
+		)
+	</insert>
+	
+	<insert id="insertOpenSourceFile" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		INSERT INTO t_design_work_file (
+			design_work_seq, file_uri, filename, register_time
+		) VALUES (
+			#{designWorkSeq}, #{fileUri}, #{filename}, #{registerTime}
+		)
+	</insert>
+	
+	<delete id="deleteProductFiles" parameterType="hashmap" >
+		DELETE FROM t_design_preview_image 
+		WHERE seq IN 
+		<foreach item="seq" index="index" collection="seqs" open="(" separator="," close=")">
+       		#{seq}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteOpenSourceFiles" parameterType="hashmap" >
+		DELETE FROM t_design_work_file
+		WHERE seq IN 
+		<foreach item="seq" index="index" collection="seqs" open="(" separator="," close=")">
+       		#{seq}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteProductCategoryForProduct" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		DELETE FROM t_design_work_category WHERE design_work_seq = #{seq}
+	</delete>
+	
+	<!-- 삭제flag:  DELETE FROM t_design_work WHERE seq = #{seq} -->
+	<delete id="deleteProduct" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		UPDATE t_design_work 
+		SET del_flag = 'Y'
+		WHERE seq = #{seq} 
+	</delete>
+	
+	<delete id="deleteProductCommentForProduct" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		DELETE FROM t_design_work_comment WHERE design_work_seq = #{seq}
+	</delete>
+	
+	<delete id="deleteProductFilesForProduct" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		DELETE FROM t_design_preview_image WHERE design_work_seq = #{seq}
+	</delete>
+	
+	<delete id="deleteProductLikeForProduct" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		DELETE FROM t_design_work_like WHERE design_work_seq = #{seq}
+	</delete>
+	
+	<delete id="deleteOpenSourceFilesForProduct" parameterType="com.opendesign.vo.DesignWorkFileVO" >
+		DELETE FROM t_design_work_file WHERE design_work_seq = #{seq}
+	</delete>
+	
+	<!-- 작품 활동내역(좋아요)에 따른 리스트 조회 -->
+	<select id="selectBestProductList" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO">
+		<include refid="select_product" />
+		WHERE
+		DW.seq IN (
+			SELECT 
+				target_seq
+			FROM
+				t_stat_activities
+			WHERE
+				target_type = '2'
+			AND stat_month = ( SELECT MAX(stat_month) FROM t_stat_activities )
+		)
+	</select>
+	
+	<!-- 카테고리 이름 -->
+	<select id="selectCategoryName" parameterType="String" resultType="String">
+	    SELECT
+	    	category_name
+	    FROM
+	    	t_category
+	    WHERE
+	    	category_code = #{category}
+	</select>
+	
+	
+</mapper>

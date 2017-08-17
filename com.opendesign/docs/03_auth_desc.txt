@@ -1,0 +1,9 @@
+1. 프로젝트 목록: project.jsp
+	공개 + 비공개(사용자생성 또는 멤버)
+2. 프로젝트 상세: project_list.jsp, modal_project_list.jsp
+	프로젝트 멤버만 '주제 추가,수정,삭제; 작품 업로드,작품 퍼가기' 가능
+	프로젝트 owner만 '작품 수정,삭제' 가능
+3. 디자이너 작품: product_view.jsp
+	작품 owner만 '수정,삭제' 가능
+4. 디자인 의뢰: design_request.jsp
+    owner만 '수정,삭제' 가능

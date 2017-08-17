@@ -1,0 +1,49 @@
+1. 	web.xml:
+1.1 RootWAC(Root Web ApplicationContext):  root-context.xml, ...
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/*-context.xml</param-value>
+	</context-param>
+	<!-- Creates the Spring Container shared by all Servlets-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+1.2 WAC(Web ApplicationContext): dispatcher-servelet.xml
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+2. 스프링이 bean을 관리하는데 두개의 컨테이너를 사용한다. RootWAC, WAC
+
+3. WAC는 RootWAC의 자식관계: RootWAC에서 설정한걸 WAC에서 볼수 있음
+
+4. @Controller등 웹의 요청 관련된 설정은 WAC에서만 해야 함(RootWAC에서 하면 문제 있음)
+
+5. 정리: 
+RootWAC: 공통으로 쓸 Bean 설정: @Servcie,@Repository,@Component...
+WAC: @Controller설정,밑 web관련 설정
+
+6:예제:
+6.1 RootWAC:
+	<!-- Enables the Spring MVC @Service,@Repository,@Component programming model -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.opendesign" use-default-filters="false" > 
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
+	</context:component-scan>
+	
+6.2 WAC:
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.opendesign" use-default-filters="false" > 
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>

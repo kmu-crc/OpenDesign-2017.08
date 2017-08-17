@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommonSQL">
+
+	<!-- 카테고리조회 -->
+	<select id="selectCategoryList" parameterType="hashmap" resultType="com.opendesign.vo.CategoryVO" > 
+		<![CDATA[
+		SELECT
+		        category_code
+		        ,depth
+		        ,category_name
+		    FROM
+		        t_category
+		    WHERE depth = #{depth}
+		]]>
+		
+		<if test=" parentCateCode != null and parentCateCode != '' ">
+			AND category_code LIKE CONCAT( #{parentCateCode}, '%' )
+		</if>
+		
+		<!-- exclude할 code -->
+		<if test=" excludeCodes != null and excludeCodes != '' ">
+			AND category_code NOT IN  
+			<foreach collection="excludeCodes.split(',')" item="item" open="(" close=")" separator="," > 
+				#{item}
+			</foreach>
+		</if>
+		
+		<![CDATA[
+		    ORDER BY
+		        category_code
+		]]>
+	</select>
+	
+	<!-- ************************* 좋아요 ********************************** -->
+	<!-- 좋아요 작품 -->
+	<insert id="likeItemWork" parameterType="com.opendesign.vo.ItemLikeVO" 
+		useGeneratedKeys="true" keyProperty="seq" > 
+		<![CDATA[
+		INSERT
+		    INTO
+		]]>
+		<choose>
+			<when test=" itemType == 'P'.toString() ">
+				/* project_work */
+				t_project_work_like(
+		            member_seq
+		            ,project_work_seq
+		            ,register_time
+		        )
+			</when>
+			<when test=" itemType == 'D'.toString() ">
+				/* design_work */
+				t_design_work_like(
+             		member_seq
+					,design_work_seq
+             		,register_time
+             	)
+			</when>
+		</choose>
+		<![CDATA[
+		    VALUES
+		        (
+		           #{memberSeq}
+		            ,#{itemSeq}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	
+	<!-- ************************* 좋아요 취소 ********************************** -->
+	<!-- 좋아요 취소 작품 -->
+	<delete id="unlikeItemWork" parameterType="com.opendesign.vo.ItemLikeVO" > 
+		<![CDATA[
+		DELETE
+		    FROM
+		]]>
+		<choose>
+			<when test=" itemType == 'P'.toString() ">
+				/* project_work */
+				t_project_work_like WHERE 
+		            member_seq = #{memberSeq}
+		            AND project_work_seq = #{itemSeq}
+			</when>
+			<when test=" itemType == 'D'.toString() ">
+				/* design_work */
+				t_design_work_like WHERE
+             		member_seq = #{memberSeq}
+					AND design_work_seq = #{itemSeq}
+             		
+			</when>
+		</choose>
+		
+	</delete>
+	
+	<!-- 작품 like 했는지 조회 -->
+	<select id="selectItemWorkLiked" parameterType="com.opendesign.vo.ItemLikeVO" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		]]>
+		<choose>
+			<when test=" itemType == 'P'.toString() ">
+					/* project_work */
+					t_project_work_like T
+			    WHERE
+			        T.member_seq = #{memberSeq}
+			        AND T.project_work_seq = #{itemSeq}
+			</when>
+			<when test=" itemType == 'D'.toString() ">
+					/* design_work */
+					t_design_work_like T
+			    WHERE
+			        T.member_seq = #{memberSeq}
+			        AND T.design_work_seq = #{itemSeq}
+			</when>
+		</choose>
+	</select>
+	
+	<!-- ************************* ]]좋아요 ********************************** -->
+	
+	<!-- ************************* 댓글 ********************************** -->
+	<!-- 댓글 작품 -->
+	<insert id="insertItemCmmt" parameterType="com.opendesign.vo.ItemCmmtVO" 
+		useGeneratedKeys="true" keyProperty="seq">
+		<![CDATA[
+		INSERT
+		    INTO
+		]]>
+		
+		<choose>
+			<when test=" itemCmmtType == 'P'.toString() ">
+				/* project_work */
+				t_project_work_comment(
+		            project_work_seq
+		            ,member_seq
+		            ,contents
+		            ,register_time
+		        )
+			</when>
+			<when test=" itemCmmtType == 'D'.toString() ">
+				/* design_work */
+				t_design_work_comment(
+		            design_work_seq
+		            ,member_seq
+		            ,contents
+		            ,register_time
+		        )
+			</when>
+			<when test=" itemCmmtType == 'B'.toString() ">
+				/* board */
+				t_request_board_comment(
+		            board_seq
+		            ,member_seq
+		            ,contents
+		            ,register_time
+		        )
+			</when>
+		</choose>
+		
+		<![CDATA[
+		    VALUES
+		        (
+		            #{itemSeq}
+		            ,#{memberSeq}
+		            ,#{contents}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteItemCmmt" parameterType="com.opendesign.vo.ItemCmmtVO" >
+		DELETE FROM 
+		<choose>
+			<when test=" itemCmmtType == 'P'.toString() ">
+				/* project_work */
+				t_project_work_comment 
+			</when>
+			<when test=" itemCmmtType == 'D'.toString() ">
+				/* design_work */
+				t_design_work_comment
+			</when>
+			<when test=" itemCmmtType == 'B'.toString() ">
+				/* board */
+				t_request_board_comment
+			</when>
+		</choose>
+		WHERE seq = #{seq}
+	</delete>
+	
+	
+	<!-- 작품 댓글 조회 -->
+	<select id="selectItemCmmtList" parameterType="hashmap" resultType="com.opendesign.vo.ItemCmmtVO" > 
+		<include refid="sql_selectItemCmmtPagingList" />
+		<include refid="sql_where_selectItemCmmtPagingList" />
+		
+		<![CDATA[
+		ORDER BY T.seq DESC
+		]]>
+	</select>
+	
+	
+	<!-- 작품 댓글 조회(paging) -->
+	<sql id="sql_where_selectItemCmmtPagingList">
+		<choose>
+			<when test=" schItemCmmtType == 'P'.toString() ">
+				/* project_work */
+				<![CDATA[
+				    WHERE
+				        T.project_work_seq = #{schSeq}
+				]]>
+			</when>
+			<when test=" schItemCmmtType == 'D'.toString() ">
+				/* design_work */
+				<![CDATA[
+					WHERE
+				        T.design_work_seq = #{schSeq}
+				]]>
+			</when>
+			<when test=" schItemCmmtType == 'B'.toString() ">
+				/* board */
+				<![CDATA[
+					WHERE
+				        T.board_seq = #{schSeq}
+				]]>
+			</when>
+		</choose>
+	</sql>
+	
+	<sql id="sql_selectItemCmmtPagingList">
+		<choose>
+			<when test=" schItemCmmtType == 'P'.toString() ">
+				/* project_work */
+				<![CDATA[
+				    SELECT
+				        T.seq
+				        ,T.project_work_seq AS itemSeq
+				        ,T.member_seq
+				        ,U.uname AS memberName
+				        ,U.member_type AS memberType
+				        ,U.image_url AS memberImageUrl
+				        ,T.contents
+				        ,T.register_time
+				    FROM
+				        t_project_work_comment T
+				        	JOIN t_member U ON T.member_seq = U.seq
+				]]>
+			</when>
+			<when test=" schItemCmmtType == 'D'.toString() ">
+				/* design_work */
+				<![CDATA[
+					SELECT
+				        T.seq
+				        ,T.design_work_seq AS itemSeq
+				        ,T.member_seq
+				        ,U.uname AS memberName
+				        ,U.member_type AS memberType
+				        ,U.image_url AS memberImageUrl
+				        ,T.contents
+				        ,T.register_time
+				    FROM
+				        t_design_work_comment T
+				        	JOIN t_member U ON T.member_seq = U.seq
+				]]>
+			</when>
+			<when test=" schItemCmmtType == 'B'.toString() ">
+				/* board */
+				<![CDATA[
+					SELECT
+				        T.seq
+				        ,T.board_seq AS itemSeq
+				        ,T.member_seq
+				        ,U.uname AS memberName
+				        ,U.member_type AS memberType
+				        ,U.image_url AS memberImageUrl
+				        ,T.contents
+				        ,T.register_time
+				    FROM
+				        t_request_board_comment T
+				        	JOIN t_member U ON T.member_seq = U.seq
+				]]>
+			</when>
+		</choose>
+	</sql>
+	
+	<select id="selectItemCmmtPagingList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.ItemCmmtVO" > 
+		<include refid="sql_selectItemCmmtPagingList" />
+		<include refid="sql_where_selectItemCmmtPagingList" />
+		
+		<![CDATA[
+		ORDER BY T.seq DESC
+		LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	
+	<!-- 작품 댓글 조회(총개수) -->
+	<select id="selectItemCmmtAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" > 
+		<![CDATA[
+			SELECT COUNT(*) FROM (
+		]]>
+		
+		<include refid="sql_selectItemCmmtPagingList" />
+		<include refid="sql_where_selectItemCmmtPagingList" />
+		
+		<![CDATA[
+			) T
+		]]>
+	</select>
+
+	<!-- ************************* ]]댓글 ********************************** -->
+	
+	<!-- ************************* 좋아요 ********************************** -->
+	<!-- 조회수 증가 -->
+	<update id="updateItemViewCnt" parameterType="com.opendesign.vo.ItemViewCntVO" > 
+		<choose>
+			<when test=" itemViewCntType == 'D'.toString() ">
+				/* design_work */
+				UPDATE
+				        t_design_work
+				    SET
+				        view_cnt = (IFNULL(view_cnt ,0) + 1)
+				    WHERE
+				        seq = #{itemSeq}
+			</when>
+		</choose>
+	</update>
+	
+	<!-- ************************* ]]좋아요 ********************************** -->
+	
+	
+	<!-- ************************* 알림 ********************************** -->
+	<!-- 최신알림 개수 조회 -->
+	<select id="selectLatestAlarmCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" > 
+		<![CDATA[
+			SELECT
+			        COUNT(*)
+			    FROM
+			        t_alarm T
+			    WHERE
+			        T.member_seq = #{schSeq}
+			        AND (T.confirm_time IS NULL OR T.confirm_time = '' ) 
+		]]>
+	</select>
+	
+	
+	<!-- 최신알림 목록 조회 -->
+	<sql id="sql_selectLatestAlarmList">
+		<![CDATA[
+		SELECT
+		        T.seq
+		        ,T.member_seq
+		        ,T.actor_seq
+		        ,U.uname AS actorName
+		        ,U.image_url AS actorUrl
+		        ,T.contents
+		        ,T.register_time
+		        ,T.action_uri
+		        ,T.confirm_time
+		    FROM
+		        t_alarm T
+		            JOIN t_member U
+		                ON T.actor_seq = U.seq
+		    WHERE T.member_seq = #{schSeq}
+		]]>
+	
+	</sql>
+	
+	<select id="selectLatestAlarmAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" >
+		<![CDATA[
+			SELECT COUNT(*) FROM (
+		]]>
+		<include refid="sql_selectLatestAlarmList" />
+		<![CDATA[
+			) T
+		]]>
+	</select>
+	
+	<!-- 최신알림 목록 조회 -->
+	<select id="selectLatestAlarmList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.AlarmVO" > 
+		<include refid="sql_selectLatestAlarmList" />
+		<![CDATA[
+			ORDER BY T.seq DESC
+			LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	<!-- 최신알림 이미 읽었음으로 update -->
+	<update id="updateLatestAlarmRead" parameterType="com.opendesign.vo.AlarmVO" > 
+		<![CDATA[
+		UPDATE
+		        t_alarm
+		    SET
+		        confirm_time = #{registerTime}
+		    WHERE
+		        register_time <= #{registerTime}
+		        AND member_seq = #{memberSeq}
+		]]>
+	</update>
+	
+	<!-- 알림 추가 -->
+	<insert id="insertAlarm" parameterType="com.opendesign.vo.AlarmVO" 
+		useGeneratedKeys="true" keyProperty="seq" > 
+		<![CDATA[
+		INSERT
+		    INTO
+		        t_alarm(
+		            member_seq
+		            ,actor_seq
+		            ,contents
+		            ,register_time
+		            ,action_uri
+		            ,confirm_time
+		        )
+		    VALUES
+		        (
+		            #{memberSeq}
+		            ,#{actorSeq}
+		            ,#{contents}
+		            ,#{registerTime}
+		            ,#{actionUri}
+		            ,#{confirmTime}
+		        )
+		]]>
+	</insert>
+	
+	
+	<!-- 작품 정보 조회 -->
+	<select id="selectItemWorkBySeq" parameterType="hashmap" resultType="com.opendesign.vo.ItemWorkVO" > 
+		<choose>
+			<when test=" itemType == 'P'.toString() ">
+				SELECT
+						'P' AS itemType
+				        ,T.seq AS itemSeq
+				        ,T.title AS itemTitle
+				        ,'0' AS itemPoint
+				        ,T.member_seq
+				        ,T.register_time
+				    FROM
+				        v_project_work T
+				    WHERE T.seq = #{itemSeq}
+			</when>
+			<when test=" itemType == 'D'.toString() ">
+				SELECT
+						'D' AS itemType
+				        ,T.seq AS itemSeq
+				        ,T.title AS itemTitle
+				        ,T.point AS itemPoint
+				        ,T.member_seq
+				        ,T.register_time
+				    FROM
+				        v_design_work T
+				    WHERE T.seq = #{itemSeq}
+			</when>
+		</choose>
+	</select>
+	
+	
+	<!-- 작품 정보 조회(댓글 포함) -->
+	<select id="selectItemCmmtBySeq" parameterType="hashmap" resultType="com.opendesign.vo.ItemCmmtVO" > 
+		<choose>
+			<when test=" itemCmmtType == 'P'.toString() ">
+				SELECT
+						'P' AS itemCmmtType
+				        ,T.seq AS itemSeq
+				        ,T.title AS itemTitle
+				        ,'0' AS itemPoint
+				        ,T.member_seq
+				        ,T.register_time
+				    FROM
+				        v_project_work T
+				    WHERE T.seq = #{itemSeq}
+			</when>
+			<when test=" itemCmmtType == 'D'.toString() ">
+				SELECT
+						'D' AS itemCmmtType
+				        ,T.seq AS itemSeq
+				        ,T.title AS itemTitle
+				        ,T.point AS itemPoint
+				        ,T.member_seq
+				        ,T.register_time
+				    FROM
+				        v_design_work T
+				    WHERE T.seq = #{itemSeq}
+			</when>
+			<when test=" itemCmmtType == 'B'.toString() ">
+				SELECT
+						'B' AS itemCmmtType
+				        ,T.seq AS itemSeq
+				        ,T.title AS itemTitle
+				        ,'0' AS itemPoint
+				        ,T.member_seq
+				        ,T.register_time
+				    FROM
+				        t_request_board T
+				    WHERE T.seq = #{itemSeq}
+			</when>
+		</choose>
+	</select>
+
+	<!-- ************************* ]]알림 ********************************** -->
+
+	<!-- ************************* 메시지 ********************************** -->
+	<!-- sql: msg조회 -->
+	<sql id="sql_selectMessage">
+		<![CDATA[
+		SELECT * FROM (
+			SELECT
+		        T.seq
+		        ,T.contents
+		        ,CONCAT('|',LEAST(T.recieve_seq, T.send_seq),'|',GREATEST(T.recieve_seq, T.send_seq),'|') AS roomSeq
+		        ,T.recieve_seq
+		        ,R.uname AS recieveName
+		        ,R.image_url AS recieveImageUrl
+		        ,T.send_seq
+		        ,S.uname AS sendName
+		        ,S.image_url AS sendImageUrl
+		        ,T.register_time
+		        ,T.confirm_time
+		        ,'${schLoginUserSeq}' AS schLoginUserSeq 
+		    FROM
+		        t_talk T
+		            JOIN t_member R
+		                ON T.recieve_seq = R.seq
+		            JOIN t_member S
+		                ON T.send_seq = S.seq
+		) T 
+		]]>
+	</sql>
+	
+	<!-- 최신메시지 개수 조회 -->
+	<select id="selectLatestMessageCount" parameterType="com.opendesign.vo.MessageVO" resultType="int" >
+		SELECT COUNT(*) FROM (
+			<include refid="sql_selectMessage" />
+			<![CDATA[
+			    WHERE
+			        T.recieve_seq = #{schLoginUserSeq}
+			    	AND IFNULL(T.confirm_time,'') = ''
+			]]>
+		) T
+	</select>
+	
+	<!-- sql:where 회원 조회 -->
+	<sql id="sql_where_MessageSchWord">
+		SELECT A.seq 
+		FROM t_member A 
+		WHERE (  
+				UPPER(A.uname) LIKE CONCAT ('%',UPPER(#{schWord}),'%') 
+				OR
+				LOWER(A.email) LIKE CONCAT('%',LOWER(#{schWord}),'%')
+			) 
+			AND A.seq != #{schLoginUserSeq} 
+	</sql>
+	
+	<!-- sql:where message room -->
+	<sql id="sql_where_MessageRoom">
+			SELECT 
+			  MAX(U.seq)
+			FROM
+			(
+				SELECT
+				  T.seq,
+				  CONCAT('|',LEAST(T.recieve_seq, T.send_seq),'|',GREATEST(T.recieve_seq, T.send_seq),'|') AS roomSeq,
+				  T.recieve_seq,
+				  T.send_seq
+				FROM t_talk T
+			) U
+			GROUP BY roomSeq
+	</sql>
+	
+	<!-- 최신 메시지 대상 목록 조회 by 검색조건 -->
+	<select id="selectLatestMessageRoomListBySchWord" parameterType="com.opendesign.vo.MessageVO" resultType="com.opendesign.vo.MessageVO" >
+		<include refid="sql_selectMessage" />
+		    WHERE
+		    	/* loginUser조회 */
+		        ( T.recieve_seq = #{schLoginUserSeq} 
+		          OR  T.send_seq = #{schLoginUserSeq} 
+		        )
+		        
+		        <if test=" schWord != null and schWord != '' ">
+			        /* seach조건 */
+			        AND ( 	
+			        	T.recieve_seq IN ( 
+			        		<include refid="sql_where_MessageSchWord" />
+			         	)
+			         	OR T.send_seq IN ( 
+			        		<include refid="sql_where_MessageSchWord" />
+			         	)
+			         	OR T.roomSeq IN (
+							SELECT
+							  CONCAT('|',LEAST(T.recieve_seq, T.send_seq),'|',GREATEST(T.recieve_seq, T.send_seq),'|') AS roomSeq
+							FROM t_talk T
+							WHERE UPPER(contents) LIKE CONCAT('%',UPPER(#{schWord}),'%')
+			         	) 
+			        )
+		        </if>
+		        
+		        /* msg room 필터 */
+		        AND T.seq IN (
+					<include refid="sql_where_MessageRoom" />
+		        )
+		    ORDER BY T.register_time DESC, T.seq DESC
+	</select>
+	
+	<!-- 최신 메시지 대상 목록 조회 by 검색조건 -->
+	<select id="selectLatestMessageRoomListByNewUserSeq" parameterType="com.opendesign.vo.MessageVO" resultType="com.opendesign.vo.MessageVO" >
+		<include refid="sql_selectMessage" />
+		    WHERE
+		    	/* loginUser조회 */
+		        ( T.recieve_seq = #{schLoginUserSeq} 
+		          OR  T.send_seq = #{schLoginUserSeq} 
+		        )
+		        /* seach조건 */
+		        AND ( 	
+		        	T.recieve_seq = #{schNewUserSeq}
+		        	OR T.send_seq = #{schNewUserSeq}
+		        )
+		        /* msg room 필터 */
+		        AND T.seq IN (
+					<include refid="sql_where_MessageRoom" />
+		        )
+		    ORDER BY T.register_time DESC, T.seq DESC
+	</select>
+	
+	
+	<!-- 최신 메시지 대상 목록 조회 by 검색조건 -->
+	<select id="selectLatestMessageContentList" parameterType="com.opendesign.vo.MessageVO" resultType="com.opendesign.vo.MessageVO" >
+		<include refid="sql_selectMessage" />
+		    WHERE
+		    	/* loginUser조회 */
+		        ( T.recieve_seq = #{schLoginUserSeq} 
+		          OR  T.send_seq = #{schLoginUserSeq} 
+		        )
+		        /* 현제 선택된 회원 */
+		        AND ( T.recieve_seq = #{schSelectedUserSeq} 
+		          OR  T.send_seq = #{schSelectedUserSeq} 
+		        )
+		   ORDER BY T.register_time ASC,T.seq ASC
+	</select>
+	
+	
+	<!-- 메시지 내용 이미 읽었음으로 update -->
+	<update id="updateLatestMessageRead" parameterType="com.opendesign.vo.MessageVO" > 
+		<![CDATA[
+		UPDATE
+		        t_talk
+		    SET
+		        confirm_time = #{registerTime}
+		    WHERE
+		        register_time <= #{registerTime}
+		        AND recieve_seq = #{schLoginUserSeq}
+		        AND send_seq = #{schSelectedUserSeq}
+		]]>
+	</update>
+	
+	<!-- 메시지 추가 -->
+	<insert id="insertMessage" parameterType="com.opendesign.vo.MessageVO" 
+		useGeneratedKeys="true" keyProperty="seq" > 
+		<![CDATA[
+		INSERT
+		    INTO
+		        t_talk(
+		            contents
+		            ,recieve_seq
+		            ,send_seq
+		            ,register_time
+		            ,confirm_time
+		        )
+		    VALUES
+		        (
+		            #{contents}
+		            ,#{recieveSeq}
+		            ,#{sendSeq}
+		            ,#{registerTime}
+		            ,#{confirmTime}
+		        )
+		]]>
+	</insert>
+	
+	<!-- ************************* ]]메시지 ********************************** -->
+
+</mapper>

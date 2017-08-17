@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>open src Design</title>
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/layout.css">
+<script src="../resources/js/jquery-3.1.0.min.js"></script>
+<!-- <script src="../resources/js/ui.js"></script> -->
+<!-- websocket test -->
+<script type="text/javascript">
+   
+    var wsUri = "ws://localhost:8080/websocket/connect.do";
+   
+    function init_websocket() {
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function(evt) {
+            onOpen(evt)
+        };
+        websocket.onmessage = function(evt) {
+            onMessage(evt)
+        };
+        websocket.onerror = function(evt) {
+            onError(evt)
+        };
+    }
+    function onOpen(evt) {
+        writeToScreen("Connected to Endpoint!");
+        //doSend('Hello World!');
+        //초기화 handshake.
+        //uri = "/sss.jsp?name=kkk";
+        var param = {cmd:"IN_HANDSHAKE", uri:"/project/openProjectDetail.do?projectSeq=3"};
+        doSendJson(param);
+        console.log('>>> init');
+    }
+    function onMessage(evt) {
+        writeToScreen("Message Received: " + evt.data);
+    }
+    function onError(evt) {
+        writeToScreen('ERROR: ' + evt.data);
+    }
+    function doSend(message) {
+        writeToScreen("Message Sent: " + message);
+        websocket.send(message);
+    }
+    function doSendJson(json) {
+    	var message = JSON.stringify(json);
+    	doSend(message);
+    }
+    function writeToScreen(message) {
+        console.log(message);
+    }
+    
+    function close_websocket() {
+    	websocket.close();
+    }
+    
+    
+    
+</script>
+
+
+
+</head>
+<body>
+ websocket test 
+</body>
+</html>
