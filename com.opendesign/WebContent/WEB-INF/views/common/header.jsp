@@ -87,7 +87,7 @@
 	}
 	
 	.content {
-		padding-top: 220px;
+		padding-top: 180px;
 	}
 	
 </style>
@@ -141,43 +141,7 @@
 						if( $(this) != natureCategory ) {
 							$(this).show();
 						}
-					})
-					
-					//메뉴 밖으로 나갔을 경우
-					$('#menuArea').mouseleave(function() {
-						$('#menuBox li').each(function() {
-							$(this).removeClass('menuSelected');
-						})
-						
-						$(activeMenu).addClass("active");
-						$(activeCategory).addClass("active");
-						
-						hoverMenu = activeMenu;
-						if( <%=hideCategories%> ) {
-							$('.depth2').hide();	
-						}
-						
-						filterMenus(true);
-						
-					});
-					
-					//메뉴 롤 오버시
-					$('#menuBox li').mouseover(function() {
-						
-						$(activeMenu).removeClass("active");
-						$(activeCategory).removeClass("active");
-						
-						
-						$('#menuBox li').each(function() {
-							$(this).removeClass('menuSelected');
-						});
-						
-						$(this).addClass('menuSelected');
-						hoverMenu = this;
-						$('.depth2').show();
-						filterMenus();
-					});
-					
+					});				
 					
 					$('.nav-cate .depth2 > li').mouseover(function() {
 						if( activeCategory != this ) {
