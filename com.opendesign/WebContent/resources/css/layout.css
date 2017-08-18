@@ -264,15 +264,15 @@ header
 #help-modal .helpModal .row img {width: 500px; height: auto; margin-top: 5px; margin-bottom: 5px;}
 #help-modal .helpModal .row p {margin-bottom: 14px; margin-top: 14px; text-align: left;}
 
-.list-type1{clear:both; margin:0 0 0 -34px;}
-.list-type1 li{position:relative; float:left; width:228px; height:288px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 0 24px 34px; font-size:14px; border:1px solid #ddd; border-radius:6px; background:#fff;}
-.list-type1 a > img{width:228px; height:169px;}
-.list-type1 li:hover{box-shadow:inset 0 0 150px #d1d1d1;}  /* mouse over 효과가 이상 */
-.list-type1 .product-info{padding:8px 12px; border-bottom:1px solid #d8d8d8;}
-.list-type1 .product-title{width:100%; overflow:hidden; margin:0 0 8px; font-size:16px; font-weight:700; color:#0046c3; text-overflow:ellipsis; white-space:nowrap;}
-.list-type1 .designer{font-size:12px; font-weight:700; color:#0046c3;}
-.list-type1 .cate{padding:6px 12px; font-size:12px; color:#6a6a6a; border-bottom:1px solid #d5d5d5;}
-.list-type1 .item-info{padding:10px 12px; font-size:12px; color:#6a6a6a; background:#f7f7f7;}
+.list-type1{clear:both; margin:0 0 0 -34px; padding-top: 30px;}
+.list-type1 li{position:relative; float:left; width:300px; height:360px; overflow:hidden; box-sizing: border-box; padding: 20px; box-shadow:0 1px 3px #e1e1e1; margin:0 0 24px 34px; font-size:14px; border:1px solid #ddd; border-bottom: 2.5px solid #f00; background:#fff;}
+.list-type1 a > img{width:100%; height:auto;}
+.list-type1 li:hover{}
+.list-type1 .product-info{padding:15px 12px;}
+.list-type1 .product-title{width:100%; overflow:hidden; margin:0 0 8px; font-size:16px; color:#0046c3; text-overflow:ellipsis; white-space:nowrap;}
+.list-type1 .designer{font-size:12px; font-weight:700; color:#666; float: right;}
+.list-type1 .cate{padding:10px 12px; font-size:12px; color:#f00; border-bottom:1px solid #d5d5d5;}
+.list-type1 .item-info{padding:10px 12px; font-size:12px; color:#6a6a6a;}
 .list-type1 span{margin:0 24px 0 0;}
 .list-type1 span img{margin:-2px 0 0 0;}
 .list-type1 .like img{width:13px;}
@@ -302,22 +302,23 @@ header
 .portfolio-section li:last-child{margin:0;}
 .portfolio-section li img{width:89px; height:66px;}
 
-.project-select{position:relative; float:left; width:170px; height:32px; margin:-8px 0 0 14px;}
+.project-select{position:relative; float:left; width:140px; height:34px; font-size: 16px;}
 .project-select select{position:absolute; top:0; left:0; width:100%; height:32px; opacity:0;}
-.project-select input[type="text"]{width:100%; height:32px; box-sizing:border-box; padding:0 40px 0 10px; color:#848484; border:1px solid #848484; border-radius:7px; background:#fff url(../image/common/bg_select.png) no-repeat right 0;}
-.btn-area{float:right;}
-.btn-area a{float:left; width:122px; height:30px; box-sizing:border-box; margin:0 0 0 9px; font-size:15px; font-weight:bold; color:#113b88; text-align:center; line-height:30px; border:1px solid #113b88; border-radius:7px;}
-.tab-wrap{border-bottom:1px solid #dbdada;}
-.tab{clear:both; width:1286px; overflow:hidden; margin:0 auto -1px;}
-.tab li{float:left; border:1px solid transparent; border-bottom:1px solid #dbdada; background:#f6f6f6;}
-.tab li a{display:block; width:170px; height:42px; box-sizing:border-box; color:#414141; line-height:42px; text-align:center;}
-.tab span{display:inline-block; margin:0 6px 0 0; vertical-align:middle; background:url(../image/main/bg_tab.png) no-repeat 0 0;}
-.tab .ing span{width:16px; height:16px; background-position:0 0;}
-.tab .complete span{width:24px; height:20px; background:url(../image/sub/blt_group.png) no-repeat;}
-.tab .active{border-color:#dbdada; border-bottom-color:transparent; background:#fff;}
-.tab .active a{color:#113b88;}
-.tab .ing.active span{background-position:0 bottom;}
-.tab .complete.active span{background-position:right bottom;}
+.project-select input[type="text"]{width:100%; height:32px; box-sizing:border-box; padding:0 40px 0 10px; color:#666; border:none;}
+.project-select .fa-caret-down{position: absolute; top: 8px; right: 35px;}
+.project-content .btn-area{float:right; font-size: 14px;}
+.project-content .btn-area .btn-red{float:left; height:34px; box-sizing:border-box; text-align:center; line-height:0.8; border-radius:4px; margin-right: 5px;}
+.project-content .btn-area .btn-help{margin-right: 0px;}
+.tab{clear:both; width:700px; overflow:hidden; float: left;}
+.tab li.btn-red{float:left; box-sizing: border-box; height: 34px; padding: 0; background-color: #fff; color: #333; border: 1px solid #666; border-radius: 4px;}
+.tab li a{display:block; width:100%; height:100%; box-sizing:border-box; line-height:34px; text-align:center;}
+.tab li.btn-red.active{background-color: #f00; border: none;}
+.tab li.btn-red.active a{color:#fff;}
+.tab .ing {width: 150px; margin-right: 5px;}
+.tab .complete {width: 120px;}
+.tab-wrap {width: 1286px; margin: 20px auto 20px;}
+.tab-wrap .sorting {float: right;}
+.tab-wrap .sorting .btn-red {font-size: 14px; border-radius: 4px; width: 74px; text-align: center; height: 34px; line-height: 0.8;}
 .tab-con > div{display:none;}
 .tab-con > div.active{display:block;}
 .project-con{width:1286px; margin:0 auto; padding:38px 0 0;}

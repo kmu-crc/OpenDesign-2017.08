@@ -29,7 +29,7 @@
 					<a href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
 				</div>
 				<div class="last btn-red"><a href="javascript:goPage('/product/productRegi.do', true);" class="btn-product">디자인 등록</a></div>
-				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');"> 도움말</button>
+				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');">도움말</button>
 			</div>
 			<ul id="ing-product-list" class="list-type1"></ul>
 		</div>
@@ -89,15 +89,15 @@
 					<div class="item-info">
 						
 						{{if !curUserLikedYN }}	
-						<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
+						<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 						{{else}}
-						<span class="like"><img src="/resources/image/common/ico_like_active.png" alt="좋아요"> {{:likeCntF}}</span>
+						<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 						{{/if}}
 
 						{{if itemType == '<%=MainItemType.PROJECT%>' }}
 						<span class="member"><img src="/resources/image/common/ico_member.png" alt="멤버"> {{:projectMemberCntF}}</span>
 						{{else}}
-						<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+						<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:viewCntF}}</span>
 						{{/if}}
 						<span class="update">{{:displayTime}}</span>
 					</div>

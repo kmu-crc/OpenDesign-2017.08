@@ -27,58 +27,57 @@
 		<jsp:param name="headerCategoryYN" value="Y" />
 	</jsp:include>
 	<!-- //header -->
-	
-	<!-- custom-btn 처리 -->
-	<script id="tmpl-custom-btn" type="text/x-jsrender">
-				<li class="last"><a href="javascript:goPage('/project/projectRegi.do', true);" class="btn-product">프로젝트 생성</a></li>
-	</script>
-	<script>
-		$(function(){
-			$('.nav-cate').eq(0).find('ul').eq(0).append($('#tmpl-custom-btn').html());
-		});
-	</script>
 
 	<!-- content -->
 	<div class="project-content">
 		<div class="inner">
 			<h2 id="project_all_cnt" class="title">프로젝트 (0건)</h2>
-			<!-- 로그인후 보여줌 -->
-			<% if(isLogin) { %>
-			<div id="sch_my_group" class="select-area project-select custom-select">
-				<input type="text" name="txt_select_name" >
-				<select name="" >
-					<option value="">내그룹(<%=myPGroupList.size()%>)</option>
-				<%if( isLogin && myPGroupList.size() > 0 ){ %>
-				<%
-					for(ProjectGroupVO aPGroup : myPGroupList){
-				%>
-					<option value="<%=aPGroup.getSeq()%>"><%=aPGroup.getGroupName()%></option>
-				<%
-					}
-				%>
-				<%} %>
-				</select>
-			</div>
-			<%} %>
-			
 			<div class="btn-area">
-				<a href="javascript:goPage('/project/projectGroup.do', true);">그룹 생성 및 관리</a>
+			<!-- 로그인후 보여줌 -->
+				<% if(isLogin) { %>
+				<div id="sch_my_group" class="select-area project-select custom-select">
+					<input type="text" name="txt_select_name" ><i class="fa fa-caret-down" aria-hidden="true"></i>
+					<select name="" >
+						<option value="">내그룹(<%=myPGroupList.size()%>)</option>
+					<%if( isLogin && myPGroupList.size() > 0 ){ %>
+					<%
+						for(ProjectGroupVO aPGroup : myPGroupList){
+					%>
+						<option value="<%=aPGroup.getSeq()%>"><%=aPGroup.getGroupName()%></option>
+					<%
+						}
+					%>
+					<%} %>
+					</select>
+				</div>
+				<%} %>
+				
+			
+				<a class="btn-red" href="javascript:goPage('/project/projectGroup.do', true);">그룹 생성 및 관리</a>
 				<%
 				if( isLogin && myProjectList.size() > 0 ) {
 				%>
-				<a href="javascript:goPage('/project/projectManage.do', true);">프로젝트 관리</a>
+				<a class="btn-red" href="javascript:goPage('/project/projectManage.do', true);">프로젝트 관리</a>
 				<%
 				}
 				%>
+				<a class="btn-red" href="javascript:goPage('/project/projectRegi.do', true);" class="btn-product">프로젝트 생성</a>
+				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');">도움말</button>
 			</div>
 		</div>
 
 		<div class="tab-wrap">
 			<ul class="tab">
-				<li class="ing active"><a href="#ing-project"><span></span>진행중인 프로젝트</a></li>
+				<li class="ing active btn-red"><a href="#ing-project">진행중인 프로젝트</a></li>
 				<!-- <li class="complete"><a href="#complete-project"><span></span>완료된 프로젝트</a></li> -->
-				<li class="complete"><a href="#group-tab"><span></span>그룹</a></li>
+				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
+			<div class="sorting">
+				<a href="javascript:sortProduct();" class="first btn-red active">최신순</a>
+				<a href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
+				<a href="javascript:sortProduct('LIKE');" class="btn-red">멤버순</a>
+			</div>
+			<div class="clear"></div>
 		</div>
 		<div class="tab-con project-con">
 			<div id="ing-project" class="active">

@@ -6,7 +6,7 @@
 			<li class="footer-li"><a href="javascript:modalShow('#modal_introduece');">오픈소스디자인 소개</a></li>
 			<li class="footer-li"><a href="javascript:modalShow('#modal_use');">이용약관</a></li>
 			<li class="footer-li"><a href="javascript:modalShow('#modal_personal');">개인정보처리방침</a></li>
-			<li class="footer-li"><a href="javascript:modalShow('#modal_contact');">저작권표기안내</a></li>
+			<li class="footer-li"><a href="javascript:modalShow('#modal_contact');">Contact Us</a></li>
 		</ul>
 	</div>
 </div>

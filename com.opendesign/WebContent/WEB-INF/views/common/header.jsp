@@ -59,7 +59,7 @@
 	}
 	
 	.project-content {
-		padding-top: 220px;
+		padding-top: 180px;
 	}
 	
 	.list-content {
