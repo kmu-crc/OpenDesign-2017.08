@@ -25,27 +25,22 @@
 	</jsp:include> 
 	<!-- //header -->
 	
-	<!-- custom-btn 처리 -->
-	<script id="tmpl-custom-btn" type="text/x-jsrender">
-						<%	if(MemberDiv.DESIGNER.equals(schMemberDiv)) { %>
-						<li class="last"><a href="/designer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design">디자인 의뢰</a></li>
-						<%	} else { %>
-						<li class="last"><a href="/producer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design">제작 의뢰</a></li>
-						<%	} 	%>
-	</script>
-	<script>
-		$(function(){
-			$('.nav-cate').eq(0).find('ul').eq(0).append($('#tmpl-custom-btn').html());
-		});
-	</script>
 
 	<!-- content -->
 	<div class="content">
 		<div class="inner">
 			<h2 class="title" id="allCnt"><%=memberDivString%> (0건)</h2>
-			<div class="sorting">
-				<a href="javascript:void(0);" onclick="goPageOrdered(this);" data-order="<%=SchOrderType.LATEST%>" class="first active">최신순</a>
-				<a href="javascript:void(0);" onclick="goPageOrdered(this);" data-order="<%=SchOrderType.HOTTEST%>" class="">인기순</a>
+			<div class="product-btn-wrap">
+				<div class="sorting">
+					<a href="javascript:void(0);" onclick="goPageOrdered(this);" data-order="<%=SchOrderType.LATEST%>" class="first active btn-red">최신순</a>
+					<a href="javascript:void(0);" onclick="goPageOrdered(this);" data-order="<%=SchOrderType.HOTTEST%>" class="btn-red">인기순</a>
+				</div>
+				<%	if(MemberDiv.DESIGNER.equals(schMemberDiv)) { %>
+							<div class="last"><a href="/designer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design btn-red">디자인 의뢰</a></div>
+							<%	} else { %>
+							<div class="last"><a href="/producer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design btn-red">제작 의뢰</a></div>
+							<%	} 	%>
+				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');">도움말</button>
 			</div>
 			<ul class="list-type2" id="designView">
 				<!--  template

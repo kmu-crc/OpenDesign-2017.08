@@ -46,10 +46,8 @@
 									<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.BOARD_CMMT%>" /> <!-- 댓글 구분 --> --%>
 
 									<textarea name="contents" maxlength="30" placeholder="댓글 입력(최대 30자)"></textarea>
-
-									<div class="btn-cmmt-wrapper">
-										<button type="button" class="btn-cmmt">등록</button>
-									</div>
+									<button type="button" class="btn-cmmt btn-red">등록</button>
+									
 								<%--</form> --%>
 								<ul data-name="pdrListView" data-seq="{{:seq}}">
 								
@@ -280,26 +278,11 @@ function loadPageWithData(_data) {
 	<!-- header -->
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<!-- //header -->
-	
-	<!-- custom-btn 처리 -->
-	<script id="tmpl-custom-btn" type="text/x-jsrender">
-						<%	if(MemberDiv.DESIGNER.equals(schMemberDiv)) { %>
-						<li class="last"><a href="/designer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design">디자인 의뢰</a></li>
-						<%	} else { %>
-						<li class="last"><a href="/producer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design">제작 의뢰</a></li>
-						<%	} 	%>
-			</script>
-	<script>
-		$(function(){
-			$('.nav-cate').eq(0).find('ul').eq(0).append($('#tmpl-custom-btn').html());
-		});
-	</script>
 
 	<!-- content -->
 	<div class="request-content">
 		
 		<div class="inner" style="min-height: 500px;">
-			<h2 class="title"><%=memberDivString%> 의뢰</h2>
 			<div id="searchCategory" class="select-wrap" >
 				<!-- 조회 form -->
 				<form id="searchForm" name="searchForm" method="post" >
@@ -320,12 +303,6 @@ function loadPageWithData(_data) {
 						<option value="">전체</option>
 					</select>
 				</div>
-				<div class="custom-select">
-					<input type="text">
-					<select name="cateDepth3">
-						<option value="">전체</option>
-					</select>
-				</div>
 				<div class="input-search">
 					<input type="text" name="schContent" >
 					<button type="button" onclick="searchFormSubmit();"><img src="/resources/image/sub/btn_search.png" alt="검색"></button>
@@ -334,7 +311,7 @@ function loadPageWithData(_data) {
 				</form>
 			</div>
 
-			<a href="javascript:goBoardAddView();" class="btn-write">새 글 쓰기</a>
+			<a href="javascript:goBoardAddView();" class="btn-write btn-red">새 글 쓰기</a>
 			<div style="clear: both;">
 				<ul id="listViewId" class="request-list" >
 					
