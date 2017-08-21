@@ -16,40 +16,27 @@
 	<!-- content -->
 	<div class="content regi-content">
 		<div class="inner">
-			<h2 class="title">그룹 생성 및 관리</h2>
-			<table class="tbl-regi">
-				<colgroup>
-					<col style="width:220px">
-					<col style="">
-				</colgroup>
-				<tr>
-					<th scope="row">그룹 목록</th>
-					<td>
-						<div class="group-list">							
-						</div>
+			<div class="best-head">
+				<span class="mainChar">G</span>
+				<span>그룹 생성 및 관리</span>
+			</div>
+			<div class="tbl-regi">
+					<div class="regi-head">그룹 목록</div>
+					<div class="group-list">							
 						<div class="add-area">
 							<input type="text" name="group_name" placeholder="그룹명 입력">
-							<button type="button" onclick="insertGroup();" >추가</button>
+							<button type="button" class="btn-red" onclick="insertGroup();" >추가</button>
 						</div>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">프로젝트 목록</th>
-					<td>
-						<div class="group-list"></div>
-						<!-- <div class="add-area">
-							<a href="javascript:modalShowProjectSearch();" class="btn-projectAdd btn-modal">추가할 프로젝트 조회</a>
-						</div> -->
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">프로젝트 대기 목록</th>
-					<td>
-						<div id="groupProjectWaitingList" class="group-list"></div>
-					</td>
-				</tr>
-			</table>
-			<a href="/project/project.do" class="btn-complete">완료</a>
+					</div>
+					<div class="regi-head">프로젝트 목록</div>
+					<div class="group-list"></div>
+					<!-- <div class="add-area">
+						<a href="javascript:modalShowProjectSearch();" class="btn-projectAdd btn-modal">추가할 프로젝트 조회</a>
+					</div> -->
+					<div class="regi-head">프로젝트 대기 목록</div>
+					<div id="groupProjectWaitingList" class="group-list"></div>
+			</div>
+			<a href="/project/project.do" class="btn-complete btn-red">완료</a>
 		</div>
 	</div>
 	<!-- //content -->

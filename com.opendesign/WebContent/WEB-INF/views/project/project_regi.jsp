@@ -25,7 +25,10 @@
 	<!-- content -->
 	<div class="content regi-content">
 		<div class="inner">
-			<h2 class="title">프로젝트 생성</h2>
+			<div class="best-head">
+				<span class="mainChar">P</span>
+				<span>프로젝트 생성</span>
+			</div>
 			<form name="projectForm" id="projectForm" enctype="multipart/form-data" onsubmit="return false;" >
 			<table class="tbl-regi">
 				<colgroup>
@@ -118,7 +121,7 @@
 				</tr>
 			</table>
 			</form>
-			<button id="btn_register" type="button" class="btn-complete">등록</button>
+			<button id="btn_register" type="button" class="btn-complete btn-red">등록</button>
 		</div>
 	</div>
 	<!-- //content -->

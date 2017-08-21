@@ -227,8 +227,8 @@ header
 .main-content .visual #slide-3 img{top: -240px;}
 
 .main-content .best{position:relative; overflow:hidden; margin:0 0 57px; padding:34px 0 0;}
-.main-content .best-head{width: 250px; height: 42px; background-color: #f00; color: #fff; box-sizing: border-box; padding: 10px;}
-.main-content .best-head .mainChar {color: red; background-color: white; font-weight: 600; font-size: 20px; padding: 3px 6px 0px 6px; margin-right: 10px;}
+.main-content .best-head, .content .best-head {width: 250px; height: 42px; background-color: #f00; color: #fff; box-sizing: border-box; padding: 10px;}
+.main-content .best-head .mainChar, .content .best-head .mainChar {color: red; background-color: white; font-weight: 600; font-size: 20px; padding: 3px 6px 0px 6px; margin-right: 10px;}
 .main-content .best-inner {width:1320px; font-weight: bold;}
 .main-content .best .list-type2.list1{margin:0 0 0 -19px;}
 .main-content .best .list-type2 .list-type2{margin:0; }
@@ -254,15 +254,15 @@ header
 .sorting a.active{background-color: #f00; color: #fff; border: none;}
 .sorting a:hover, .sorting a:focus{background-color: #e9e9e9;}
 .sorting a.active:hover, .sorting a.active:focus{background-color: #f00;}
-#help-modal .helpModal {width: 800px; top: 0; margin: 30px 0 0 -400px; padding: 50px 40px; background: #f4f4f4; border-radius: 4px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); box-sizing: border-box; font-size: 14px;}
-#help-modal .helpModal h3 {font-size: 24px; margin-bottom: 40px;}
-#help-modal .helpModal .row {padding: 0 100px 0; text-align: center;}
-#help-modal .helpModal .row h4 {font-size: 18px; text-align: left;}
-#help-modal .helpModal .row h4:nth-of-type(2),
-#help-modal .helpModal .row h4:nth-of-type(3),
-#help-modal .helpModal .row h4:nth-of-type(4) {margin-top: 40px;}
-#help-modal .helpModal .row img {width: 500px; height: auto; margin-top: 5px; margin-bottom: 5px;}
-#help-modal .helpModal .row p {margin-bottom: 14px; margin-top: 14px; text-align: left;}
+.helpModal {width: 800px; top: 0; margin: 30px 0 0 -400px; padding: 50px 40px; background: #f4f4f4; border-radius: 4px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); box-sizing: border-box; font-size: 14px;}
+.helpModal h3 {font-size: 24px; margin-bottom: 40px;}
+.helpModal .row {padding: 0 100px 0; text-align: center;}
+.helpModal .row h4 {font-size: 18px; text-align: left;}
+.helpModal .row h4:nth-of-type(2),
+.helpModal .row h4:nth-of-type(3),
+.helpModal .row h4:nth-of-type(4) {margin-top: 40px;}
+.helpModal .row img {width: 500px; height: auto; margin-top: 5px; margin-bottom: 5px;}
+.helpModal .row p {margin-bottom: 14px; margin-top: 14px; text-align: left;}
 
 .list-type1{clear:both; margin:0 0 0 -34px; padding-top: 30px;}
 .list-type1 li{position:relative; float:left; width:300px; height:360px; overflow:hidden; box-sizing: border-box; padding: 20px; box-shadow:0 1px 3px #e1e1e1; margin:0 0 24px 34px; font-size:14px; border:1px solid #ddd; border-bottom: 2.5px solid #f00; background:#fff;}
@@ -342,6 +342,8 @@ header
 .project-info .bbs span{padding-left:25px; background:url(../image/main/blt_bbs.png) no-repeat 0 0;}
 .project-info .file-num{border:0;}
 .project-info .file-num span{padding-left:25px; background:url(../image/main/blt_file.png) no-repeat 0 0;}
+
+
 
 /* mypage */
 .mypage-wrap{padding:26px 0 0;}
@@ -437,24 +439,30 @@ header
 .regi-content{padding:70px 0 74px;}
 .regi-content h2{float:none; margin:0 0 80px; font-size:46px;}
 .regi-content .cate{color:#696969;}
-.tbl-regi th{padding:35px 0 0 30px; font-size:26px; font-weight:normal; text-align:left; vertical-align:top;}
+
+.tbl-regi {padding:35px 0 0 30px; font-weight:normal; text-align:left; vertical-align:top;}
 tr.no-padding th,
 tr.no-padding td { padding:10px 0 !important; }
-.tbl-regi th span{display:block; font-size:14px;}
+/*.tbl-regi th span{display:block; font-size:14px;}
 .tbl-regi th .btn-guide img{margin:-5px 0 0;}
-.tbl-regi td{padding:30px 0;}
-.tbl-regi .no-border{width:100%; height:42px; box-sizing:border-box; padding:0 0 0 5px; font-size:20px; border:0; border-bottom:1px solid #9e9e9e; background:none;}
-.tbl-regi .custom-select{margin:0 24px 10px 0; font-size:22px; color:#b5b5b5;}
-.tbl-regi .custom-select input[type="text"]{width:305px; height:46px; box-sizing:border-box; padding:0 45px 0 24px; border:1px solid #b1b1b1; background:#fff url(../image/common/bg_selectBig.gif) no-repeat right center;}
-.tbl-regi .custom-select select{height:46px; font-size:20px;}
+.tbl-regi td{padding:30px 0;}*/
+.tbl-regi tr td{display: block; width: 700px; height: 80px; box-sizing: border-box; padding-top: 14px;}
+.tbl-regi .km-required {font-size: 18px;}
+.tbl-regi .no-border{width:100%; height:34px; box-sizing:border-box; padding:0 0 0 5px; font-size:16px; border:0; border-bottom:1px solid #9e9e9e; background:none;}
+.tbl-regi .custom-select{margin:0 24px 10px 0; font-size:16px; color:#b5b5b5;}
+.tbl-regi .custom-select input[type="text"]{width:205px; height:34px; box-sizing:border-box; padding:0 45px 0 24px; border:1px solid #b1b1b1; background:#fff url(../image/common/bg_selectBig.gif) no-repeat right center;}
+.tbl-regi .custom-select select{height:46px; font-size:16px;}
 .tbl-regi .cate-list li{min-width:77px; height:37px; padding:0 0 0 10px; font-size:20px; line-height:37px;}
 .tbl-regi .cate-list button{margin-top:5px; font-size:24px;}
-.tbl-regi .checkbox{position:relative; float:left; margin:0 70px 0 0;}
+.tbl-regi .checkbox{position:relative; float:left; font-size: 16px; margin:0 50px 0 0;}
 .tbl-regi textarea{width:100%; height:150px; box-sizing:border-box; padding:16px 20px; border:0; background:#fff;}
+.tbl-regi .regi-head {font-size: 26px; font-weight: normal; text-align: left; vertical-align: top;}
+
+
 .licenses-check .sbj{float:left; width:165px; margin:5px 0 0; font-size:22px;}
 .licenses-check li{overflow:hidden; margin:0 0 15px;}
 .tbl-regi .checkbox input[type="checkbox"]{position:absolute; top:0; left:0; opacity:0;}
-.tbl-regi .checkbox input[type="checkbox"]+label{float:left; height:28px; padding:5px 0 0 38px; font-size:22px; background:url(../image/common/bg_checkboxBig.png) no-repeat 0 0;}
+.tbl-regi .checkbox input[type="checkbox"]+label{float:left; height:28px; padding:5px 0 0 40px; background:url(../image/common/bg_checkboxBig.png) no-repeat 0 0;}
 .tbl-regi .checkbox input[type="checkbox"]:checked+label{background-position:0 bottom;}
 .tbl-regi .btn-guide:hover+.modal-guide{display:block;}
 .modal-guide{position:relative; float:right; display:none;}
@@ -485,7 +493,7 @@ tr.no-padding td { padding:10px 0 !important; }
 .file-list{clear:both; width:385px; height:110px; overflow:auto; padding:0 0 0 20px; font-size:18px; color:#b1b1b1; line-height:1.6; background:#fff;}
 .file-list > div{padding:3px 0;}
 .file-list button{margin:0 0 0 5px; font-size:20px; color:#b1b1b1;}
-.regi-content .btn-complete{float:right; width:200px; height:64px; font-size:24px; color:#fff; text-align:center; line-height:64px; border-radius:7px; background:#b5b5b5;}
+.regi-content .btn-complete{float: right; width: 120px; height: 40px; font-size: 20px; text-align: center; line-height: 2; border-radius: 4px; padding: 0;}
 
 /* project list */
 .list-content{padding:23px 0 67px; border-bottom:1px solid #f2f2f2;}
@@ -562,13 +570,11 @@ tr.no-padding td { padding:10px 0 !important; }
 #upload-modal textarea{width:100%; height:170px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:18px; border:0; background:#fff;}
 #upload-modal .btn-regi{width:110px;}
 
-.group-list{min-height:210px; padding:12px 30px 0 50px; border-bottom:1px solid #dcdcdc; background:#fff;}
-.group-list > div{margin:0 0 15px; font-size:22px; color:#b5b5b5;}
-.group-list button{float:right; width:66px; height:28px; font-size:15px; color:#fff; border-radius:5px; background:#b5b5b5;}
-.add-area{overflow:hidden; padding:12px 30px; background:#fff;}
-.add-area input[type="text"]{width:870px; height:46px; padding:0 20px; border:1px solid #b1b1b1;}
-.add-area button{float:right; width:66px; height:28px; margin:8px 0 0; font-size:15px; color:#fff; border-radius:5px; background:#b5b5b5;}
-.btn-projectAdd{display:block; width:175px; height:28px; margin:10px auto; padding:0 0 0 25px; font-size:15px; color:#fff; text-align:center; line-height:28px; border-radius:5px; background:#b5b5b5 url(../image/sub/blt_search.png) no-repeat 25px 5px;}
+.group-list{min-height:210px; padding: 15px 20px; border-bottom:1px solid #dcdcdc; background:#e6e6e6; margin: 20px 0;}
+.add-area{overflow:hidden; padding: 10px; background:#fff;}
+.add-area input[type="text"]{width:80%; height:34px; padding:0 20px; border:1px solid #b1b1b1;}
+.add-area button{float:right; width:70px; height:34px; font-size:15px; color:#fff; border-radius:5px; line-height: 1;}
+.btn-projectAdd{display:block; width:175px; height:28px; margin:10px auto; padding:0 0 0 25px; font-size:15px; color:#fff; text-align:center; line-height:28px; border-radius:5px;}
 
 #project-search .modal-inner{width:425px; height:500px; box-sizing:border-box; margin:-250px 0 0 -212px; padding:25px 20px; background:#f4f4f4;}
 #project-search h1{margin:0 0 15px; padding:0; font-weight:700;}

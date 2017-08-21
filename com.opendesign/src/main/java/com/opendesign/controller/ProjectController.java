@@ -115,7 +115,7 @@ public class ProjectController {
 		List<ProjectVO> myProjectList = null;
 
 		/*
-		 * 로그인이 되여있으면 나의 프로젝트와 나의 그룹을 조회
+		 * 로그인이 되어있으면 나의 프로젝트와 나의 그룹을 조회
 		 */
 		UserVO user = CmnUtil.getLoginUser(request);
 		if (user != null && StringUtil.isNotEmpty(user.getSeq())) {
