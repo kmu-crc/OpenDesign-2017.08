@@ -11,6 +11,7 @@
 .btn-red{padding: 12px 16px 12px; background-color: #f00; color: #fff; line-height: 1.2; box-sizing: border-box;}
 .btn-red:hover, .btn-red:focus{background-color: #cc0000;}
 .modal-border{box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); border-radius: 6px; box-sizind: border-box;}
+button {cursor: pointer;}
 
 /* slide button의 파란 선택효과 지움 */
 button:focus { outline: 0 !important } 
@@ -147,9 +148,9 @@ header
 .custom-select input[type="text"]{width:140px; height:30px; padding:0 30px 0 12px; color:#a4a4a4;}
 .custom-select input[type="text"].readonly{width:140px; height:30px; padding:0 30px 0 12px; color:#d9d9d9;}
 .btn-add{float:left; margin:6px 0 0 3px;}
-.cate-list{clear:both; overflow:hidden; padding:10px 0;}
+.cate-list{clear:both; overflow:hidden;}
 .cate-list li{float:left; min-width:60px; height:25px; margin:0 10px 0 0; padding:0 0 0 6px; font-size:14px; color:#a4a4a4; border-radius:5px; line-height:25px; background:#e8e8e8;}
-.cate-list button{float:right; height:25px; margin:0 8px 0 0; font-size:11px; color:#414141;}
+.cate-list button{float:right; height:24px; width: 24px;  color:#414141;}
 .check-wrap{margin:10px 0 15px; text-align:center;}
 .custom-check{position:relative; display:inline-block; margin:0 40px;}
 .custom-check input[type="checkbox"]{position:absolute; top:0; left:0; opacity:0;}
@@ -443,23 +444,27 @@ header
 .tbl-regi {padding:35px 0 0 30px; font-weight:normal; text-align:left; vertical-align:top;}
 tr.no-padding th,
 tr.no-padding td { padding:10px 0 !important; }
+tr.no-padding {height: 50px;}
+.tbl-regi tr.no-padding td {width: 40px; height: 25px;}
 /*.tbl-regi th span{display:block; font-size:14px;}
 .tbl-regi th .btn-guide img{margin:-5px 0 0;}
 .tbl-regi td{padding:30px 0;}*/
+.tbl-regi tr th{min-width: 220px; font-size: 18px;}
 .tbl-regi tr td{display: block; width: 700px; height: 80px; box-sizing: border-box; padding-top: 14px;}
 .tbl-regi .km-required {font-size: 18px;}
 .tbl-regi .no-border{width:100%; height:34px; box-sizing:border-box; padding:0 0 0 5px; font-size:16px; border:0; border-bottom:1px solid #9e9e9e; background:none;}
 .tbl-regi .custom-select{margin:0 24px 10px 0; font-size:16px; color:#b5b5b5;}
 .tbl-regi .custom-select input[type="text"]{width:205px; height:34px; box-sizing:border-box; padding:0 45px 0 24px; border:1px solid #b1b1b1; background:#fff url(../image/common/bg_selectBig.gif) no-repeat right center;}
 .tbl-regi .custom-select select{height:46px; font-size:16px;}
-.tbl-regi .cate-list li{min-width:77px; height:37px; padding:0 0 0 10px; font-size:20px; line-height:37px;}
-.tbl-regi .cate-list button{margin-top:5px; font-size:24px;}
+.tbl-regi .cate-list li{min-width:40px; height:24px; font-size:14px; line-height:24px;}
+.tbl-regi .cate-list button{font-size:16px;}
 .tbl-regi .checkbox{position:relative; float:left; font-size: 16px; margin:0 50px 0 0;}
 .tbl-regi textarea{width:100%; height:150px; box-sizing:border-box; padding:16px 20px; border:0; background:#fff;}
 .tbl-regi .regi-head {font-size: 26px; font-weight: normal; text-align: left; vertical-align: top;}
+.tbl-regi td.td-license{height: 200px;}
 
 
-.licenses-check .sbj{float:left; width:165px; margin:5px 0 0; font-size:22px;}
+.licenses-check .sbj{float:left; width:165px; margin:5px 0 0; font-size:16px;}
 .licenses-check li{overflow:hidden; margin:0 0 15px;}
 .tbl-regi .checkbox input[type="checkbox"]{position:absolute; top:0; left:0; opacity:0;}
 .tbl-regi .checkbox input[type="checkbox"]+label{float:left; height:28px; padding:5px 0 0 40px; background:url(../image/common/bg_checkboxBig.png) no-repeat 0 0;}
@@ -478,7 +483,7 @@ tr.no-padding td { padding:10px 0 !important; }
 .tbl-guide dl{padding:0 0 0 10px;}
 .tbl-guide dt{margin:0 0 5px; font-size:16px; font-weight:700; color:#414141;}
 .tbl-guide dd{font-size:13px;}
-.txt-guide{position:absolute; top:-36px; left:-5px; z-index:10; width:265px; padding:20px 25px; font-size:18px; color:#414141; background:#b5b5b5;}
+.txt-guide{position:absolute; top:-36px; left:-5px; z-index:10; width:265px; padding:20px 25px; font-size:16px; color:#414141; background:#b5b5b5;}
 .txt-guide:after{position:absolute; top:45px; left:-15px; width:0; height:0; content:''; border:5px solid transparent; border-right:10px solid #b5b5b5;}
 .member-add{position:relative; margin:0 0 10px; padding:0 40px 0 0;}
 .member-add button{position:absolute; top:7px; right:40px; width:80px; height:27px; box-sizing:border-box; padding:0 0 0 22px; font-size:15px; color:#fff; border-radius:7px; background:#b5b5b5 url(../image/sub/blt_search.png) no-repeat 14px 5px;}
@@ -489,10 +494,11 @@ tr.no-padding td { padding:10px 0 !important; }
 .file-url button{position:absolute; top:0; right:0; width:40px; height:48px; font-size:22px; color:#b1b1b1;}
 .file{position:relative; float:left; width:80px; height:27px; overflow:hidden; margin:10px 0 0;}
 .file input[type="file"]{position:absolute; top:0; left:0; width:80px; height:27px; opacity:0;}
-.file button{width:80px; height:27px; box-sizing:border-box; padding:0 0 0 22px; font-size:15px; color:#fff; border-radius:7px; background:#b5b5b5 url(../image/sub/blt_search.png) no-repeat 14px 5px;}
+.file button{cursor: pointer; width:80px; height:27px; box-sizing:border-box; padding:0 0 0 22px; font-size:15px; color:#fff; border-radius:7px; background:#b5b5b5 url(../image/sub/blt_search.png) no-repeat 14px 5px;}
 .file-list{clear:both; width:385px; height:110px; overflow:auto; padding:0 0 0 20px; font-size:18px; color:#b1b1b1; line-height:1.6; background:#fff;}
 .file-list > div{padding:3px 0;}
 .file-list button{margin:0 0 0 5px; font-size:20px; color:#b1b1b1;}
+.p-guide {font-size: 14px;}
 .regi-content .btn-complete{float: right; width: 120px; height: 40px; font-size: 20px; text-align: center; line-height: 2; border-radius: 4px; padding: 0;}
 
 /* project list */
