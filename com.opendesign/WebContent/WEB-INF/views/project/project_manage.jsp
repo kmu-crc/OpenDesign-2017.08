@@ -29,7 +29,10 @@
 	<!-- content -->
 	<div class="content regi-content">
 		<div class="inner">
-			<h2 class="title">프로젝트 관리</h2>
+			<div class="best-head">
+				<span class="mainChar">P</span>
+				<span>프로젝트 관리</span>
+			</div>
 			<form name="projectForm" id="projectForm" enctype="multipart/form-data" onsubmit="return false;" >
 				<input type="hidden" name="seq" id="projectSeq" />
 			<table class="tbl-regi">

@@ -23,7 +23,10 @@
 	<!-- content -->
 	<div class="content regi-content">
 		<div class="inner">
-			<h2 class="title">디자인 등록</h2>
+			<div class="best-head">
+				<span class="mainChar">D</span>
+				<span>디자인 등록</span>
+			</div>
 			<form name="productForm" id="productForm" enctype="multipart/form-data" onsubmit="return false;" >
 			<table class="tbl-regi">
 				<colgroup>
@@ -54,12 +57,12 @@
 								<option value="">전체</option>
 							</select>
 						</div>
-						<div class="select-area custom-select">
+						<!-- <div class="select-area custom-select">
 							<input type="text">
 							<select  name="cateDepth3">
 								<option value="">전체</option>
 							</select>
-						</div>
+						</div>  -->
 						<button id="btn_add_cate" type="button" class="btn-add"><img src="../resources/image/common/btn_addBig.png" alt="더하기"></button>
 						<ul id="ul_cate_list" class="cate-list"></ul>
 					</td>
@@ -154,7 +157,7 @@
 						</div>
 						<!-- //설명 -->
 					</th>
-					<td colspan="3">
+					<td class="td-license" colspan="3">
 						<ul class="licenses-check">
 							<li>
 								<span class="sbj">원저작자 미표시</span>
@@ -234,7 +237,7 @@
 							공유할 수 있도록 등록해주세요!</p>
 						</div>
 						<!-- //설명 -->
-						<span>(등록한 순서대로 업로드)</span>
+						<p class="p-guide">(등록한 순서대로 업로드)</p>
 					</th>
 					<td>
 						<div class="file-url">
@@ -248,6 +251,8 @@
 						<div class="file-list">
 						</div>
 					</td>
+				</tr>
+				<tr>
 					<th scope="row">오픈소스 등록
 						<!-- 설명 -->
 						<a href="javascript:void(0);" class="btn-guide"><img src="../resources/image/common/blt_guide.gif" alt="도움말"></a>
@@ -257,7 +262,7 @@
 							공유할 수 있도록 등록해주세요!</p>
 						</div>
 						<!-- //설명 -->
-						<span>(등록한 순서대로 업로드)</span>
+						<p class="p-guide">(등록한 순서대로 업로드)</p>
 					</th>
 					<td>
 						<div class="file-url">
@@ -281,7 +286,7 @@
 				</tr>
 			</table>
 			</form>
-			<button id="btn_register" type="button" class="btn-complete">등록완료</button>
+			<button id="btn_register" type="button" class="btn-complete btn-red">등록완료</button>
 		</div>
 	</div>
 	<!-- //content -->

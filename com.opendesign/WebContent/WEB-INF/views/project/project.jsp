@@ -62,7 +62,7 @@
 				}
 				%>
 				<a class="btn-red" href="javascript:goPage('/project/projectRegi.do', true);" class="btn-product">프로젝트 생성</a>
-				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');">도움말</button>
+				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal-project');">도움말</button>
 			</div>
 		</div>
 
@@ -579,6 +579,42 @@ function changeTabActiveUI(tabLiObjSel) {
 }
 </script>
 <!-- ################# ]]그룹 탭  ###################### -->
+
+
+<!-- 도움말 모달 -->
+
+	<div class="modal" id="help-modal-project">
+		<div class="bg"></div>
+		<div class="modal-inner helpModal">
+			<div class="modal-body">
+				<h3 align="center">함께하는 디자인</h3>
+				<div class="row">
+					<h4>1. 프로젝트</h4>
+					<p>상단 메뉴에서 프로젝트 버튼을 눌러 프로젝트 페이지로 넘어갑니다.</p>
+					<img src="/resources/image/help/pro1.png">
+					<p>프로젝트 생성 버튼을 클릭하여 새로운 프로젝트를 생성합니다.</p>
+					<img src="/resources/image/help/proprocess1.png">
+					<p>프로젝트 생성 페이지에서 양식에 맞추어 프로젝트 생성을 진행합니다.</p>
+					<p>멤버를 검색해 프로젝트 멤버로 초대할 수 있습니다.</p>
+					<p>프로젝트 서비스를 통해 여러 사람이 공동으로 디자인 프로젝트를 진행 할 수 있습니다.</p>
+					<img src="/resources/image/help/proprocess2.png">
+
+					<p>세부 프로젝트 주제를 추가하고, 각 주제에 맞는 작품을 추가하며 프로젝트를 진행해 나갑니다.</p>
+					<img src="/resources/image/help/pro4.png">
+					<p>또한 주제 추가를 프로젝트 성격에 맞추어 주차별, 기능별, 프로젝트에 참여한 사람의 이름명으로 하여 자유롭게 프로젝트를 진행할 수 있습니다.</p>
+					<img src="/resources/image/help/pro5.png">
+					<img src="/resources/image/help/pro6.png">
+					<img src="/resources/image/help/pro7.png">
+					<h4>2. 그룹</h4>
+					<p>프로젝트 그룹 기능을 이용하여 학교나 기업체 같은 조직에서 프로젝트 팀들을 편리하게 관리할 수 있습니다.</p>
+					<img src="/resources/image/help/grpro1.png">
+					<img src="/resources/image/help/grpro2.png">
+				</div>
+			</div>
+			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+		</div>
+	</div>
+	
 
 
 </body>

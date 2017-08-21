@@ -25,7 +25,10 @@
 	<!-- content -->
 	<div class="content regi-content">
 		<div class="inner">
-			<h2 class="title">프로젝트 생성</h2>
+			<div class="best-head">
+				<span class="mainChar">P</span>
+				<span>프로젝트 생성</span>
+			</div>
 			<form name="projectForm" id="projectForm" enctype="multipart/form-data" onsubmit="return false;" >
 			<table class="tbl-regi">
 				<colgroup>
@@ -69,12 +72,12 @@
 								<option value="">전체</option>
 							</select>
 						</div>
-						<div class="select-area custom-select">
+						<!-- <div class="select-area custom-select">
 							<input type="text">
 							<select id="cateDepth3" name="cateDepth3">
 								<option value="">전체</option>
 							</select>
-						</div>
+						</div>  -->
 						<button id="btn_add_cate" type="button" class="btn-add"><img src="../resources/image/common/btn_addBig.png" alt="더하기"></button>
 						<ul id="ul_cate_list" class="cate-list">
 						<%--
@@ -118,7 +121,7 @@
 				</tr>
 			</table>
 			</form>
-			<button id="btn_register" type="button" class="btn-complete">등록</button>
+			<button id="btn_register" type="button" class="btn-complete btn-red">등록</button>
 		</div>
 	</div>
 	<!-- //content -->
