@@ -87,12 +87,12 @@
 					<div class="item-info">
 
 						{{if !curUserLikedYN }}
-						<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
+						<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 						{{else}}
-						<span class="like"><img src="/resources/image/common/ico_like_active.png" alt="좋아요"> {{:likeCntF}}</span>
+						<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 						{{/if}}
 
-						<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+						<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:viewCntF}}</span>
 						<span class="update">{{:displayTime}}</span>
 					</div>
 				</a></li>

@@ -40,7 +40,7 @@
 							<%	} else { %>
 							<div class="last"><a href="/producer/openDesignRequestBoard.do?schMemberDiv=<%=schMemberDiv%>" class="btn-design btn-red">제작 의뢰</a></div>
 							<%	} 	%>
-				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal');">도움말</button>
+				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal-designer');">도움말</button>
 			</div>
 			<ul class="list-type2" id="designView">
 				<!--  template
@@ -121,13 +121,13 @@
 							<p class="designer">{{:uname}}</p>
 							<p class="cate"  >{{:cateNames}}</p>
 							<div class="item-info">
-								<span class="portfolio"><img src="/resources/image/common/ico_portfolio.png"> {{:workCntF}}</span>
+								<span class="portfolio"><i class="fa fa-list" aria-hidden="true"></i> {{:workCntF}}</span>
 								{{if !curUserLikedYN }}
-								<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
+								<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 								{{else}}
-								<span class="like"><img src="/resources/image/common/ico_like_active.png" alt="좋아요"> {{:likeCntF}}</span>
+								<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 								{{/if}}
-								<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+								<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:viewCntF}}</span>
 							</div>
 						</div>
 					</div>
@@ -267,5 +267,27 @@ function goPortfolioView(seq) {
 		});
 	}
 </script>
+
+<!-- 도움말 모달 -->
+
+	<div class="modal" id="help-modal-designer">
+		<div class="bg"></div>
+		<div class="modal-inner helpModal">
+			<div class="modal-body">
+				<h3 align="center">쉬운 디자인</h3>
+				<div class="row">
+					<h4>1. 디자인의뢰</h4>
+					<p>디자이너 페이지에서 디자인 의뢰 버튼을 클릭합니다.</p>
+					<img src="/resources/image/help/designer1.png">
+					<p>디자인 의뢰 게시판 페이지에서 글 등록 버튼을 클릭합니다.</p>
+					<img src="/resources/image/help/designer2.png">
+					<p>디자인 의뢰 양식에 맞추어 자신이 원하는 디자인을 공개적으로 의뢰합니다.</p>
+					<img src="/resources/image/help/designer3..png">
+				</div>
+			</div>
+			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+		</div>
+	</div>
+	
 </body>
 </html>

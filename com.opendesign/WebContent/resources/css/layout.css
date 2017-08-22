@@ -283,10 +283,9 @@ header
 .list-type1 .label{position:absolute; top:0; left:0;}
 
 .list-type2{clear:both; margin:0 0 0 -19px;}
-.list-type2 > li{position:relative; float:left; width:305px; height:213px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 0 16px 19px; border:1px solid #d8d8d8; border-radius:6px; background:#fff;}
-.list-type2 > li a{display:block; width:282px; height:213px; padding:0 12px; color:#a4a4a4; transition:box-shadow .1s;}
-.list-type2 > li a:hover{box-shadow:inset 0 0 150px #d1d1d1;}
-.list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#0046c3; text-overflow:ellipsis; white-space:nowrap;}
+.list-type2 > li{position:relative; float:left; padding: 20px 15px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 0 16px 19px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#fff;}
+.list-type2 > li a{display:block; color:#a4a4a4; transition:box-shadow .1s;}
+.list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#343434; text-overflow:ellipsis; white-space:nowrap;}
 .list-type2 .cate{margin:0 0 8px; font-size:12px; color:#6a6a6a;}
 .list-type2 span{margin:0 24px 0 0; font-size:12px; color:#6a6a6a;}
 .list-type2 span img{margin:-3px 0 0 0;}
@@ -294,11 +293,11 @@ header
 .list-type2 .like img{width:10px;}
 .list-type2 .hit{margin:0;}
 .list-type2 .hit img{width:14px;}
-.profile-section{overflow:hidden; padding:17px 0; border-bottom:1px solid #a4a4a4;}
-.profile-section .picture{float:left; margin:0 20px 0 0;}
-.profile-section .picture img{width:89px; height:80px;}
-.profile-section .profile{float:left; width:170px;}
-.portfolio-section{clear:both; overflow:hidden; padding:15px 0;}
+.profile-section{overflow:hidden; padding-bottom: 20px; border-bottom:1px solid #a4a4a4;}
+.profile-section .picture{width: 280px;}
+.profile-section .picture img{width:100%; height:auto;}
+.profile-section .profile{width:280px; padding-top: 15px;}
+.portfolio-section{clear:both; overflow:hidden; padding:15px 0 0;}
 .portfolio-section li{float:left; margin:0 7px 0 0;}
 .portfolio-section li:last-child{margin:0;}
 .portfolio-section li img{width:89px; height:66px;}
