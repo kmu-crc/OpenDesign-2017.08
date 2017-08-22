@@ -133,6 +133,7 @@
 			ON P.owner_seq = PM.seq
 		<include refid="where_project_list" />
 		ORDER BY P.update_time DESC
+	
 		LIMIT #{page_count}, #{limit_count}
 	</select>
 	

@@ -45,12 +45,12 @@
 							<option value="">전체</option>
 						</select>
 					</div>
-					<div class="select-area custom-select">
+					<!-- <div class="select-area custom-select">
 						<input type="text">
 						<select name="cateDepth3" >
 							<option value=""></option>
 						</select>
-					</div> 
+					</div>  -->
 					<!-- <button type="button" class="btn-add"><img src="/resources/image/common/btn_add.png" alt="더하기"></button> -->
 					<ul class="cate-list">
 						<!-- <li>의상 <button type="button" >X</button> <input type="hidden" name="memberCateCode" value=""></li> -->

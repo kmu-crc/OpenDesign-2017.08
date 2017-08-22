@@ -17,10 +17,6 @@
 		background: none;
 	}
 	
-	.menuSelected {
-		
-	}
-	
 	.menuSelected a {
 		font-weight: bold;
 	}
@@ -47,8 +43,6 @@
 	.mainNavCate {
 		border:none;
 	} 
-	
-	
 
 	.header{
 		background-color: #fff;
@@ -63,7 +57,7 @@
 	}
 	
 	.list-content {
-		padding-top: 220px;
+		padding-top: 180px;
 	}
 	
 	.sub-content {

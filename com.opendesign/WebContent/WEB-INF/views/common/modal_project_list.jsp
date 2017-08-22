@@ -1040,24 +1040,24 @@ function projEditFormValidRuleInit(){
 				</div>
 				<div class="file">
 					<input type="file" accept="image/x-png, image/jpeg" name="fileUriFileThumb" id="fileUriFileThumb" >
-					<button type="button">검색</button>
+					<button type="button" class="btn-red">검색</button>
 				</div>			
 	
 				<!--디자인 파일-->
-				<div class="file-url" style="width:500px;">
+				<div class="file-url file-url-second" style="width:500px;">
 					<input type="text" readonly placeholder="모든 파일 업로드 가능 (최대 10MB)">
 					<!-- button type="btn-del" onclick="newUpFormFileClear();">x</button-->
 				</div>
 				<div class="file">
 					<input type="file" name="fileUriFile" id="fileUriFile" />
-					<button type="button">검색</button>
+					<button type="button" class="btn-red">검색</button>
 				</div>
 				<input type="text" name="title" maxlength="20" placeholder="제목 입력 (최대 20자)">
 				<textarea name="contents"  maxlength="50" placeholder="디자인 설명 (최대 50자)"></textarea>
 				<button type="button" class="btn-regi" onclick="newUpFormSubmit();">등록</button>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 </script>
@@ -1236,7 +1236,7 @@ function newUpFormValidRuleInit(){
 				<button type="button" class="btn-add" onclick="newTopicFormSubmit();">추가</button>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 
@@ -1254,7 +1254,7 @@ function newUpFormValidRuleInit(){
 				<button type="button" class="btn-add" onclick="modifyTopicFormSubmit();">수정</button>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 

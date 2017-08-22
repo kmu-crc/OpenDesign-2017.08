@@ -785,7 +785,7 @@ function goProductView(seq) {
 					</li>
 					<li><span class="sbj">총 좋아요 수</span> 총 <%=cntLikeF%>개</li>
 					<%-- <li><span class="sbj">메시지</span> <%=cntTalk%>건</li> --%>
-					<li><span class="sbj">마이 포인트</span> <%=myPointF%> pt</li>
+					<%-- <li><span class="sbj">마이 포인트</span> <%=myPointF%> pt</li> --%>
 				</ul>
 				<div class="project" >
 					<h3>나의 프로젝트</h3>
@@ -812,7 +812,10 @@ function goProductView(seq) {
 			</div>
 
 			<div class="portfolio product-list">
-				<h3>최근 등록한 디자인</h3>
+				<div class="best-head">
+					<span class="mainChar">D</span>
+					<span>최근 등록한 디자인</span>
+				</div>
 				<div class="slide portfolio-slide">
 					<ul class="list-type1 swiper-wrapper" id="workArea">
 					</ul>
@@ -823,7 +826,10 @@ function goProductView(seq) {
 				</div>
 			</div>
 			<div class="favorite product-list">
-				<h3>관심 디자인</h3>
+				<div class="best-head">
+					<span class="mainChar">D</span>
+					<span>관심 디자인</span>
+				</div>
 				<div class="slide favorite-slide">
 					<ul class="list-type1 swiper-wrapper" id="likeArea">						
 					</ul>

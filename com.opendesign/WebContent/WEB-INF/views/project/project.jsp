@@ -121,26 +121,26 @@
 </form>
 <script id="tmpl-listView" type="text/x-jsrender">
 	<li><a href="javascript:goProject({{:seq}});" >
+        <div class="img-area">
+        	<img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 5);" alt="" >
+		</div>
     	<dl>
         	<dt>{{:projectName}}</dt>
 			<dd>{{:ownerName}}님의 프로젝트</dd>
 		</dl>
-        <div class="img-area">
-        	<img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 5);" alt="" >
-		</div>
         <div class="project-info">
         	<div class="member">
-            	<i>{{:projectMemberCntF}}</i>
-                <span>멤버</span>
+            	<i class="fa fa-user" aria-hidden="true"></i>
+                <span>멤버 : {{:projectMemberCntF}}</span>
 			</div>
-            <!--div class="bbs">
-            	<i>{{:projectWorkCntF}}</i>
-                <span>게시글</span>
-			</div-->
-            <div class="file-num">
-            	<i>{{:projectWorkFileCntF}}</i>
-                <span>파일</span>
+            <div class="bbs">
+            	<i class="fa fa-window-restore" aria-hidden="true"></i>
+                <span>게시글 : {{:projectWorkCntF}}</span>
 			</div>
+            <!--<div class="file-num">
+            	<i></i>
+                <span>파일 : {{:projectWorkFileCntF}}</span>
+			</div>-->
 		</div>
 	</a></li>
 </script>

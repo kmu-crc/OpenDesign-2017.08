@@ -340,8 +340,9 @@ function swipeInit() {
 			<%=projectVO.getProjectName()%></h2>
 			<div class="btn-area">
 				<%if( isProjNotComplete && projectVO.getIsProjectMember() ) { %>
-				<a href="javascript:goSubjectAddView();" class="btn-modal">새 주제 추가</a>
+				<a href="javascript:goSubjectAddView();" class="btn-modal btn-red project-add-btn">새 주제 추가</a>
 				<%} %>
+				<button type="button" class="project-like-btn btn-red" onclick="prodViewWorkLike(this);">좋아요</button>
 			</div>
 
 			<div class="topic-container">

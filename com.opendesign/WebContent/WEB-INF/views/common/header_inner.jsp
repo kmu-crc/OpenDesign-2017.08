@@ -15,6 +15,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 	height: 42px;
 	text-indent: 5px;
 	font-style: italic;
+	font-size: 14px;
 }
 
 .searchBtnWrap{
