@@ -272,24 +272,13 @@
 	</script>
 	
     <% if(schSort != null){ %>
+    <script> $(".sorting > .btn-red").removeClass("active");</script>
 		<% if (schSort == ""){ %>
-		<script>
-                $("#psort1").addClass("active");
-    			$("#psort2").removeClass("active");
-                $("#psort3").removeClass("active");
-		</script>
+		<script> $("#psort1").addClass("active");</script>
 		<%} else if(schSort.equals("LIKE")){%>
-		<script>
-                $("#psort1").removeClass("active");
-                $("#psort2").addClass("active");
-                $("#psort3").removeClass("active");
-		</script>
+		<script> $("#psort2").addClass("active");</script>
 		<%} else if(schSort.equals("MEMBER")){%>
-		<script>
-                $("#psort1").removeClass("active");
-                $("#psort2").removeClass("active");
-                $("#psort3").addClass("active");
-		</script>
+		<script> $("#psort3").addClass("active");</script>
 		<%}%>
 	<%}%>
 	
