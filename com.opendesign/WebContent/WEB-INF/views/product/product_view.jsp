@@ -225,22 +225,134 @@ $(function() {
 	<div class="detail-content">
 		<div class="inner">
 			<h2 class="title"><%=itemVO.getTitle()%></h2>
-			<div class="product-wrap">
-				<div class="img-area" >
-					<p class="cate" ><%=itemVO.getCateNames()%></p>
-					<div class="btn-set" style="margin-bottom:20px;">
-					<%if( itemVO.getMemberSeq().equals(loginSeq) ){ %>
-						<a href="/product/productModify.do?seq=<%=itemVO.getSeq() %>" class="btn-edit">수정</a>
-						<a href="javascript:deleteProduct('<%=itemVO.getSeq() %>');" class="btn-del">삭제</a>
-					<%} %>
+			<div class="product-section">
+				<div class="product-wrap">
+					<div class="img-area" >
+						<p class="cate" ><%=itemVO.getCateNames()%></p>
+						<div class="btn-set" style="margin-bottom:20px;">
+						<%if( itemVO.getMemberSeq().equals(loginSeq) ){ %>
+							<a href="/product/productModify.do?seq=<%=itemVO.getSeq() %>" class="btn-edit">수정</a>
+							<a href="javascript:deleteProduct('<%=itemVO.getSeq() %>');" class="btn-del">삭제</a>
+						<%} %>
+						</div>
+						<img src="<%=itemVO.getThumbUriL()%>"  alt="대표 이미지">
+					</div>			
+	
+					<div class="img-detail">
+						<!-- <img src="/resources/image/sub/img_detail1.jpg"> -->
+						<%
+							if(!CmnUtil.isEmpty(itemVO.getImageList())) {
+								for(DesignPreviewImageVO image : itemVO.getImageList()) {
+									if( ControllerUtil.isImageFile(request, image.getFileUriL(), 
+											FileUploadDomain.PRODUCT)) {
+						%>
+						<img src="<%=image.getFileUriL()%>" alt="<%=image.getFilename()%>"> 
+						<%
+									} else {
+						%>
+						<div style="margin:auto;border-top: 1px solid #CACACA; padding-top:10px;padding-bottom:10px;width:85%;">
+						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
+						&nbsp;<a href="<%=image.getFileUri()%>"> <%=image.getFilename() %> </a>
+						</div>
+						<%
+									}
+								}
+							}
+						%>
 					</div>
-					<img src="<%=itemVO.getThumbUriL()%>"  alt="대표 이미지">
+	
+					<div class="tag-area">
+					<%
+						if(!CmnUtil.isEmpty(itemVO.getTagsArray())) {
+					%>	
+					<span><img src="/resources/image/sub/ico_tag.png" alt="태그"></span>
+					<%
+						}
+					%>
+					
+						<ul>
+							<!-- <li>의상디자인</li> -->
+							<%
+								if(!CmnUtil.isEmpty(itemVO.getTagsArray())) {
+									for(String tagItem : itemVO.getTagsArray()) {
+							%>
+							<li><%=tagItem%></li>
+							<%
+									}
+								}
+							%>
+						</ul>
+					</div>
+					
+					<!-- 디자인설명 -->
+					<div class="opensource">
+						<h3>디자인 설명</h3>
+						<p class="design_contents">
+						<%=itemVO.getContents().replaceAll("\n", "<br/>")%>
+						</p>
+						
+						<p id="contents_more_btn">
+							<a href="javascript:showContents();"> 더보기 
+							<img src="/resources//image/sub/bg_arrowDown.png"  />
+							</a>
+						</p>
+					</div>
+	
+					<div class="opensource">
+						<h3>오픈소스<span>(작업에 사용된 오픈소스는 자유롭게 변경 및 공유 가능)</span></h3>
+						<ul>
+							<!-- <li>Font_style.jpg <span>(580KB)</span></li> -->
+							<%
+								if(!CmnUtil.isEmpty(itemVO.getFileList())) {
+									for(DesignWorkFileVO fItem : itemVO.getFileList()) {
+							%>
+							<li style="cursor:pointer" onclick="fileDownload('<%=fItem.getFileUri()%>', '<%=fItem.getFilename()%>');"><%=fItem.getFilename()%> <span>(<%=fItem.getFileSize()%>KB)</span></li>
+							<%
+									}
+								}
+							%>
+						</ul>
+					</div>
 				</div>
-				<div class="info-section">
+				
+				<div class="product-reply">
+					<h3>댓글쓰기</h3>
+					<form name="projDetailAddCmmtForm">
+						<input type="hidden" name="itemSeq" value="<%=itemVO.getSeq()%>" /> <!-- itemSeq -->
+						<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.DESIGN_CMMT%>" /> <!-- 댓글 구분 -->
+						<fieldset>
+							<legend>댓글 쓰기</legend>
+							<p id="allCnt" class="number">전체 댓글(0)</p>
+							<textarea  name="contents" maxlength="500" placeholder="댓글 입력(최대 500자)"></textarea>
+							<button type="button" class="btn-cmmt btn-red" >등록</button>
+						</fieldset>
+					</form>
+					<ul class="reply-list" id="pdrListView" data-seq="<%=itemVO.getSeq()%>">
+					
+						<%-- template
+						<li>
+							<div>
+								<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
+								<dl>
+									<dt>송준기 <span class="date">오후 11:34분</span></dt>
+									<dd><a href="#">[Elenfhant logo A #1]</a> 이 로고 붉은 컬러로 변경해서 올려도 좋을 것 같아요</dd>
+								</dl>
+							</div>
+						</li>
+						--%>
+						
+					</ul>
+					<button onclick="pdrLoadMore();" id="pdrLoadMore" type="button" class="btn-more">댓글 더 보기</button>
+				</div>
+			</div>
+			
+			<div class="info-section">
 					<div class="designer-area">
 							<div class="profile-pic"><img src="<%=designerVO.getImageUrl()%>" onerror="setDefaultImg(this, 1);" alt=""></div>
-							<a href="javascript:goPortfolioView('<%=designerVO.getSeq()%>');" class="name"><%=designerVO.getUname()%></a>
-							<a href="javascript:goShowMsgView('<%=designerVO.getSeq()%>');" class="btn-msg"><img src="/resources/image/sub/btn_msg.png" alt="메세지 보내기"></a>
+							<div class="profile-name">
+								<a href="javascript:goPortfolioView('<%=designerVO.getSeq()%>');" class="name"><%=designerVO.getUname()%></a>
+								<a href="javascript:goShowMsgView('<%=designerVO.getSeq()%>');" class="btn-msg"><i class="fa fa-comment" aria-hidden="true"></i></a>
+							</div>
 					</div>
 					<div class="info"> 
 						<%-- <dl class="summary" >
@@ -252,163 +364,54 @@ $(function() {
 							<dt>포인트</dt>
 							<dd><%=itemVO.getDisplayPoint()%>pt</dd>
 						</dl> --%>
-						<dl class="date">
-							<dt>게시일</dt>
-							<dd><%=itemVO.getDisplayRegTime()%></dd>
-						</dl>
 						<dl class="like">
-							<dt>좋아요</dt>
-							<dd><%=itemVO.getLikeCntF()%></dd>
+							<dt>좋아요 : <%=itemVO.getLikeCntF()%></dt>
+							<div class="btn-set">
+								<% if( !itemVO.isCurUserLikedYN() ) { %>
+								<button type="button" class="btn-like" onclick="prodViewWorkLike(this);" >좋아요</button>
+								<% } else { %>
+								<button type="button" class="btn-like active" onclick="prodViewWorkLike(this);" >좋아요</button>
+								<% } %>
+								<%-- 2017.07.28
+								<%if( itemVO.isLogonUserPurchased() ) { %>
+								<a style="background-color:black;" class="btn-purchase">구매완료</a>
+								<%} else { %>
+									<% if(itemVO.isUserProduct()  && !"0".equals(itemVO.getDisplayPoint())) { %>
+									<a href="javascript:goProductPurchaseView('<%=itemVO.getSeq()%>');" class="btn-purchase">구매하기</a>								
+									<%} else {%>
+									<a class="btn-purchase" style="background: #cecbcb;">구매하기</a>
+									<%} %>
+								<%} %> --%>
+							</div>
 						</dl>
 						<dl class="hit">
-							<dt>조회수</dt>
-							<dd><%=itemVO.getViewCntF()%></dd>
+							<dt>조회수 : <%=itemVO.getViewCntF()%> </dt>
+						</dl>
+						<dl class="date">
+							<dt>게시일 : <%=itemVO.getDisplayRegTime()%></dt>
+						</dl>
+						<dl class="child">
+							<dt>파생된 디자인 : </dt>
+							<dd></dd>
 						</dl>
 						<dl class="licenses">
-							<dt>라이센스</dt>
+							<dt>CCL : </dt>
 							<dd>
 								<% if("1".equals(itemVO.getLicenseBY())) { %><span><img src="/resources/image/sub/licenses_by.png" alt="BY"></span><% } %>
 								<% if("1".equals(itemVO.getLicenseNC())) { %><span><img src="/resources/image/sub/licenses_nc.png" alt="NC"></span><% } %>
 								<% if("1".equals(itemVO.getLicenseND())) { %><span><img src="/resources/image/sub/licenses_nd.png" alt="ND"></span><% } %>
 							</dd>
 						</dl>
-						<div class="btn-set">
-							<% if( !itemVO.isCurUserLikedYN() ) { %>
-							<button type="button" class="btn-like" onclick="prodViewWorkLike(this);" >좋아요</button>
-							<% } else { %>
-							<button type="button" class="btn-like active" onclick="prodViewWorkLike(this);" >좋아요</button>
-							<% } %>
-							<%-- 2017.07.28
-							<%if( itemVO.isLogonUserPurchased() ) { %>
-							<a style="background-color:black;" class="btn-purchase">구매완료</a>
-							<%} else { %>
-								<% if(itemVO.isUserProduct()  && !"0".equals(itemVO.getDisplayPoint())) { %>
-								<a href="javascript:goProductPurchaseView('<%=itemVO.getSeq()%>');" class="btn-purchase">구매하기</a>								
-								<%} else {%>
-								<a class="btn-purchase" style="background: #cecbcb;">구매하기</a>
-								<%} %>
-							<%} %> --%>
+					</div>
+					<div class="producer-info">
+						<div class="share">
+							<button type="button" onclick="facebookLink();">
+								<i class="fa fa-facebook" aria-hidden="true"></i>
+								페이스북으로 공유하기
+							</button>
 						</div>
 					</div>
 				</div>
-
-				<div class="producer-info">
-					<%-- <div class="designer-area">
-						<div class="profile-pic"><img src="<%=designerVO.getImageUrl()%>" alt=""></div>
-						<a href="javascript:goPortfolioView('<%=designerVO.getSeq()%>');" class="name"><%=designerVO.getUname()%></a>
-						<a href="javascript:goShowMsgView('<%=designerVO.getSeq()%>');" class="btn-msg"><img src="/resources/image/sub/btn_msg.png" alt="메세지 보내기"></a>
-					</div> --%>
-					<div class="share">
-						<button type="button" onclick="facebookLink();"><img src="/resources/image/sub/btn_facebook.gif" alt="페이스북"></button>
-						<button type="button" onclick="copy2Clipboard();"><img src="/resources/image/sub/btn_link.gif" alt="링크"></button>
-					</div>
-				</div>
-
-				<div class="img-detail">
-					<!-- <img src="/resources/image/sub/img_detail1.jpg"> -->
-					<%
-						if(!CmnUtil.isEmpty(itemVO.getImageList())) {
-							for(DesignPreviewImageVO image : itemVO.getImageList()) {
-								if( ControllerUtil.isImageFile(request, image.getFileUriL(), 
-										FileUploadDomain.PRODUCT)) {
-					%>
-					<img src="<%=image.getFileUriL()%>" alt="<%=image.getFilename()%>"> 
-					<%
-								} else {
-					%>
-					<div style="margin:auto;border-top: 1px solid #CACACA; padding-top:10px;padding-bottom:10px;width:85%;">
-					<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
-					&nbsp;<a href="<%=image.getFileUri()%>"> <%=image.getFilename() %> </a>
-					</div>
-					<%
-								}
-							}
-						}
-					%>
-				</div>
-
-				<div class="tag-area">
-				<%
-					if(!CmnUtil.isEmpty(itemVO.getTagsArray())) {
-				%>	
-				<span><img src="/resources/image/sub/ico_tag.png" alt="태그"></span>
-				<%
-					}
-				%>
-				
-					<ul>
-						<!-- <li>의상디자인</li> -->
-						<%
-							if(!CmnUtil.isEmpty(itemVO.getTagsArray())) {
-								for(String tagItem : itemVO.getTagsArray()) {
-						%>
-						<li><%=tagItem%></li>
-						<%
-								}
-							}
-						%>
-					</ul>
-				</div>
-				
-				<!-- 디자인설명 -->
-				<div class="opensource">
-					<h3>디자인 설명</h3>
-					<p class="design_contents">
-					<%=itemVO.getContents().replaceAll("\n", "<br/>")%>
-					</p>
-					
-					<p id="contents_more_btn">
-						<a href="javascript:showContents();"> 더보기 
-						<img src="/resources//image/sub/bg_arrowDown.png"  />
-						</a>
-					</p>
-				</div>
-
-				<div class="opensource">
-					<h3>오픈소스<span>(작업에 사용된 오픈소스는 자유롭게 변경 및 공유 가능)</span></h3>
-					<ul>
-						<!-- <li>Font_style.jpg <span>(580KB)</span></li> -->
-						<%
-							if(!CmnUtil.isEmpty(itemVO.getFileList())) {
-								for(DesignWorkFileVO fItem : itemVO.getFileList()) {
-						%>
-						<li style="cursor:pointer" onclick="fileDownload('<%=fItem.getFileUri()%>', '<%=fItem.getFilename()%>');"><%=fItem.getFilename()%> <span>(<%=fItem.getFileSize()%>KB)</span></li>
-						<%
-								}
-							}
-						%>
-					</ul>
-				</div>
-			</div>
-
-			<div class="product-reply">
-				<form name="projDetailAddCmmtForm">
-					<input type="hidden" name="itemSeq" value="<%=itemVO.getSeq()%>" /> <!-- itemSeq -->
-					<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.DESIGN_CMMT%>" /> <!-- 댓글 구분 -->
-					<fieldset>
-						<legend>댓글 쓰기</legend>
-						<p id="allCnt" class="number">전체 댓글(0)</p>
-						<textarea  name="contents" maxlength="500" placeholder="댓글 입력(최대 500자)"></textarea>
-						<button type="button" class="btn-cmmt" >등록</button>
-					</fieldset>
-				</form>
-				<ul class="reply-list" id="pdrListView" data-seq="<%=itemVO.getSeq()%>">
-				
-					<%-- template
-					<li>
-						<div>
-							<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
-							<dl>
-								<dt>송준기 <span class="date">오후 11:34분</span></dt>
-								<dd><a href="#">[Elenfhant logo A #1]</a> 이 로고 붉은 컬러로 변경해서 올려도 좋을 것 같아요</dd>
-							</dl>
-						</div>
-					</li>
-					--%>
-					
-				</ul>
-				<button onclick="pdrLoadMore();" id="pdrLoadMore" type="button" class="btn-more">댓글 더 보기</button>
-			</div>
 		</div>
 	</div>
 	<!-- //content -->
@@ -428,7 +431,7 @@ $(function() {
 							<div class="pic"><img src="{{:memberImageUrl}}" onerror="setDefaultImg(this, 1);" alt="{{:memberName}}"></div> 
 							<dl style="width:90%;">
 								{{if curUserAuthYN}}
-									<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.DESIGN_CMMT%>','{{:seq}}');" ></button>
+									<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.DESIGN_CMMT%>','{{:seq}}');" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 								{{/if}}
 								{{if memberType == "00" }}
 								<dt>{{:memberName}} <span class="date">{{:displayTime}}</span></dt>
@@ -441,6 +444,7 @@ $(function() {
 									{{:contents}}
 								</dd>
 							</dl>
+							<div class="clear"></div>
 						</div>
 					</li>
 </script>

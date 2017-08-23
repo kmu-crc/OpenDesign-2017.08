@@ -120,6 +120,7 @@ function checkEnter(){
 	if (event.keyCode == 13){
 		$('#btn_modal_login').click();
 	}
+	
 }
 
 

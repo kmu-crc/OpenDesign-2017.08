@@ -69,7 +69,7 @@
 	}
 	
 	.detail-content {
-		padding-top: 220px;
+		padding-top: 180px;
 	}
 	
 	.request-content {
