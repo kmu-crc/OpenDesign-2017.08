@@ -73,9 +73,9 @@
 				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
 			<div class="sorting">
-				<a href="javascript:sortProduct();" class="first btn-red active">최신순</a>
-				<a href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
-				<a href="javascript:sortProduct('LIKE');" class="btn-red">멤버순</a>
+				<a id="psort1" href="javascript:sortProduct();" class="first btn-red active">최신순</a>
+				<a id="psort2" href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
+				<a id="psort3" href="javascript:sortProduct('MEMBER');" class="btn-red">멤버순</a>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -109,6 +109,8 @@
 	String schCPage = request.getParameter("schCPage");
 	//내 그룹
 	String schMyGroup = request.getParameter("schMyGroup");
+	//sorting
+	String schSort = request.getParameter("schSort");
 %>
 <form id="listParamForm" name="listParamForm" method="GET" action="" >
 	<input type="hidden" name="schCate" value="<%=StringUtil.nullToBlank(schCate) %>" />
@@ -117,6 +119,7 @@
 	<input type="hidden" name="schMyGroup" value="<%=StringUtil.nullToBlank(schMyGroup) %>" />
 	<input type="hidden" name="schProgressStatus" value="" />
 	<input type="hidden" name="projectSeq" value="" />
+	<input type="hidden" name="schSort" value="<%=schSort %>" />
 	<input type="hidden" name="schLimitCount" value="16" />
 </form>
 <script id="tmpl-listView" type="text/x-jsrender">
@@ -136,6 +139,10 @@
             <div class="bbs">
             	<i class="fa fa-window-restore" aria-hidden="true"></i>
                 <span>게시글 : {{:projectWorkCntF}}</span>
+			</div>
+			<div class="member">
+            	<i class="fa fa-heart" aria-hidden="true"></i>
+                <span>좋아요 : {{:likeCnt}}</span>
 			</div>
             <!--<div class="file-num">
             	<i></i>
@@ -251,6 +258,42 @@
 		from.find('input[name="schCPage"]').val('<%=StringUtil.emptyToString(schCPage, "1") %>');
 	}
 	
+	// sorting
+    function sortProduct(sortType){
+        sortType = sortType || '';
+
+        var from = listForm;
+        from.find('input[name="seq"]').val('');
+        from.find('input[name="schPPage"]').val('<%=StringUtil.emptyToString(schPPage, "1") %>');
+        from.find('input[name="schSort"]').val(sortType);
+        from.submit();
+    }
+	
+	</script>
+	
+    <% if(schSort != null){ %>
+		<% if (schSort == ""){ %>
+		<script>
+                $("#psort1").addClass("active");
+    			$("#psort2").removeClass("active");
+                $("#psort3").removeClass("active");
+		</script>
+		<%} else if(schSort.equals("LIKE")){%>
+		<script>
+                $("#psort1").removeClass("active");
+                $("#psort2").addClass("active");
+                $("#psort3").removeClass("active");
+		</script>
+		<%} else if(schSort.equals("MEMBER")){%>
+		<script>
+                $("#psort1").removeClass("active");
+                $("#psort2").removeClass("active");
+                $("#psort3").addClass("active");
+		</script>
+		<%}%>
+	<%}%>
+	
+<script>
 	/**
 	 * 프로젝트 상세 화면 이동
 	 */

@@ -155,6 +155,7 @@ public class ProjectController {
 		String schPPage = request.getParameter("schPPage");
 		String schCPage = request.getParameter("schCPage");
 		String progressStatus = request.getParameter("schProgressStatus");
+		String schSort = request.getParameter("schSort");
 
 		int pageIndex = getPageIndex(schPPage, schCPage, progressStatus);
 		if (pageIndex <= 0) {
@@ -175,6 +176,7 @@ public class ProjectController {
 		paramMap.put("page_count", (pageIndex - 1) * limitCount);
 		paramMap.put("limit_count", limitCount);
 		paramMap.put("schCate", request.getParameter("schCate"));
+		paramMap.put("schSort", schSort);
 
 		
 		UserVO user = CmnUtil.getLoginUser(request);
@@ -212,7 +214,8 @@ public class ProjectController {
 	 */
 	@RequestMapping(value = "/selectGroupList.ajax")
 	public ModelAndView selectGroupList(@ModelAttribute SearchVO searchVO, HttpServletRequest request) {
-		
+		String schSort = request.getParameter("sortType");
+		searchVO.setSchOrderType(schSort);
 		Map<String, Object> resultMap = service.selectGroupList(searchVO);
 
 		return new JsonModelAndView(resultMap);

@@ -124,16 +124,25 @@
 			,(
 		        SELECT
 					COUNT(*)
-				FROM t_project_work_like A
+				FROM t_project_like A
 				WHERE
-		        	A.project_work_seq = P.seq
+		        	A.project_seq = P.seq
 		    ) AS likeCnt
 		FROM v_project P
 		JOIN t_member PM
 			ON P.owner_seq = PM.seq
 		<include refid="where_project_list" />
-		ORDER BY P.update_time DESC
-	
+		<choose>
+			<when test=' schSort != null and schSort.equals("LIKE") ' >
+				ORDER BY likeCnt DESC, P.update_time DESC
+			</when>
+			<when test=' schSort != null and schSort.equals("MEMBER") ' >
+				ORDER BY projectMemberCnt DESC, P.update_time DESC
+			</when>
+			<otherwise>
+				ORDER BY P.update_time DESC
+			</otherwise>
+		</choose> 
 		LIMIT #{page_count}, #{limit_count}
 	</select>
 	
