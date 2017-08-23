@@ -69,7 +69,7 @@
 </script>
 
 <script id="tmpl-workTemplate" type="text/x-jsrender">
-	<li class="swiper-slide" style="width:222.25px; margin-right:23px;"><a href="javascript:goProductView({{:wseq}});">
+	<li class="swiper-slide"><a href="javascript:goProductView({{:wseq}});">
 	 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
 	 <div class="product-info">
 		<p class="product-title">{{:wtitle}}</p>
@@ -85,7 +85,7 @@
 </script>
 
 <script id="tmpl-likeTemplate" type="text/x-jsrender">
-	<li class="swiper-slide" style="width:222.25px; margin-right:23px;"><a href="javascript:goProductView({{:wseq}});">
+	<li class="swiper-slide"><a href="javascript:goProductView({{:wseq}});">
 	 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
 	 <div class="product-info">
 		<p class="product-title">{{:wtitle}}</p>
@@ -840,7 +840,7 @@ function goProductView(seq) {
 				</div>
 			</div>
 
-			<div class="purchase">
+			<!-- <div class="purchase">
 				<h3>최근 구입한 디자인</h3>
 				<div class="purchase-list">
 					<ul class="list-type3  swiper-wrapper" id="orderArea">							 
@@ -850,7 +850,7 @@ function goProductView(seq) {
 						<button type="button" class="btn-nextSlide purchase-next"><img src="/resources/image/mypage/btn_nextSlide.png" alt="다음"></button>
 					</div>
 				</div>				
-			</div>
+			</div>  
 
 			<div class="my-point">
 				<h3>마이 포인트</h3>
@@ -871,9 +871,9 @@ function goProductView(seq) {
 									<button type="button" id="1year" class="last">1년</button>
 								</div>
 								<div class="period">
-									<input type="text" id="fromDate" readonly name="fromDate" style="text-indent: 5px;"><!--<button type="button"><img src="/resources/image/mypage/ico_calendar.png" alt="달력보기"></button>  -->
+									<input type="text" id="fromDate" readonly name="fromDate" style="text-indent: 5px;"><!--<button type="button"><img src="/resources/image/mypage/ico_calendar.png" alt="달력보기"></button>  
 									<span>~</span>
-									<input type="text" id="toDate" readonly name="toDate" style="text-indent: 5px;"><!--<button type="button"><img src="/resources/image/mypage/ico_calendar.png" alt="달력보기"></button> -->
+									<input type="text" id="toDate" readonly name="toDate" style="text-indent: 5px;"><button type="button"><img src="/resources/image/mypage/ico_calendar.png" alt="달력보기"></button>
 									<button type="button" class="btn-check" onClick="goSearch();">조회하기</button>
 								</div>
 							</dd>
@@ -904,15 +904,15 @@ function goProductView(seq) {
 						</tbody>
 					</table>
 					<p class="none" style="padding-bottom:20px;" id="noPointDiv"> 검색 결과가 없습니다. </p>
-					<!--<div class="paging">
+					<div class="paging">
 						<a href="#"><img src="/resources/image/common/btn_prev.gif" alt="이전"></a>
 						<a href="#">1</a>
 						<a href="#">2</a>
 						<a href="#">3</a>
 						<a href="#"><img src="/resources/image/common/btn_next.gif" alt="다음"></a>
-					</div>-->
+					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<!-- //content -->
