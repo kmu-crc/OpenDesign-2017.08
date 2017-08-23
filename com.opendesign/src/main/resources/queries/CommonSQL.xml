@@ -120,6 +120,52 @@
 		</choose>
 	</select>
 	
+	<!-- *************************프로젝트 좋아요 ********************************** -->
+	<!-- 좋아요 프로젝트 -->
+	<insert id="likeProject" parameterType="com.opendesign.vo.ProjectLikeVO"> 
+		<![CDATA[
+		INSERT INTO t_project_like
+			( 	member_seq,
+				project_seq,
+				register_time
+			)
+		    VALUES
+		        (
+		           #{memberSeq}
+		            ,#{projectSeq}
+		            ,#{registerTime}
+		        )
+		]]>
+	</insert>
+	
+	<!-- *************************프로젝트 좋아요 취소 ********************************** -->
+	<!-- 좋아요 취소 작품 -->
+	<delete id="unlikeProject" parameterType="com.opendesign.vo.ProjectLikeVO" > 
+		<![CDATA[
+		DELETE
+		    FROM
+		]]>
+		<![CDATA[		
+			t_project_like WHERE 
+		            member_seq = #{memberSeq}
+		            AND project_seq = #{projectSeq}
+		]]>		            
+	</delete>
+	
+	<!-- 프로젝트 like 했는지 조회 -->
+	<select id="selectProjectLiked" parameterType="hashmap" resultType="int" > 
+		<![CDATA[
+		SELECT
+		        COUNT(*)
+		    FROM
+		    	t_project_like
+		    WHERE
+			    member_seq = #{memberSeq}
+		        AND
+		        project_seq = #{projectSeq}		    
+		]]>
+	</select>
+	
 	<!-- ************************* ]]좋아요 ********************************** -->
 	
 	<!-- ************************* 댓글 ********************************** -->

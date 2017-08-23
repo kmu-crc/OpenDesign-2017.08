@@ -854,6 +854,13 @@ public class ProjectController {
 
 		ProjectVO projectVO = service.selectProjectInfo(paramMap);
 		request.setAttribute("projectVO", projectVO);
+		
+		// 좋아요 정보 : like 했는지 조회
+		if (user != null) {
+			resultMap.put("liked", commonService.selectProjectLiked(user.getSeq(), projectSeq));
+		}else{
+			resultMap.put("liked", false);			
+		}
 
 		return new ModelAndView("/project/project_list", resultMap);
 	}

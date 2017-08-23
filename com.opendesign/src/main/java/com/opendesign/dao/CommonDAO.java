@@ -24,6 +24,7 @@ import com.opendesign.vo.ItemLikeVO;
 import com.opendesign.vo.ItemViewCntVO;
 import com.opendesign.vo.ItemWorkVO;
 import com.opendesign.vo.MessageVO;
+import com.opendesign.vo.ProjectLikeVO;
 import com.opendesign.vo.SearchVO;
 
 @Repository
@@ -46,6 +47,7 @@ public class CommonDAO {
 
 	// ========================= 좋아요 =========================================
 
+	// -------------------------------------------- 작품 ----------------------------------------------------------//
 	/**
 	 * 좋아요
 	 * 
@@ -102,6 +104,45 @@ public class CommonDAO {
 		return sqlSession.selectOne(SQL_NS + "selectItemWorkLiked", param);
 	}
 
+	// -------------------------------------------------- 프로젝트 -------------------------------------------------------- //
+		/**
+		 * 프로젝트 좋아요
+		 * 
+		 * @param param
+		 */
+		public void likeProject(ProjectLikeVO param) {
+			sqlSession.insert(SQL_NS + "likeProject", param);
+		}
+		/**
+		 * 프로젝트 좋아요 취소
+		 * 
+		 * @param seq
+		 * @param seq2
+		 * @return
+		 */
+		public void unlikeProject(String memberSeq, String projectSeq) {
+			ProjectLikeVO param = new ProjectLikeVO();
+			param.setMemberSeq(memberSeq);
+			param.setProjectSeq(projectSeq);
+
+			sqlSession.insert(SQL_NS + "unlikeProject", param);
+		}
+		/**
+		 * 프로젝트 좋아요 여부 조회
+		 * 
+		 * @param memberSeq
+		 * @param subjectSeq
+		 * @return
+		 */
+		public int selectProjectLiked(String memberSeq, String itemSeq) {
+			HashMap<String, Object> param = new HashMap<String, Object>();
+			param.put("memberSeq", memberSeq);
+			param.put("projectSeq", itemSeq);
+
+			return sqlSession.selectOne(SQL_NS + "selectProjectLiked", param);
+		}	
+		
+		
 	// ========================= ]]좋아요 =========================================
 
 	// ========================= 댓글 =========================================

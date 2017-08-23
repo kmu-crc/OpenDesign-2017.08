@@ -33,6 +33,7 @@ import com.opendesign.vo.ItemLikeVO;
 import com.opendesign.vo.ItemViewCntVO;
 import com.opendesign.vo.ItemWorkVO;
 import com.opendesign.vo.MessageVO;
+import com.opendesign.vo.ProjectLikeVO;
 import com.opendesign.vo.MessageVO.MessageMode;
 import com.opendesign.vo.SearchVO;
 import com.opendesign.vo.UserVO;
@@ -139,6 +140,7 @@ public class CommonService {
 
 	// ========================= 좋아요 =========================================
 
+	// --------------------------------- 작품 ---------------------------------------------------- //
 	/**
 	 * 작품 좋아요/취소 처리
 	 * 
@@ -213,6 +215,53 @@ public class CommonService {
 
 		return (cnt > 0) ? true : false;
 	}
+	
+	
+	// --------------------------------- 프로젝트 ---------------------------------------------------- //
+	/**
+	 * 프로젝트 좋아요/취소 처리
+	 * 
+	 * @param SubjectVO:
+	 *            subjectSeq
+	 * @param request
+	 * @return
+	 */
+	@Transactional
+	public Map<String, Object> likeProejct(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ProjectLikeVO projectVO = new ProjectLikeVO();
+
+		UserVO userVO = CmnUtil.getLoginUser(request);
+		String projectSeq = request.getParameter("projectSeq");
+		boolean isliked = this.selectProjectLiked(userVO.getSeq(), projectSeq);
+		if (!isliked) {
+			projectVO.setMemberSeq(userVO.getSeq());
+			projectVO.setProjectSeq(projectSeq);
+			CmnUtil.setCmnDate(projectVO);
+			dao.likeProject(projectVO);
+		} else {
+			// 이미 좋아요 했음 (취소 처리)
+			dao.unlikeProject(userVO.getSeq(), projectSeq);
+			LOGGER.info("already done like.");
+		}
+
+		resultMap.put(RstConst.P_NAME, RstConst.V_SUCESS);
+		return resultMap;
+	}
+	
+	/**
+	 * 프로젝트 좋아요 여부 조회
+	 * 
+	 * @param memberSeq
+	 * @param subjectSeq
+	 * @return
+	 */
+	public boolean selectProjectLiked(String memberSeq, String itemSeq) {
+
+		int cnt = dao.selectProjectLiked(memberSeq, itemSeq);
+
+		return (cnt > 0) ? true : false;
+	}	
 
 	// ========================= ]]좋아요 =========================================
 

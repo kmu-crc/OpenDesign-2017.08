@@ -12,6 +12,8 @@
 	// 완료된 프로젝트 flag:
 	boolean isProjNotComplete = !CmnConst.ProjectProgressStatus.COMPLETE.equals(projectVO.getProgressStatus());
 	System.out.println(">>> isProjNotComplete=" + isProjNotComplete);
+	// 좋아요 기능 flag
+	Boolean liked = (Boolean)request.getAttribute("liked");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -318,8 +320,42 @@ function swipeInit() {
 		$('.topic-container').find('button').hide();
 	}
 }
-
 </script>
+
+
+<script>
+/**
+ * 좋아요 기능
+ */
+var flag_prodViewWorkLike = false; 
+function prodViewWorkLike(thisObj) {
+    checkedLogin(function(invokeAfterLogin){
+    	var seq = <%=request.getParameter("projectSeq")%>
+        if(flag_prodViewWorkLike) {
+            return;
+        }
+        flag_prodViewWorkLike = true;
+
+        $.ajax({
+            url: '/common/likeProject.ajax',
+            type: 'post',
+            data: {"projectSeq":seq},
+            complete : function(_data){
+                flag_prodViewWorkLike = false;
+            },
+            error : function(_data) {
+                console.log(_data);
+                alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+            },
+            success : function(_data){
+                console.log(_data);
+                window.location.reload();
+            }
+        });
+    }); //end of checkedLogin   
+}
+</script>
+
 </head>
 <body>
 <div class="wrap">
@@ -342,7 +378,12 @@ function swipeInit() {
 				<%if( isProjNotComplete && projectVO.getIsProjectMember() ) { %>
 				<a href="javascript:goSubjectAddView();" class="btn-modal btn-red project-add-btn">새 주제 추가</a>
 				<%} %>
-				<button type="button" class="project-like-btn btn-red" onclick="prodViewWorkLike(this);">좋아요</button>
+				
+				<% if( !liked ) { %>
+					<button type="button" class="project-like-btn btn-red" onclick="prodViewWorkLike(this);">좋아요</button>
+					<% } else { %>
+					<button type="button" class="project-like-btn btn-red active" onclick="prodViewWorkLike(this);">좋아요</button>
+					<% } %>
 			</div>
 
 			<div class="topic-container">

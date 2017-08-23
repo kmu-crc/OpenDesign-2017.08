@@ -120,7 +120,7 @@ public class CommonController {
 	// ========================= 좋아요 =========================================
 
 	/**
-	 * "좋아요" 하기
+	 * "좋아요" 하기 (작품)
 	 * 
 	 * @param itemVO:
 	 *            itemType, itemSeq
@@ -131,6 +131,23 @@ public class CommonController {
 	public ModelAndView likeItemWork(@ModelAttribute ItemLikeVO itemVO, HttpServletRequest request) {
 
 		Map<String, Object> resultMap = service.likeItemWork(itemVO, request);
+
+		return new JsonModelAndView(resultMap);
+	}
+	
+	
+	/**
+	 * "좋아요" 하기 (프로젝트)
+	 * 
+	 * @param itemVO:
+	 *            itemType, itemSeq
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/likeProject.ajax")
+	public ModelAndView likeProjectSubject(HttpServletRequest request) {
+		
+		Map<String, Object> resultMap = service.likeProejct(request);
 
 		return new JsonModelAndView(resultMap);
 	}
