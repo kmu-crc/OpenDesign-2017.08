@@ -31,7 +31,10 @@
 	<!-- content -->
 	<div class="content regi-content">
 		<div class="inner">
-			<h2 class="title">디자인 수정</h2>
+			<div class="best-head">
+				<span class="mainChar">D</span>
+				<span>디자인 수정</span>
+			</div>
 			<form name="productForm" id="productForm" enctype="multipart/form-data" onsubmit="return false;" >
 				<input type="hidden" name="seq" value="<%=itemVO.getSeq() %>" />
 			<table class="tbl-regi">
@@ -60,12 +63,6 @@
 						<div class="select-area custom-select">
 							<input type="text">
 							<select name="cateDepth2">
-								<option value="">전체</option>
-							</select>
-						</div>
-						<div class="select-area custom-select">
-							<input type="text">
-							<select name="cateDepth3">
 								<option value="">전체</option>
 							</select>
 						</div>
@@ -172,7 +169,7 @@
 						</div>
 						<!-- //설명 -->
 					</th>
-					<td colspan="3">
+					<td colspan="3" class="td-license">
 						<ul class="licenses-check">
 							<li>
 								<span class="sbj">원저작자 미표시</span>
@@ -264,7 +261,7 @@
 							공유할 수 있도록 등록해주세요!</p>
 						</div>
 						<!-- //설명 -->
-						<span>(등록한 순서대로 업로드)</span>
+						<p class="p-guide">(등록한 순서대로 업로드)</p>
 					</th>
 					<td>
 						<div class="file-url">
@@ -286,6 +283,8 @@
 						%>
 						</div>
 					</td>
+				</tr>
+				<tr>
 					<th scope="row">오픈소스 등록
 						<!-- 설명 -->
 						<a href="javascript:void(0);" class="btn-guide"><img src="../resources/image/common/blt_guide.gif" alt="도움말"></a>
@@ -295,7 +294,7 @@
 							공유할 수 있도록 등록해주세요!</p>
 						</div>
 						<!-- //설명 -->
-						<span>(등록한 순서대로 업로드)</span>
+						<p class="p-guide">(등록한 순서대로 업로드)</p>
 					</th>
 					<td>
 						<div class="file-url">

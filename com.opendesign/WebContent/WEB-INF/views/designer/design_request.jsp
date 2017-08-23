@@ -57,7 +57,7 @@
 						</dd>
 					</dl>
 					<div class="info">
-						<span class="replay" style="width:80px;margin-right:50px;"><img src="/resources/image/sub/ico_reply.png" alt="댓글"> {{:cmmtCnt}}</span>
+						<span class="replay" style="width:80px;margin-right:55px;"><img src="/resources/image/sub/ico_reply.png" alt="댓글"> {{:cmmtCnt}}</span>
 						<span style="width:80px;margin-right:20px; display: inline-block;">{{:displayTime}}</span>
 						<span style="width:100px; display: inline-block;">{{:memberName}}</span>
 					</div>
@@ -282,7 +282,7 @@ function loadPageWithData(_data) {
 	<!-- content -->
 	<div class="request-content">
 		
-		<div class="inner" style="min-height: 500px;">
+		<div class="inner" style="min-height: 400px;">
 			<div id="searchCategory" class="select-wrap" >
 				<!-- 조회 form -->
 				<form id="searchForm" name="searchForm" method="post" >
@@ -313,6 +313,12 @@ function loadPageWithData(_data) {
 
 			<a href="javascript:goBoardAddView();" class="btn-write btn-red">새 글 쓰기</a>
 			<div style="clear: both;">
+				<div class="request-list-head">
+					<p class="request-title">제목</p>
+					<p class="request-hit">댓글수</p>
+					<p class="request-date">날짜</p>
+					<p class="request-writer">글쓴이</p>
+				</div>
 				<ul id="listViewId" class="request-list" >
 					
 					<%-- template
@@ -389,7 +395,10 @@ function loadPageWithData(_data) {
 											{{:contents}}
 										</span>
 										{{if curUserAuthYN}}
-											<button class="btn-cmmt-del" style="position:absolute;float:none;top:0;right:0;" onclick="projDetailDelCmmt('<%=ItemCmmtType.BOARD_CMMT%>','{{:seq}}');" ></button>
+											<button class="btn-cmmt-modify"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+											<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.BOARD_CMMT%>','{{:seq}}');" >
+												<i class="fa fa-times" aria-hidden="true"></i>
+											</button>
 										{{else}}
 											<div class="btn-cmmt-del" style="position:absolute;float:none;top:0;right:0;background:none;cursor:default;"></div>
 										{{/if}}
