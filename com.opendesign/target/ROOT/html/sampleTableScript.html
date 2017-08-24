@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>LONY</title>
+<link type="text/css" rel="stylesheet" href="../resources/css/default.css">
+<link type="text/css" rel="stylesheet" href="../resources/css/layout.css">
+<script type="text/javascript" src="../resources/js/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="../resources/js/front.js"></script>
+<script type="text/javascript" src="../resources/js/accordion.js"></script>
+<script type="text/javascript" src="../resources/js/wd-table.js"></script>
+
+<script>
+
+
+$(function(){
+	
+	// 행 (tr) 탬플릿
+	var template = 
+		"<tr>"
+		+ "<td>{type}</td>"
+		+ "<td class='tC'><a href='WSM01-01-02.html' >{name}</a></td>"
+		+ "<td class='tC'>{rtime}</td>"
+		+ "<td class='tC'>{utime}</td>"
+		+ "<td class='tR'>{amount}</td>"
+		+ "<td class='tC'>{disp}</td>"
+		+ "<td class='tC'>{sub.sell}</td>"		
+		+ "</tr>";
+	
+		
+	
+	//테이블 생성
+	var targetDivId = "wd-table-1"; //대상 테이블 ELEMENT ID
+	var table = new TableView(targetDivId, template);
+	// 로우 추가
+	table.addRow(  "1",  { "seq":"1", "type":"대부업 갈아타기", "name":"송중기", "rtime":"2016-05-31 00:00", "utime":"2016-05-31 00:00", "amount":"100,000 만원", "disp":"접수", "sub":{"sell":"판매종료"} }   );
+	table.addRow(  "2",  { "seq":"2", "type":"신용대출 ", "name":"송중기", "rtime":"2016-05-31 00:00", "utime":"2016-05-31 00:00", "amount":"100,000 만원", "disp":"접수", "sub":{"sell":"판매종료"} }   );
+	
+	// 특정행에 대한 커스터마이징
+	var customTemplate = 
+		"<tr>"
+		+ "<td style='background-color: red;'>{type}</td>"
+		+ "<td class='tC' ><a href='WSM01-01-02.html' >{name}</a></td>"
+		+ "<td class='tC' >{rtime}</td>"
+		+ "<td class='tC' >{utime}</td>"
+		+ "<td class='tR'>{amount}</td>"
+		+ "<td class='tC'>{disp}</td>"
+		+ "<td class='tC'>{sell}</td>"		
+		+ "</tr>";		
+	table.addRow(  "3",  { "seq":"3", "type":"신용대출 ", "name":"송중기", "rtime":"2016-05-31 00:00", "utime":"2016-05-31 00:00", "amount":"100,000 만원", "disp":"접수", "sell":"판매종료" }, customTemplate   );
+	
+	
+	var extendGetters = {
+			connect : function(jsonData){							
+				return jsonData.disp == '접수' ? 'cs1' : 'cs2';
+			},
+			statusClass : function(jsonData){							
+				return jsonData.sell == '판매종료' ? 'cs1' : 'cs2';
+			}
+	};
+	var dataList = [
+			{"seq":"4",  "type":"목록추가1", "name":"송중기", "rtime":"2016-05-31 00:00", "utime":"2016-05-31 00:00", "amount":"100,000 만원", "disp":"접수", "sub":{"sell":"판매종료"} },	                
+			{"seq":"5",  "type":"목록추가2", "name":"송중기", "rtime":"2016-05-31 00:00", "utime":"2016-05-31 00:00", "amount":"100,000 만원", "disp":"접수", "sub":{"sell":"판매종료"} },
+			{"seq":"6",  "type":"목록추가3", "name":"송중기", "rtime":"2016-05-31 00:00", "utime":"2016-05-31 00:00", "amount":"100,000 만원", "disp":"접수", "sub":{"sell":"판매종료"} },
+    ];
+	table.addRows( "seq" , dataList , null,  extendGetters);
+	
+	
+});
+</script>
+</head>
+
+<body>
+<div id="wrap">
+    <header>
+    	<div class="top-notice">
+        	<p>
+            	<span>공지사항</span> 
+            	<a href="#">[안내] 대출상품 서비스 메뉴얼가 업데이트 되었습니다.</a> <em>2016.05.22</em>
+            </p>
+        </div>
+        <div class="top-util">
+        	<ul>
+            	<li class="on"><a href="#">로니상담사님</a></li>
+                <li><a href="#">로그아웃</a></li>
+                <li><a href="#">고객센터</a></li>
+                <li>대표전화:1588-7777</li>
+            </ul>
+        </div>
+    </header>
+    <div id="content">
+    	<aside class="left">
+            <h1><img src="../resources/images/common/logo_websr.png" alt="LONY"></h1>
+            <ul class="left-menu">
+                <li><a href="WSC01-01-02.html">마이상담</a></li>
+                <li class="active"><a href="WSM01-01-01.html">상담현황</a></li>
+                <li><a href="WSM04-01-01.html">상담일정</a></li>
+                <li><a href="WSM05-01-01.html">상품관리</a></li>
+                <li><a href="WSM05-01-01.html">정산</a></li>
+                <li><a href="WSH01-01-01.html">고객센터</a>
+                	<ul>
+                        <li><a href="WSH01-01-01.html">공지사항</a></li>
+                        <li><a href="WSH04-01-01.html">자료실</a></li>
+                        <li><a href="WSH03-01-01.html">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        <section class="container">
+        	<h2>샘플1</h2>          
+            
+            <div class="result">
+            	<p>검색결과 <em>25</em>건이 검색되었습니다.</p>
+                <table id="wd-table-1">
+                	<colgroup>
+                    	<col width="" />
+                        <col width="84px" />
+                        <col width="" />
+                        <col width="" />
+                        <col width="" />
+                        <col width="78px" />
+                        <col width="84px" />
+                    </colgroup>
+                    <thead>
+                    	<tr>
+                        	<th>상품유형</th>
+                            <th>고객명</th>
+                            <th>상담신청일</th>
+                            <th>상태변경 일시</th>
+                            <th>대출신청 금액</th>
+                            <th>상태</th>
+                            <th>판매상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <!-- // 진행중 상담 없음
+                        <tr>
+                        	<td colspan="7" class="no-result">
+                            	<p>
+                                <img src="../resources/images/common/ico_alert.png" alt="alert"><br>
+                                진행중인 상담이 없습니다.</p>
+                                <p>상품을 등록하지 않으셨다면, <br>
+								우선 <a href="WSM05-01-03.html">상품등록</a>을 해주시기 바랍니다.</p>
+                            </td>
+                        </tr>
+                        -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div id="footer"> <!-- //2016.0616 footer 추가 -->
+        <ul>
+            <li><a href="WSF01-01-01.html">이용약관</a></li>
+            <li><a href="WSF03-01-01.html">개인정보취급방침</a></li>
+            <li><a href="WSF02-01-01.html">법적고지</a></li>
+            <li><a href="WSF04-01-01.html">제휴안내</a></li>
+            <li><a href="WSF05-01-01.html">회사소개</a></li>
+        </ul>
+        <p>위드로니는 결제정보의 중개서비스 또는 통시판매중개시스템의 제공자로서<br>통신판매의 당사자가 아니며 상품등과 관련한 의무와 책임은 각 판매자에게 있습니다.</p>
+        <span>사업자 등록번호: 225-82-67986</span>
+        <span>통신판매업신고번호: 제2016-서울-545호</span>
+        <span>대표이사: 이정환</span>
+        <span class="bg-none">사업자등록정보확인</span><br>
+        <span>주소: 서울특별시 마포구 고산길 4, 성이빌딩 6층</span>
+        <span>대표전화: 1588-7777</span>
+        <span>팩스: 02-789-36565</span>
+        <span class="bg-none">이메일:lonyrun@withlony.com</span>
+        <p>Copyright © with LONY Corp. All rights reserverd.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -48,7 +48,7 @@
 										<a href="javascript:delProjectSubject('{{:seq}}')" >삭제</a>
 										{{/if}}
 									</div>
-									<h3><span>주제</span> {{:subjectName}}</h3>
+									<h3>{{:subjectName}}</h3>
 									<input type="hidden" id="subjectTitle_{{:seq}}" value="{{:subjectName}}" /> 
 									<ul>
 									</ul>
@@ -67,11 +67,11 @@
 											<div class="item-info">
 												<span class="name">{{:memberName}}</span>
 												<div>
-													<span><img src="/resources/image/sub/blt_msg.png" alt="댓글"> {{:commentCntF}}</span>
+													<span><i class="fa fa-commenting" aria-hidden="true"></i> {{:commentCntF}}</span>
 													{{if !curUserLikedYN }}
-													<span class="hit"><img src="/resources/image/sub/blt_likeGray.png" alt="좋아요"> {{:likeCntF}}</span>
+													<span class="hit"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 													{{else}}
-													<span class="hit"><img src="/resources/image/sub/blt_likeGray_active.png" alt="좋아요"> {{:likeCntF}}</span>
+													<span class="hit"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 													{{/if}}
 												</div>
 											</div>

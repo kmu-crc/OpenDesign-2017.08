@@ -283,31 +283,32 @@
 						List<DesignPreviewImageVO> productList = itemVO.getImageList();
 						for(DesignPreviewImageVO aProduct : productList ){
 						%>
-							<div><%=aProduct.getFilename() %> <button type="button" name="removeProductSeq" value="<%=aProduct.getSeq() %>" >x</button></div>
+							<div><%=aProduct.getFilename() %> <button type="button" name="removeProductSeq" value="<%=aProduct.getSeq() %>" ><i class="fa fa-window-close" aria-hidden="true"></i></button></div>
 						<%	
 						}
 						%>
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<tr class="opensrc">
 					<th scope="row">오픈소스 등록
 						<!-- 설명 -->
 						<a href="javascript:void(0);" class="btn-guide"><img src="../resources/image/common/blt_guide.gif" alt="도움말"></a>
 						<div class="modal-guide">
 							<p class="txt-guide">작품 제작에 사용하거나<br>
 							참고한 오픈소스 컨텐츠를<br>
-							공유할 수 있도록 등록해주세요!</p>
+							공유할 수 있도록 등록해주세요!<br>
+							<span>* 등록한 오픈소스는 첨부파일 형태로 업로드됩니다</span></p>
 						</div>
 						<!-- //설명 -->
 						<p class="p-guide">(등록한 순서대로 업로드)</p>
 					</th>
 					<td>
 						<div class="file-url">
-							<input type="text" id="titleOpenSource" maxlength="20" placeholder="오픈소스 설명 입력(최대 20자)" />
+							<input type="text" id="titleOpenSource" maxlength="20" placeholder="오픈소스 설명(최대 20자)" />
 						</div>
 						<div class="file-url">
-							<input type="text" placeholder="모든 파일 업로드 가능 (최대 10MB)">
+							<input type="text" placeholder="해당 오픈소스 첨부 (최대 10MB)">
 							<!-- button type="btn-del">x</button -->
 						</div>
 						<div class="file multi">
@@ -319,7 +320,7 @@
 						List<DesignWorkFileVO> openSourceList = itemVO.getFileList();
 						for(DesignWorkFileVO aProduct : openSourceList ){
 						%>
-							<div><%=aProduct.getFilename() %> <button type="button" name="removeOpenSourceSeq" value="<%=aProduct.getSeq() %>" >x</button></div>
+							<div><%=aProduct.getFilename() %> <button type="button" name="removeOpenSourceSeq" value="<%=aProduct.getSeq() %>" ><i class="fa fa-window-close" aria-hidden="true"></i></button></div>
 						<%	
 						}
 						%>
@@ -495,7 +496,7 @@
 			}));
 		}
 		
-		var btn = $('<button type="button">x</button>');
+		var btn = $('<button type="button"><i class="fa fa-window-close" aria-hidden="true"></i></button>');
 		btn.on('click', function(){
 			$(this).parent().remove();
 		});

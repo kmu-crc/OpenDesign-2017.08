@@ -141,7 +141,7 @@
                 <span>게시글 : {{:projectWorkCntF}}</span>
 			</div>
 			<div class="member">
-            	<i class="fa fa-heart" aria-hidden="true"></i>
+            	<i class="fa fa-heart-o" aria-hidden="true" style="font-weight: bold"></i>
                 <span>좋아요 : {{:likeCnt}}</span>
 			</div>
             <!--<div class="file-num">

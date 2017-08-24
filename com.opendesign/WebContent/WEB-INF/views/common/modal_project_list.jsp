@@ -44,7 +44,7 @@
 				<button type="button" class="btn-add" onclick="projShareShare();">퍼가기</button>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times" aria-hidden="true"></i></button>
 	</div>
 </div>
 </script>
@@ -155,7 +155,7 @@ function projShareShare() {
 	<div class="modal-inner">
 		<h1 data-nm="title">{{:title}} <span>{{:displayTime}}</span></h1>
 		<p class="designer" data-nm="memberName">{{:workMemberNameList}}</p>
-		<div class="version">
+		<!-- <div class="version">
 			<strong data-nm="lastVer">ver {{:lastVer}}</strong>
 			<div class="custom-select">
 				<input type="text" value="이전 버전 보기" />
@@ -166,7 +166,7 @@ function projShareShare() {
 					{{/for}}
 				</select>
 			</div>
-		</div>
+		</div> -->
 		<div style="height:30px;">
 			<p class="opinion" data-nm="contents">{{:contents}}</p>
 			<div class="btn-set">
@@ -179,42 +179,44 @@ function projShareShare() {
 				<input type="hidden" name="curVerSeq" value="{{:lastVerSeq}}" /><!-- 보는 버전 -->
 			</div>
 		</div>
-		<div class="img">
-			<!-- 파일 -->
-			{{include projectWorkVerList[0] tmpl="#tmpl-project-detail-sub-file" /}}
+		<div class="project-detail-info-wrap">
+			<div class="img">
+				<!-- 파일 -->
+				{{include projectWorkVerList[0] tmpl="#tmpl-project-detail-sub-file" /}}
 
-			<div>
-				{{if !curUserLikedYN }}
-				<button type="button" class="btn-like" onclick="projDetailWorkLike(this);">좋아요</button>
-				{{else}}
-				<button type="button" class="btn-like active" onclick="projDetailWorkLike(this);" >좋아요</button>
-				{{/if}}
+				<div>
+					{{if !curUserLikedYN }}
+					<button type="button" class="btn-like" onclick="projDetailWorkLike(this);">좋아요</button>
+					{{else}}
+					<button type="button" class="btn-like active" onclick="projDetailWorkLike(this);" >좋아요</button>
+					{{/if}}
 
-				{{if <%= isProjNotComplete && isProjectMember %> }}
-				<button type="button" class="btn-share" onclick="goWorkShareView();" >퍼가기</button>
-				{{/if}}
+					{{if <%= isProjNotComplete && isProjectMember %> }}
+					<button type="button" class="btn-share" onclick="goWorkShareView();" >퍼가기</button>
+					{{/if}}
 
-				<button type="button" class="btn-down" onclick="projDetailImgDown();"  >다운로드</button>
+					<button type="button" class="btn-down" onclick="projDetailImgDown();"  >다운로드</button>
+				</div>
+			</div>
+			<div class="reply-area">
+				<form name="projDetailAddCmmtForm">
+					<input type="hidden" name="itemSeq" value="{{:seq}}" /> <!-- itemSeq -->
+					<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.PROJECT_CMMT%>" /> <!-- 댓글 구분 -->
+					<fieldset>
+						<legend >댓글</legend>
+						<textarea name="contents" maxlength="50" placeholder="댓글 입력(최대 50자)"></textarea>
+						<button type="button" class="btn-cmmt btn-red" onclick="projDetailAddCmmt();">등록</button>
+					</fieldset>
+				</form>
+
+				<ul class="reply-list" id="pdrListView" data-seq="{{:seq}}" >
+				
+				</ul>
+				<a href="javascript:void(0);" onclick="pdrLoadMore();" id="pdrLoadMore" class="btn-more">댓글 더 보기</a>
 			</div>
 		</div>
-		<div class="reply-area">
-			<form name="projDetailAddCmmtForm">
-				<input type="hidden" name="itemSeq" value="{{:seq}}" /> <!-- itemSeq -->
-				<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.PROJECT_CMMT%>" /> <!-- 댓글 구분 -->
-				<fieldset>
-					<legend >댓글</legend>
-					<textarea name="contents" maxlength="50" placeholder="댓글 입력(최대 50자)"></textarea>
-					<button type="button" class="btn-cmmt" onclick="projDetailAddCmmt();">등록</button>
-				</fieldset>
-			</form>
 
-			<ul class="reply-list" id="pdrListView" data-seq="{{:seq}}" >
-				
-			</ul>
-			<a href="javascript:void(0);" onclick="pdrLoadMore();" id="pdrLoadMore" class="btn-more">댓글 더 보기</a>
-		</div>
-
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 </script>

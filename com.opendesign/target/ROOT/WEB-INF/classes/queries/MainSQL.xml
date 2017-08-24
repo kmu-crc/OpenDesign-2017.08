@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MainSQL">
+
+	<!-- ************************* 프로젝트 ********************************** -->
+	<sql id="sql_where_selectProjectPagingList">
+		    WHERE ( 
+				T.public_yn = 'Y'
+				<if test=' schMemberSeq != null ' >
+				OR T.seq IN (
+					SELECT
+						project_seq
+					FROM t_project_member
+					WHERE member_seq = #{schMemberSeq}
+			
+				)
+				OR T.owner_seq = #{schMemberSeq}
+				</if>
+			)
+	</sql>
+	
+	<sql id="sql_selectProjectPagingList">
+		<![CDATA[
+			SELECT
+			        'P' AS itemType
+			        ,T.seq
+			        ,T.project_name AS title
+			        ,T.file_url AS thumbUri
+			        ,T.owner_seq AS memberSeq
+			        ,U.uname AS memberName
+			        ,T.register_time 
+			        ,T.update_time 
+			        ,(
+						SELECT
+							COUNT(*)
+						    FROM
+							t_project_work_like A
+							    JOIN v_project_work B
+								ON B.seq = A.project_work_seq
+							    JOIN t_project_subject C
+								ON C.seq = B.project_subject_seq
+							    JOIN v_project D
+								ON D.seq = C.project_seq
+						    WHERE
+							D.seq = T.seq
+			        ) AS likeCnt
+			        ,'' AS viewCnt
+			        ,(
+			            SELECT
+			                    COUNT(*)
+			                FROM
+			                    t_project_member
+			                WHERE
+			                    project_seq = T.seq
+			        ) AS projectMemberCnt
+			    FROM
+			        v_project T
+			            JOIN t_member U
+			                ON T.owner_seq = U.seq
+		]]>
+	</sql>
+	
+	<!-- 메인 목록 데이터: project -->
+	<select id="selectProjectPagingList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.MainItemVO" > 
+		<include refid="sql_selectProjectPagingList" />
+		<include refid="sql_where_selectProjectPagingList" />
+		
+		<![CDATA[
+		ORDER BY likeCnt DESC, T.update_time DESC
+		LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	
+	<!-- 메인 목록 데이터: project 총개수 -->
+	<select id="selectProjectAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" > 
+		<![CDATA[
+			SELECT COUNT(*) FROM (
+		]]>
+		
+		<include refid="sql_selectProjectPagingList" />
+		<include refid="sql_where_selectProjectPagingList" />
+		
+		<![CDATA[
+			) T
+		]]>
+	</select>
+	
+	<!-- ************************* ]]프로젝트 ********************************** -->
+	
+	<!-- ************************* 작품 ********************************** -->
+	<sql id="sql_where_selectWorkPagingList">
+		   
+	</sql>
+	
+	<sql id="sql_selectWorkPagingList">
+		<![CDATA[
+			SELECT
+			        'W' AS itemType
+			        ,T.seq
+			        ,T.title AS title
+			        ,T.thumb_uri AS thumbUri
+			        ,T.member_seq AS memberSeq
+			        ,U.uname AS memberName
+			        ,T.register_time 
+			        ,T.update_time 
+			        ,(
+						SELECT
+							COUNT(*) FROM
+								t_design_work_like A
+						    WHERE
+								A.design_work_seq = T.seq
+			        ) AS likeCnt
+			        ,T.view_cnt AS viewCnt
+			        ,'' AS projectMemberCnt
+			    FROM
+			        v_design_work T
+			            JOIN t_member U
+			                ON T.member_seq = U.seq
+		]]>
+	</sql>
+	
+	<!-- 메인 목록 데이터: work -->
+	<select id="selectWorkPagingList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.MainItemVO" > 
+		<include refid="sql_selectWorkPagingList" />
+		<include refid="sql_where_selectWorkPagingList" />
+		
+		<![CDATA[
+		ORDER BY likeCnt DESC, T.update_time DESC
+		LIMIT #{pgPageCount}, #{pgLimitCount}
+		]]>
+	</select>
+	
+	
+	<!-- 메인 목록 데이터: work 총개수 -->
+	<select id="selectWorkAllCount" parameterType="com.opendesign.vo.SearchVO" resultType="int" > 
+		<![CDATA[
+			SELECT COUNT(*) FROM (
+		]]>
+		
+		<include refid="sql_selectWorkPagingList" />
+		<include refid="sql_where_selectWorkPagingList" />
+		
+		<![CDATA[
+			) T
+		]]>
+	</select>
+	
+	<!-- ************************* ]]작품 ********************************** -->
+	
+	<!--  카테고리 -->
+	<select id="selectMainCategoryList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.CategoryVO" > 
+		<![CDATA[
+			SELECT
+			        U.category_code
+			        ,U.category_name
+			    FROM
+		]]>
+		
+		<choose>
+			<when test=" schItemType == 'P'.toString() ">
+				t_project_category T
+			</when>
+			<when test=" schItemType == 'W'.toString() ">
+				t_design_work_category T
+			</when>
+		</choose>
+		
+		<![CDATA[
+			            JOIN t_category U
+			                ON T.category_code = U.category_code
+			    WHERE
+		]]>
+		
+		<choose>
+			<when test=" schItemType == 'P'.toString() ">
+				T.project_seq = #{schSeq}
+			</when>
+			<when test=" schItemType == 'W'.toString() ">
+				T.design_work_seq = #{schSeq}
+			</when>
+		</choose>
+			
+		<![CDATA[
+				ORDER BY U.category_code
+		]]>
+	</select>
+	
+	
+	
+	
+	<!-- 제작자/디자이너 활동내역(좋아요, 커멘트, 조회수)통계 업데이트 -->
+	<update id="updateMemberActivities" >
+		/*** updateMemberActivities ***/
+		INSERT INTO t_stat_activities (
+			stat_month
+			, target_seq
+			, target_type
+			, update_time
+		) 
+		SELECT 
+			T.stat_month
+			,T.target_seq
+			,T.target_type
+			,T.update_time
+		FROM 
+		(
+			SELECT
+				DATE_FORMAT(now(), '%Y%m') AS stat_month
+				,T.seq AS target_seq
+				,'1' AS target_type
+	               ,(
+		            SELECT
+	                    IFNULL(
+	                        SUM(A.view_cnt)
+	                        ,0
+	                    )
+	                FROM
+	                    v_design_work A
+	                WHERE
+	                    A.member_seq = T.seq
+	                AND del_flag = 'N'
+		        ) AS view_cnt
+		        ,(
+		            SELECT
+	                    COUNT(*)
+	                FROM
+	                    v_design_work A
+	                        JOIN t_design_work_like B
+	                            ON A.seq = B.design_work_seq
+	                WHERE
+	                    A.member_seq = T.seq
+	                AND del_flag = 'N'
+		        ) AS like_cnt
+		        
+		        ,(
+		            SELECT
+	                    COUNT(*)
+	                FROM
+	                    v_design_work A
+	                        JOIN t_design_work_comment B
+	                            ON A.seq = B.design_work_seq
+	                WHERE
+	                    A.member_seq = T.seq
+	                AND del_flag = 'N'
+		        ) AS cmmt_cnt
+		    	, DATE_FORMAT(now(), '%Y%m%d%H%i%s') AS update_time
+		    FROM
+		        t_member T
+			WHERE member_type != '00'
+		) T 
+		ORDER BY T.like_cnt DESC LIMIT 32
+    	ON DUPLICATE KEY UPDATE 
+        update_time = T.update_time
+	
+	</update>
+	
+	<!-- 작품 활동내역(좋아요, 커멘트, 조회수)통계 업데이트 -->
+	<update id="updateWorkActivities">
+		/*** updateWorkActivities ***/
+		INSERT INTO t_stat_activities (
+			stat_month
+			, target_seq
+			, target_type
+			, update_time
+		) 
+		SELECT 
+			T.stat_month
+			,T.target_seq
+			,T.target_type
+			,T.update_time
+		FROM
+		(
+		 	SELECT
+		 		DATE_FORMAT(now(), '%Y%m') AS stat_month
+				,T.seq AS target_seq
+				,'2' AS target_type
+	            ,T.view_cnt
+		        ,(
+		            SELECT
+	                    COUNT(*)
+	                FROM
+	                    t_design_work_like A
+	                WHERE
+	                    A.design_work_seq = T.seq
+		        ) AS like_cnt
+	               ,(
+		            SELECT
+	                    COUNT(*)
+	                FROM
+	                    t_design_work_comment A
+	                WHERE
+	                    A.design_work_seq = T.seq
+		        ) AS cmmt_cnt
+		    	, DATE_FORMAT(now(), '%Y%m%d%H%i%s') AS update_time
+		    FROM
+		        v_design_work T
+		    WHERE del_flag = 'N'
+		) T
+		ORDER BY T.like_cnt DESC LIMIT 40
+		ON DUPLICATE KEY UPDATE 
+        update_time = T.update_time
+	</update>
+	
+	
+	
+</mapper>

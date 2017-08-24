@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- Enables the Spring MVC @Service,@Repository,@Component programming model -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.opendesign" use-default-filters="false" > 
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
+	</context:component-scan>
+	
+	<!-- task,scheduler -->
+	<task:annotation-driven />
+	
+	<!-- transaction -->
+	<tx:annotation-driven transaction-manager="transactionManager"   />
+    
+	
+    <!-- ApplicationContextProvider -->
+<!-- 	<bean id="applicationContextProvder" class="com.opendesign.common.spring.ApplicationContextProvider"/> -->
+    
+	
+<!-- Property Files -->
+	<bean id="systemProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="location" value="classpath:/system.properties"/>
+	</bean>
+	
+
+    <!-- -->
+    <bean id="dataSourceSpied" class="org.apache.ibatis.datasource.pooled.PooledDataSource" >
+        <property name="driver" value="${db.driver}"></property>
+        <property name="url" value="${db.url}"></property>
+        <property name="username" value="${db.username}"></property>
+        <property name="password" value="${db.password}"></property>
+        
+        <property name="poolMaximumActiveConnections" value="20"/>
+        <property name="poolMaximumIdleConnections" value="20"/>
+        <property name="poolMaximumCheckoutTime" value="20000"/>
+        <property name="poolPingEnabled" value="true"/>
+        <property name="poolPingQuery" value="select 1"/>
+        <property name="poolPingConnectionsNotUsedFor" value="43200"/>
+        <property name="poolTimeToWait" value="30000"/>
+    </bean>
+     
+    
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpied" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+        <!-- mybatis mapper auto load -->
+        <property name="mapperLocations" value="classpath:/queries/**/*.xml" />
+    </bean>
+    
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+		<property name="maxUploadSize" value="30720000" /> <!-- 30MB -->
+	</bean>
+
+	<!-- Mail Setting -->
+	<bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+		<property name="host" value="${smtp.host}" />
+		<property name="port" value="${smtp.port}" />
+		<property name="username" value="${smtp.username}" />
+		<property name="password" value="${smtp.password}" />
+		<property name="javaMailProperties">
+		<props>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	
+	<!--  Local Message  -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" >
+	    
+	    <property name="defaultEncoding" value="UTF-8" />
+	    
+	    <property name="basenames" >
+	        <list>
+	            <value>/WEB-INF/classes/message/message</value>
+	            <!-- message.properties 파일이 있는 경로를 넣어준다.(locale에 따라 자동으로 _ko, _en 파일을로드한 -->
+	        </list>
+	    </property>
+	    
+	    <!--'fallbackToSystemLocale' property가 true인 경우, locale에 해당하는 file이 없을경우 system locale을 사용-->
+	    <property name="fallbackToSystemLocale" value="false" />    
+	    
+	    <!-- 5초마다 업데이트 된 properties 파일을 새로 로드함-->
+	    <property name="cacheSeconds" value="5" />
+	    
+	</bean>
+	 
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >
+	    <property name="defaultLocale" value="ko" />
+	</bean>
+    
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+	
+		<property name="resourceLoaderPath">
+			<value>classpath:velocity/</value>
+		</property>
+		
+        <property name="velocityProperties">
+            <props>
+            	<prop key="input.encoding">utf-8</prop>
+            	<prop key="output.encoding">utf-8</prop>
+            	<prop key="file.resource.loader.cache">false</prop>
+            </props>
+        </property>
+        
+    </bean>
+    
+    
+    <!-- ========================= WEBSOCKET DEFINITION ========================= -->
+    <!--
+        http://docs.spring.io/spring/docs/current/spring-framework-reference/html/websocket.html
+        https://github.com/dilbertside/sandbox/tree/master/extjs-websocket
+    -->
+    
+    <bean id="websocketHandler" class="com.opendesign.websocket.SocketHandler" scope="singleton"/>
+    
+    <bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+        <property name="maxTextMessageBufferSize" value="8192"/>
+        <property name="maxBinaryMessageBufferSize" value="8192"/>
+        <property name="asyncSendTimeout" value="5000"/> <!-- 5s 보내는시간 -->
+        <property name="maxSessionIdleTimeout" value="600000"/> <!-- 10분 휴면시간 --> 
+    </bean>
+    <!-- ========================= ]]WEBSOCKET DEFINITION ========================= -->
+    
+	
+</beans>

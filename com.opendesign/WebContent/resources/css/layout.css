@@ -486,22 +486,29 @@ tr.no-padding {height: 50px;}
 .tbl-guide dl{padding:0 0 0 10px;}
 .tbl-guide dt{margin:0 0 5px; font-size:16px; font-weight:700; color:#414141;}
 .tbl-guide dd{font-size:13px;}
-.txt-guide{position:absolute; top:-36px; left:-5px; z-index:10; width:265px; padding:20px 25px; font-size:16px; color:#414141; background:#b5b5b5;}
-.txt-guide:after{position:absolute; top:45px; left:-15px; width:0; height:0; content:''; border:5px solid transparent; border-right:10px solid #b5b5b5;}
+.txt-guide{position:absolute; top:-36px; left:-100px; z-index:10; width:265px; padding:20px 25px; font-size:14px; color:#414141; background:#e9e9e9; border-radius: 4px;}
+.txt-guide > span {font-size: 12px; color: #f00;}
+.txt-guide:after{position:absolute; top:45px; left:-15px; width:0; height:0; content:''; border:5px solid transparent; border-right:10px solid #e9e9e9;}
 .member-add{position:relative; margin:0 0 10px; padding:0 40px 0 0;}
 .member-add button{position:absolute; top:7px; right:40px; width:80px; height:27px; box-sizing:border-box; padding:0 0 0 22px; font-size:15px; color:#fff; border-radius:7px; background:#b5b5b5 url(../image/sub/blt_search.png) no-repeat 14px 5px;}
 .tbl-regi .my-select{float:none; margin:0;}
 .tbl-regi .my-select input[type="text"]{width:100%;}
-.file-url{position:relative; float:left; width:307px; height:48px; margin:0 18px 16px 0; background:#fff;}
+.file-url{position:relative; float:left; width:307px; height:48px; background:#fff;}
 .file-url input[type="text"]{width:100%; height:48px; box-sizing:border-box; padding:0 45px 0 10px; border:0;}
 .file-url button{position:absolute; top:0; right:0; width:40px; height:48px; font-size:22px; color:#b1b1b1;}
 .file{position:relative; float:left; width:80px; height:27px; overflow:hidden; margin:10px 0 0;}
 .file input[type="file"]{position:absolute; top:0; left:0; width:80px; height:27px; opacity:0;}
 .file button{cursor: pointer; width:80px; height:27px; box-sizing:border-box; padding:0 0 0 22px; font-size:15px; color:#fff; border-radius:7px; background:#b5b5b5 url(../image/sub/blt_search.png) no-repeat 14px 5px;}
-.file-list{clear:both; width:385px; height:110px; overflow:auto; padding:0 0 0 20px; font-size:18px; color:#b1b1b1; line-height:1.6; background:#fff;}
-.file-list > div{padding:3px 0;}
+.file-list{clear:left; width:600px; font-size:14px; color:#b1b1b1; background:#fff; margin-bottom: 10px;}
+.file-list > div{margin-right: 25px; float: left;}
 .file-list button{margin:0 0 0 5px; font-size:20px; color:#b1b1b1;}
+.file-list button .fa {font-size: 16px;}
 .p-guide {font-size: 14px;}
+.opensrc {height: 120px;}
+.tbl-regi tr.opensrc td {padding-top: 20px;}
+.opensrc .file-url:first-child {width: 250px; margin-right: 0;}
+.opensrc .file-url:first-child input {padding-right: 25px;}
+.opensrc .file-ulr:last-child {width: 290px;}
 .regi-content .btn-complete{float: right; width: 120px; height: 40px; font-size: 20px; text-align: center; line-height: 2; border-radius: 4px; padding: 0; background-color: #f00; color: #fff;}
 
 /* project list */
@@ -522,7 +529,7 @@ tr.no-padding {height: 50px;}
 .topic.swiper-slide{float:left; width:208px; margin:0 0 0 7px;}
 .topic .btn-set{float:right; margin:0 0 15px;}
 .topic .btn-set a{display:inline-block; height:20px; padding:0 8px; font-size:12px; font-weight:bold; color:#fff; line-height:20px; border-radius:3px; background:#f00;}
-.topic h3{clear:both; padding:6px 0; color:#6c6c6c; border-bottom: 2px solid #f00;}
+.topic h3{clear:both; padding:6px 15px; color:#6c6c6c; border-bottom: 2px solid #f00;}
 .topic h3 span{margin:0 20px 0 0; padding:0 17px 0 20px; border-right:1px solid #6c6c6c;}
 .topic ul{padding:20px 8px 20px; background:#f1f1f1;}
 .topic li{overflow:hidden; margin:0 0 9px; font-size:12px; border-radius:5px; background:#fff;}
@@ -534,9 +541,10 @@ tr.no-padding {height: 50px;}
 .topic .item-info div{float:right; font-size:11px;}
 .topic .item-info div span{margin:0 0 0 15px;}
 .topic .item-info span:last-child img{margin:-2px 0 0;}
+.topic ul .item-info span .fa {font-size: 14px;}
 
-#project-detail .modal-inner{top:10%; width:956px; margin:0 0 50px -478px; padding:20px 45px; color:#686868; background:#fff;}
-#project-detail h1{padding:0 0 5px; font-size:30px; font-weight:700; color:#113b88;}
+#project-detail .modal-inner{top:10%; width:956px; margin:0 0 50px -520px; padding:20px 45px; color:#686868; background:#fff; min-height: 450px;}
+#project-detail h1{font-size:28px; font-weight:700; color:#113b88; text-align: left; margin-top: 20px; margin-bottom: 20px; border-bottom: 1px solid #f00;}
 #project-detail h1 span{font-size:12px; font-weight:bold; color:#686868;}
 #project-detail .designer{margin:0 0 5px; font-size:18px; font-weight:bold;}
 #project-detail .custom-select{width:150px;}
@@ -549,20 +557,23 @@ tr.no-padding {height: 50px;}
 #project-detail .btn-set a{margin:0 0 0 12px; padding:0 8px 0 18px; font-size:14px; color:#767676;}
 #project-detail .btn-modi{background:url(../image/sub/blt_modi.png) no-repeat 0 0;}
 #project-detail .btn-del{background:url(../image/sub/blt_trash.png) no-repeat 0 0;}
-#project-detail .img{margin:0 0 6px; border-bottom:1px solid #787878;}
+#project-detail .project-detail-info-wrap {width: 260px; float: right;}
+#project-detail .img{margin:0 0 6px; border-bottom:1px solid #F00;}
 #project-detail .img img{max-width:100%;}
 #project-detail .img > div{padding:12px;}
-#project-detail .img button{margin:0 45px 0 0; font-size:14px; color:#414141;}
-#project-detail .img .btn-like{padding:0 0 0 25px; background:url(../image/sub/blt_heartGray.png) no-repeat 0 0;}
-#project-detail .img .btn-like.active{padding:0 0 0 25px; background:url(../image/sub/blt_heartGray_active.png) no-repeat 0 0;}
-#project-detail .img .btn-share{padding:0 0 0 30px; background:url(../image/sub/blt_share.png) no-repeat 0 0;}
-#project-detail .img .btn-down{padding:0 0 0 30px; background:url(../image/sub/blt_down.png) no-repeat 0 0;}
-#project-detail textarea{width:100%; height:80px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:12px; border:1px solid #787878;}
+#project-detail .img button{margin:0 14px 0 0; font-size:14px; color:#414141;}
+#project-detail .img .btn-like{padding:0 0 0 18px; background:url(../image/sub/blt_heartGray.png) no-repeat 0 0;}
+#project-detail .img .btn-like.active{padding:0 0 0 18px; background:url(../image/sub/blt_heartGray_active.png) no-repeat 0 0;}
+#project-detail .img .btn-share{padding:0 0 0 22px; background:url(../image/sub/blt_share.png) no-repeat 0 0;}
+#project-detail .img .btn-down{padding:0 0 0 21px; background:url(../image/sub/blt_down.png) no-repeat 0 0;}
+#project-detail textarea{width:100%; height:80px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:12px; border:1px solid #f00;}
 #project-detail .reply-list{padding:20px 0 0;}
 #project-detail .reply-list li{overflow:hidden; padding:0 15px 10px; font-size:18px; color:#767676;}
 #project-detail .reply-list .name{float:left; width:65px; font-weight:700; color:#113b88;}
 #project-detail .reply-list .date{float:right; width:120px; font-size:13px; text-align:right;}
 #project-detail .reply-list p{float:left; width:650px;}
+#project-detail .btn-red {margin-top: 5px; padding: 0; height: 24px; width: 50px; font-size: 12px;}
+#project-detail .reply-area p {padding-top: 20px;}
 
 #project-edit .modal-inner{top:10%; width:956px; margin:0 0 50px -478px; padding:45px; color:#686868; background:#f6f6f6;}
 #project-edit input[type="text"]{padding:0 15px; font-size:16px;}
@@ -678,7 +689,7 @@ tr.no-padding {height: 50px;}
 .producer-info .share button {padding: 8px 10px; background-color: #e9e9e9; border-radius: 8px; color: #113b88; font-size: 14px;}
 .producer-info .share button:hover {background-color: #dcdee2;}
 .producer-info .share button .fa {margin-right: 5px;}
-.img-detail{padding:30px 0 0; text-align:left;}
+.img-detail{padding:60px 0 0; text-align:left;}
 .img-detail img{max-width:100%; height: auto; margin:0 0 20px;}
 .tag-area{overflow:hidden; margin:0 20px; border-top: 1px solid #e9e9e9; min-height: 60px;}
 .tag-area span{float:left; margin:5px;}

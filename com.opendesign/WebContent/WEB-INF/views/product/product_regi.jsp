@@ -215,10 +215,10 @@
 					<td colspan="3"><input type="number" name="point" placeholder="포인트 입력" class="no-border" value="0" /></td>
 				</tr> -->
 				<tr>
-					<th scope="row" class="km-required">썸네일 등록</th>
+					<th scope="row" class="km-required">대표 이미지 등록</th>
 					<td colspan="3">
 						<div class="file-url">
-							<input type="text" placeholder="jpg,png만 등록 가능합니다.">
+							<input type="text" placeholder="jpg, png만 등록 가능합니다.">
 							<!--button type="btn-del">x</button-->
 						</div>
 						<div class="file">
@@ -252,24 +252,25 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<tr class="opensrc">
 					<th scope="row">오픈소스 등록
 						<!-- 설명 -->
 						<a href="javascript:void(0);" class="btn-guide"><img src="../resources/image/common/blt_guide.gif" alt="도움말"></a>
 						<div class="modal-guide">
 							<p class="txt-guide">작품 제작에 사용하거나<br>
 							참고한 오픈소스 컨텐츠를<br>
-							공유할 수 있도록 등록해주세요!</p>
+							공유할 수 있도록 등록해주세요!<br>
+							<span>* 등록한 오픈소스는 첨부파일 형태로 업로드됩니다</span></p>
 						</div>
 						<!-- //설명 -->
 						<p class="p-guide">(등록한 순서대로 업로드)</p>
 					</th>
 					<td>
 						<div class="file-url">
-							<input type="text" id="titleOpenSource" maxlength="20" placeholder="오픈소스 설명 입력(최대 20자)" />
+							<input type="text" id="titleOpenSource" maxlength="20" placeholder="오픈소스 설명(최대 20자)" />
 						</div>
 						<div class="file-url">
-							<input type="text" placeholder="모든 파일 업로드 가능 (최대 10MB)">
+							<input type="text" placeholder="해당 오픈소스 첨부 (최대 10MB)">
 							<!-- button type="btn-del">x</button -->
 						</div>
 						<div class="file multi">
@@ -315,7 +316,7 @@
 		
 		$.validator.addMethod("validateFileExtension", function(value, element) {
 			return acceptFileSuffix(value, "jpeg, png, jpg");
-		}, "썸네일은 jpg, png 파일만 등록이 가능합니다.");
+		}, "대표 이미지는 jpg, png 파일만 등록이 가능합니다.");
 		
 		
 		$('#productForm').validate( {
@@ -330,7 +331,7 @@
             messages: {
             	title : { required: "디자인명을 입력해 주세요." }
             	, cateDepth1 : { required: "카테고리를 설정해주세요." }
-            	, fileUrlFile : { required: "썸네일을 등록해 주세요.", validateFileExtension: "썸네일은 jpg, png 파일만 등록이 가능합니다." }
+            	, fileUrlFile : { required: "대표 이미지를 등록해 주세요.", validateFileExtension: "대표 이미지는 jpg, png 파일만 등록이 가능합니다." }
             	, point: {required: "포인트를 입력해 주세요."}
             },
             invalidHandler: function(form, validator) {
@@ -419,7 +420,7 @@
 			}));
 		}
 		
-		var btn = $('<button type="button">x</button>');
+		var btn = $('<button type="button"><i class="fa fa-window-close" aria-hidden="true"></i></button>');
 		btn.on('click', function(){
 			$(this).parent().remove();
 		});
@@ -529,9 +530,9 @@
 		    			modalShow('#login-modal');
 		    		}
 		    	} else if(_data.result == '201') {
-		    		alert('썸네일 등록이 필요합니다.');		    		
+		    		alert('대표 이미지 등록이 필요합니다.');		    		
 		    	} else if(_data.result == '202') {
-		    		alert('썸네일 등록은 jpg,png만 등록 가능합니다.');
+		    		alert('대표 이미지 등록은 jpg,png만 등록 가능합니다.');
 		    	} else if(_data.result == '203') {
 		    		alert('모든 파일 업로드는 최대 10MB까지 등록이 가능합니다.[' + _data.fileName + ']');
 		    	} else if(_data.result == '301') {
