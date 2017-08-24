@@ -56,7 +56,7 @@ header
 .btn-login{float:left; font-size:14px; border-radius: 4px;}
 .btn-logout{float:left; font-size:14px; border-radius: 4px;}
 
-.nav-section #menuArea .nav{position: absolute; width: 500px; height: 50px; top: 40px; left: 250px;}
+.nav-section #menuArea .nav{position: absolute; width: 500px; height: 50px; top: 40px; left: 20%;}
 .nav-section #menuArea .navCate{}
 .nav-section .custom-btn div .btn-product{background:#113b88 url(../image/common/blt_product.png) no-repeat 15px 9px; }
 .nav-section .custom-btn div .btn-design{background:#113b88 url(../image/common/blt_design.png) no-repeat 15px 7px;}
