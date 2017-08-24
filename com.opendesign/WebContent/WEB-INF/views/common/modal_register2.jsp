@@ -51,7 +51,7 @@
 							<option value="">전체</option>
 						</select>
 					</div> 
-					<!-- <button type="button" class="btn-add"><img src="/resources/image/common/btn_add.png" alt="더하기"></button> -->
+					<button type="button" class="btn-add"><img src="/resources/image/common/btn_add.png" alt="더하기"></button>
 					<ul class="cate-list">
 						<!-- <li>의상 <button type="button" >X</button> <input type="hidden" name="memberCateCode" value=""></li> -->
 					</ul>
@@ -62,6 +62,17 @@
 					<select name="sidoVal" id="sidoVal">
 						<option value="" selected="selected">전체</option>
 					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="check-wrap">
+					<div class="custom-check">
+						<p>회원구분</p>
+						<input type="checkbox" name="memberTypeCheck" value="d" id="designer">
+						<label for="designer">디자이너</label>
+					</div>
+					<p class="txt"">디자이너가 아니라면 체크하지 않아도 됩니다.
+						<span>* 체크를 하시면 디자이너 메뉴에 노출됩니다.</span>
+					</p>
 				</div>
 				<div class="clear"></div>
 				<div class="regi-btn-wrap btn-red">

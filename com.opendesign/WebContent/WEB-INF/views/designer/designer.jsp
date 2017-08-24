@@ -282,7 +282,7 @@ function goPortfolioView(seq) {
 					<p>디자인 의뢰 게시판 페이지에서 글 등록 버튼을 클릭합니다.</p>
 					<img src="/resources/image/help/designer2.png">
 					<p>디자인 의뢰 양식에 맞추어 자신이 원하는 디자인을 공개적으로 의뢰합니다.</p>
-					<img src="/resources/image/help/designer3..png">
+					<img src="/resources/image/help/designer3.png">
 				</div>
 			</div>
 			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
