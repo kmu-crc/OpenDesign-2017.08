@@ -1020,27 +1020,15 @@ function projEditFormValidRuleInit(){
 <script id="tmpl-project-upload" type="text/x-jsrender">
 <div class="modal" id="upload-modal">
 	<div class="bg"></div>
-	<div class="modal-inner" style="width:600px;height:600px;"> <!-- 수정  -->
+	<div class="modal-inner" style="width:600px;height:540px;"> <!-- 수정  -->
 		<h1>디자인 업로드</h1>
 		<form name="NewUpForm" method="post" enctype="multipart/form-data" onsubmit="return false;" >
 			<input type="hidden" name="projectSubjectSeq" value=""/> <!-- 주제seq -->
 			<fieldset>
 				<legend>디자인업로드</legend>
-				<!-- 작업자 추가 old -->
-				<!-- <div class="person">
-					<span>김정현</span>
-					<button type="button">작업자 추가 +</button>
-				</div> -->
-				<!-- 작업자 추가 new -->
-				<div class="member-add" style="padding:0px;">
-					<input type="text" data-nm="findName" name="schWord" placeholder="공동작업자(이름 또는 이메일 주소)를 입력 후 Enter를 눌러주세요." class="no-border">
-				</div>
-				<ul data-nm="ul_member_list" class="cate-list">
-					<% if(CmnUtil.isUserLogin(request)) { %>
-					<li><%=user.getUname() %><input type="hidden" name="emails" value="<%=user.getEmail() %>" /></li>
-					<% } %> 
-				</ul>
-				<!-- //작업자 추가 new -->
+				<input type="text" name="title" maxlength="20" placeholder="제목 입력 (최대 20자)">
+				<textarea name="contents"  maxlength="50" placeholder="디자인 설명 (최대 50자)"></textarea>
+
 				<!-- 썸네일 이미지 -->
 				<div class="file-url" style="width:500px;">
 					<input type="text" readonly placeholder="썸네일 이미지 (jpg, png만 등록 가능합니다.)">
@@ -1060,8 +1048,24 @@ function projEditFormValidRuleInit(){
 					<input type="file" name="fileUriFile" id="fileUriFile" />
 					<button type="button" class="btn-red">검색</button>
 				</div>
-				<input type="text" name="title" maxlength="20" placeholder="제목 입력 (최대 20자)">
-				<textarea name="contents"  maxlength="50" placeholder="디자인 설명 (최대 50자)"></textarea>
+				<div class="clear"></div>
+
+				<!-- 작업자 추가 old -->
+				<!-- <div class="person">
+					<span>김정현</span>
+					<button type="button">작업자 추가 +</button>
+				</div> -->
+				<!-- 작업자 추가 new -->
+				<div class="member-add" style="padding:0px;">
+					<input type="text" data-nm="findName" name="schWord" placeholder="공동작업자(이름 또는 이메일 주소)를 입력 후 Enter를 눌러주세요." class="no-border">
+				</div>
+				<ul data-nm="ul_member_list" class="cate-list">
+					<% if(CmnUtil.isUserLogin(request)) { %>
+					<li><%=user.getUname() %><input type="hidden" name="emails" value="<%=user.getEmail() %>" /></li>
+					<% } %> 
+				</ul>
+				<!-- //작업자 추가 new -->
+
 				<button type="button" class="btn-regi" onclick="newUpFormSubmit();">등록</button>
 			</fieldset>
 		</form>

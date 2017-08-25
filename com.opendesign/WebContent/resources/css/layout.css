@@ -354,7 +354,7 @@ header
 .mypage-wrap{padding:26px 0 0;}
 .sub-title h2{float:left; font-size:34px; font-weight:400; color:#414141;}
 .sub-title h2 img{width:75px; margin:0 15px 0 0;}
-.sub-title .btn-modi{float:left; width:83px; height:27px; margin:20px 0 0 10px; font-size:14px; text-align:center; color:#fff; line-height:27px; border-radius:5px; background:#f00;}
+.sub-title .btn-modi{float:left; width:83px; height:27px; margin:50px 0 0 10px; font-size:14px; text-align:center; color:#fff; line-height:27px; border-radius:5px; background:#f00;}
 .sub-title .btn-regi{float:right; width:123px; height:42px; margin:12px 20px 0 0;; font-size:15px; text-align:center; color:#fff; line-height:42px; border-radius:7px; background: #f00;}
 .regi-guide{position:absolute; top:6px; right:205px; width:280px; height:95px; padding:15px 0 0; text-align:center; border:1px solid #a4a4a4; border-radius:5px; background:#113b88;}
 .regi-guide:after{position:absolute; top:50%; right:-33px; width:33px; height:36px; margin:-18px 0 0; content:''; background:url(../image/mypage/blt_arrowRegi.png) no-repeat;}
@@ -598,14 +598,14 @@ tr.no-padding {height: 50px;}
 .person input[type="text"]{width:100px;}
 .person button{width:105px; height:27px; box-sizing:border-box; font-size:15px; color:#fff; text-align:center; line-height:27px; border-radius:7px; background:#b5b5b5;}
 
-#upload-modal .modal-inner{width:410px; height:460px; margin:-315px 0 0 -345px; padding:30px 45px 0; background:#f6f6f6;}
+#upload-modal .modal-inner{width:410px; height:460px; margin:-295px 0 0 -345px; padding:30px 45px 0; background:#f6f6f6;}
 #upload-modal h1{padding:0; font-weight:700; margin: 20px 0 40px 0; border: none;}
 #upload-modal .person{background:none;}
 #upload-modal .person span{padding:0 10px 0 0; color:#113b88;}
 #upload-modal .file-url{margin-top: 20px; margin-bottom: 0;}
 #upload-modal .file-url-second {margin-bottom: 30px;}
 #upload-modal input[type="text"]{margin:0 0 10px; padding:0 0 0 15px; font-size:16px; box-shadow: none;}
-#upload-modal textarea{width:100%; height:170px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:16px; border:0; background:#e6e6e6;}
+#upload-modal textarea{width:100%; height:80px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:12px; border:0; background:#e6e6e6;}
 #upload-modal .btn-regi{width:110px; border-radius: 4px;}
 #upload-modal .file {height: 28px; margin-top: 34px;}
 #upload-modal .file .btn-red{background: #f00; padding: 0;}
