@@ -153,9 +153,11 @@ function projShareShare() {
 <div class="modal" id="project-detail">
 	<div class="bg"></div>
 	<div class="modal-inner">
+
 		<h1 data-nm="title">{{:title}} <span>{{:displayTime}}</span></h1>
 		<p class="designer" data-nm="memberName">{{:workMemberNameList}}</p>
-		<!-- <div class="version">
+	
+	<!-- <div class="version">
 			<strong data-nm="lastVer">ver {{:lastVer}}</strong>
 			<div class="custom-select">
 				<input type="text" value="이전 버전 보기" />
@@ -167,7 +169,8 @@ function projShareShare() {
 				</select>
 			</div>
 		</div> -->
-		<div style="height:30px;">
+
+		<div style="height:50px;">
 			<p class="opinion" data-nm="contents">{{:contents}}</p>
 			<div class="btn-set">
 				{{if <%=isProjNotComplete%> &&  curUserAuthYN }}
@@ -179,11 +182,14 @@ function projShareShare() {
 				<input type="hidden" name="curVerSeq" value="{{:lastVerSeq}}" /><!-- 보는 버전 -->
 			</div>
 		</div>
+
+		<div class="project-detail-img-wrap">
+			<!-- 파일 -->
+			{{include projectWorkVerList[0] tmpl="#tmpl-project-detail-sub-file" /}}
+		</div>
+
 		<div class="project-detail-info-wrap">
 			<div class="img">
-				<!-- 파일 -->
-				{{include projectWorkVerList[0] tmpl="#tmpl-project-detail-sub-file" /}}
-
 				<div>
 					{{if !curUserLikedYN }}
 					<button type="button" class="btn-like" onclick="projDetailWorkLike(this);">좋아요</button>
@@ -194,10 +200,10 @@ function projShareShare() {
 					{{if <%= isProjNotComplete && isProjectMember %> }}
 					<button type="button" class="btn-share" onclick="goWorkShareView();" >퍼가기</button>
 					{{/if}}
-
 					<button type="button" class="btn-down" onclick="projDetailImgDown();"  >다운로드</button>
 				</div>
 			</div>
+
 			<div class="reply-area">
 				<form name="projDetailAddCmmtForm">
 					<input type="hidden" name="itemSeq" value="{{:seq}}" /> <!-- itemSeq -->
@@ -224,7 +230,7 @@ function projShareShare() {
 <!-- 파일 -->
 <script id="tmpl-project-detail-sub-file" type="text/x-jsrender">
 			<div data-nm="fileComp" data-ftype="{{:fileUriImageType}}" >
-				<img data-nm="verFileUri" src="{{:fileUriL}}" ori-src="{{:fileUri}}"
+				<img style="width: 100%; height: auto" data-nm="verFileUri" src="{{:fileUriL}}" ori-src="{{:fileUri}}"
 					{{if fileUriImageType}}
 					{{else}}
 					class="hide"
@@ -234,10 +240,10 @@ function projShareShare() {
 				{{if fileUriImageType}}
 				<div class="display-file hide">
 				{{else}}
-				<div class="display-file ">
+				<div class="display-file " style="position: relative;">
 				{{/if}}
 					<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" />&nbsp;
-					<a data-nm="verFileUri" ori-src="{{:fileUri}}" href="javascript:projDetailImgDown();"> {{:filename}} </a>
+					<a class="display-file-link" data-nm="verFileUri" ori-src="{{:fileUri}}" href="javascript:projDetailImgDown();"> {{:filename}} </a>
 				</div>
 			</div>
 </script>
@@ -731,27 +737,28 @@ function projDetailDelWork() {
 			<fieldset>
 				<h1>디자인 수정</h1>
 				<input type="text" name="title" maxlength="20" value="{{:title}}" placeholder="">
+				<textarea name="contents" maxlength="50" placeholder="디자인 설명 (최대 50자)">{{:contents}}</textarea>
 				
 				<!-- 썸네일 이미지 -->
-				<div style="height:60px;">
-					<div class="file-url" style="width:860px;">
-						<input type="text" readonly name="fileNameThumb" value="" placeholder="썸네일 이미지(jpg,png만 등록 가능합니다.)" />
+				<div style="height:60px; width: 600px;">
+					<div class="file-url">
+						<input type="text" readonly name="fileNameThumb" value="" placeholder="썸네일 이미지 (jpg, png만 등록 가능합니다.)" />
 					</div>
 					<div class="file">
 						<input type="file" accept="image/x-png, image/jpeg" name="fileUriFileThumb" id="fileUriFileThumbMod"  onchange="projEditFormImgPreviewThumb(event);" >
-						<button type="button">검색</button>
+						<button type="button">수정</button>
 					</div>		
 				</div>		
 	
 				<!--디자인 파일-->
-				<div style="height:60px;">
-					<div class="file-url" style="width:860px;">
-						<input type="text" readonly name="fileName" value="{{:verFilename}}" placeholder="모든 파일 업로드 가능 (최대 10MB)" />
+				<div style="height:60px; width: 600px;">
+					<div class="file-url">
+						<input type="text" readonly name="fileName" value="{{:verFilename}}" placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 10MB)" />
 					</div>
 				
 					<div class="file">
 						<input type="file" name="fileUriFile" onchange="projEditFormImgPreview(event);">
-						<button type="button">검색</button>
+						<button type="button">수정</button>
 					</div>
 				</div>
 				<div class="img">
@@ -781,11 +788,10 @@ function projDetailDelWork() {
 				</ul>
 				<!-- //작업자 추가 new -->
 				
-				<textarea name="contents" maxlength="50" placeholder="디자인 설명 (최대 50자)">{{:contents}}</textarea>
 				<button type="button" onclick="projEditFormSubmit();" class="btn-regi">수정 완료</button>
 			</fieldset>
 		</form>
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_close.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
 </script>
@@ -1014,7 +1020,7 @@ function projEditFormValidRuleInit(){
 <script id="tmpl-project-upload" type="text/x-jsrender">
 <div class="modal" id="upload-modal">
 	<div class="bg"></div>
-	<div class="modal-inner" style="width:600px;height:570px;"> <!-- 수정  -->
+	<div class="modal-inner" style="width:600px;height:600px;"> <!-- 수정  -->
 		<h1>디자인 업로드</h1>
 		<form name="NewUpForm" method="post" enctype="multipart/form-data" onsubmit="return false;" >
 			<input type="hidden" name="projectSubjectSeq" value=""/> <!-- 주제seq -->
@@ -1037,7 +1043,7 @@ function projEditFormValidRuleInit(){
 				<!-- //작업자 추가 new -->
 				<!-- 썸네일 이미지 -->
 				<div class="file-url" style="width:500px;">
-					<input type="text" readonly placeholder="썸네일 이미지(jpg,png만 등록 가능합니다.)">
+					<input type="text" readonly placeholder="썸네일 이미지 (jpg, png만 등록 가능합니다.)">
 					<!-- button type="btn-del" onclick="newUpFormFileClear();">x</button-->
 				</div>
 				<div class="file">
@@ -1047,7 +1053,7 @@ function projEditFormValidRuleInit(){
 	
 				<!--디자인 파일-->
 				<div class="file-url file-url-second" style="width:500px;">
-					<input type="text" readonly placeholder="모든 파일 업로드 가능 (최대 10MB)">
+					<input type="text" readonly placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 10MB)">
 					<!-- button type="btn-del" onclick="newUpFormFileClear();">x</button-->
 				</div>
 				<div class="file">
