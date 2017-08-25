@@ -22,11 +22,10 @@
 						<dd><textarea placeholder="자기소개 또는 회사소개 등록(최대 1,000자)" name="comments" maxlength="1000">{{:comments}}</textarea></dd>
 					</dl>
 				</div>
-				<dl>
+				<dl class="mail-default">
 					<dt class="km-required">이메일</dt>
 					<dd>
 						<input type="text" name="email" value="{{:email}}" readonly="readonly" class="hide">
-						<span>{{:email}}</span>
 					</dd>
 				</dl>
 				<dl>
@@ -78,8 +77,8 @@
 				<dl>
 					<dt class="km-required" >거주지역</dt>
 					<dd >
-						<div class="select-area custom-select" style="width: 477px; height: 40px;" id="sidoDiv">
-							<input type="text" id="sidoTxt" value="전체" style="width: 477px;">
+						<div class="select-area custom-select" style="width: 486px; height: 40px;" id="sidoDiv">
+							<input type="text" id="sidoTxt" value="전체" style="width: 486px;">
 							<select name="sidoVal" id="sidoVal" onchange="changeSidoInfo(this.value, this.options[this.selectedIndex].text)">
 								{{for sidoList}}
 								<option value="{{:seq}}">{{:sido}}</option>
@@ -100,7 +99,7 @@
 				<dl style="clear: both; padding-top: 10px;"></dl>
 				<a href="javascript:regModFormSubmit();" class="btn-complete">정보 수정 완료</a>
 			</fieldset>		
-		<button type="button" class="btn-close"><img src="/resources/image/common/btn_closeWhite.gif" alt="닫기"></button>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>   
     </form>
 </script>
