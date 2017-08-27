@@ -250,7 +250,7 @@ function projShareShare() {
 
 <!-- ******************** 댓글 ******************** -->
 <script id="tmpl-project-detail-reply" type="text/x-jsrender">
-				<li style="width:90%;">
+				<li>
 					{{if memberType == "00" }}
 					<span class="name">{{:memberName}}</span>
 					{{else memberType == "01" }}
@@ -262,7 +262,7 @@ function projShareShare() {
 						{{:contents}}
 					</p>
 					{{if curUserAuthYN}}
-						<button class="btn-cmmt-del"  onclick="projDetailDelCmmt('<%=ItemCmmtType.PROJECT_CMMT%>','{{:seq}}');" ></button>
+						<button class="btn-cmmt-del"  onclick="projDetailDelCmmt('<%=ItemCmmtType.PROJECT_CMMT%>','{{:seq}}');" >x</button>
 					{{else}}
 						<div class="btn-cmmt-del" style="background:none;cursor:default;"></div>
 					{{/if}}

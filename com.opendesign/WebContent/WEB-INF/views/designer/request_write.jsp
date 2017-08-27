@@ -24,8 +24,8 @@
 	String boardType = schMemberDiv; //게시판구분 
 	
 	// 
-	String lblTitle = "새 글 쓰기";
-	String lblSubmit = "새 글 등록";
+	String lblTitle = "디자인 의뢰";
+	String lblSubmit = "등록";
 	String seq = "";
 	String title = "";
 	String contents = "";
@@ -159,12 +159,12 @@ function boardFormValidRuleInit(){
 <script id="tmpl-boardFormFile" type="text/x-jsrender">
 				<div class="file-wrap" >
 					<div class="file-url">
-						<input type="text" readonly="readonly" name="ttt" placeholder="참고 자료 (jpg,png만 등록, 최대 10MB)">
-						<button onclick="boardFormRemoveFile(this);" type="btn-del">x</button>
+						<input type="text" readonly="readonly" name="ttt" placeholder="참고 자료 (jpg, png만 등록, 최대 10MB)">
+						<button onclick="boardFormRemoveFile(this);" type="btn-del"><i class="fa fa-times" aria-hidden="true"></i></button>
 					</div>
 					<div class="file">
 						<input type="file" accept="image/x-png, image/jpeg" name="uiImageUrlFile" style="width: 100px; cursor: pointer;">
-						<button type="button" style="width: 100px; cursor: pointer;">검색</button>
+						<button type="button">검색</button>
 					</div>
 				</div>
 </script>
@@ -213,7 +213,10 @@ function boardFormValidRuleInit(){
 	<!-- content -->
 	<div class="request-content">
 		<div class="inner">
-			<h2 class="title"><%=lblTitle%></h2>
+			<div class="best-head">
+				<span class="mainChar">D</span>
+				<span><%=lblTitle%></span>
+			</div>
 
 			<form name="boardForm" method="post" enctype="multipart/form-data" onsubmit="return false;" >
 				<input type="hidden" name="pageMode" value="<%=pageMode%>" />
@@ -263,18 +266,18 @@ function boardFormValidRuleInit(){
 							</td>
 						</tr> -->
 						<tr>
-							<td class="file-container" style="position:relative;">
+							<td class="file-container">
 								<div class="file-wrap" >
 									<div class="file-url">
-										<input type="text" readonly="readonly" name="ttt" id="ttt" placeholder="참고 자료 (jpg,png만 등록, 최대 10MB)">
-										<button type="button"  onclick="removeDataInFileWrap();" >x</button>
+										<input type="text" readonly="readonly" name="ttt" id="ttt" placeholder="참고 자료 (jpg, png만 등록, 최대 10MB)">
+										<button type="button"  onclick="removeDataInFileWrap();" ><i class="fa fa-times" aria-hidden="true"></i></button>
 									</div>
 									<div class="file">
 										<input type="file" accept="image/x-png, image/jpeg" name="uiImageUrlFile" style="width: 100px; cursor: pointer;">
-										<button type="button" style="width: 100px; cursor: pointer;">검색</button>
+										<button type="button">검색</button>
 									</div>
 								</div>
-								<button type="button" class="btn-add" style="position:absolute; top:12px; right:0px;" onclick="boardFormAddFile(this);"><img src="/resources/image/common/btn_add.png" alt="더하기"></button>
+								<button type="button" class="btn-add" onclick="boardFormAddFile(this);"><img src="/resources/image/common/btn_add.png" alt="더하기">추가</button>
 							</td>
 						</tr>
 						<tr>

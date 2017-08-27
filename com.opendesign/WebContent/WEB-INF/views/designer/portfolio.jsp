@@ -32,17 +32,32 @@
 						portfolioName = "공방";
 					}
 				%>
-				<h2><%=item.getUname()%>님의 <%=portfolioName%> <button type="button" onclick="goShowMsgView('<%=item.getSeq()%>');"><img src="/resources/image/sub/btn_msgGray.png" alt="메시지 보내기"></button></h2>
-				<p><%=item.getCateNames()%></p> 
+				<h2><%=item.getUname()%>님의 <%=portfolioName%> 
+					<button type="button" class="btn-red" onclick="goShowMsgView('<%=item.getSeq()%>');">메시지보내기</button>
+				</h2>
+				<p style="color: #113b88;"><%=item.getCateNames()%></p> 
 			</div>
 			<p class="txt"><%=item.getComments()%></p>
 			<ul class="designer-info">
-				<li class="item"><span>총 디자인 수</span><%=item.getWorkCntF()%></li>
+				<li class="item">
+					<span class="icon"><i class="fa fa-list" aria-hidden="true"></i></span>
+					<span>총 디자인 수</span><%=item.getWorkCntF()%>
+				</li>
 				
-				<li class="like"><span>총 좋아요 수</span><%=item.getLikeCntF()%></li>
+				<li class="like">
+					<span class="icon"><i class="fa fa-heart" aria-hidden="true"></i></span>
+					<span>총 좋아요 수</span><%=item.getLikeCntF()%>
+				</li>
 				
-				<li class="hit"><span>총 조회수</span><%=item.getViewCntF()%></li>
-				<li class="reply"><span>총 댓글수</span><%=item.getCmmtCntF()%></li>
+				<li class="hit">
+					<span class="icon"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></span>
+					<span>총 조회수</span><%=item.getViewCntF()%>
+				</li>
+				
+				<li class="reply">
+					<span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
+					<span>총 댓글수</span><%=item.getCmmtCntF()%>
+				</li>
 			</ul>
 			<ul id="listViewId" class="list-type1">
 				

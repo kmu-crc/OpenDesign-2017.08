@@ -433,8 +433,10 @@ $(function() {
 							<div class="pic"><img src="{{:memberImageUrl}}" onerror="setDefaultImg(this, 1);" alt="{{:memberName}}"></div> 
 							<dl style="width:90%; position: relative">
 								{{if curUserAuthYN}}
-									<button class="btn-cmmt-modify"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-									<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.DESIGN_CMMT%>','{{:seq}}');" ><i class="fa fa-times" aria-hidden="true"></i></button>
+									<div class="btn-set">
+										<button class="btn-cmmt-modify" style="display: none">수정</button>
+										<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.DESIGN_CMMT%>','{{:seq}}');" >삭제</button>
+									</div>
 								{{/if}}
 								{{if memberType == "00" }}
 								<dt>{{:memberName}} <span class="date">{{:displayTime}}</span></dt>

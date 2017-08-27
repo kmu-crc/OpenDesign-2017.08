@@ -26,10 +26,10 @@
 					<dl>
 						<dt>
 							<div class="txt">{{:title}}</div>
-							<div class="btn-set" style="float:right;margin-right:80px;">
+							<div class="btn-set">
 								{{if curUserAuthYN}}
 								<a href="javascript:void(0);" onclick="goBoardModView('{{:seq}}');return false;" class="btn-modi">수정</a>
-								<button onclick="deleteBoard('{{:seq}}');" type="button" class="btn-del" style="margin-left:5px;">삭제</button>
+								<button onclick="deleteBoard('{{:seq}}');" type="button" class="btn-del">삭제</button>
 								{{/if }}
 							</div>
 						</dt>
@@ -394,15 +394,17 @@ function loadPageWithData(_data) {
 										<span style="display:inline-block;">
 											{{:contents}}
 										</span>
+										<span class="date">{{:displayTime}}</span>
 										{{if curUserAuthYN}}
-											<button class="btn-cmmt-modify"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-											<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.BOARD_CMMT%>','{{:seq}}');" >
-												<i class="fa fa-times" aria-hidden="true"></i>
-											</button>
+											<div class="btn-cmmt-set">
+												<button class="btn-cmmt-modify" style="display: none"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+												<button class="btn-cmmt-del" onclick="projDetailDelCmmt('<%=ItemCmmtType.BOARD_CMMT%>','{{:seq}}');" >
+													<i class="fa fa-times" aria-hidden="true"></i>
+												</button>
+											</div>
 										{{else}}
 											<div class="btn-cmmt-del" style="position:absolute;float:none;top:0;right:0;background:none;cursor:default;"></div>
 										{{/if}}
-										<span class="date" style="right:35px;" >{{:displayTime}}</span>
 									</li>
 </script>
 <form name="projDetailAddCmmtForm">

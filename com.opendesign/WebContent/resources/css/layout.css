@@ -575,13 +575,13 @@ tr.no-padding {height: 50px;}
 #project-detail .img .display-file {position: relative;}
 #project-detail .img .display-file a {width: 30px; height: 40px; position: absolute; top: 0; left: 0;}
 #project-detail textarea{width:100%; height:80px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:12px; border:1px solid #f00;}
-#project-detail .reply-list{padding:20px 0 0;}
-#project-detail .reply-list li{overflow:hidden; padding:0 15px 10px; font-size:18px; color:#767676;}
-#project-detail .reply-list .name{float:left; width:65px; font-weight:700; color:#113b88;}
-#project-detail .reply-list .date{float:right; width:120px; font-size:13px; text-align:right;}
-#project-detail .reply-list p{float:left; width:650px;}
+#project-detail .reply-list{padding:14px 0 0;}
+#project-detail .reply-list li{width: 100%; position: relative; overflow:hidden; padding:0 10px 10px; font-size:14px; color:#767676;}
+#project-detail .reply-list .btn-cmmt-del {position: absolute; top: 0; right: 0; float: none; height: auto; }
+#project-detail .reply-list .name{float:left; min-width:60px; font-weight:700; color:#113b88;}
+#project-detail .reply-list .date{float:right; font-size:11px; display: inline;}
+#project-detail .reply-list p{float:left; width:180px; padding-top: 0px;}
 #project-detail .btn-red {margin-top: 5px; padding: 0; height: 24px; width: 50px; font-size: 12px;}
-#project-detail .reply-area p {padding-top: 20px;}
 
 #project-edit .modal-inner{width:600px; margin: 0 0 0 -345px; padding:45px; color:#686868; background:#f6f6f6; top: 5%;}
 #project-edit input[type="text"]{padding:0 15px; font-size:16px; box-shadow: none;}
@@ -644,18 +644,16 @@ tr.no-padding {height: 50px;}
 .portfolio-content{padding:40px 55px 28px; border-bottom:1px solid #bcbcbc;}
 .portfolio-content .profile-pic{float:left; width:76px; height:76px; overflow:hidden; margin:0 12px 0 0;}
 .portfolio-content .profile-pic img{width:100%;}
-.portfolio-content h2{margin:0 0 5px; font-size:42px; font-weight:400;}
+.portfolio-content h2{margin:0 0 15px; font-size:34px; font-weight:400; position: relative;}
+.portfolio-content h2 .btn-red {padding: 8px 12px; border-radius: 4px; font-size: 14px; position: absolute; top: 50%; margin-top: -16px; left: 33%;}
 .portfolio-content .title-area{overflow:hidden; margin:0 0 30px;}
-.portfolio-content .title-area p{font-size:18px;}
+.portfolio-content .title-area p{font-size:16px;}
 .portfolio-content .txt{margin:0 0 35px; line-height:1.5; color:#737373;}
-.designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; border-top:1px solid #a4a4a4; border-bottom:1px solid #a4a4a4;}
-.designer-info li{float:left; width:25%; box-sizing:border-box; text-align:center; color:#a4a4a4; border-right:1px solid #a4a4a4;}
-.designer-info li span{padding:0 25px 0 30px; font-weight:700;}
-.designer-info .item span{background:url(../image/sub/blt_item.png) no-repeat 0 0;}
-.designer-info .like span{background:url(../image/sub/blt_likeGray2.png) no-repeat 0 2px;}
-.designer-info .hit span{padding-left:37px; background:url(../image/sub/blt_hitGray.png) no-repeat 0 3px;}
+.designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; border-top:1px solid #f00; border-bottom:1px solid #f00;}
+.designer-info li{float:left; width:25%; box-sizing:border-box; text-align:center; color:#a4a4a4; border-right:1.2px solid #f00;}
+.designer-info li span{padding:0 25px 0 15px; font-weight:700;}
+.designer-info li span.icon {padding: 0; }
 .designer-info .reply{border:0;}
-.designer-info .reply span{background:url(../image/sub/blt_reply.png) no-repeat 0 4px;}
 
 .detail-content .product-section {width: 75%; float: left;}
 .detail-content .info-section {width: 24%; float: left; margin-left: 1px; border: 1px solid #e9e9e9; padding: 20px 0;}
@@ -723,6 +721,7 @@ tr.no-padding {height: 50px;}
 .product-reply .number{float:right; margin:0 0 15px; font-size:14px; color:#a4a4a4;}
 .product-reply textarea{width:100%; height:95px; box-sizing:border-box; margin:0 0 15px; padding:15px; border:1px solid #a4a4a4;}
 .product-reply .btn-cmmt.btn-red {margin-top: 0px; line-height: 1;}
+.product-reply .reply-list {margin-top: 20px;}
 .product-reply .reply-list li{position:relative; margin:0 0 15px; padding:0 0 0 145px;}
 .product-reply .pic{position:absolute; top:0; left:0; width:95px; height:95px; overflow:hidden; margin:0 50px 0 0;}
 .product-reply .pic img{width:100%}
@@ -731,8 +730,10 @@ tr.no-padding {height: 50px;}
 .product-reply .reply-list dd{font-size: 14px;}
 .product-reply .reply-list a{font-size:20px; color:#b93f0e;}
 .product-reply .reply-list .date{margin:0 0 0 8px; font-size:12px; color:#9b9b9b;}
-.product-reply .reply-list button[class*='btn-cmmt'] {position: absolute; margin: 0; float: none; bottom: 10px; right: 30px; color: #666;}
-.product-reply .reply-list button.btn-cmmt-modify {right: 55px;}
+.product-reply .reply-list dl .btn-set {position: absolute; top:8px; right:0;}
+.product-reply .reply-list button[class*='btn-cmmt'] {display: inline-block; width: 52px; height: 24px; box-sizing: border-box; padding: 0 0 0 14px; font-size: 12px; color: #fff; text-align: center; line-height: 24px; border-radius: 4px;}
+.product-reply .reply-list button.btn-cmmt-modify {background: #113b88 url(../image/sub/blt_modiWhite.png) no-repeat 7px 4px;}
+.product-reply .reply-list button.btn-cmmt-del {background: #767676 url(../image/sub/blt_trashWhite.png) no-repeat 8px 4px;}
 .btn-more{display:block; width:115px; margin:0 auto; padding:0 24px 0 0; font-size:18px; font-weight:700; color:#113b88; background:url(../image/sub/bg_arrowDown.png) no-repeat right 0;}
 .btn-more2{display:block; width:100%; margin:0 auto; padding:0 24px 0 0; font-size:18px; font-weight:700; color:#113b88; background:url(../image/sub/bg_arrowDown.png) no-repeat 54% ;}
 .btn-more2.alarmBtn{padding:10px 70px 10px 0;}
@@ -769,10 +770,9 @@ tr.no-padding {height: 50px;}
 .delivery .btn-complete{float:right; width:300px; height:75px; margin:0; font-size:32px; color:#fff; border-radius:3px; background:#b1b1b1;}
 
 .request-content{border-bottom:1px solid #bcbcbc; background:#f6f6f6;}
-.request-content .title{margin:0; padding:30px 0 35px; font-size:15px; font-weight:700; color:#113b88;}
 .request-content .select-wrap{clear:both; float:left; overflow:hidden; margin:0 0 20px;}
 .request-content .custom-select{float:left; margin:0 16px 0 0; font-size:14px;}
-.request-content .custom-select input[type="text"]{width:204px; height:31px; box-sizing:border-box; border:1.5px solid #a4a4a4; background:#fff url(../image/common/bg_selectSmall.gif) no-repeat right center;}
+.request-content .custom-select input[type="text"]{width:204px; height:31px; box-sizing:border-box; border:1.2px solid #a4a4a4; background:#fff url(../image/common/bg_selectSmall.gif) no-repeat right center;}
 .request-content .custom-select select{height:31px;}
 .request-content .input-search{float:left; overflow:hidden; border-radius:5px; background-color:#e9e9e9;}
 .request-content .input-search input[type="text"]{float:left; width:150px; height:31px; padding:0 0 0 15px; border:0; background-color: #e9e9e9;}
@@ -790,13 +790,13 @@ tr.no-padding {height: 50px;}
 .request-list dt .txt{float:left; font-weight: bold;}
 .request-list dd{display:none; margin:4px 0 0; font-size:14px; background:#fff;}
 .request-list dd .txt{padding:30px 100px;}
-.request-list .reply-area ul button[class*='btn-cmmt'] {position:absolute; float:none; bottom:0; right: 95px; color: #666;}
-.request-list .reply-area ul button.btn-cmmt-modify {right: 120px;}
+.request-list .reply-area ul .btn-cmmt-set {float: right;}
+.request-list .reply-area ul .btn-cmmt-set .fa {color: #666;}
 .request-list .reply-area{padding:0 30px 20px; margin-bottom: 20px;}
 .request-list .reply-area textarea{width:90%; height:56px; box-sizing:border-box; margin:20px 0 20px; padding:10px; font-size:14px; border:1px solid #7a7a7a;}
-.request-list .reply-area li{position:relative; padding:0 80px 15px 10px; font-size:16px; color:#767676;}
+.request-list .reply-area li{position:relative; padding:0 80px 15px 10px; font-size:14px; color:#767676;}
 .request-list .reply-area .name{display:inline-block; width:80px; font-weight:700; color:#113b88;}
-.request-list .reply-area .date{position:absolute; bottom:10px; right:15px; font-weight:500; color:#767676; font-size: 14px;}
+.request-list .reply-area .date{font-size: 10px; color: #666; padding-left: 10px; font-weight: bold;}
 .request-list .info{position:absolute; top:10px; right:55px; font-size: 14px;}
 .request-list .info .replay{margin:0 80px 0 0;}
 .request-list .info .replay img {width: 20px; margin-right: 3px;}
@@ -804,11 +804,11 @@ tr.no-padding {height: 50px;}
 .request-list li.active dt{background-color: #e9e9e9;}
 .request-list li.active dd{background-color: #e9e9e9; display:block;}
 .request-list .btn-more{width:90px; background-position:right 1px;}
-.request-list .btn-set{display:inline; margin:0 0 10px;}
+.request-list .btn-set{display:inline; margin:0 0 10px; margin-left: 10px;}
 .request-list .btn-set button,
-.request-list .btn-set a{display:inline-block; width:60px; height:30px; box-sizing:border-box; padding:0 0 0 17px; font-size:14px; color:#fff; text-align:center; line-height:30px; border-radius:5px;}
-.request-list .btn-set .btn-modi{background:#113b88 url(../image/sub/blt_modiWhite.png) no-repeat 8px 7px;}
-.request-list .btn-set .btn-del{background:#767676 url(../image/sub/blt_trashWhite.png) no-repeat 9px 7px;}
+.request-list .btn-set a{display:inline-block; width:52px; height:24px; box-sizing:border-box; padding:0 0 0 14px; font-size:12px; color:#fff; text-align:center; line-height:24px; border-radius:4px;}
+.request-list .btn-set .btn-modi{background:#113b88 url(../image/sub/blt_modiWhite.png) no-repeat 7px 4px;}
+.request-list .btn-set .btn-del{background:#767676 url(../image/sub/blt_trashWhite.png) no-repeat 8px 4px;}
 .request-content .paging{padding:30px 0;}
 .request-content .paging a{width:auto; height:auto; margin:0 5px; font-size:26px; color:#414141;}
 .request-content .paging a.active{width:auto; height:auto; margin:0 5px; font-size:26px; color:red;}
@@ -816,23 +816,28 @@ tr.no-padding {height: 50px;}
 .request-content .paging a:nth-of-type(2) img,
 .request-content .paging a:nth-of-type(4) img {width: 10px;}
 
-.request-content .tbl-wrap{clear:both; margin:0 0 26px; padding:25px 0 15px; border-top:1px solid #a7a7a7; border-bottom:1px solid #a7a7a7;}
+.request-content .tbl-wrap{clear:both; margin:0 0 26px; padding:25px 0 15px;}
 .request-content .tbl-regi td{padding:0 0 20px;}
+.request-content .tbl-regi tr:last-child td {height: auto;}
 .request-content .tbl-regi .btn-add{margin:3px 0 0;}
-.request-content .tbl-regi .input-text{width:100%; height:65px; box-sizing:border-box; padding:0 0 0 15px; font-size:22px; border:1px solid #dedede;}
+.request-content .tbl-regi .input-text{width:100%; height:45px; box-sizing:border-box; padding:0 0 0 15px; font-size:18px; border:1px solid #dedede;}
 .request-content .tbl-regi select{font-size:14px;}
 .request-content .tbl-regi .custom-select input[type="text"]{padding-left:15px;}
-.request-content .tbl-regi textarea{width:100%; height:610px; box-sizing:border-box; padding:10px; font-size:22px; border:1px solid #dedede;}
-.request-content .file-url{width:1108px;}
-.request-content .file-url input[type="text"]{width:100%; height:65px; box-sizing:border-box; padding:0 0 0 15px; font-size:22px; border:1px solid #dedede;}
-.request-content .file-url button{width:60px; height:65px; font-size:32px;}
-.request-content .file{width:160px; height:45px;}
+.request-content .tbl-regi textarea{width:100%; height:200px; box-sizing:border-box; padding:10px; font-size:18px; border:1px solid #dedede;}
+.request-content .tbl-regi td.file-container {position: relative; height: auto; padding-bottom: 50px;}
+.request-content .tbl-regi td.file-container .btn-add {position: absolute; float: none; bottom: 20px; left: 5px; width: 60px; color: #a4a4a4; font-size: 14px;}
+.request-content .tbl-regi td.file-container .btn-add img {margin-right: 4px; width: 20px;}
+.request-content .file-wrap {width: 850px; height: 48px;}
+.request-content .file-url{width:700px;;}
+.request-content .file-url input[type="text"]{width:100%; height:45px; box-sizing:border-box; padding:0 0 0 15px; font-size:18px; border:1px solid #dedede;}
+.request-content .file-url button{width:45px; height:45px; font-size:24px;}
+.request-content .file{width:120px; height:45px; margin: 0 0 0 10px; float: left;}
 .request-content .file input[type="file"]{width:160px; height:45px;}
-.request-content .file button{width:160px; height:45px; font-size:20px; border-radius:10px; background:#b1b1b1 url(../image/sub/btn_searchBig.png) no-repeat 15px 10px;}
-.request-content .cate-list{padding:10px 0 0;}
-.request-content .cate-list li{height:32px; font-size:18px; line-height:32px;}
+.request-content .file button{font-size:15px; border-radius:10px; background:#b1b1b1 url(../image/sub/btn_searchBig.png) no-repeat 10px 5px; width: 80px; height: 34px; cursor: pointer; margin-top: 5px;}
+.request-content .cate-list{padding:5px 0 0;}
+.request-content .cate-list li{height:24px; font-size:14px; line-height:24px;}
 .request-content .cate-list button{margin-top:2px; font-size:18px;}
-.request-content .btn-complete{float:right; width:160px; height:45px; margin:0 0 24px; font-size:22px; color:#fff; text-align:center; line-height:45px; border-radius:10px; background:#a4a4a4;}
+.request-content .btn-complete{float:right; width:120px; height:45px; margin:0 0 24px; font-size:18px; color:#fff; text-align:center; line-height:45px; border-radius:10px; background:#f00;}
 
 /* search */
 .search-content{padding:30px 0; border-bottom:1px solid #bcbcbc; background:#f6f6f6;}
