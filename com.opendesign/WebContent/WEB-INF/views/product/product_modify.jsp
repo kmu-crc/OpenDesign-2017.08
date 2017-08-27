@@ -245,10 +245,10 @@
 					<td colspan="3"><input type="number" name="point" value="<%=itemVO.getPoint() != null ? itemVO.getPoint() : "0" %>" placeholder="포인트 입력" class="no-border"></td>
 				</tr> --%>
 				<tr>
-					<th scope="row">썸네일 등록</th>
+					<th scope="row">대표 이미지 등록</th>
 					<td colspan="3">
 						<div class="file-url">
-							<input type="text"  placeholder="jpg,png만 등록 가능합니다.">
+							<input type="text"  placeholder="jpg, png만 등록 가능합니다.">
 							<!--button type="btn-del">x</button-->
 						</div>
 						<div class="file">
