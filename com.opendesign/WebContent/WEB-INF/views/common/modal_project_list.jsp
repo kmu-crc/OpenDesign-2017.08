@@ -157,7 +157,7 @@ function projShareShare() {
 		<h1 data-nm="title">{{:title}} <span>{{:displayTime}}</span></h1>
 		<p class="designer" data-nm="memberName">{{:workMemberNameList}}</p>
 	
-	<!-- <div class="version">
+	 <div class="version" style="display: none">
 			<strong data-nm="lastVer">ver {{:lastVer}}</strong>
 			<div class="custom-select">
 				<input type="text" value="이전 버전 보기" />
@@ -168,7 +168,7 @@ function projShareShare() {
 					{{/for}}
 				</select>
 			</div>
-		</div> -->
+		</div> 
 
 		<div style="height:50px;">
 			<p class="opinion" data-nm="contents">{{:contents}}</p>
@@ -572,6 +572,7 @@ function goWorkDetailView(workSeq) {
 		    	if(!workJson) {
 		    		return;
 		    	}
+		    	console.log("hahahah");
 		    	console.log(workJson); 
 		    	var htmlJ = $($.templates("#tmpl-project-detail").render(workJson));
 		    	$('#project-detail').replaceWith(htmlJ);
@@ -1244,7 +1245,7 @@ function newUpFormValidRuleInit(){
 			<input type="hidden" name="projectSeq" value=""/>
 			<fieldset>
 				<legend>주제 추가</legend>
-				<input type="text" name="subjectName" maxlength="8" placeholder="주제 입력 (최대 8자)">
+				<input type="text" name="subjectName" maxlength="14" placeholder="주제 입력 (최대 14자)">
 				<button type="button" class="btn-add" onclick="newTopicFormSubmit();">추가</button>
 			</fieldset>
 		</form>
@@ -1262,7 +1263,7 @@ function newUpFormValidRuleInit(){
 			<input type="hidden" name="subjectSeq" value=""/>
 			<fieldset>
 				<legend>주제 라인 수정</legend>
-				<input type="text" name="subjectName" maxlength="8" placeholder="주제 입력 (최대 8자)">
+				<input type="text" name="subjectName" maxlength="14" placeholder="주제 입력 (최대 14자)">
 				<button type="button" class="btn-add" onclick="modifyTopicFormSubmit();">수정</button>
 			</fieldset>
 		</form>

@@ -58,7 +58,7 @@
 										<li><a href="javascript:goWorkDetailView('{{:seq}}')" class="btn-modal">
 											<div class="pic">
 												<!-- <img src="{{:verFileUriS}}" alt=""> --> 
-												<img src="{{:thumbUriS}}" onerror="setDefaultImg(this, 5);" alt="">
+												<img src="{{:thumbUriS}}" onerror="setDefaultImg(this, 5);" alt="" style="display:none">
 											</div>
 											<dl>
 												<dt>{{:title}}</dt>
