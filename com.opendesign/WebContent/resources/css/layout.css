@@ -57,8 +57,8 @@ header
 .btn-login{float:left; font-size:14px; border-radius: 4px;}
 .btn-logout{float:left; font-size:14px; border-radius: 4px;}
 
-.nav-section #menuArea .nav{position: absolute; width: 500px; height: 50px; top: 40px; left: 20%;}
-.nav-section #menuArea .navCate{}
+.nav-section {width: 1286px; margin: auto; position: relative;}
+.nav-section #menuArea .nav{position: absolute; width: 500px; height: 50px; top: -60px; left: 100px;}
 .nav-section .custom-btn div .btn-product{background:#113b88 url(../image/common/blt_product.png) no-repeat 15px 9px; }
 .nav-section .custom-btn div .btn-design{background:#113b88 url(../image/common/blt_design.png) no-repeat 15px 7px;}
 .nav-section .custom-btn{width:100%; position:absolute; top:50px; right:0; margin:0; z-index:9999;}
@@ -336,8 +336,7 @@ header
 .tab-con > div{display:none;}
 .tab-con > div.active{display:block;}
 .project-con{width:1286px; margin:0 auto; padding:38px 0 0;}
-.project-list{overflow:hidden; margin:0 0 0 -21px;}
-/*.project-list li{float:left; width:298px; overflow:hidden; margin:0 0 24px 28px; border:1px solid #d8d8d8; box-shadow:0 1px 3px #e1e1e1; border-radius:6px;}*/
+.project-list{overflow:hidden;}
 .project-list li{float:left; width:238px; overflow:hidden; margin:0 0 24px 21px; border:1px solid #d8d8d8; box-shadow:0 1px 3px #e1e1e1; border-bottom: 2px solid #f00;}
 .project-list dl{padding:15px;}
 .project-list dt{width:100%; overflow:hidden; margin:0 0 6px; font-size:18px; color:#414141; text-overflow:ellipsis; white-space:nowrap;}
@@ -349,13 +348,30 @@ header
 .project-info .member, .project-info .bbs {padding: 0 5px 0;}
 .project-info i{display:inline; font-size:14px; font-style:normal; color: #337ab7;}
 .project-info span{display:inline-block; height:17px; box-sizing:border-box; padding:1px 0 0; font-size:12px; line-height:17px;}
-/*.project-info > div:first-child{width:50%;}*/
 .project-info > div:last-child{border-right:0;}
 .project-info .member span{padding-left:1px;}
 .project-info .project span{padding-left:5px;}
 .project-info .bbs span{padding-left:5px;}
 .project-info .file-num{border:0;}
 .project-info .file-num span{padding-left:25px; background:url(../image/main/blt_file.png) no-repeat 0 0;}
+/* project group page */
+#group-tab .project-list-head,
+#group-tab #groupListView .group-list-li {width: 1300px; margin: 0 auto; padding: 5px 0;}
+#group-tab .project-list-head {height: 30px; font-size: 13px; font-weight: bold;}
+#group-tab .project-list-head p {float: left; box-sizing: border-box; text-align: center;}
+#group-tab .project-list-head p.head-groupName {text-align: left;}
+#group-tab .head-groupName {width: 50%; text-align: left;}
+#group-tab .head-writtenDate {width: 13%;}
+#group-tab .head-updateDate {width: 13%;}
+#group-tab .head-leader {width: 8%;}
+#group-tab .head-projectNum {width: 8%;}
+#group-tab .head-memberNum {width: 8%;}
+#group-tab ul li.group-list-li {float: none; width: 100%; margin: 0; box-shadow: none; border: 0; background-color: #fff;}
+#group-tab ul li.group-list-li:hover,
+#group-tab ul li.group-list-li:focus {background-color: #e9e9e9;}
+.group-list-li .project-info {padding: 0; border: 0; height: 40px; line-height: 40px;}
+.group-list-li .project-info div {padding: 0;}
+.group-list-li .project-info span {font-size: 16px; color: #666; display: inline;}
 
 
 
@@ -624,21 +640,23 @@ tr.no-padding {height: 50px;}
 #upload-modal .file {height: 28px; margin-top: 34px; margin-left: 10px;}
 #upload-modal .file .btn-red{background: #f00; padding: 0;}
 
-.group-list{min-height:210px; padding: 15px 20px; border-bottom:1px solid #dcdcdc; background:#e6e6e6; margin: 20px 0;}
-.add-area{overflow:hidden; padding: 10px; background:#fff;}
-.add-area input[type="text"]{width:80%; height:34px; padding:0 20px; border:1px solid #b1b1b1;}
+.group-list{min-height:210px; padding: 15px 60px; border-bottom:1px solid #dcdcdc; background:#e6e6e6; margin: 0 0 40px;;}
+.group-list > div.item {min-height: 50px; line-height: 50px; padding: 0 50px; cursor: pointer;}
+.group-list > div.item > button {padding: 5px 10px; color: #fff; background: #999; border-radius: 4px; margin-left: 15px; font-size: 14px; margin-top: 13px; float: right;}
+.add-area{padding: 10px; background:#fff; margin-top: 20px; padding-right: 100px;}
+.add-area input[type="text"]{width:85%; height:34px; padding:0 20px; border:1px solid #b1b1b1;}
 .add-area button{float:right; width:70px; height:34px; font-size:15px; color:#fff; border-radius:5px; line-height: 1;}
-.btn-projectAdd{display:block; width:175px; height:28px; margin:10px auto; padding:0 0 0 25px; font-size:15px; color:#fff; text-align:center; line-height:28px; border-radius:5px;}
+.btn-projectAdd {color: #fff; background: #f00; border-radius: 4px; padding: 8px 12px; font-size: 15px;}
 
-#project-search .modal-inner{width:425px; height:500px; box-sizing:border-box; margin:-250px 0 0 -212px; padding:25px 20px; background:#f4f4f4;}
-#project-search h1{margin:0 0 15px; padding:0; font-weight:700;}
+#project-search .modal-inner{width:425px; height:500px; box-sizing:border-box; margin:-250px 0 0 -212px; padding:40px 30px; background:#f4f4f4;}
+#project-search h1{margin:15px 0; padding:0; font-weight:700; border-bottom: 0;}
 #project-search input[type="text"]{padding:0 55px 0 15px;}
 #project-search .search{position:relative; margin:0 0 20px;}
-#project-search .search button{position:absolute; top:0; right:0; width:50px; height:48px;}
-#project-search .search-list{height:280px; overflow:auto; margin:0 0 24px; background:#fff;}
+#project-search .search button{position:absolute; top:0; right:0; width:34px; height:34px;}
+#project-search .search-list{height:260px; overflow:auto; margin:0 0 16px; background:#fff;}
 #project-search .search-list a{display:block; padding:15px 12px; font-size:14px; color:#414141;}
 #project-search .search-list .active a{background:#dbdbdb;}
-#project-search .btn-complete{display:block; width:35px; margin:0 auto; padding:0 12px 0 0; font-size:18px; font-weight:700; color:#414141; background:url(../image/common/blt_arrow.png) no-repeat right 4px;}
+#project-search .btn-complete{display:block; width:100px; padding: 10px 8px; background: #f00; color: #fff; margin: auto; text-align: center; border-radius: 4px;}
 
 #new-topic .modal-inner{width:430px; height:180px; box-sizing:border-box; margin:-90px 0 0 -215px; padding:25px 15px; background:#f4f4f4;}
 #new-topic h1{margin:0 0 30px; padding:0; font-weight:700;}

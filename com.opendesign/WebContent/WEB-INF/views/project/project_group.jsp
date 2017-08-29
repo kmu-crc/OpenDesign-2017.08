@@ -21,18 +21,17 @@
 				<span>그룹 생성 및 관리</span>
 			</div>
 			<div class="tbl-regi">
-					<div class="regi-head">그룹 목록</div>
-					<div class="group-list">							
-						<div class="add-area">
-							<input type="text" name="group_name" placeholder="그룹명 입력">
-							<button type="button" class="btn-red" onclick="insertGroup();" >추가</button>
-						</div>
+					<div class="regi-head">그룹 목록 및 생성</div>
+					<div class="add-area">
+						<input type="text" name="group_name" placeholder="추가할 그룹명 입력">
+						<button type="button" class="btn-red" onclick="insertGroup();" >생성</button>
 					</div>
+					<div class="group-list" id="showGroup"></div>
 					<div class="regi-head">프로젝트 목록</div>
-					<div class="group-list"></div>
-					<!-- <div class="add-area">
+					<div class="add-area">
 						<a href="javascript:modalShowProjectSearch();" class="btn-projectAdd btn-modal">추가할 프로젝트 조회</a>
-					</div> -->
+					</div>
+					<div class="group-list" id="showProject"></div>
 					<div class="regi-head">프로젝트 대기 목록</div>
 					<div id="groupProjectWaitingList" class="group-list"></div>
 			</div>
@@ -87,8 +86,8 @@ $(function(){
 	groupProjectWaitingTemplate = $('#tmpl-groupProjectWaitingTemplate').html();
 	
 	var tblRegi = $('.tbl-regi');
-	divGroupList = tblRegi.find('tr:eq(0) div.group-list');
-	divGroupProjectList = tblRegi.find('tr:eq(1) div.group-list');
+	divGroupList = tblRegi.find('div.group-list#showGroup');
+	divGroupProjectList = tblRegi.find('div.group-list#showProject');
 	divGroupProjectWaitingList = $('#groupProjectWaitingList');
 	
 	loadGroup();
@@ -121,7 +120,6 @@ function loadGroup(){
         	if( '100' == result ){
         		if( confirm('로그인이 필요합니다. 로그인 하시겠습니까?') ){
         			modalShow('#login-modal');
-        			
         		}       		
         		return;
         	}
@@ -302,6 +300,7 @@ function insertGroup(){
         	}
         	
         	var groupData = _data.data;
+      
         	if( groupData ){
         		iGroupName.val('');
         		divGroupProjectList.empty();
@@ -309,6 +308,7 @@ function insertGroup(){
         		selectGroupSeq = groupData.seq;
         		
         		var formattedHtml = $.templates(groupTemplete).render( groupData );
+
         		var addObj = $( formattedHtml );
         		divGroupList.append(addObj);
         		onChangeGroupRow(addObj);

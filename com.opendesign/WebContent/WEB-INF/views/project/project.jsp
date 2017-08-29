@@ -87,6 +87,15 @@
 				<ul id="complete-project-list" class="project-list"></ul>
 			</div> -->
 			<div id="group-tab">
+				<div class="project-list-head" style="display: block;">
+					<p class="head-groupName">그룹명</p>
+					<p class="head-writtenDate">등록날짜</p>
+					<p class="head-updateDate">최신업데이트 날짜</p>
+					<p class="head-leader">개설자</p>
+					<p class="head-projectNum">프로젝트 수</p>
+					<p class="head-memberNum">멤버수</p>
+					<div class="clear"></div>
+				</div>
 				<ul id="groupListView" class="project-list"></ul>
 			</div>
 		</div>
@@ -383,24 +392,30 @@
 	<input type="hidden" name="schLimitCount" value="16" />
 </form>
 <script id="tmpl-groupListView" type="text/x-jsrender">
-	<li><a href="javascript:goGroupDetailView({{:seq}});" >
-		<dl>
-			<dt>{{:groupName}}</dt>
-			<dd>{{:memberName}}님의 그룹</dd>
-		</dl>
+	<li class="group-list-li"><a href="javascript:goGroupDetailView({{:seq}});" >
 		<div class="project-info">
-			<div class="project">
-				<i>{{:projectCntF}}</i>
-				<span>프로젝트</span>
+			<div class="head-groupName">
+				<span>{{:groupName}}</span>
+			</div>
+			<div class="head-writtenDate">
+				<span>{{:registerTime.substr(0, 4)+'-'+registerTime.substr(4, 2)+'-'+registerTime.substr(6, 2)}}</span>
+			</div>
+			<div class="head-updateDate">
+				<span>{{:updateTime.substr(0, 4)+'-'+updateTime.substr(4, 2)+'-'+updateTime.substr(6, 2)}}</span>
+			</div>
+			<div class="head-leader">
+				<span>{{:memberName}}</span>
+			</div>
+			<div class="head-projectNum">
+				<span>{{:projectCntF}}</span>
+			</div>
+			<div class="head-memberNum">
+				<span>{{:memberCntF}}</span>
 			</div>
 			<!--div class="bbs">
 				<i>{{:workCntF}}</i>
 				<span>게시물</span>
 			</div-->
-			<div class="member">
-				<i>{{:memberCntF}}</i>
-				<span>멤버</span>
-			</div>
 		</div>
 	</a></li>
 </script>
@@ -431,6 +446,7 @@
 			groupInitParam();
 			groupListView.clear();
 			groupLoadPage(groupListView);
+			$('.project-list-head').css('display', 'block');
 		});
 		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
@@ -528,6 +544,8 @@ function goGroupDetailView(seq) {
 	window.location.href='/project/project.do?schMyGroup=' + seq;
 }
 </script>
+
+
 <!-- 공개일때만 상세조회 가능 -->
 <script id="tmpl-groupDetail" type="text/x-jsrender">
 	{{if publicYn == 'Y' }} 
@@ -543,18 +561,30 @@ function goGroupDetailView(seq) {
         	<img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 5);" alt="">
 		</div>
         <div class="project-info">
-        	<div class="member">
+			<div class="member">
+            	<i class="fa fa-user" aria-hidden="true"></i>
+                <span>멤버 : {{:projectMemberCntF}}</span>
+			</div>
+            <div class="bbs">
+            	<i class="fa fa-window-restore" aria-hidden="true"></i>
+                <span>게시글 : {{:projectWorkCntF}}</span>
+			</div>
+			<div class="member">
+            	<i class="fa fa-heart-o" aria-hidden="true" style="font-weight: bold"></i>
+                <span>좋아요 : {{:likeCnt}}</span>
+			</div>
+        	<!-- <div class="member">
             	<i>{{:projectMemberCntF}}</i>
                 <span>멤버</span>
 			</div>
-            <!--div class="bbs">
+            <div class="bbs">
             	<i>{{:projectWorkCntF}}</i>
                 <span>게시글</span>
-			</div-->
+			</div>
             <div class="file-num">
             	<i>{{:projectWorkFileCntF}}</i>
                 <span>파일</span>
-			</div>
+			</div> -->
 		</div>
 	</a></li>
 </script>
@@ -584,6 +614,8 @@ function goGroupDetailView(seq) {
 				console.log("fail to groupDetailLoadPage processing!");
 			}
 		});
+		
+		$('.project-list-head').css('display', 'none');
 	}
 
 </script>
@@ -601,6 +633,7 @@ $(function(){
 		changeTabActiveUI('.tab-wrap li.ing');
 		$('.tab-wrap li.ing').trigger('click');
 	}
+	
 });
 
 function changeTabActiveUI(tabLiObjSel) {
