@@ -66,7 +66,7 @@
 								<option value="">전체</option>
 							</select>
 						</div>
-						<div class="select-area custom-select">
+						<div class="select-area custom-select" style="opacity: 0;">
 							<input type="text">
 							<select  name="cateDepth3">
 								<option value="">전체</option>
@@ -245,7 +245,7 @@
 					<td colspan="3"><input type="number" name="point" value="<%=itemVO.getPoint() != null ? itemVO.getPoint() : "0" %>" placeholder="포인트 입력" class="no-border"></td>
 				</tr> --%>
 				<tr>
-					<th scope="row">대표 이미지 등록</th>
+					<th scope="row">썸네일 이미지 등록</th>
 					<td colspan="3">
 						<div class="file-url">
 							<input type="text"  placeholder="jpg, png만 등록 가능합니다.">

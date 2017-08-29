@@ -57,7 +57,7 @@
 								<option value="">전체</option>
 							</select>
 						</div>
-						<div class="select-area custom-select">
+						<div class="select-area custom-select" style="opacity: 0;">
 							<input type="text">
 							<select  name="cateDepth3">
 								<option value="">전체</option>
@@ -215,7 +215,7 @@
 					<td colspan="3"><input type="number" name="point" placeholder="포인트 입력" class="no-border" value="0" /></td>
 				</tr> -->
 				<tr>
-					<th scope="row" class="km-required">대표 이미지 등록</th>
+					<th scope="row" class="km-required">썸네일 이미지 등록</th>
 					<td colspan="3">
 						<div class="file-url">
 							<input type="text" placeholder="jpg, png만 등록 가능합니다.">
@@ -534,7 +534,7 @@
 		    	} else if(_data.result == '202') {
 		    		alert('대표 이미지 등록은 jpg,png만 등록 가능합니다.');
 		    	} else if(_data.result == '203') {
-		    		alert('모든 파일 업로드는 최대 10MB까지 등록이 가능합니다.[' + _data.fileName + ']');
+		    		alert('모든 파일 업로드는 최대 100MB까지 등록이 가능합니다.');
 		    	} else if(_data.result == '301') {
 		    		alert('상업적 이용이  허락되지 않음으로 설정 되어 있는 경우 포인트를 숫자로 입력해야 합니다.');
 		    	} else {

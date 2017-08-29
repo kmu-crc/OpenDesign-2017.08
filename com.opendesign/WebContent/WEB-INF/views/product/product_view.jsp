@@ -238,7 +238,7 @@ $(function() {
 					</div>			
 	
 					<div class="img-detail">
-						<img src="<%=itemVO.getThumbUriL()%>"  alt="대표 이미지">
+						<!-- <img src="<%=itemVO.getThumbUriL()%>"  alt="대표 이미지">  -->
 						<!-- <img src="/resources/image/sub/img_detail1.jpg"> -->
 						<%
 							if(!CmnUtil.isEmpty(itemVO.getImageList())) {
@@ -250,7 +250,7 @@ $(function() {
 						<%
 									} else {
 						%>
-						<div style="margin:auto;border-top: 1px solid #CACACA; padding-top:10px;padding-bottom:10px;width:85%;">
+						<div style="padding-top:30px;padding-bottom:40px;width:85%;">
 						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
 						&nbsp;<a href="<%=image.getFileUri()%>"> <%=image.getFilename() %> </a>
 						</div>

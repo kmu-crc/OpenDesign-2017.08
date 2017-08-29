@@ -60,9 +60,9 @@ import com.wdfall.spring.JsonModelAndView;
 public class ProductController {
 
 	/**
-	 * 파일 사이즈 제한:10MB
+	 * 파일 사이즈 제한:100MB
 	 */
-	private static final long LIMIT_FILE_SIZE = 10000000L; 
+	private static final long LIMIT_FILE_SIZE = 100000000L; 
 	/**
 	 * 등록 플래그 
 	 */
@@ -291,6 +291,7 @@ public class ProductController {
 				if (existProuductFile || existOpenSourceFile) {
 					long fileSize = reqFile.getSize();
 					if (fileSize > LIMIT_FILE_SIZE) {
+						System.out.print("no");
 						resultMap.put("result", "203");
 						resultMap.put("fileName", reqFile.getOriginalFilename());
 						return new JsonModelAndView(resultMap);
