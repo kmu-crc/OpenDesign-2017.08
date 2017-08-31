@@ -308,7 +308,7 @@ header
 .list-type2 .hit{margin:0;}
 .list-type2 .hit img{width:14px;}
 .profile-section{overflow:hidden; padding-bottom: 20px; border-bottom:1px solid #a4a4a4;}
-.profile-section .picture{width: 280px;}
+.profile-section .picture{width: 280px; height: 280px; overflow: hidden;}
 .profile-section .picture img{width:100%; height:auto;}
 .profile-section .profile{width:280px; padding-top: 15px;}
 .portfolio-section{clear:both; overflow:hidden; padding:15px 0 0;}
@@ -674,9 +674,10 @@ tr.no-padding {height: 50px;}
 .portfolio-content .profile-pic{float:left; width:76px; height:76px; overflow:hidden; margin:0 12px 0 0;}
 .portfolio-content .profile-pic img{width:100%;}
 .portfolio-content h2{margin:0 0 15px; font-size:34px; font-weight:400; position: relative;}
-.portfolio-content h2 .btn-red {padding: 8px 12px; border-radius: 4px; font-size: 14px; position: absolute; top: 50%; margin-top: -16px; left: 33%;}
+.portfolio-content h2 > span {float: left;}
+.portfolio-content h2 .btn-red {padding: 8px 12px; border-radius: 4px; font-size: 14px; float: left; margin-left: 15px;}
 .portfolio-content .title-area{overflow:hidden; margin:0 0 30px;}
-.portfolio-content .title-area p{font-size:16px;}
+.portfolio-content .title-area p{font-size:16px; margin-left: 90px;}
 .portfolio-content .txt{margin:0 0 35px; line-height:1.5; color:#737373;}
 .designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; border-top:1px solid #f00; border-bottom:1px solid #f00;}
 .designer-info li{float:left; width:25%; box-sizing:border-box; text-align:center; color:#a4a4a4; border-right:1.2px solid #f00;}

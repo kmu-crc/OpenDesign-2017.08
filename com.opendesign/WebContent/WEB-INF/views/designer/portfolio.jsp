@@ -32,9 +32,11 @@
 						portfolioName = "공방";
 					}
 				%>
-				<h2><%=item.getUname()%>님의 <%=portfolioName%> 
+				<h2>
+					<span><%=item.getUname()%>님의 <%=portfolioName%> </span>
 					<button type="button" class="btn-red" onclick="goShowMsgView('<%=item.getSeq()%>');">메시지보내기</button>
 				</h2>
+				<div class="clear"></div>
 				<p style="color: #113b88;"><%=item.getCateNames()%></p> 
 			</div>
 			<p class="txt"><%=item.getComments()%></p>
