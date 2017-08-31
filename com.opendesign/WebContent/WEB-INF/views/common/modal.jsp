@@ -823,12 +823,13 @@ function findPassword() {
 		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
+
 <script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '<%=PropertyUtil.getProperty("fb.appId")%>',
       xfbml      : true,
-      version    : 'v2.7'
+      version    : 'v2.10'
     });
   };
 

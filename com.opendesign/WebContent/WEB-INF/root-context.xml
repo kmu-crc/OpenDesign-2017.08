@@ -85,7 +85,7 @@
     </bean>
     
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
-		<property name="maxUploadSize" value="30720000" /> <!-- 30MB -->
+		<property name="maxUploadSize" value="300000000" /> <!-- 300MB -->
 	</bean>
 
 	<!-- Mail Setting -->
@@ -159,5 +159,6 @@
     </bean>
     <!-- ========================= ]]WEBSOCKET DEFINITION ========================= -->
     
-	
+    
+    
 </beans>

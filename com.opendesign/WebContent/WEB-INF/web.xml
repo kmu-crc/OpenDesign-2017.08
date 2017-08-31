@@ -14,7 +14,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/*-context.xml</param-value>
 	</context-param>
-  
+	
 	<!-- Character Encoding Filter -->
   	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -31,6 +31,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- Cross Scripting Filter -->
+	<filter>
+		<filter-name>XSS</filter-name>
+		<filter-class>com.opendesign.filter.CrossScriptingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>XSS</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	
 	<!-- Spring Security Filter Chain -->
 	<!--  	

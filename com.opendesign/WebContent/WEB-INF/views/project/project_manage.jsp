@@ -95,7 +95,7 @@
 								<option value="">전체</option>
 							</select>
 						</div>
-						<div class="select-area custom-select ">
+						<div class="select-area custom-select " style="opacity: 0;">
 							<input type="text">
 							<select  name="cateDepth3">
 								<option value="">전체</option>
