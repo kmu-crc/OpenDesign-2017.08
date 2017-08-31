@@ -67,6 +67,12 @@ function boardFormSubmit() {
 		}
 		flag_boardFormSubmit = true;
 		
+		// xss warning 처리	
+		var changed_title = $('form[name="boardForm"]').find('input[name="title"]').val();
+		var changed_contents = $('form[name="boardForm"]').find('textarea[name="contents"]').val();
+		$('form[name="boardForm"]').find('input[name="title"]').val(xssCheck(changed_title));
+		$('form[name="boardForm"]').find('textarea[name="contents"]').val(xssCheck(changed_contents));
+		
 		//== 1. submit
 		myForm.ajaxSubmit({
 			url : "/designer/insUpdRequestBoard.ajax",
@@ -239,7 +245,7 @@ function boardFormValidRuleInit(){
 										<option value="">전체</option>
 									</select>
 								</div>
-								<div class="select-area custom-select">
+								<div class="select-area custom-select" style="opacity: 0;">
 									<input type="text">
 									<select name="cateDepth3">
 										<option value="">전체</option>

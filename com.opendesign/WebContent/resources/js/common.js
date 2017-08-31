@@ -306,3 +306,11 @@ function setDefaultImg(obj, num) {
 }
 
 
+
+// xss 체크 함수
+
+function xssCheck(str) {     
+    str = str.replace(/</gi, "&lt;").replace(/>/gi, "&gt;");
+    return str;
+  }
+

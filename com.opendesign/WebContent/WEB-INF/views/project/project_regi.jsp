@@ -259,6 +259,10 @@
 		if( ! form.valid() ){
 			return;
 		}
+		
+		// xss warning 처리	
+		var changed_title = $('#projectForm').find('input[name="projectName"]').val();
+		$('#projectForm').find('input[name="projectName"]').val(xssCheck(changed_title));
 
 		form.ajaxSubmit({
 			url : "/project/registerProject.ajax",

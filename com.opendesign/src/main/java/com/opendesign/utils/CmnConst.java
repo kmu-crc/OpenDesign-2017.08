@@ -31,7 +31,7 @@ public class CmnConst {
 	 * @since 2016. 11. 11.
 	 */
 	public static class CheckRule {
-		public static final long LIMIT_FILE_SIZE = 10000000L; // 10MB
+		public static final long LIMIT_FILE_SIZE = 100000000L; // 100MB
 	}
 
 	/**

@@ -788,7 +788,7 @@ public class DesignerService {
 			List<DesignWorkVO> workList = dao.selectDesignWorkList(item.getSeq());
 			item.setWorkList(workList);
 		}
-		
+
 		return list;
 	}
 	

@@ -572,7 +572,6 @@ function goWorkDetailView(workSeq) {
 		    	if(!workJson) {
 		    		return;
 		    	}
-		    	console.log("hahahah");
 		    	console.log(workJson); 
 		    	var htmlJ = $($.templates("#tmpl-project-detail").render(workJson));
 		    	$('#project-detail').replaceWith(htmlJ);
@@ -754,7 +753,7 @@ function projDetailDelWork() {
 				<!--디자인 파일-->
 				<div style="height:60px; width: 600px;">
 					<div class="file-url">
-						<input type="text" readonly name="fileName" value="{{:verFilename}}" placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 10MB)" />
+						<input type="text" readonly name="fileName" value="{{:verFilename}}" placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 100MB)" />
 					</div>
 				
 					<div class="file">
@@ -958,6 +957,10 @@ function projEditFormSubmit() {
 	}
 	flag_projEditFormSubmit = true;
 	
+	// xss warning 처리	
+	var changed_contents = $('form[name="projEditForm"]').find('textarea[name="contents"]').val();
+	$('form[name="projEditForm"]').find('textarea[name="contents"]').val(xssCheck(changed_contents));
+	
 	//== 1. submit
 	myForm.ajaxSubmit({
 		url : "/project/updateProjectWork.ajax",
@@ -1042,7 +1045,7 @@ function projEditFormValidRuleInit(){
 	
 				<!--디자인 파일-->
 				<div class="file-url file-url-second" style="width:500px;">
-					<input type="text" readonly placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 10MB)">
+					<input type="text" readonly placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 100MB)">
 					<!-- button type="btn-del" onclick="newUpFormFileClear();">x</button-->
 				</div>
 				<div class="file">
@@ -1170,6 +1173,10 @@ function newUpFormSubmit() {
 		return;
 	}
 	flag_newUpFormSubmit = true;
+	
+	// xss warning 처리	
+	var changed_contents = $('form[name="NewUpForm"]').find('textarea[name="contents"]').val();
+	$('form[name="NewUpForm"]').find('textarea[name="contents"]').val(xssCheck(changed_contents));
 	
 	myForm.ajaxSubmit({
 		url : "/project/insertProjectWork.ajax",

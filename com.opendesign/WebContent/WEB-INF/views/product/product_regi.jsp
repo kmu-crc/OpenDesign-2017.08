@@ -241,7 +241,7 @@
 					</th>
 					<td>
 						<div class="file-url">
-							<input type="text" placeholder="모든 파일 업로드 가능 (최대 10MB)">
+							<input type="text" placeholder="모든 파일 업로드 가능 (최대 100MB)">
 							<!-- button type="btn-del">x</button -->
 						</div>
 						<div class="file multi">
@@ -270,7 +270,7 @@
 							<input type="text" id="titleOpenSource" maxlength="20" placeholder="오픈소스 설명(최대 20자)" />
 						</div>
 						<div class="file-url">
-							<input type="text" placeholder="해당 오픈소스 첨부 (최대 10MB)">
+							<input type="text" placeholder="해당 오픈소스 첨부 (최대 100MB)">
 							<!-- button type="btn-del">x</button -->
 						</div>
 						<div class="file multi">
@@ -316,7 +316,7 @@
 		
 		$.validator.addMethod("validateFileExtension", function(value, element) {
 			return acceptFileSuffix(value, "jpeg, png, jpg");
-		}, "대표 이미지는 jpg, png 파일만 등록이 가능합니다.");
+		}, "썸네일 이미지는 jpg, png 파일만 등록이 가능합니다.");
 		
 		
 		$('#productForm').validate( {
@@ -331,7 +331,7 @@
             messages: {
             	title : { required: "디자인명을 입력해 주세요." }
             	, cateDepth1 : { required: "카테고리를 설정해주세요." }
-            	, fileUrlFile : { required: "대표 이미지를 등록해 주세요.", validateFileExtension: "대표 이미지는 jpg, png 파일만 등록이 가능합니다." }
+            	, fileUrlFile : { required: "썸네일 이미지를 등록해 주세요.", validateFileExtension: "썸네일 이미지는 jpg, png 파일만 등록이 가능합니다." }
             	, point: {required: "포인트를 입력해 주세요."}
             },
             invalidHandler: function(form, validator) {
@@ -476,6 +476,12 @@
 			return;
 		}
 		
+		// xss warning 처리	
+		var changed_title = $('#productForm').find('input[name="title"]').val();
+		var changed_content = $('#productForm').find('textarea[name="contents"]').val();
+		$('#productForm').find('input[name="title"]').val(xssCheck(changed_title));
+		$('#productForm').find('textarea[name="contents"]').val(xssCheck(changed_content));
+		
 		var tag = form.find('input[name="tag"]');
 		var tagVal = tag.val();
 		var tags = tagVal.split(',');
@@ -530,9 +536,9 @@
 		    			modalShow('#login-modal');
 		    		}
 		    	} else if(_data.result == '201') {
-		    		alert('대표 이미지 등록이 필요합니다.');		    		
+		    		alert('썸네일 이미지 등록이 필요합니다.');		    		
 		    	} else if(_data.result == '202') {
-		    		alert('대표 이미지 등록은 jpg,png만 등록 가능합니다.');
+		    		alert('썸네일 이미지 등록은 jpg,png만 등록 가능합니다.');
 		    	} else if(_data.result == '203') {
 		    		alert('모든 파일 업로드는 최대 100MB까지 등록이 가능합니다.');
 		    	} else if(_data.result == '301') {

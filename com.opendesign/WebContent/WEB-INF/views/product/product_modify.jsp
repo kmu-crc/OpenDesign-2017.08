@@ -271,7 +271,7 @@
 					</th>
 					<td>
 						<div class="file-url">
-							<input type="text" placeholder="모든 파일 업로드 가능 (최대 10MB)">
+							<input type="text" placeholder="모든 파일 업로드 가능 (최대 100MB)">
 							<!-- button type="btn-del">x</button -->
 						</div>
 						<div class="file multi">
@@ -308,7 +308,7 @@
 							<input type="text" id="titleOpenSource" maxlength="20" placeholder="오픈소스 설명(최대 20자)" />
 						</div>
 						<div class="file-url">
-							<input type="text" placeholder="해당 오픈소스 첨부 (최대 10MB)">
+							<input type="text" placeholder="해당 오픈소스 첨부 (최대 100MB)">
 							<!-- button type="btn-del">x</button -->
 						</div>
 						<div class="file multi">
@@ -588,6 +588,12 @@
 		if( ! form.valid() ){
 			return;
 		}
+		
+		// xss warning 처리	
+		var changed_title = $('#productForm').find('input[name="title"]').val();
+		var changed_content = $('#productForm').find('textarea[name="contents"]').val();
+		$('#productForm').find('input[name="title"]').val(xssCheck(changed_title));
+		$('#productForm').find('textarea[name="contents"]').val(xssCheck(changed_content));
 		
 		var tag = form.find('input[name="tag"]');
 		var tagVal = tag.val();
