@@ -72,10 +72,14 @@
 				<!-- <li class="complete"><a href="#complete-project"><span></span>완료된 프로젝트</a></li> -->
 				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
-			<div class="sorting">
+			<div class="sorting" id="sortingProj">
 				<a id="psort1" href="javascript:sortProduct();" class="first btn-red active">최신순</a>
 				<a id="psort2" href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
 				<a id="psort3" href="javascript:sortProduct('MEMBER');" class="btn-red">멤버순</a>
+			</div>
+			<div class="sorting" id="sortingGroup" style="display: none">
+				<a id="gsort1" href="javascript:sortProject();" class="first btn-red active">최신순</a>
+				<a id="gsort2" href="javascript:sortProject('NAME');" class="btn-red">이름순</a>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -278,10 +282,45 @@
         from.submit();
     }
 	
+    function sortProject(sortType){
+    	$.ajax({
+            url : "/project/selectGroupList.ajax",
+            type: "GET",
+            cache: false,
+            data : {'sortType':sortType},
+            success : function(_data){
+
+                console.log('>>> _data: ');
+                console.log(_data);
+
+                var listData = _data.list;
+                var listCount = listData.length;
+                var existList = listCount > 0;
+
+                var allCount = _data.all_count;
+                groupListView.putData('existList', existList);
+                if( ! existList ){
+                    return;
+                }
+                groupListView.addAll({keyName:'seq', data:listData, htmlTemplate: groupListTemplete});
+            }
+        });
+        groupListView.clear();
+        groupLoadPage(groupListView);
+        
+        if(sortType == ""){
+            $("#gsort1").addClass("active");
+            $("#gsort2").removeClass("active");
+        }else if(sortType =="NAME"){
+            $("#gsort2").addClass("active");
+            $("#gsort1").removeClass("active");
+        }
+    }
+	
 	</script>
 	
     <% if(schSort != null){ %>
-    <script> $(".sorting > .btn-red").removeClass("active");</script>
+    <script> $("#sortingProj > .btn-red").removeClass("active");</script>
 		<% if (schSort == ""){ %>
 		<script> $("#psort1").addClass("active");</script>
 		<%} else if(schSort.equals("LIKE")){%>
@@ -308,6 +347,11 @@
 	 * 프로젝트 데이터 로드
 	 */
 	function loadProject( targetView, flagScroll ){
+		
+		/* sorting 버튼 처리 */
+		$('#sortingGroup').css('display', 'none');
+		$('#sortingProj').css('display', 'block');
+		
 		/* 스크롤 */
 		if( flagScroll ){
 			if( flagScrollLoad ){
@@ -447,6 +491,10 @@
 			groupListView.clear();
 			groupLoadPage(groupListView);
 			$('.project-list-head').css('display', 'block');
+			
+			/* sorting 버튼 처리 */
+			$('#sortingProj').css('display', 'none');
+			$('#sortingGroup').css('display', 'block');
 		});
 		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
@@ -633,7 +681,6 @@ $(function(){
 		changeTabActiveUI('.tab-wrap li.ing');
 		$('.tab-wrap li.ing').trigger('click');
 	}
-	
 });
 
 function changeTabActiveUI(tabLiObjSel) {
@@ -642,6 +689,7 @@ function changeTabActiveUI(tabLiObjSel) {
 	tabAObj.parent().addClass('active').siblings().removeClass('active');
 	$(target).addClass('active').siblings().removeClass('active');
 }
+
 </script>
 <!-- ################# ]]그룹 탭  ###################### -->
 

@@ -986,12 +986,20 @@
 					) AS memberCnt /* 멤버수 */
 			FROM t_pgroup T
 			JOIN t_member U ON T.member_seq = U.seq
-			ORDER BY T.update_time DESC /* 최신순 */
 		]]>
 	</sql>
 	
 	<select id="selectGroupPagingList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.ProjectGroupVO" > 
 		<include refid="sql_selectGroupPagingList" />
+		<choose>
+				<when test=' schOrderType != null and schOrderType.equals("NAME") ' >
+				ORDER BY T.group_name
+				</when>
+
+				<otherwise>
+				ORDER BY T.update_time DESC
+				</otherwise>
+		</choose>
 		<![CDATA[
 			LIMIT #{pgPageCount}, #{pgLimitCount}
 		]]>
