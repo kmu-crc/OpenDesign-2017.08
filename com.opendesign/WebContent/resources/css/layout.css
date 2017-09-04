@@ -244,7 +244,7 @@ header
 .best-head, .content .best-head {width: 250px; height: 42px; background-color: #f00; color: #fff; box-sizing: border-box; padding: 10px;}
 .best-head .mainChar, .content .best-head .mainChar {color: red; background-color: white; font-weight: 600; font-size: 20px; padding: 3px 6px 0px 6px; margin-right: 10px;}
 .main-content .best-inner {width:1320px; font-weight: bold;}
-.main-content .best .list-type2.list1{margin:0 0 0 -19px;}
+.main-content .best .list-type2.list1{margin:0 0 0 -19px; padding-top: 30px;}
 .main-content .best .list-type2 .list-type2{margin:0; }
 .main-content .best .list-type2 .list-type2 > li{margin:0 0 16px 19px;}
 .best button{position:absolute; top:50%; z-index:2; margin:0;}
