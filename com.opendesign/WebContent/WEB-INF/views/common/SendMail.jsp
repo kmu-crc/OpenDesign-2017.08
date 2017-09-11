@@ -49,9 +49,10 @@ try{
     msg.setContent(content, "text/html;charset=UTF-8"); // 내용과 인코딩
      
     Transport.send(msg); // 전송
+    
 } catch(Exception e){
     e.printStackTrace();
-    out.println("<script>alert('Send Mail Failed..');history.back();</script>");
+    out.println("<script>alert('Send Mail Failed.');history.back();</script>");
     // 오류 발생시 뒤로 돌아가도록
     return;
 }

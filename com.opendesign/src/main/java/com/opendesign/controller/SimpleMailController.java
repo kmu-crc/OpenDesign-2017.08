@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.opendesign.service.MailService;
 import com.opendesign.utils.CmnConst.RstConst;
@@ -38,6 +39,12 @@ import com.wdfall.spring.JsonModelAndView;
 @Controller
 @RequestMapping(value="/mail")
 public class SimpleMailController {
+	
+	@RequestMapping(value = "/mail.do")
+	public ModelAndView mail(HttpServletRequest request) {
+
+		return new ModelAndView("mail/mail");
+	}
 
 	/**
 	 * 메일 서비스 인스턴스
@@ -69,6 +76,7 @@ public class SimpleMailController {
 			 * 메일 템플릿 모델
 			 */
 			Map model = ControllerUtil.createParamMap(request);
+			System.out.println(model);
 			
 			/*
 			 * 메일 서비스 동기방식으로 처리

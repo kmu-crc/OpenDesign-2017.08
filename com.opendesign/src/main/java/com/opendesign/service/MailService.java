@@ -68,11 +68,11 @@ public class MailService {
 		/*
 		 * 메일 제목
 		 */
-		String mailTitle = (String)model.get("mail.title");
+		String mailTitle = (String)model.get("title");
 		/*
 		 * 메일 템플릿 파일명
 		 */
-		String mailTemplate = (String)model.get("mail.template");
+		String mailTemplate = (String)model.get("template");
 		
 		LOGGER.info("E-Mail Title:["+mailTitle+"], From :["+mailSender+"], To:["+mailTarget+"], \nTemplate :["+mailTemplate+"]");
 		
