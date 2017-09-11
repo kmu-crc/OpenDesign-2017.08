@@ -55,7 +55,7 @@
 						<input type="text" class="mailTitle" name="title" placeholder="제목">
 						<textarea class="mailContent" name="template" placeholder="내용을 입력해주세요"></textarea>
 					</div>
-					<button type="submit" class="btn-red" onclick="javascript:sendMail();">보내기</button>
+					<button type="button" class="btn-red" onclick="javascript:sendMail();">보내기</button>
 				</form>
 			</div>
 		</div>

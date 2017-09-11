@@ -76,7 +76,6 @@ public class SimpleMailController {
 			 * 메일 템플릿 모델
 			 */
 			Map model = ControllerUtil.createParamMap(request);
-			System.out.println(model);
 			
 			/*
 			 * 메일 서비스 동기방식으로 처리

@@ -64,7 +64,7 @@ public class MailService {
 		/*
 		 * 받는 메일
 		 */
-		String mailTarget = (String)model.get("mail.target");
+		String mailTarget = (String)model.get("to");
 		/*
 		 * 메일 제목
 		 */
