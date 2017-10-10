@@ -133,7 +133,7 @@
 	<input type="hidden" name="schProgressStatus" value="" />
 	<input type="hidden" name="projectSeq" value="" />
 	<input type="hidden" name="schSort" value="<%=schSort %>" />
-	<input type="hidden" name="schLimitCount" value="16" />
+	<input type="hidden" name="schLimitCount" value="100" />
 </form>
 <script id="tmpl-listView" type="text/x-jsrender">
 	<li><a href="javascript:goProject({{:seq}});" >
@@ -147,15 +147,15 @@
         <div class="project-info">
         	<div class="member">
             	<i class="fa fa-user" aria-hidden="true"></i>
-                <span>멤버 : {{:projectMemberCntF}}</span>
+                <span>{{:projectMemberCntF}}</span>
 			</div>
             <div class="bbs">
             	<i class="fa fa-window-restore" aria-hidden="true"></i>
-                <span>게시글 : {{:projectWorkCntF}}</span>
+                <span>{{:projectWorkCntF}}</span>
 			</div>
 			<div class="member">
             	<i class="fa fa-heart-o" aria-hidden="true" style="font-weight: bold"></i>
-                <span>좋아요 : {{:likeCnt}}</span>
+                <span>{{:likeCnt}}</span>
 			</div>
             <!--<div class="file-num">
             	<i></i>
