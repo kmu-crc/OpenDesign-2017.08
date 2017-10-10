@@ -51,7 +51,7 @@
 				</div>
 				<div class="img-box" id="slide-3">
 					<img src="/resources/image/new/design_with.png">
-					<span>Work Together</span>
+					<span>Design Together</span>
 					<button onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
 				</div>
 			</div>

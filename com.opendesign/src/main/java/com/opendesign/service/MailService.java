@@ -96,8 +96,7 @@ public class MailService {
 		message.setFrom( new InternetAddress( mailSender ) );
 		mailDispatcher.send(message);
 		
+		System.out.println(message);
 		
 	}
-		
-
 }

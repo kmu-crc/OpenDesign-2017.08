@@ -33,5 +33,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Downloads/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Downloads/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

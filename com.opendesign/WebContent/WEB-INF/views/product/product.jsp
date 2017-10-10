@@ -22,7 +22,7 @@
 	<!-- content -->
 	<div class="content">
 		<div class="inner">
-			<h2 id="product_all_cnt"  class="title">디자인 (0건)</h2>
+			<h2 id="product_all_cnt" class="title">디자인 (0건)</h2>
 			<div class="product-btn-wrap">
 				<div class="sorting">
 					<a href="javascript:sortProduct();" class="first btn-red active">최신순</a>

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <div class="footer">
 	<div class="inner">
 		<p class="footer-copyright">©2017 Open Design Inc.</p>
@@ -6,10 +7,11 @@
 			<li class="footer-li"><a href="javascript:modalShow('#modal_introduece');">오픈소스디자인 소개</a></li>
 			<li class="footer-li"><a href="javascript:modalShow('#modal_use');">이용약관</a></li>
 			<li class="footer-li"><a href="javascript:modalShow('#modal_personal');">개인정보처리방침</a></li>
-			<li class="footer-li"><a href="javascript:modalShow('#modal_contact');">Contact Us</a></li>
+			<li class="footer-li"><a href="/mail/mail.do">Contact Us</a></li>
 		</ul>
 	</div>
 </div>
+
 
 <!-- footer modal -->
 <!-- modal -->
@@ -322,11 +324,7 @@
 	<div class="bg"></div>
 	<div class="modal-inner">
 		<div class="rule-box">
-
-            <h1>
-                개인정보 처리방침
-            </h1>
-            
+            <h1>개인정보 처리방침</h1>
             <div class="modal-body">
                 <div style="white-space: pre-line">
                 개인정보처리방침
@@ -444,17 +442,11 @@
         </div>
     </div>
 </div>
-<!-- 
-<div class="modal fade" id="modal_contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content modal-content-one">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body">
-            </div>
-        </div>
-    </div>
-</div> -->
+
+
+
+
+
 <!-- //modal -->
 
 <!-- //footer modal -->
