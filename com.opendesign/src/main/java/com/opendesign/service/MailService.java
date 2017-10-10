@@ -64,15 +64,15 @@ public class MailService {
 		/*
 		 * 받는 메일
 		 */
-		String mailTarget = (String)model.get("to");
+		String mailTarget = (String)model.get("mail.target");
 		/*
 		 * 메일 제목
 		 */
-		String mailTitle = (String)model.get("title");
+		String mailTitle = (String)model.get("mail.title");
 		/*
 		 * 메일 템플릿 파일명
 		 */
-		String mailTemplate = (String)model.get("template");
+		String mailTemplate = (String)model.get("mail.template");
 		
 		LOGGER.info("E-Mail Title:["+mailTitle+"], From :["+mailSender+"], To:["+mailTarget+"], \nTemplate :["+mailTemplate+"]");
 		
@@ -96,8 +96,7 @@ public class MailService {
 		message.setFrom( new InternetAddress( mailSender ) );
 		mailDispatcher.send(message);
 		
+		System.out.println(message);
 		
 	}
-		
-
 }
