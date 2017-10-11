@@ -1093,13 +1093,14 @@ function goWorkUploadView(subjectSeq) {
 		
 		$('#upload-modal').find('[name="projectSubjectSeq"]').val(subjectSeq);
 		modalShow("#upload-modal");
+		newUpFormInitEvents();
 	}); //end of checkedLogin
 }
 
 /**
  * 작업자 추가
  */
-$(function(){ 
+function newUpFormInitEventsFindMember(){ 
 	
 	 var myForm = $('#upload-modal');
 	 /* 자동 완성 */
@@ -1144,7 +1145,7 @@ $(function(){
 	     	return false;
 	     }
 	 });
- });
+ }
 </script>
 
 <script>
@@ -1158,7 +1159,7 @@ function newUpFormFileClear() {
 /** 디자인 업로드 */
 var flag_newUpFormSubmit = false; //flag
 function newUpFormSubmit() {
-	//
+	
 	var myForm = $('form[name="NewUpForm"]');
 	if(!myForm.valid()) {
 		return;
@@ -1204,10 +1205,12 @@ function newUpFormSubmit() {
 	
 }
 
+function newUpFormInitEvents() {
+	newUpFormInitEventsFindMember();
+	newUpFormValidRuleInit(); 
+}
+
 //=== 검증 ==========
-$(function(){
-	newUpFormValidRuleInit();
-})
 
 function newUpFormValidRuleInit(){
 	
@@ -1216,12 +1219,10 @@ function newUpFormValidRuleInit(){
 		rules:{
 			title : { required: true}
 			, contents : { required: true }
-			, fileUriFile : { required: true }
 		},
 		messages: {
 			title : { required: "제목을 입력하세요." } 
 			, contents : { required: "디자인설명을 입력하세요." }
-			, fileUriFile : { required: "이미지를 첨부하세요." }
 		},
 		showErrors: function(errorMap, errorList) {
 	    	if( errorList && errorList.length > 0 ){
