@@ -92,38 +92,40 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 		<div class="modal noti-modal" id="message" style="display:none;">
 			<div class="bg"></div>
 			<div class="noti-inner">
-				<div class="msg-search">
-					<form name="msgSearchForm" onsubmit="msgSearchBtnClick();return false;">
-						<input type="hidden" name="schMode" /> 
-						<input type="hidden" name="schNewUserSeq" /> 
-						<fieldset>
-							<legend class="msg-head">메시지 검색</legend>
-							<input type="text" name="schWord" placeholder="검색" />
-							<button onclick="msgSearchBtnClick();" class="btn-red" type="button">
-								<i class="fa fa-search" aria-hidden="true"></i>
-							</button>
-						</fieldset>
-					</form>
-				</div>
-				<div class="msg-latest">
-				<legend class="latest msg-head" id="latestMsgNumber2">최근 받은 메시지</legend>
-				<!-- 메시지가 없는 경우
-				<p class="no-msg">편지함에 메시지가 없습니다.</p>
-				-->
-				<ul id="msgRoomList" class="msg-list">
-					<%-- 
-					<li class="msg">
-						<div>
-							<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
-							<dl>
-								<dt>송준기</dt>
-								<dd>안녕하세요 작가님, 작품때문에 문의가 있어서 메시지 드립니다. 편하실 때 통화 가능하실까요?</dd>
-							</dl>
-							<span class="date">오후 11:34분</span>
-						</div>
-					</li>
-					 --%>
-				</ul>
+				<div class="mymsg-list">
+					<div class="msg-latest">
+						<legend class="latest msg-head" id="latestMsgNumber2">최근 받은 메시지</legend>
+						<!-- 메시지가 없는 경우
+						<p class="no-msg">편지함에 메시지가 없습니다.</p>
+						-->
+						<ul id="msgRoomList" class="msg-list">
+							<%-- 
+							<li class="msg">
+								<div>
+									<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
+									<dl>
+										<dt>송준기</dt>
+										<dd>안녕하세요 작가님, 작품때문에 문의가 있어서 메시지 드립니다. 편하실 때 통화 가능하실까요?</dd>
+									</dl>
+									<span class="date">오후 11:34분</span>
+								</div>
+							</li>
+							 --%>
+						</ul>
+					</div>
+					<div class="msg-search">
+						<form name="msgSearchForm" onsubmit="msgSearchBtnClick();return false;">
+							<input type="hidden" name="schMode" /> 
+							<input type="hidden" name="schNewUserSeq" /> 
+							<fieldset>
+								<legend class="hide">메시지 검색</legend>
+								<input type="text" name="schWord" placeholder="메시지 검색" />
+								<button onclick="msgSearchBtnClick();" class="btn-red" type="button">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 				<div class="talking-list">
 					<ul id="msgContentList" class="msg-list culunm">
@@ -154,7 +156,13 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 						<form name="msgAddForm">
 							<input type="hidden" name="recieveSeq" value="" />
 							<fieldset>
-								<legend class="msg-head">메시지 작성</legend>
+								<legend class="msg-head">메시지 보내기</legend>
+								<div class="msg-to">
+									<label>받는 사람</label>
+									<select>
+									
+									</select>
+								</div>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
 								<button class="btn-red" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
 							</fieldset>
@@ -168,9 +176,8 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 <script id="tmpl-msgRoomListTemplete" type="text/x-jsrender">
 					<li onclick="msgRoomClick(this);" data-new="{{:isNew}}" data-seq="{{:roomUserSeq}}" class="msg">
 						<div>
-							<div class="pic"><img style="width:68px;height:68px;" src="{{:roomUserImageUrl}}" alt="{{:roomUserName}}"></div>
+							<div class="msgUserName">{{:roomUserName}}</div>
 							<dl>
-								<dt>{{:roomUserName}}</dt>
 								<dd class="ellip1">{{:contents}}</dd>
 							</dl>
 							<span class="date">{{:displayTime}}</span>
