@@ -8,6 +8,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 
 <!DOCTYPE html>
 <html lang="ko">
+<meta charset="utf-8">
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 <!-- template: 디자인 -->

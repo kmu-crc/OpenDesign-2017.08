@@ -718,7 +718,7 @@ function inteSearch(isKeyDown) {
 	
 	if( isKeyDown ) {
 		if( event.keyCode == 13 ) {
-			submitInteSearchForm();	
+			submitInteSearchForm();
 		}
 	} else {
 		submitInteSearchForm();

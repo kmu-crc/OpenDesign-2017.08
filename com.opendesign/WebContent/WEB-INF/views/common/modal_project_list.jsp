@@ -1252,7 +1252,8 @@ function newUpFormValidRuleInit(){
 			<input type="hidden" name="projectSeq" value=""/>
 			<fieldset>
 				<legend>주제 추가</legend>
-				<input type="text" name="subjectName" maxlength="14" placeholder="주제 입력 (최대 14자)">
+				<input type="text" name="subjectName" maxlength="14" placeholder="주제 입력 (최대 14자)" onKeyDown="return checkEnter()" />
+				<input type="text" style="display: none;" />
 				<button type="button" class="btn-add" onclick="newTopicFormSubmit();">추가</button>
 			</fieldset>
 		</form>
@@ -1270,7 +1271,8 @@ function newUpFormValidRuleInit(){
 			<input type="hidden" name="subjectSeq" value=""/>
 			<fieldset>
 				<legend>주제 라인 수정</legend>
-				<input type="text" name="subjectName" maxlength="14" placeholder="주제 입력 (최대 14자)">
+				<input type="text" name="subjectName" maxlength="14" placeholder="주제 입력 (최대 14자)" onKeyDown="return checkEnter()" />
+				<input type="text" style="display: none;" />
 				<button type="button" class="btn-add" onclick="modifyTopicFormSubmit();">수정</button>
 			</fieldset>
 		</form>
@@ -1293,6 +1295,7 @@ function goSubjectAddView() {
 /**  
  * 새 주제 추가
  */
+ 
 var flag_newTopicFormSubmit = false; //flag
 function newTopicFormSubmit() {
 	//
@@ -1339,6 +1342,20 @@ function newTopicFormSubmit() {
     });
 	
 }
+
+function checkEnter(){
+	if (event.keyCode == 13){
+		if ($('#new-topic').css('display') == 'block'){
+			newTopicFormSubmit();
+		} else if ($('#modify-topic').css('display') == 'block'){
+			modifyTopicFormSubmit();
+		}
+	} else {
+		return;
+	}
+}
+
+
 
 /**
  * 주제 수정
