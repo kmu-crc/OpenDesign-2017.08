@@ -208,7 +208,7 @@ header
 .msg-list.culunm li > div{margin:0 33px 0 10px;}
 .msg-edit .msg-to {margin-bottom: 8px;}
 .msg-edit .msg-to > label{width: 111px; display: block; float: left; font-size: 14px; padding-left: 10px; box-sizing: border-box; padding-top: 6px;}
-.msg-edit .msg-to > select{width: 160px; height: 34px;}
+.msg-edit .msg-to > input{width: 160px; height: 34px;}
 .msg-edit textarea{width:100%; height:130px; box-sizing:border-box; padding:10px 6px; font-size:14px; border:1px solid #a4a4a4;}
 .msg-edit button{border-radius: 4px; float: right; margin-top: 16px; font-size: 14px;}
 

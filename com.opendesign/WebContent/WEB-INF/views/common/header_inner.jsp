@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"));
+
 %>
 <style>
 
@@ -162,9 +163,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 								<legend class="msg-head">메시지 보내기</legend>
 								<div class="msg-to">
 									<label>받는 사람</label>
-									<select>
-									
-									</select>
+									<input type="text" name="msgtoInput" />
 								</div>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
 								<button class="btn-red" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
@@ -426,9 +425,12 @@ function msgSearchBtnClick() {
  */
 function msgRoomClick(thisObj) {
 	console.log('>>> msgRoomClick');
-	var roomUserSeq = $(thisObj).data('seq'); 
+	var roomUserSeq = $(thisObj).data('seq');
+	console.log($(thisObj));
+	
 	var myForm = $('form[name="msgContentForm"]');
 	myForm.find('[name="schSelectedUserSeq"]').val(roomUserSeq);
+	$('.msg-to > input[name="msgtoInput"]').val(roomUserSeq);
 	$('.msgContentModal').css('display', 'block');
 	
 	onNotifyMsgChanged();
