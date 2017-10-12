@@ -228,6 +228,7 @@ $(function(){
  */
 function onNotifyMsgChanged() {
 	console.log('>>> onNotifyMsgChanged');
+	
 	// === 1. messageDiv refresh
 	refreshMsgDiv();
 	
@@ -240,6 +241,7 @@ function onNotifyMsgChanged() {
 
 function refreshMsgDiv() {
 	console.log('>>> refreshMsgDiv');
+	
 	$.ajax({
         url: '/common/selectLatestMessageCount.ajax',
         type: 'post',
@@ -340,10 +342,16 @@ function refreshMsgContentList() {
 			
 			if(_data) {
 				var list = _data.result;
+				
 				$('#msgContentList').empty();
 				if(!list) {
 					console.log('>>> refreshMsgContentList no data.');
 					return;
+				}
+
+				if(list.length !== 0 ){
+					console.log("it is working1");
+					$('.msg-to > input[name="msgtoInput"]').val(list[0].roomUserName);
 				}
 				//
 				var htmlJ = $($.templates('#tmpl-msgContentListTemplete').render(list));
@@ -352,7 +360,9 @@ function refreshMsgContentList() {
 				// scroll to bottom of div:
 				$('#msgContentList').scrollTop($('#msgContentList').prop("scrollHeight"));
 				
+				
 			}
+			
 		}
     });
 }
@@ -363,6 +373,7 @@ function refreshMsgContentList() {
  */
 function showMsgDiv() {
 	console.log('>>> showMsgDiv');
+	
 	var searchForm = $('form[name="msgSearchForm"]');
 	searchForm.find('[name="schMode"]').val('<%=MessageMode.SEARCH%>');
 	searchForm.find('[name="schWord"]').val('');
@@ -381,6 +392,7 @@ function showMsgDiv() {
  */
 function showMsgDivNewUser(newUserSeq) {
 	console.log('>>> showMsgDivNewUser: newUserSeq=' + newUserSeq);
+	
 	var searchForm = $('form[name="msgSearchForm"]');
 	searchForm.find('[name="schMode"]').val('<%=MessageMode.NEW%>');
 	searchForm.find('[name="schWord"]').val('');
@@ -409,6 +421,7 @@ function goShowMsgView(seq) {
  */
 function msgSearchBtnClick() {
 	console.log('>>> msgSearchBtnClick:');
+	
 	var searchForm = $('form[name="msgSearchForm"]');
 	searchForm.find('[name="schMode"]').val('<%=MessageMode.SEARCH%>');
 	//searchForm.find('[name="schWord"]').val('');
@@ -425,12 +438,10 @@ function msgSearchBtnClick() {
  */
 function msgRoomClick(thisObj) {
 	console.log('>>> msgRoomClick');
-	var roomUserSeq = $(thisObj).data('seq');
-	console.log($(thisObj));
 	
+	var roomUserSeq = $(thisObj).data('seq');	
 	var myForm = $('form[name="msgContentForm"]');
 	myForm.find('[name="schSelectedUserSeq"]').val(roomUserSeq);
-	$('.msg-to > input[name="msgtoInput"]').val(roomUserSeq);
 	$('.msgContentModal').css('display', 'block');
 	
 	onNotifyMsgChanged();
@@ -446,6 +457,7 @@ function msgAddFormInsertMsg() {
 	
 	var myForm = $('form[name="msgAddForm"]');
 	var contents = myForm.find('[name="contents"]');
+	var msgtoInput = $('.msg-to > input[name="msgtoInput"]');
 	if(contents.val().trim() == '') {
 		alert('메시지 입력하세요.');
 		contents.focus();
@@ -482,6 +494,8 @@ function msgAddFormInsertMsg() {
 			if(_data.result == '1') {
 				// do nothing
 				contents.val(''); 
+				console.log("it is working2");
+				msgtoInput.val('');
 			} else {
 				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 			}
