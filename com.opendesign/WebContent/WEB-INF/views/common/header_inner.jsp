@@ -343,7 +343,6 @@ function refreshMsgContentList() {
 					return;
 				}
 				if(list.length !== 0 ){
-					console.log("it is working1");
 					$('.msg-to > input[name="msgtoInput"]').val(list[0].roomUserName);
 				}
 				//
@@ -443,7 +442,7 @@ function msgAddFormInsertMsg() {
 	
 	var myForm = $('form[name="msgAddForm"]');
 	var contents = myForm.find('[name="contents"]');
-	var msgtoInput = $('.msg-to > input[name="msgtoInput"]');
+
 	if(contents.val().trim() == '') {
 		alert('메시지 입력하세요.');
 		contents.focus();
@@ -480,8 +479,6 @@ function msgAddFormInsertMsg() {
 			if(_data.result == '1') {
 				// do nothing
 				contents.val(''); 
-				console.log("it is working2");
-				msgtoInput.val('');
 			} else {
 				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 			}
