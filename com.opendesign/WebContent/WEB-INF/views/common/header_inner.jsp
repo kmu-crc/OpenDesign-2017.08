@@ -4,32 +4,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"));
-
 %>
 <style>
-
 .totalsearch {
 	height:42px;
 }
-
 #searchWord {
 	height: 42px;
 	text-indent: 5px;
 	font-style: italic;
 	font-size: 14px;
 }
-
 .searchBtnWrap{
 	width: 42px;
 	height: 42px;
 }
-
 #searchBtn {
 	line-height: 42px;
 	color: #f00;
 	
 }
-
 </style>
 	<div class="inner">
 		<h1>
@@ -163,7 +157,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 								<legend class="msg-head">메시지 보내기</legend>
 								<div class="msg-to">
 									<label>받는 사람</label>
-									<input type="text" name="msgtoInput" />
+									<input type="text" name="msgtoInput" readonly />
 								</div>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
 								<button class="btn-red" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
@@ -221,8 +215,11 @@ $(function(){
 	$('.noti-modal').on('click', '.msgContentModal-btn', function(){
 		$('.msgContentModal').css('display', 'none');
 	});
+	
+	$('.noti-modal').on('click', '.msg-list.culunm .msg dt', function(){
+		$('.msgContentModal-btn').click();
+	});
 });
-
 /**
  * 최신 메시지 신호 받았을때
  */
@@ -238,7 +235,6 @@ function onNotifyMsgChanged() {
 	// === 3. message content list refresh
 	refreshMsgContentList();
 }
-
 function refreshMsgDiv() {
 	console.log('>>> refreshMsgDiv');
 	
@@ -270,7 +266,6 @@ function refreshMsgDiv() {
 		}
     });
 }
-
 /**
  * 메시지 room
  */
@@ -312,7 +307,6 @@ function refreshMsgRoomList() {
 		}
     });
 }
-
 /**
  * 메시지 content
  */
@@ -348,7 +342,6 @@ function refreshMsgContentList() {
 					console.log('>>> refreshMsgContentList no data.');
 					return;
 				}
-
 				if(list.length !== 0 ){
 					console.log("it is working1");
 					$('.msg-to > input[name="msgtoInput"]').val(list[0].roomUserName);
@@ -366,8 +359,6 @@ function refreshMsgContentList() {
 		}
     });
 }
-
-
 /**
  * 메시지창 보여주기 : 검색모드
  */
@@ -386,7 +377,6 @@ function showMsgDiv() {
 	$('.msgContentModal').css('display', 'none');
 	onNotifyMsgChanged();
 }
-
 /**
  * 메시지창 보여주기 : 새 사용자 모드
  */
@@ -404,7 +394,6 @@ function showMsgDivNewUser(newUserSeq) {
 	modalShow('#message');
 	onNotifyMsgChanged();
 }
-
 /**
  * 메시지 보내기: 새 사용자 모드
  */
@@ -415,7 +404,6 @@ function goShowMsgView(seq) {
 		showMsgDivNewUser(seq);
 	}); //end of checkedLogin
 }
-
 /**
  * 메시지 검색버튼:
  */
@@ -432,7 +420,6 @@ function msgSearchBtnClick() {
 	 
 	onNotifyMsgChanged();
 }
-
 /**
  * 메시지 room click
  */
@@ -447,7 +434,6 @@ function msgRoomClick(thisObj) {
 	onNotifyMsgChanged();
 	
 }
-
 /**
  * 메시지 발송
  */
@@ -502,7 +488,6 @@ function msgAddFormInsertMsg() {
 		}
     });
 }
-
 </script>
 <!-- **************************  ]]메시지  ************************* -->
 		
@@ -551,7 +536,6 @@ function msgAddFormInsertMsg() {
 $(function(){
 	onNotifyAlarmChanged();
 });
-
 /**
  * 최신 알림개수 조회하기
  */
@@ -580,7 +564,6 @@ function onNotifyAlarmChanged() {
 		}
     });
 }
-
 /**
  * 알림창 보여주기 
  */
@@ -592,7 +575,6 @@ function showAlarmDiv() {
 	updateAndSearchAlarm();
 	modalShow('#alert');
 }
-
 /**
  * 알림 update 및 조회
  */
@@ -623,12 +605,10 @@ function updateAndSearchAlarm() {
 		}
     });
 }
-
 </script>
 <script>
 //뷰 컨트롤러 생성	
 var alarmListView = null;
-
 /**
  * 초기화
  */
@@ -646,8 +626,6 @@ $(function(){
 	// clear
 	alarmListView.clear();
 });
-
-
 /**
  * 페이지 load
  */
@@ -679,7 +657,6 @@ function loadAlarmPage() {
 		}
     });
 }
-
 /**
  *  loadAlarmPageWithData
  */
@@ -723,7 +700,6 @@ function loadAlarmPageWithData(_data) {
 	//
 	
 }
-
 /**
  * 더보기: 알림
  */
@@ -742,7 +718,6 @@ function alarmLoadMore() {
 	// load 
 	loadAlarmPage();
 }
-
 /*
  * 통합검색 
  */
@@ -757,7 +732,6 @@ function inteSearch(isKeyDown) {
 	}
 	
 }
-
 function submitInteSearchForm() {
 	if( !isEmpty($('#searchWord').val()) ) {
 		 $('#inteSearchForm').submit(); 
@@ -766,7 +740,6 @@ function submitInteSearchForm() {
 		$('#searchWord').focus();
 	}
 }
-
 </script>		
 		
 <!-- **************************  ]]알림  ************************* -->
@@ -774,4 +747,3 @@ function submitInteSearchForm() {
 		
 		
 	</div>
-	
