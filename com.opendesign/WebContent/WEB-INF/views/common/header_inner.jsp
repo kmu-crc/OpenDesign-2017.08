@@ -94,7 +94,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 			<div class="noti-inner">
 				<div class="mymsg-list">
 					<div class="msg-latest">
-						<legend class="latest msg-head" id="latestMsgNumber2">최근 받은 메시지</legend>
+						<legend class="latest msg-head" id="latestMsgNumber2"></legend>
 						<!-- 메시지가 없는 경우
 						<p class="no-msg">편지함에 메시지가 없습니다.</p>
 						-->
@@ -102,10 +102,36 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 							<%-- 
 							<li class="msg">
 								<div>
-									<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
 									<dl>
 										<dt>송준기</dt>
 										<dd>안녕하세요 작가님, 작품때문에 문의가 있어서 메시지 드립니다. 편하실 때 통화 가능하실까요?</dd>
+									</dl>
+									<span class="date">오후 11:34분</span>
+								</div>
+							</li>
+							 --%>
+						</ul>
+					</div>
+					<div class="msgContentModal">
+						<div class="msgContentHead">대화 상세 내역
+							<button class="msgContentModal-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
+						</div>
+						<ul id="msgContentList" class="msg-list culunm">
+							<%--
+							<li class="msg">
+								<div>
+									<dl>
+										<dt>송준기</dt>
+										<dd>안녕하세요 작가님, 작품때문에 문의가 있어서 메시지 드립니다. 편하실 때 통화 가능하실까요?</dd>
+									</dl>
+									<span class="date">오후 11:34분</span>
+								</div>
+							</li>
+							<li class="me">
+								<div>
+									<dl>
+										<dt>나</dt>
+										<dd>알겠습니다.<br>그럼 다시 연락드리도록 하겠습니다</dd>
 									</dl>
 									<span class="date">오후 11:34분</span>
 								</div>
@@ -128,30 +154,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 					</div>
 				</div>
 				<div class="talking-list">
-					<ul id="msgContentList" class="msg-list culunm">
-						<%--
-						<li class="msg">
-							<div>
-								<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
-								<dl>
-									<dt>송준기</dt>
-									<dd>안녕하세요 작가님, 작품때문에 문의가 있어서 메시지 드립니다. 편하실 때 통화 가능하실까요?</dd>
-								</dl>
-								<span class="date">오후 11:34분</span>
-							</div>
-						</li>
-						<li class="me">
-							<div>
-								<div class="pic"><img src="/resources/image/common/pic_profile.jpg" alt="송준기"></div>
-								<dl>
-									<dt>나</dt>
-									<dd>알겠습니다.<br>그럼 다시 연락드리도록 하겠습니다</dd>
-								</dl>
-								<span class="date">오후 11:34분</span>
-							</div>
-						</li>
-						 --%>
-					</ul>
+
 					<div class="msg-edit">
 						<form name="msgAddForm">
 							<input type="hidden" name="recieveSeq" value="" />
@@ -192,7 +195,6 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 						<li class="me">
 						{{/if}}
 							<div>
-								<div class="pic"><img style="width:68px;height:68px;" src="{{:sendImageUrl}}" alt="{{:sendName}}"></div>
 								<dl>
 									{{if  loginUserRecieveUser }}
 									<dt>{{:sendName}}</dt>
@@ -216,6 +218,10 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
  */
 $(function(){
 	onNotifyMsgChanged(); 
+	
+	$('.noti-modal').on('click', '.msgContentModal-btn', function(){
+		$('.msgContentModal').css('display', 'none');
+	});
 });
 
 /**
@@ -253,11 +259,11 @@ function refreshMsgDiv() {
 				if(cnt > 0) {
 					$('#msgDiv').addClass('active');
 					$('#latestMsgNumber').text(cnt);
-					$('#latestMsgNumber2').text( '최근 받은 메시지 ({0})'.replace('{0}',cnt) );
+					$('#latestMsgNumber2').text( '최근 대화 목록 ({0})'.replace('{0}',cnt) );
 				} else {
 					$('#msgDiv').removeClass('active');
 					$('#latestMsgNumber').text('');
-					$('#latestMsgNumber2').text( '최근 받은 메시지 ({0})'.replace('{0}',cnt) );
+					$('#latestMsgNumber2').text( '최근 대화 목록 ({0})'.replace('{0}',cnt) );
 				}
 			}
 		}
@@ -367,6 +373,7 @@ function showMsgDiv() {
 	contentForm.find('[name="schSelectedUserSeq"]').val(''); 
 	
 	modalShow('#message');
+	$('.msgContentModal').css('display', 'none');
 	onNotifyMsgChanged();
 }
 
@@ -422,8 +429,10 @@ function msgRoomClick(thisObj) {
 	var roomUserSeq = $(thisObj).data('seq'); 
 	var myForm = $('form[name="msgContentForm"]');
 	myForm.find('[name="schSelectedUserSeq"]').val(roomUserSeq);
+	$('.msgContentModal').css('display', 'block');
 	
 	onNotifyMsgChanged();
+	
 }
 
 /**
