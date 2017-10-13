@@ -157,7 +157,8 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 								<legend class="msg-head">메시지 보내기</legend>
 								<div class="msg-to">
 									<label>받는 사람</label>
-									<input type="text" name="msgtoInput" readonly />
+									<input type="text" name="msgtoInput" />
+									<input type="hidden" name="msgtoInputShow" />
 								</div>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
 								<button class="btn-red" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
@@ -218,6 +219,10 @@ $(function(){
 	
 	$('.noti-modal').on('click', '.msg-list.culunm .msg dt', function(){
 		$('.msgContentModal-btn').click();
+	});
+	
+	$('input[name="msgtoInput"]').focus(function(){
+		msgFindMember();
 	});
 });
 /**
@@ -479,12 +484,66 @@ function msgAddFormInsertMsg() {
 			if(_data.result == '1') {
 				// do nothing
 				contents.val(''); 
+				onNotifyMsgChanged();
 			} else {
 				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 			}
 		}
     });
 }
+
+
+
+// -------------------------------------
+/**
+ * 작업자 추가
+ */
+function msgFindMember(){ 
+	
+	 var myForm = $('.msg-to');
+	 /* 자동 완성 */
+	 myForm.find('[name="msgtoInput"]').autocomplete({ 
+
+	 	source : function( request, response ) {
+	 		$.ajax({
+	         	type: 'post',
+	             url: "/project/findMember.ajax",
+	             dataType: "json",
+	             data: { schWord : request.term },
+	             success: function(data) {
+	             	var result = data.result;
+	             	console.log(result);
+	             	
+	                 response( 
+	                     $.map(result, function(item) {
+	                         return {
+	                             label: item.uname + '(' + item.email + ')',
+	                             label2: item.uname,
+	                             value: item.email
+	                         }
+	                     })
+	                 );
+	             }
+	        });
+	     },
+	     focus: function( event, ui ) {
+	    	event.preventDefault();
+	    	myForm.find('[name="msgtoInput"]').val( ui.item.label2 );
+	 		return false;
+	 	},
+	     //조회를 위한 최소글자수
+	     minLength: 2,
+	     select: function( event, ui ) {
+	    	event.preventDefault();
+	    	myForm.find('[name="msgtoInputShow"]').val(ui.item.label2);
+	 		myForm.find('[name="msgtoInput"]').val(ui.item.label2);	        	
+	     	return false;
+	     }
+	 	
+	 });
+ }
+ 
+ 
 </script>
 <!-- **************************  ]]메시지  ************************* -->
 		

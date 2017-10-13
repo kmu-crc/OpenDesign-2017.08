@@ -1218,11 +1218,11 @@ function newUpFormValidRuleInit(){
 	myForm.validate({
 		rules:{
 			title : { required: true}
-			, contents : { required: true }
+			, fileUriFile : { required: true }
 		},
 		messages: {
 			title : { required: "제목을 입력하세요." } 
-			, contents : { required: "디자인설명을 입력하세요." }
+			, fileUriFile : { required: "첨부 파일을 등록하세요." }
 		},
 		showErrors: function(errorMap, errorList) {
 	    	if( errorList && errorList.length > 0 ){
