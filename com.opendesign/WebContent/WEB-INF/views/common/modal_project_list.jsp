@@ -230,21 +230,27 @@ function projShareShare() {
 <!-- 파일 -->
 <script id="tmpl-project-detail-sub-file" type="text/x-jsrender">
 			<div data-nm="fileComp" data-ftype="{{:fileUriImageType}}" >
-				<img style="width: 100%; height: auto" data-nm="verFileUri" src="{{:fileUriL}}" ori-src="{{:fileUri}}"
-					{{if fileUriImageType}}
-					{{else}}
-					class="hide"
-					{{/if}}
-				/>
-
-				{{if fileUriImageType}}
-				<div class="display-file hide">
+				{{if fileUri == '' || fileUri == null}}
+					<p>첨부된 파일이 없습니다</p>
 				{{else}}
-				<div class="display-file " style="position: relative;">
+
+					<img style="width: 100%; height: auto" data-nm="verFileUri" src="{{:fileUriL}}" ori-src="{{:fileUri}}"
+						{{if fileUriImageType}}
+						{{else}}
+						class="hide"
+						{{/if}}
+					/>
+
+					{{if fileUriImageType}}
+					<div class="display-file hide">
+					{{else}}
+					<div class="display-file " style="position: relative;">
+					{{/if}}
+						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" />&nbsp;
+						<a class="display-file-link" data-nm="verFileUri" ori-src="{{:fileUri}}" href="javascript:projDetailImgDown();"> {{:filename}} </a>
+
+					</div>
 				{{/if}}
-					<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" />&nbsp;
-					<a class="display-file-link" data-nm="verFileUri" ori-src="{{:fileUri}}" href="javascript:projDetailImgDown();"> {{:filename}} </a>
-				</div>
 			</div>
 </script>
 
