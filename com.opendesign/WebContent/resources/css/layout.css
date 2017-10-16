@@ -403,7 +403,7 @@ header
 .my-info .project h3{margin:0 0 20px; font-size:28px; color: #337ab7;;}
 .my-info .project li{margin:0 0 10px;}
 .my-info .project li:last-child{margin:0;}
-.my-info .project a{display:block; height:46px; padding:0 0 0 48px; font-size:20px; text-align:left; color:#fff; line-height:46px; border-radius:12px;  background:#a4a4a4 url(../image/mypage/blt_project.png) no-repeat 97% center;}
+.my-info .project a{display:block; height:46px; padding:0 60px 0 48px; font-size:20px; text-align:left; color:#fff; line-height:46px; border-radius:12px;  background:#a4a4a4 url(../image/mypage/blt_project.png) no-repeat 97% center; width: 560px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .my-project{position:relative; min-height:50px; overflow:hidden; padding:0 6px 30px 0;}
 .my-project .swiper-slide{overflow:visible;}
 .my-group{position:relative; min-height:50px; overflow:hidden; padding:0 6px 0 0;}

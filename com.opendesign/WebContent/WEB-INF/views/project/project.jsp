@@ -433,7 +433,7 @@
 %>
 <form id="groupListForm" name="groupListForm" method="GET" action="" >
 	<input type="hidden" name="schPage" value="" /> 	<!-- 페이지번호 --> 
-	<input type="hidden" name="schLimitCount" value="16" />
+	<input type="hidden" name="schLimitCount" value="100" />
 </form>
 <script id="tmpl-groupListView" type="text/x-jsrender">
 	<li class="group-list-li"><a href="javascript:goGroupDetailView({{:seq}});" >
@@ -611,15 +611,15 @@ function goGroupDetailView(seq) {
         <div class="project-info">
 			<div class="member">
             	<i class="fa fa-user" aria-hidden="true"></i>
-                <span>멤버 : {{:projectMemberCntF}}</span>
+                <span>{{:projectMemberCntF}}</span>
 			</div>
             <div class="bbs">
             	<i class="fa fa-window-restore" aria-hidden="true"></i>
-                <span>게시글 : {{:projectWorkCntF}}</span>
+                <span>{{:projectWorkCntF}}</span>
 			</div>
 			<div class="member">
             	<i class="fa fa-heart-o" aria-hidden="true" style="font-weight: bold"></i>
-                <span>좋아요 : {{:likeCnt}}</span>
+                <span>{{:likeCnt}}</span>
 			</div>
         	<!-- <div class="member">
             	<i>{{:projectMemberCntF}}</i>
@@ -646,7 +646,7 @@ function goGroupDetailView(seq) {
 	        cache: false,
 			data : {schMyGroup : schMyGroup},
 			success : function(_data){
-				console.log('>>> _data: ');
+				console.log('>>> _data2: ');
 				console.log(_data);
 				
 				groupListView.clear();

@@ -221,9 +221,9 @@ $(function(){
 		$('.msgContentModal-btn').click();
 	});
 	
-	//$('input[data-name="msgtoInput"]').focus(function(){
-		//msgFindMember();
-	//});
+	$('input[data-name="msgtoInput"]').focus(function(){
+		msgFindMember();
+	});
 });
 /**
  * 최신 메시지 신호 받았을때

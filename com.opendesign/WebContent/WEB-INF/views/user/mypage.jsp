@@ -165,6 +165,7 @@ function loadGroup() {
 		    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 			},
 			success : function(_data){
+				console.log("loadGroup");
 				console.log(_data);
 		    	// load
 		    	loadGroupWithData(_data.result);
