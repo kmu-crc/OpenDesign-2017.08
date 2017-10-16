@@ -157,7 +157,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 								<legend class="msg-head">메시지 보내기</legend>
 								<div class="msg-to">
 									<label>받는 사람</label>
-									<input type="text" name="msgtoInput" />
+									<input type="text" data-name="msgtoInput" name="schWord" />
 									<input type="hidden" name="msgtoInputShow" />
 								</div>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
@@ -221,9 +221,9 @@ $(function(){
 		$('.msgContentModal-btn').click();
 	});
 	
-	$('input[name="msgtoInput"]').focus(function(){
-		msgFindMember();
-	});
+	//$('input[data-name="msgtoInput"]').focus(function(){
+		//msgFindMember();
+	//});
 });
 /**
  * 최신 메시지 신호 받았을때
@@ -502,7 +502,7 @@ function msgFindMember(){
 	
 	 var myForm = $('.msg-to');
 	 /* 자동 완성 */
-	 myForm.find('[name="msgtoInput"]').autocomplete({ 
+	 myForm.find('[data-name="msgtoInput"]').autocomplete({ 
 
 	 	source : function( request, response ) {
 	 		$.ajax({
@@ -528,16 +528,18 @@ function msgFindMember(){
 	     },
 	     focus: function( event, ui ) {
 	    	event.preventDefault();
-	    	myForm.find('[name="msgtoInput"]').val( ui.item.label2 );
-	 		return false;
+	    	myForm.find('[data-name="msgtoInput"]').val( ui.item.label2 );
+	 		console.log("focus");
+	    	return false;
 	 	},
 	     //조회를 위한 최소글자수
 	     minLength: 2,
 	     select: function( event, ui ) {
 	    	event.preventDefault();
 	    	myForm.find('[name="msgtoInputShow"]').val(ui.item.label2);
-	 		myForm.find('[name="msgtoInput"]').val(ui.item.label2);	        	
-	     	return false;
+	 		myForm.find('[data-name="msgtoInput"]').val(ui.item.label2);	        	
+	     	console.log("select");
+	 		return false;
 	     }
 	 	
 	 });
