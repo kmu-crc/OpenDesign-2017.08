@@ -10,9 +10,12 @@ package com.opendesign.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -618,5 +621,22 @@ public class UserController {
 		Map<String, Object> resultMap = service.selectSidoList();
 		
 		return new JsonModelAndView(resultMap);
+	}
+	
+	
+	/**
+	 * 메시지 보내는 사람 seq 조회
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/findMemberforMsg.ajax")
+	public ModelAndView findMemberforMsg(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String schEmail = request.getParameter("schEmail");
+		Set<String> schWord = new HashSet<String>(Arrays.asList(schEmail)); 
+
+		result.put("result", service.selectMemberSeqsFromEmails(schWord));
+		return new JsonModelAndView(result);
 	}
 }

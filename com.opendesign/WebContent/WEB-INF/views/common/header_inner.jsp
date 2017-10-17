@@ -501,6 +501,7 @@ function msgAddFormInsertMsg() {
 function msgFindMember(){ 
 	
 	 var myForm = $('.msg-to');
+	 var value;
 	 /* 자동 완성 */
 	 myForm.find('[data-name="msgtoInput"]').autocomplete({ 
 
@@ -529,7 +530,6 @@ function msgFindMember(){
 	     focus: function( event, ui ) {
 	    	event.preventDefault();
 	    	myForm.find('[data-name="msgtoInput"]').val( ui.item.label2 );
-	 		console.log("focus");
 	    	return false;
 	 	},
 	     //조회를 위한 최소글자수
@@ -537,12 +537,32 @@ function msgFindMember(){
 	     select: function( event, ui ) {
 	    	event.preventDefault();
 	    	myForm.find('[name="msgtoInputShow"]').val(ui.item.label2);
-	 		myForm.find('[data-name="msgtoInput"]').val(ui.item.label2);	        	
-	     	console.log("select");
+	 		myForm.find('[data-name="msgtoInput"]').val(ui.item.label2);
+	 		value = ui.item.value;
+	 		findMemberforMsg(value);
 	 		return false;
 	     }
 	 	
 	 });
+ }
+ 
+ function findMemberforMsg(email){
+	 console.log(email);
+		$.ajax({
+			type: 'post',
+             url: "/findMemberforMsg.ajax",
+             dataType: "string",
+             data: { schEmail : email },
+             success: function(data) {
+             	var result = data.result;
+             	console.log(result);
+             	console.log("iii");
+
+             },
+             error: function(){
+            	 console.log("error");
+             }
+        });
  }
  
  

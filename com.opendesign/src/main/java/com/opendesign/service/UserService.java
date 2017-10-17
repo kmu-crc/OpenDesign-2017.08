@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -588,6 +589,18 @@ public class UserService {
 	public UserVO selectUserByEmail(String email) {
 
 		return dao.selectUserByEmail(email);
+	}
+	
+	/**
+	 * 이메일로 seq 조회
+	 * 
+	 * @param List
+	 * 
+	 * @return
+	 */
+	public List<String> selectMemberSeqsFromEmails(Set<String> allEmails) {
+
+		return dao.selectMemberSeqsFromEmails(allEmails);
 	}
 
 	/**
