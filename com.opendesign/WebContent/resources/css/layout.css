@@ -305,7 +305,7 @@ header
 .list-type1 .label{position:absolute; top:0; left:0;}
 
 .list-type2{clear:both; margin:0 0 0 -19px;}
-.list-type2 > li{position:relative; float:left; padding: 20px 15px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 0 16px 19px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#fff;}
+.list-type2 > li{position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 0 16px 19px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#fff;}
 .list-type2 > li a{display:block; color:#a4a4a4; transition:box-shadow .1s;}
 .list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#337ab7; text-overflow:ellipsis; white-space:nowrap;}
 .list-type2 .cate{margin:0 0 8px; font-size:12px; color:#f00; float: right;}
