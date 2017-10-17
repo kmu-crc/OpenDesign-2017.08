@@ -157,8 +157,8 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 								<legend class="msg-head">메시지 보내기</legend>
 								<div class="msg-to">
 									<label>받는 사람</label>
-									<input type="text" data-name="msgtoInput" name="schWord" />
-									<input type="hidden" name="msgtoInputShow" />
+									<input type="text" data-name="msgtoInput" name="schWord" placeholder="검색어 입력"/>
+									<input type="hidden" data-name="msgtoInputShow" />
 								</div>
 								<textarea name="contents" maxlength="200" placeholder="메시지를 작성해주세요"></textarea>
 								<button class="btn-red" onclick="msgAddFormInsertMsg();" type="button">메시지보내기</button>
@@ -211,9 +211,11 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
  * 최신 메시지 신호 받았을때
  */
 $(function(){
+	var loginUserSeq;
 	onNotifyMsgChanged(); 
 	
 	$('.noti-modal').on('click', '.msgContentModal-btn', function(){
+		$('input[data-name="msgtoInput"]').val($('input[data-name="msgtoInputShow"]').val());
 		$('.msgContentModal').css('display', 'none');
 	});
 	
@@ -225,6 +227,7 @@ $(function(){
 		msgFindMember();
 	});
 });
+
 /**
  * 최신 메시지 신호 받았을때
  */
@@ -253,7 +256,8 @@ function refreshMsgDiv() {
 		},
 		success : function(_data){
 			console.log(_data);
-			if(_data) { 
+			if(_data) {
+				loginUserSeq = _data.messageVO.schLoginUserSeq;
 				var cnt = _data.result;
 				if(!cnt) {
 					cnt = 0; 
@@ -348,9 +352,9 @@ function refreshMsgContentList() {
 					return;
 				}
 				if(list.length !== 0 ){
-					$('.msg-to > input[data-name="msgtoInput"]').val(list[0].roomUserName);
+					$('.msg-to > input[data-name="msgtoInputShow"]').val(list[0].roomUserName);
 				}
-				//
+				
 				var htmlJ = $($.templates('#tmpl-msgContentListTemplete').render(list));
 				$('#msgContentList').append(htmlJ);
 				
@@ -434,7 +438,6 @@ function msgRoomClick(thisObj) {
 	var myForm = $('form[name="msgContentForm"]');
 	myForm.find('[name="schSelectedUserSeq"]').val(roomUserSeq);
 	$('.msgContentModal').css('display', 'block');
-	
 	onNotifyMsgChanged();
 	
 }
@@ -449,14 +452,19 @@ function msgAddFormInsertMsg() {
 	var contents = myForm.find('[name="contents"]');
 
 	if(contents.val().trim() == '') {
-		alert('메시지 입력하세요.');
+		alert('메시지를 입력하세요.');
 		contents.focus();
 		return;
 	}
 	var contentForm = $('form[name="msgContentForm"]');
 	var schSelectedUserSeq = contentForm.find('[name="schSelectedUserSeq"]');
+
 	if(schSelectedUserSeq.val() == '') {
 		alert('메시지 발송대상을 선택해주세요.');
+		return;
+	}
+	if(schSelectedUserSeq.val() == loginUserSeq){
+		alert('자기 자신에게는 메시지를 보낼 수 없습니다.');
 		return;
 	}
 	myForm.find('[name="recieveSeq"]').val(schSelectedUserSeq.val()); //받는 사람
@@ -482,9 +490,9 @@ function msgAddFormInsertMsg() {
 		success : function(_data){
 			console.log(_data);
 			if(_data.result == '1') {
-				// do nothing
-				contents.val(''); 
+				contents.val('');
 				schSelectedUserSeq.val('');
+				$('input[data-name="msgtoInput"]').val('');
 				onNotifyMsgChanged();
 			} else {
 				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
@@ -497,12 +505,11 @@ function msgAddFormInsertMsg() {
 
 // -------------------------------------
 /**
- * 작업자 추가
+ * 받는 사람 검색 기능 추가
  */
 function msgFindMember(){ 
 	
 	 var myForm = $('.msg-to');
-	 var value;
 	 /* 자동 완성 */
 	 myForm.find('[data-name="msgtoInput"]').autocomplete({ 
 
@@ -530,17 +537,15 @@ function msgFindMember(){
 	     },
 	     focus: function( event, ui ) {
 	    	event.preventDefault();
-	    	myForm.find('[data-name="msgtoInput"]').val( ui.item.label2 );
+	    	//myForm.find('[data-name="msgtoInput"]').val( ui.item.label2 );
 	    	return false;
 	 	},
 	     //조회를 위한 최소글자수
 	     minLength: 2,
 	     select: function( event, ui ) {
 	    	event.preventDefault();
-	    	myForm.find('[name="msgtoInputShow"]').val(ui.item.label2);
 	 		myForm.find('[data-name="msgtoInput"]').val(ui.item.label2);
-	 		value = ui.item.value;
-	 		findMemberforMsg(value);
+	 		findMemberforMsg(ui.item.value);
 	 		return false;
 	     }
 	 	
@@ -557,7 +562,6 @@ function msgFindMember(){
              	var result = getNumberOnly(_data);
              	var myForm = $('form[name="msgContentForm"]');
             	myForm.find('[name="schSelectedUserSeq"]').val(result);
-
              },
              error: function(){
             	 console.log("error");
