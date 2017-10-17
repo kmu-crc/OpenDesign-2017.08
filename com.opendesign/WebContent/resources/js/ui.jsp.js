@@ -16,6 +16,7 @@ $(function(){
 	});
 	$( document ).ajaxError(function( event, jqXHR, ajaxSettings, thrownError ) {
 		console.log( "Error requesting page " + ajaxSettings.url ); 
+		console.log(thrownError);
 	});
 	$.ajaxSetup({
 		cache: false

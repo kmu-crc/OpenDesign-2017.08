@@ -348,7 +348,7 @@ function refreshMsgContentList() {
 					return;
 				}
 				if(list.length !== 0 ){
-					$('.msg-to > input[name="msgtoInput"]').val(list[0].roomUserName);
+					$('.msg-to > input[data-name="msgtoInput"]').val(list[0].roomUserName);
 				}
 				//
 				var htmlJ = $($.templates('#tmpl-msgContentListTemplete').render(list));
@@ -484,6 +484,7 @@ function msgAddFormInsertMsg() {
 			if(_data.result == '1') {
 				// do nothing
 				contents.val(''); 
+				schSelectedUserSeq.val('');
 				onNotifyMsgChanged();
 			} else {
 				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
@@ -547,16 +548,15 @@ function msgFindMember(){
  }
  
  function findMemberforMsg(email){
-	 console.log(email);
 		$.ajax({
 			type: 'post',
              url: "/findMemberforMsg.ajax",
-             dataType: "string",
+             dataType: "text",
              data: { schEmail : email },
-             success: function(data) {
-             	var result = data.result;
-             	console.log(result);
-             	console.log("iii");
+             success: function(_data) {
+             	var result = getNumberOnly(_data);
+             	var myForm = $('form[name="msgContentForm"]');
+            	myForm.find('[name="schSelectedUserSeq"]').val(result);
 
              },
              error: function(){
@@ -564,6 +564,17 @@ function msgFindMember(){
              }
         });
  }
+ 
+//-------------------------------------
+ /**
+ 	string에서 숫자만 추출하는 함수
+  * 위의 ajax 결과가 string이라서 -> 회원 seq만 추출하기 위해 필요
+  */
+  
+  function getNumberOnly(str){
+	  var result = str.replace(/[^0-9]/g,"");
+	  return result;
+  }
  
  
 </script>
