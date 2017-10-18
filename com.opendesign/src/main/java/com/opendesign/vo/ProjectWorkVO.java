@@ -155,6 +155,14 @@ public class ProjectWorkVO {
 	}
 	
 	/**
+	 * pdf인지 판단
+	 * @return
+	 */
+	public boolean isVerFileUriPdfType() {
+		return CmnUtil.isPdfFile(verFilename);
+	}
+	
+	/**
 	 * 썸네일: small
 	 * @return
 	 */

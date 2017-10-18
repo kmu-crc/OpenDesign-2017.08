@@ -729,6 +729,25 @@ public class CmnUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * pdf인지 판단:(suffix로부터)
+	 * @param file
+	 * @return
+	 */
+	public static boolean isPdfFile(String fileName) {
+		if(CmnUtil.isEmpty(fileName)) {
+			return false;
+		}
+		String[] validSuffixes = {"pdf"};
+		for( String suffix : validSuffixes ) {
+			String filePath = fileName.toLowerCase();
+			if( filePath.endsWith(suffix) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * test
