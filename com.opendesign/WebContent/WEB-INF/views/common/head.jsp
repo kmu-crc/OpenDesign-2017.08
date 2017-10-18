@@ -17,6 +17,8 @@
 <script src="/resources/js/jquery-ui.js"></script>	
 <script src="/resources/js/jquery-ui-1.12.1.js"></script>	
 <script src="/resources/js/jsrender.min.js"></script> <!-- js template -->
+<script type="text/javascript" src="/resources/js/jquery.gdocsviewer.min.js"></script>
+
 
 <!-- readonly -->
 <script type="text/javascript" src="/resources/js/jquery.readonly.min.js"></script>

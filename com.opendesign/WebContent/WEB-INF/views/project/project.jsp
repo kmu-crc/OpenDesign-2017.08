@@ -133,7 +133,7 @@
 	<input type="hidden" name="schProgressStatus" value="" />
 	<input type="hidden" name="projectSeq" value="" />
 	<input type="hidden" name="schSort" value="<%=schSort %>" />
-	<input type="hidden" name="schLimitCount" value="100" />
+	<input type="hidden" name="schLimitCount" value="500" />
 </form>
 <script id="tmpl-listView" type="text/x-jsrender">
 	<li><a href="javascript:goProject({{:seq}});" >

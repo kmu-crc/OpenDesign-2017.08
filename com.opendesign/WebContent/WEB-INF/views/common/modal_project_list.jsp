@@ -150,6 +150,7 @@ function projShareShare() {
 <div class="modal" id="project-detail">
 </div>
 <script id="tmpl-project-detail" type="text/x-jsrender">
+
 <div class="modal" id="project-detail">
 	<div class="bg"></div>
 	<div class="modal-inner">
@@ -164,7 +165,7 @@ function projShareShare() {
 				<select name="" data-nm="verList" onchange="projDetailChangeVer(this);">
 					<option value="">이전 버전 보기</option>
 					{{for  projectWorkVerList }}
-					<option value="{{:seq}}" data-pdftype="true" data-fileuri="{{:fileUri}}" data-fileuril="{{:fileUriL}}" data-ftype="{{:fileUriImageType}}" data-filename="{{:filename}}" >ver {{:ver}}</option>
+					<option value="{{:seq}}" data-pdftype="{{:fileUriPdfType}}" data-fileuri="{{:fileUri}}" data-fileuril="{{:fileUriL}}" data-ftype="{{:fileUriImageType}}" data-filename="{{:filename}}" >ver {{:ver}}</option>
 					{{/for}}
 				</select>
 			</div>
@@ -240,8 +241,11 @@ function projShareShare() {
 						class="hide"
 						{{/if}}
 					/>
+					{{if fileUriPdfType}}
+						<a href="" class="embedFile"></a>
+					{{/if}}
 
-					{{if fileUriImageType}}
+					{{if fileUriImageType || fileUriPdfType}}
 					<div class="display-file hide">
 					{{else}}
 					<div class="display-file " style="position: relative;">
@@ -586,8 +590,16 @@ function goWorkDetailView(workSeq) {
 		    	initPdrListView();
 		    	pdrLoadPage();
 		    	
-		    	//
 		    	modalShow('#project-detail'); 
+		    	
+		    	// 첨부 소스가 pdf일 경우 구글 docs viewer 붙이기
+		    	if (workJson.verFileUriPdfType){
+		    		var viewTarget = $('a.embedFile');
+		    		var viewLocation = workJson.verFileUri;
+		    		viewTarget.attr('href', viewLocation);
+		    		viewTarget.gdocsViewer({width: 600, height: 500}); 	
+		    	}
+				
 		    	return;
 	        }
 	    });
