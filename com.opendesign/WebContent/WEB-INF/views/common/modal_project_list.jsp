@@ -164,7 +164,7 @@ function projShareShare() {
 				<select name="" data-nm="verList" onchange="projDetailChangeVer(this);">
 					<option value="">이전 버전 보기</option>
 					{{for  projectWorkVerList }}
-					<option value="{{:seq}}" data-fileuri="{{:fileUri}}" data-fileuril="{{:fileUriL}}"  data-ftype="{{:fileUriImageType}}" data-filename="{{:filename}}" >ver {{:ver}}</option>
+					<option value="{{:seq}}" data-pdftype="true" data-fileuri="{{:fileUri}}" data-fileuril="{{:fileUriL}}" data-ftype="{{:fileUriImageType}}" data-filename="{{:filename}}" >ver {{:ver}}</option>
 					{{/for}}
 				</select>
 			</div>
@@ -229,7 +229,7 @@ function projShareShare() {
 
 <!-- 파일 -->
 <script id="tmpl-project-detail-sub-file" type="text/x-jsrender">
-			<div data-nm="fileComp" data-ftype="{{:fileUriImageType}}" >
+			<div data-nm="fileComp" data-ftype="{{:fileUriImageType}}" data-pdftype="{{:fileUriPdfType}}" >
 				{{if fileUri == '' || fileUri == null}}
 					<p>첨부된 파일이 없습니다</p>
 				{{else}}
@@ -670,10 +670,12 @@ function projDetailChangeVer(thisObj) {
 	if(!value) {
 		return;
 	}
+	console.log(selOpt);
 	
 	//set value: 
 	var htmlJ = $($.templates('#tmpl-project-detail-sub-file').render({
 		fileUriImageType: selOpt.data('ftype')
+		,fileUriPdfType: selOpt.data('pdftype')
 		,fileUri: selOpt.data('fileuri')
 		,fileUriL: selOpt.data('fileuril')
 		,filename: selOpt.data('filename')

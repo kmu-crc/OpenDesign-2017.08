@@ -43,6 +43,14 @@ public class ProjectWorkVerVO {
 		return CmnUtil.isImageFile(filename);
 	}
 	
+	/**
+	 * pdf인지 판단
+	 * @return
+	 */
+	public boolean isFileUriPdfType() {
+		return CmnUtil.isPdfFile(filename);
+	}
+	
 	// ==================================================
 
 	public String getProjectWorkSeq() {
