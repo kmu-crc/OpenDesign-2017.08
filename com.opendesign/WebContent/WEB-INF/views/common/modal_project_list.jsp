@@ -201,7 +201,9 @@ function projShareShare() {
 					{{if <%= isProjNotComplete && isProjectMember %> }}
 					<button type="button" class="btn-share" onclick="goWorkShareView();" >퍼가기</button>
 					{{/if}}
+					{{if verFileUri && verFileUri !== 'null'}}
 					<button type="button" class="btn-down" onclick="projDetailImgDown();"  >다운로드</button>
+					{{/if}}
 				</div>
 			</div>
 
@@ -234,7 +236,6 @@ function projShareShare() {
 				{{if fileUri == '' || fileUri == null}}
 					<p>첨부된 파일이 없습니다</p>
 				{{else}}
-					<div id="spinner"></div>
 					<img style="width: 100%; height: auto" data-nm="verFileUri" src="{{:fileUriL}}" ori-src="{{:fileUri}}"
 						{{if fileUriImageType}}
 						{{else}}
@@ -590,20 +591,19 @@ function goWorkDetailView(workSeq) {
 		    	initPdrListView();
 		    	pdrLoadPage();
 		    	
-		    	modalShow('#project-detail'); 
-		    	
 		    	// 첨부 소스가 doc, docx, pdf, ppt일 경우 구글 docs viewer 붙이기
 		    	if (workJson.verFileUriDocuType){
-		    		$('div#spinner').addClass('spinner');
 		    		var viewTarget = $('a#embedFile');
-		    		var viewLocation = workJson.verFileUri;
+		    		var viewLocation = "http://opensrcdesign.kookmin.ac.kr" + workJson.verFileUri;
 		    		viewTarget.attr('href', viewLocation);
 		    		viewTarget.gdocsViewer({width: 600, height: 500}); 	
-		    		$('div#spinner').removeClass('spinner');
 		    	}
-				
+		    	
+		    	modalShow('#project-detail');
+
 		    	return;
 	        }
+	        
 	    });
 	
 }
@@ -668,7 +668,11 @@ function projDetailWorkLike(thisObj) {
 function projDetailImgDown() {
 	var myForm = $('#project-detail');
 	//var fileUrl = myForm.find('[data-nm="verFileUri"]').attr('ori-src');
-	var fileUrl = myForm.find('[data-nm="verFileUri"]:visible').attr('ori-src');
+	var myFileData = $('div[data-nm="fileComp"]');
+	if (myFileData.attr('data-ftype') || myFileData.attr('data-docutype')){
+		var fileUrl = myFileData.find('img[data-nm="verFileUri"]').attr('ori-src');
+		console.log(fileUrl);
+	} 
 	//
 	var dispName = myForm.find('[name="dispName"]').val(); 
 	common.fileDownload(fileUrl, dispName); 
