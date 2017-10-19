@@ -41,7 +41,7 @@
 			<fieldset>
 				<legend>로그인</legend>
 				<input type="text" name="email" placeholder="이메일">
-				<input type="password" name="passwd" placeholder="비밀번호" onKeyDown="return checkEnter()">
+				<input type="password" name="passwd" placeholder="비밀번호" />
 				<button type="button" id="btn_modal_login" class="btn btn-red">로그인</button> 
 				<span class="division-line"></span>
 				<button type="button" id="btn_modal_FB_login" class="btn-facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> facebook 으로 로그인하기</button>
@@ -93,6 +93,12 @@ function modalShow(modalIdSel, opts) {
 			
 		});
 		
+		$('input[name="passwd"]').on('keyup', function(){
+			if (event.keyCode == 13){
+				$('#btn_modal_login').click();
+			}
+		});
+		
 	}else if( '#project-search' == modalIdSel ){
 		modalObj.find('.search-list ul').empty();
 		
@@ -114,13 +120,6 @@ function modalShow(modalIdSel, opts) {
 			
 		});
 	}
-}
-
-function checkEnter(){
-	if (event.keyCode == 13){
-		$('#btn_modal_login').click();
-	}
-	
 }
 
 

@@ -1445,5 +1445,26 @@ function modifyTopicFormSubmit() {
 }
 
 
-
 </script>
+
+
+
+<!-- 프로젝트 전체에 대한 댓글 -->
+
+<div class="modal" id="modal_project_totalReply">
+	<div class="bg"></div>
+	<div class="modal-inner">
+		<div class="contents">
+			<h2 class="totalReplyHead">프로젝트 댓글</h2>
+    		<div class="totalReplyBox"></div>
+    		<div class="totalReplyWrite">
+    			<form name="project_totalReplyForm">
+    				<label>댓글</label>
+    				<textarea></textarea>
+    				<button type="button" class="btn-red">등록</button>
+    			</form>
+			</div>
+		</div>
+		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+	</div>
+</div>
