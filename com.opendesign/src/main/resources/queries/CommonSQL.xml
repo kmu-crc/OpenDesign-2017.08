@@ -338,7 +338,7 @@
 		<include refid="sql_where_selectItemCmmtPagingList" />
 		
 		<![CDATA[
-		ORDER BY T.seq DESC
+		ORDER BY T.seq ASC
 		LIMIT #{pgPageCount}, #{pgLimitCount}
 		]]>
 	</select>

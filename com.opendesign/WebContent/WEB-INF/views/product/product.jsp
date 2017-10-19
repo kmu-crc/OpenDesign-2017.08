@@ -261,7 +261,7 @@ function goDetailView(itemType, seq) {
 				
 				
 				prodcutView.addAll({keyName:'seq', data:listData, htmlTemplate:productLitTemplete });
-				
+				console.log(_data);
 			},
 			error : function(req){
 				if( flagScroll ) flagScrollLoad = false;

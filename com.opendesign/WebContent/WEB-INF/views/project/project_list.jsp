@@ -375,7 +375,7 @@ function prodViewWorkLike(thisObj) {
 			
 			<%=projectVO.getProjectName()%></h2>
 			<div class="btn-area">
-				<button type="button" class="btn-red" onclick="javascript:modalShow('#modal_project_totalReply');">프로젝트 댓글</button>
+				<button type="button" class="btn-red" onclick="javascript:modalShow('#modal_project_totalReply');" style="display: none">프로젝트 댓글</button>
 				<%if( isProjNotComplete && projectVO.getIsProjectMember() ) { %>
 				<a href="javascript:goSubjectAddView();" class="btn-modal btn-red project-add-btn">새 주제 추가</a>
 				<%} %>
