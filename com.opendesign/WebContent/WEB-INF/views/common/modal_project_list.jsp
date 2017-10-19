@@ -211,7 +211,7 @@ function projShareShare() {
 					<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.PROJECT_CMMT%>" /> <!-- 댓글 구분 -->
 					<fieldset>
 						<legend >댓글</legend>
-						<textarea name="contents" maxlength="50" placeholder="댓글 입력(최대 50자)"></textarea>
+						<textarea name="contents" maxlength="100" placeholder="댓글 입력(최대 100자)"></textarea>
 						<button type="button" class="btn-cmmt btn-red" onclick="projDetailAddCmmt();">등록</button>
 					</fieldset>
 				</form>
@@ -759,7 +759,7 @@ function projDetailDelWork() {
 			<fieldset>
 				<h1>디자인 수정</h1>
 				<input type="text" name="title" maxlength="20" value="{{:title}}" placeholder="">
-				<textarea name="contents" maxlength="50" placeholder="디자인 설명 (최대 50자)">{{:contents}}</textarea>
+				<textarea name="contents" maxlength="100" placeholder="디자인 설명 (최대 100자)">{{:contents}}</textarea>
 				
 				<!-- 썸네일 이미지 -->
 				<div style="height:60px; width: 600px;">
@@ -1053,7 +1053,7 @@ function projEditFormValidRuleInit(){
 			<fieldset>
 				<legend>디자인업로드</legend>
 				<input type="text" name="title" maxlength="20" placeholder="제목 입력 (최대 20자)">
-				<textarea name="contents"  maxlength="50" placeholder="디자인 설명 (최대 50자)"></textarea>
+				<textarea name="contents"  maxlength="100" placeholder="디자인 설명 (최대 100자)"></textarea>
 
 				<!-- 썸네일 이미지 -->
 				<div class="file-url" style="width:500px;">
