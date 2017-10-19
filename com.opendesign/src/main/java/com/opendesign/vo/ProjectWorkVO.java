@@ -155,11 +155,11 @@ public class ProjectWorkVO {
 	}
 	
 	/**
-	 * pdf인지 판단
+	 * 문서 파일인지 판단
 	 * @return
 	 */
-	public boolean isVerFileUriPdfType() {
-		return CmnUtil.isPdfFile(verFilename);
+	public boolean isVerFileUriDocuType() {
+		return CmnUtil.isDocuFile(verFilename);
 	}
 	
 	/**

@@ -165,7 +165,7 @@ function projShareShare() {
 				<select name="" data-nm="verList" onchange="projDetailChangeVer(this);">
 					<option value="">이전 버전 보기</option>
 					{{for  projectWorkVerList }}
-					<option value="{{:seq}}" data-pdftype="{{:fileUriPdfType}}" data-fileuri="{{:fileUri}}" data-fileuril="{{:fileUriL}}" data-ftype="{{:fileUriImageType}}" data-filename="{{:filename}}" >ver {{:ver}}</option>
+					<option value="{{:seq}}" data-docutype="{{:fileUriDocuType}}" data-fileuri="{{:fileUri}}" data-fileuril="{{:fileUriL}}" data-ftype="{{:fileUriImageType}}" data-filename="{{:filename}}" >ver {{:ver}}</option>
 					{{/for}}
 				</select>
 			</div>
@@ -230,22 +230,22 @@ function projShareShare() {
 
 <!-- 파일 -->
 <script id="tmpl-project-detail-sub-file" type="text/x-jsrender">
-			<div data-nm="fileComp" data-ftype="{{:fileUriImageType}}" data-pdftype="{{:fileUriPdfType}}" >
+			<div data-nm="fileComp" data-ftype="{{:fileUriImageType}}" data-docutype="{{:fileUriDocuType}}" >
 				{{if fileUri == '' || fileUri == null}}
 					<p>첨부된 파일이 없습니다</p>
 				{{else}}
-
+					<div id="spinner"></div>
 					<img style="width: 100%; height: auto" data-nm="verFileUri" src="{{:fileUriL}}" ori-src="{{:fileUri}}"
 						{{if fileUriImageType}}
 						{{else}}
 						class="hide"
 						{{/if}}
 					/>
-					{{if fileUriPdfType}}
-						<a href="" class="embedFile"></a>
+					{{if fileUriDocuType}}
+						<a href="" id="embedFile"></a>
 					{{/if}}
 
-					{{if fileUriImageType || fileUriPdfType}}
+					{{if fileUriImageType || fileUriDocuType}}
 					<div class="display-file hide">
 					{{else}}
 					<div class="display-file " style="position: relative;">
@@ -592,12 +592,14 @@ function goWorkDetailView(workSeq) {
 		    	
 		    	modalShow('#project-detail'); 
 		    	
-		    	// 첨부 소스가 pdf일 경우 구글 docs viewer 붙이기
-		    	if (workJson.verFileUriPdfType){
-		    		var viewTarget = $('a.embedFile');
+		    	// 첨부 소스가 doc, docx, pdf, ppt일 경우 구글 docs viewer 붙이기
+		    	if (workJson.verFileUriDocuType){
+		    		$('div#spinner').addClass('spinner');
+		    		var viewTarget = $('a#embedFile');
 		    		var viewLocation = workJson.verFileUri;
 		    		viewTarget.attr('href', viewLocation);
 		    		viewTarget.gdocsViewer({width: 600, height: 500}); 	
+		    		$('div#spinner').removeClass('spinner');
 		    	}
 				
 		    	return;
@@ -687,7 +689,7 @@ function projDetailChangeVer(thisObj) {
 	//set value: 
 	var htmlJ = $($.templates('#tmpl-project-detail-sub-file').render({
 		fileUriImageType: selOpt.data('ftype')
-		,fileUriPdfType: selOpt.data('pdftype')
+		,fileUriDocuType: selOpt.data('docutype')
 		,fileUri: selOpt.data('fileuri')
 		,fileUriL: selOpt.data('fileuril')
 		,filename: selOpt.data('filename')

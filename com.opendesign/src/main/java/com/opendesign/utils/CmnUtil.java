@@ -353,7 +353,7 @@ public class CmnUtil {
 	}
 
 	/**
-	 * 현제시간 "yyyyMMddHHmm"
+	 * 현재시간 "yyyyMMddHHmm"
 	 * 
 	 * @return
 	 */
@@ -483,7 +483,7 @@ public class CmnUtil {
 	}
 
 	/**
-	 * 수자 format "#,###"
+	 * 숫자 format "#,###"
 	 * 
 	 * @param number
 	 * @return
@@ -731,15 +731,15 @@ public class CmnUtil {
 	}
 	
 	/**
-	 * pdf인지 판단:(suffix로부터)
+	 * 문서인지 판단:(suffix로부터)
 	 * @param file
 	 * @return
 	 */
-	public static boolean isPdfFile(String fileName) {
+	public static boolean isDocuFile(String fileName) {
 		if(CmnUtil.isEmpty(fileName)) {
 			return false;
 		}
-		String[] validSuffixes = {"pdf"};
+		String[] validSuffixes = {"pdf", "ppt", "pptx", "doc", "docx"};
 		for( String suffix : validSuffixes ) {
 			String filePath = fileName.toLowerCase();
 			if( filePath.endsWith(suffix) ) {

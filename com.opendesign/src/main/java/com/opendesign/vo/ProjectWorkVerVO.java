@@ -44,11 +44,11 @@ public class ProjectWorkVerVO {
 	}
 	
 	/**
-	 * pdf인지 판단
+	 * 문서 파일인지 판단
 	 * @return
 	 */
-	public boolean isFileUriPdfType() {
-		return CmnUtil.isPdfFile(filename);
+	public boolean isFileUriDocuType() {
+		return CmnUtil.isDocuFile(filename);
 	}
 	
 	// ==================================================
