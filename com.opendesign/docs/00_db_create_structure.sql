@@ -260,6 +260,26 @@ CREATE TABLE t_project_subject (
   member_seq int(11) DEFAULT NULL COMMENT '생성회원seq',
   register_time char(12)  DEFAULT NULL COMMENT '등록일시',
   PRIMARY KEY (seq)
+);
+
+
+
+
+/*Table structure for table t_project_comment */
+
+
+
+DROP TABLE IF EXISTS t_project_comment;
+
+
+
+CREATE TABLE t_project_comment (
+  seq int(11) NOT NULL AUTO_INCREMENT COMMENT '프로젝트 댓글seq',
+  project_seq int(11) DEFAULT NULL COMMENT '프로젝트seq',
+  member_seq int(11) DEFAULT NULL COMMENT '회원seq',
+  contents varchar(3000)  DEFAULT NULL COMMENT '내용',
+  register_time char(12)  DEFAULT NULL COMMENT '등록일시',
+  PRIMARY KEY (seq)
 );
 
 

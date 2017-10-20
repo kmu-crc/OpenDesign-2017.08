@@ -169,7 +169,7 @@
 	<!-- ************************* ]]좋아요 ********************************** -->
 	
 	<!-- ************************* 댓글 ********************************** -->
-	<!-- 댓글 작품 -->
+	<!-- 댓글 작품 등록 -->
 	<insert id="insertItemCmmt" parameterType="com.opendesign.vo.ItemCmmtVO" 
 		useGeneratedKeys="true" keyProperty="seq">
 		<![CDATA[
@@ -178,6 +178,15 @@
 		]]>
 		
 		<choose>
+			<when test=" itemCmmtType == 'T'.toString() ">
+				/* project */
+				t_project_comment(
+		            project_seq
+		            ,member_seq
+		            ,contents
+		            ,register_time
+		        )
+			</when>
 			<when test=" itemCmmtType == 'P'.toString() ">
 				/* project_work */
 				t_project_work_comment(
@@ -222,6 +231,10 @@
 	<delete id="deleteItemCmmt" parameterType="com.opendesign.vo.ItemCmmtVO" >
 		DELETE FROM 
 		<choose>
+			<when test=" itemCmmtType == 'T'.toString() ">
+				/* project */
+				t_project_comment 
+			</when>
 			<when test=" itemCmmtType == 'P'.toString() ">
 				/* project_work */
 				t_project_work_comment 
@@ -253,6 +266,13 @@
 	<!-- 작품 댓글 조회(paging) -->
 	<sql id="sql_where_selectItemCmmtPagingList">
 		<choose>
+			<when test=" schItemCmmtType == 'T'.toString() ">
+				/* project */
+				<![CDATA[
+				    WHERE
+				        T.project_seq = #{schSeq}
+				]]>
+			</when>
 			<when test=" schItemCmmtType == 'P'.toString() ">
 				/* project_work */
 				<![CDATA[
@@ -279,6 +299,23 @@
 	
 	<sql id="sql_selectItemCmmtPagingList">
 		<choose>
+			<when test=" schItemCmmtType == 'T'.toString() ">
+				/* project */
+				<![CDATA[
+				    SELECT
+				        T.seq
+				        ,T.project_seq AS itemSeq
+				        ,T.member_seq
+				        ,U.uname AS memberName
+				        ,U.member_type AS memberType
+				        ,U.image_url AS memberImageUrl
+				        ,T.contents
+				        ,T.register_time
+				    FROM
+				        t_project_comment T
+				        	JOIN t_member U ON T.member_seq = U.seq
+				]]>
+			</when>
 			<when test=" schItemCmmtType == 'P'.toString() ">
 				/* project_work */
 				<![CDATA[

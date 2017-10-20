@@ -28,8 +28,11 @@ public class ItemCmmtVO {
 	 * 
 	 * @author hanchanghao
 	 * @since 2016. 9. 20.
+	 * @author sy.yeom
+	 * @since 2017. 10. 20
 	 */
 	public static interface ItemCmmtType {
+		String PROJECT_TOTAL_CMMT = "T"; // 프로젝트 전체 
 		String PROJECT_CMMT = "P"; // 프로젝트 작품
 		String DESIGN_CMMT = "D"; // 디자인 작품
 		String BOARD_CMMT = "B"; // 의뢰 게시판
@@ -37,7 +40,7 @@ public class ItemCmmtVO {
 	
 	// ==================================================
 
-	/** 댓글 구분(프로젝트 작품, 디자인 작품, 의뢰) */
+	/** 댓글 구분(프로젝트 전체, 프로젝트 작품, 디자인 작품, 의뢰) */
 	private String itemCmmtType;
 
 	/** 작품댓글seq */
@@ -68,7 +71,7 @@ public class ItemCmmtVO {
 		return CmnUtil.getDisplayTime(registerTime);
 	}
 	
-	/** login한 회원가 댓글 삭제할수 있는지 체크 */
+	/** login한 회원이 댓글 삭제할수 있는지 체크 */
 	private boolean curUserAuthYN;
 	// ==================================================
 

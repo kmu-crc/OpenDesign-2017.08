@@ -3,6 +3,7 @@
 <%-- 화면ID : OD03-02-04 --%>
 <%-- 화면ID : OD03-02-07 --%>
 <%@page import="com.opendesign.vo.UserVO"%>
+<%@page import="com.opendesign.vo.ProjectVO"%>
 <%@page import="com.opendesign.utils.CmnUtil"%>
 <%@page import="com.opendesign.vo.ItemCmmtVO.ItemCmmtType"%>
 <%@page import="com.opendesign.vo.ItemLikeVO.ItemType"%>
@@ -14,6 +15,7 @@
 	boolean isProjectMember = "true".equals( request.getParameter("isProjectMember") );
 	boolean isProjNotComplete = "true".equals( request.getParameter("isProjNotComplete") );
 	UserVO user = CmnUtil.getLoginUser(request);
+	ProjectVO projectVO = (ProjectVO)request.getAttribute("projectVO"); //프로젝트 정보 
 
 %>
 
@@ -154,7 +156,7 @@ function projShareShare() {
 <div class="modal" id="project-detail">
 	<div class="bg"></div>
 	<div class="modal-inner">
-
+		<div id="spinner"></div>
 		<h1 data-nm="title">{{:title}} <span>{{:displayTime}}</span></h1>
 		<p class="designer" data-nm="memberName">{{:workMemberNameList}}</p>
 	
@@ -600,7 +602,6 @@ function goWorkDetailView(workSeq) {
 		    	}
 		    	
 		    	modalShow('#project-detail');
-
 		    	return;
 	        }
 	        
@@ -1459,16 +1460,249 @@ function modifyTopicFormSubmit() {
 	<div class="bg"></div>
 	<div class="modal-inner">
 		<div class="contents">
-			<h2 class="totalReplyHead">프로젝트 댓글</h2>
-    		<div class="totalReplyBox"></div>
-    		<div class="totalReplyWrite">
-    			<form name="project_totalReplyForm">
-    				<label>댓글</label>
-    				<textarea></textarea>
-    				<button type="button" class="btn-red">등록</button>
-    			</form>
-			</div>
+			<h2 class="totalReplyHead">댓글쓰기</h2>
+			<ul class="project_totalReplyList" id="project_totalReply" data-seq="<%=projectVO.getSeq()%>"></ul>
+			<form name="project_totalReplyForm">
+				<input type="hidden" name="itemSeq" value="<%=projectVO.getSeq()%>" /> <!-- itemSeq -->
+				<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.PROJECT_TOTAL_CMMT%>" /> <!-- 댓글 구분 -->
+				<fieldset>
+					<legend>댓글</legend>
+					<textarea name="contents" maxlength="500" placeholder="댓글 입력(최대 500자)"></textarea>
+					<button type="button" class="btn-cmmt btn-red" onclick="projTotalAddCmmt();">등록</button>
+				</fieldset>
+			</form>
 		</div>
 		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
 </div>
+
+
+<script id="tmpl-project-total-reply" type="text/x-jsrender">
+	<li>
+		<div>
+			<div class="pic">{{:memberName}}</div> 
+			<dl style="width:90%; position: relative">
+				{{if curUserAuthYN}}
+					<div class="btn-set">
+						<button class="btn-cmmt-del" onclick="projTotalDelCmmt('<%=ItemCmmtType.PROJECT_TOTAL_CMMT%>','{{:seq}}');" >삭제</button>
+					</div>
+				{{/if}}
+				<dt>{{:memberName}} <span class="date">{{:displayTime}}</span></dt>
+				<dd style="word-wrap:break-word;">
+					{{:contents}}
+				</dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+	</li>
+</script>
+
+<form id="pdrListTotalParamForm" name="pdrListTotalParamForm" method="GET" action="" >
+	<input type="hidden" name="schSeq" value="" /> 	<!-- itemSeq --> 
+	<input type="hidden" name="schPage" value="1" /> 	<!-- 페이지번호 --> 
+	<input type="hidden" name="schLimitCount" value="10" /> <!-- 한 page 개수 -->
+	<input type="hidden" name="schItemCmmtType" value="<%=ItemCmmtType.PROJECT_TOTAL_CMMT%>" /> <!-- 댓글 구분 -->
+</form>
+
+
+<script type="text/javascript">
+
+/* list 탬플릿 */
+var pdrListTotalTemplete = $("#tmpl-project-total-reply").html();
+
+/* project_totalReply */
+var project_totalReply = null;
+
+/* 초기화 */
+function initPdrListTotalView(){
+	// param set:
+	var myForm = $('form[name="pdrListTotalParamForm"]');
+	var itemSeq = $('#project_totalReply').data('seq'); 
+	myForm.find('[name="schSeq"]').val(itemSeq);
+	myForm.find('[name="schPage"]').val('1');
+	
+	//
+	project_totalReply = new ListView({
+		htmlElement : $('#project_totalReply')
+	});
+	
+	// clear
+	project_totalReply.clear();
+	
+}
+
+/**
+ * 페이지 load
+ */
+var flag_pdrLoadTotalPage = false; //flag
+function pdrLoadTotalPage() {
+	
+	if(flag_pdrLoadTotalPage) {
+		return;
+	}
+	flag_pdrLoadTotalPage = true;
+	
+	var myForm = $('form[name="pdrListTotalParamForm"]');
+	// 데이터 조회 및 load
+	$.ajax({
+        url: '/common/selectItemCmmtPagingList.ajax',
+        type: 'get',
+        data: myForm.serialize(),
+		complete : function(_data){
+			flag_pdrLoadTotalPage = false;
+		},
+		error : function(_data) {
+			console.log(_data);
+	    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+		},
+		success : function(_data){
+			console.log(_data);
+	    	// load
+	    	pdrLoadTotalPageWithData(_data);
+		}
+    });
+}
+
+
+/**
+ *  pdrLoadPageWithData
+ */
+function pdrLoadTotalPageWithData(_data) {
+	// allCount
+	var allCount = _data.all_count;
+	console.log('>>> allCount=' + allCount);
+	// pageNo
+	var myForm = $('form[name="pdrListTotalParamForm"]');
+	var pageNo = myForm.find('[name="schPage"]').val();
+	
+	//
+	var listData = _data.list;
+	var listCount = listData.length;
+	var existList = listCount > 0; 
+	project_totalReply.putData('existList', existList);
+	// loadMore button
+	//if((! existList) || ((project_totalReply.items.length + listCount)  == allCount) ) {
+		//$('#pdrLoadMore').hide();
+	//} else {
+		//$('#pdrLoadMore').show();
+	//}
+	if( ! existList ){	
+		console.log('>>> loadPageWithData no data.');
+		return;
+	}
+	
+	// data
+	project_totalReply.addAll({
+		keyName:'seq',
+		data:listData,
+		htmlTemplate: pdrListTotalTemplete
+	});
+}
+
+
+/**
+ * 댓글 등록
+ */
+var flag_projTotalAddCmmt = false; //flag
+function projTotalAddCmmt() {
+	
+	initPdrListTotalView();
+	
+	var myForm = $('form[name="project_totalReplyForm"]');
+	
+	checkedLogin(function(invokeAfterLogin){
+		var myForm = $('form[name="project_totalReplyForm"]');
+		if(!myForm.valid()) {
+			return;
+		}
+		
+		if(flag_projTotalAddCmmt) {
+			return;
+		}
+		flag_projTotalAddCmmt = true;
+		
+		//
+		$.ajax({
+	        url: '/common/insertItemCmmt.ajax',
+	        type: 'post',
+	        data: myForm.serialize(),
+	        complete : function(_data){
+	        	flag_projTotalAddCmmt = false;
+			},
+	        error : function(_data) {
+	        	console.log(_data);
+				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+	        },
+	        success : function(_data){
+		    	if(_data.result == '1') {
+		    		
+		    		if( invokeAfterLogin ) { //로그인 후 처리되는 프로세스 라면
+		    			window.location.reload();
+		    			return;
+		    		}
+		    		
+					initPdrListTotalView();
+					pdrLoadTotalPage();
+		    		// clear
+		    		formValueClear('form[name="project_totalReplyForm"]');
+		    		
+		    	} else {
+		    		alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+		    	}
+	        }
+	    });
+		
+	}); //end of checkedLogin
+}
+
+
+/**
+ * 댓글 삭제
+ */
+var flag_projTotalDelCmmt = false; //flag 
+function projTotalDelCmmt(itemCmmtType, seq) {
+	checkedLogin(function(invokeAfterLogin){
+		
+		if(!confirm('댓글 삭제하시겠습니까?')) { 
+			return;
+		}
+		
+		
+		if(flag_projTotalDelCmmt) {
+			return;
+		}
+		flag_projTotalDelCmmt = true;
+		
+		//
+		$.ajax({
+	        url: '/common/deleteItemCmmt.ajax',
+	        type: 'post',
+	        data: {itemCmmtType: itemCmmtType,seq: seq},
+	        complete : function(_data){
+	        	flag_projTotalDelCmmt = false;
+			},
+	        error : function(_data) {
+	        	console.log(_data);
+				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+	        },
+	        success : function(_data){
+	        	console.log(_data);
+		    	if(_data.result == '1') {
+		    		if( invokeAfterLogin ) { //로그인 후 처리되는 프로세스 라면
+		    			window.location.reload();
+		    			return;
+		    		}
+		    		// reload 댓글
+					initPdrListTotalView();
+					pdrLoadTotalPage();
+		    	} else {
+		    		alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+		    	}
+	        }
+	    });
+		
+	}); //end of checkedLogin
+} 
+
+</script>
+
