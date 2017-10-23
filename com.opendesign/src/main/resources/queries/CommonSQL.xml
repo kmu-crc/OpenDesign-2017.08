@@ -546,6 +546,18 @@
 	<!-- 작품 정보 조회(댓글 포함) -->
 	<select id="selectItemCmmtBySeq" parameterType="hashmap" resultType="com.opendesign.vo.ItemCmmtVO" > 
 		<choose>
+			<when test=" itemCmmtType == 'T'.toString() ">
+				SELECT
+						'T' AS itemCmmtType
+				        ,T.seq AS itemSeq
+				        ,T.project_name AS itemTitle
+				        ,'0' AS itemPoint
+				        ,T.owner_seq AS member_seq
+				        ,T.register_time
+				    FROM
+				        t_project T
+				    WHERE T.seq = #{itemSeq}
+			</when>
 			<when test=" itemCmmtType == 'P'.toString() ">
 				SELECT
 						'P' AS itemCmmtType
@@ -574,7 +586,7 @@
 				SELECT
 						'B' AS itemCmmtType
 				        ,T.seq AS itemSeq
-				        ,T.title AS itemTitle
+				        ,T.title AS itemTitleitemSeq
 				        ,'0' AS itemPoint
 				        ,T.member_seq
 				        ,T.register_time

@@ -469,13 +469,8 @@ $(function(){
 	// 등록 event:
 	var myForm = $('form[name="projDetailAddCmmtForm"]');
 	myForm.find('.btn-cmmt').click(function (event) {
-	//myForm.find('[name="contents"]').keydown(function (event) {
-    //    if(event.keyCode == 13){//키가 13이면 실행 (엔터는 13)
-    //    	event.preventDefault(); 
-        	//
-        	projDetailAddCmmt();
-        	return;
-    //    } 
+       	projDetailAddCmmt();
+       	return;
 	});
 });
 

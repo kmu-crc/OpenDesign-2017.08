@@ -1480,11 +1480,10 @@ function modifyTopicFormSubmit() {
 <script id="tmpl-project-total-reply" type="text/x-jsrender">
 	<li>
 		<div>
-			<div class="pic">{{:memberName}}</div> 
-			<dl style="width:90%; position: relative">
+			<dl style="width:100%; position: relative">
 				{{if curUserAuthYN}}
 					<div class="btn-set">
-						<button class="btn-cmmt-del" onclick="projTotalDelCmmt('<%=ItemCmmtType.PROJECT_TOTAL_CMMT%>','{{:seq}}');" >삭제</button>
+						<button class="btn-cmmt-del" onclick="projTotalDelCmmt('<%=ItemCmmtType.PROJECT_TOTAL_CMMT%>','{{:seq}}');" >x</button>
 					</div>
 				{{/if}}
 				<dt>{{:memberName}} <span class="date">{{:displayTime}}</span></dt>
@@ -1528,6 +1527,7 @@ function initPdrListTotalView(){
 	
 	// clear
 	project_totalReply.clear();
+	pdrLoadTotalPage();
 	
 }
 
@@ -1579,7 +1579,7 @@ function pdrLoadTotalPageWithData(_data) {
 	var listData = _data.list;
 	var listCount = listData.length;
 	var existList = listCount > 0; 
-	project_totalReply.putData('existList', existList);
+	
 	// loadMore button
 	//if((! existList) || ((project_totalReply.items.length + listCount)  == allCount) ) {
 		//$('#pdrLoadMore').hide();
@@ -1590,6 +1590,8 @@ function pdrLoadTotalPageWithData(_data) {
 		console.log('>>> loadPageWithData no data.');
 		return;
 	}
+	
+	project_totalReply.putData('existList', existList);
 	
 	// data
 	project_totalReply.addAll({
@@ -1607,8 +1609,6 @@ var flag_projTotalAddCmmt = false; //flag
 function projTotalAddCmmt() {
 	
 	initPdrListTotalView();
-	
-	var myForm = $('form[name="project_totalReplyForm"]');
 	
 	checkedLogin(function(invokeAfterLogin){
 		var myForm = $('form[name="project_totalReplyForm"]');

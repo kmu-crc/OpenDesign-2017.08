@@ -168,6 +168,7 @@ public class CommonController {
 	public ModelAndView insertProjectWorkCmmt(@ModelAttribute ItemCmmtVO cmmtVO, HttpServletRequest request) {
 
 		Map<String, Object> resultMap = service.insertItemCmmt(cmmtVO, request);
+		System.out.println(resultMap);
 
 		return new JsonModelAndView(resultMap);
 	}
