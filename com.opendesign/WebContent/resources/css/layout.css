@@ -641,9 +641,9 @@ tr.no-padding {height: 50px;}
 
 
 /* project Total reply modal*/
-#modal_project_totalReply .modal-inner{width: 600px; height: 600px; background-color: #fff; margin-top: -300px; margin-left: -300px; box-sizing: border-box; padding: 70px 30px;}
-#modal_project_totalReply .totalReplyHead{font-size: 20px; margin-bottom: 20px;}
-#modal_project_totalReply .project_totalReplyList{width: 100%; height: 300px; background-color: #e9e9e9;}
+#modal_project_totalReply .modal-inner{width: 600px; height: 600px; background-color: #fff; margin-top: -300px; margin-left: -350px; border-radius: 2px; box-sizing: border-box; padding: 70px 30px;}
+#modal_project_totalReply .totalReplyHead{font-size: 24px; margin-bottom: 25px; margin-left: 5px;}
+#modal_project_totalReply .project_totalReplyList{width: 100%; height: 300px; background-color: #e9e9e9; overflow-y: scroll;}
 #modal_project_totalReply form[name='project_totalReplyForm'] {margin-top: 20px;}
 #modal_project_totalReply form[name='project_totalReplyForm'] textarea {width: 450px; height: 80px; padding: 10px; box-sizing: border-box;}
 #modal_project_totalReply .btn-red {border-radius: 4px; margin-top: 22px; line-height: 1;}

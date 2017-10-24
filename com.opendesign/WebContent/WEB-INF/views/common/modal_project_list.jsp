@@ -1460,7 +1460,7 @@ function modifyTopicFormSubmit() {
 	<div class="bg"></div>
 	<div class="modal-inner">
 		<div class="contents">
-			<h2 class="totalReplyHead">댓글쓰기</h2>
+			<h2 class="totalReplyHead">프로젝트 댓글</h2>
 			<ul class="project_totalReplyList" id="project_totalReply" data-seq="<%=projectVO.getSeq()%>"></ul>
 			<form name="project_totalReplyForm">
 				<input type="hidden" name="itemSeq" value="<%=projectVO.getSeq()%>" /> <!-- itemSeq -->
@@ -1557,7 +1557,6 @@ function pdrLoadTotalPage() {
 		},
 		success : function(_data){
 			console.log(_data);
-	    	// load
 	    	pdrLoadTotalPageWithData(_data);
 		}
     });
@@ -1568,10 +1567,8 @@ function pdrLoadTotalPage() {
  *  pdrLoadPageWithData
  */
 function pdrLoadTotalPageWithData(_data) {
-	// allCount
 	var allCount = _data.all_count;
 	console.log('>>> allCount=' + allCount);
-	// pageNo
 	var myForm = $('form[name="pdrListTotalParamForm"]');
 	var pageNo = myForm.find('[name="schPage"]').val();
 	
@@ -1580,12 +1577,6 @@ function pdrLoadTotalPageWithData(_data) {
 	var listCount = listData.length;
 	var existList = listCount > 0; 
 	
-	// loadMore button
-	//if((! existList) || ((project_totalReply.items.length + listCount)  == allCount) ) {
-		//$('#pdrLoadMore').hide();
-	//} else {
-		//$('#pdrLoadMore').show();
-	//}
 	if( ! existList ){	
 		console.log('>>> loadPageWithData no data.');
 		return;
@@ -1608,7 +1599,8 @@ function pdrLoadTotalPageWithData(_data) {
 var flag_projTotalAddCmmt = false; //flag
 function projTotalAddCmmt() {
 	
-	initPdrListTotalView();
+	//initPdrListTotalView();
+	projTotalAddCmmtFormValidRuleInit();
 	
 	checkedLogin(function(invokeAfterLogin){
 		var myForm = $('form[name="project_totalReplyForm"]');
@@ -1642,7 +1634,6 @@ function projTotalAddCmmt() {
 		    		}
 		    		
 					initPdrListTotalView();
-					pdrLoadTotalPage();
 		    		// clear
 		    		formValueClear('form[name="project_totalReplyForm"]');
 		    		
@@ -1653,6 +1644,35 @@ function projTotalAddCmmt() {
 	    });
 		
 	}); //end of checkedLogin
+}
+
+
+//=== 검증 ==========
+
+function projTotalAddCmmtFormValidRuleInit(){
+	var myForm = $('form[name="project_totalReplyForm"]');
+	myForm.validate({
+		rules:{
+			contents : { required: true }
+		},
+		messages: {
+			contents : { required: "필수로 입력해야 합니다." } 
+		},
+		showErrors: function(errorMap, errorList) {
+	    	if( errorList && errorList.length > 0 ){
+	    		for( var i = 0; i < errorList.length; i++ ){                			
+					alert(errorList[i].message);
+	               	errorList[i].element.focus();
+	    			break;
+	    		}
+	    	}
+	    },
+	    ignore: [],
+	    focusInvalid:false,
+	    onfocusout: false,
+	    onkeyup: false,
+	    onclick: false
+	});
 }
 
 
