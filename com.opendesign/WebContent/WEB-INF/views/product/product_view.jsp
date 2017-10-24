@@ -328,7 +328,7 @@ $(function() {
 							<div class="profile-pic"><img src="<%=designerVO.getImageUrl()%>" onerror="setDefaultImg(this, 1);" alt=""></div>
 							<div class="profile-name">
 								<a href="javascript:goPortfolioView('<%=designerVO.getSeq()%>');" class="name"><%=designerVO.getUname()%></a>
-								<a href="javascript:goShowMsgView('<%=designerVO.getSeq()%>');" class="btn-msg"><i class="fa fa-comment" aria-hidden="true"></i></a>
+								<a href="javascript:goShowMsgView('<%=designerVO.getSeq()%>');" class="btn-msg"><i class="fa fa-commenting" aria-hidden="true"></i></a>
 							</div>
 					</div>
 					<div class="info"> 

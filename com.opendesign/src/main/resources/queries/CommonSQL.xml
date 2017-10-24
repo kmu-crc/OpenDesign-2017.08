@@ -375,7 +375,7 @@
 		<include refid="sql_where_selectItemCmmtPagingList" />
 		
 		<![CDATA[
-		ORDER BY T.seq ASC
+		ORDER BY T.seq DESC
 		LIMIT #{pgPageCount}, #{pgLimitCount}
 		]]>
 	</select>
@@ -586,7 +586,7 @@
 				SELECT
 						'B' AS itemCmmtType
 				        ,T.seq AS itemSeq
-				        ,T.title AS itemTitleitemSeq
+				        ,T.title AS itemTitle
 				        ,'0' AS itemPoint
 				        ,T.member_seq
 				        ,T.register_time
