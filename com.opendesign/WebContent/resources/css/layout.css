@@ -31,6 +31,11 @@ button:focus { outline: 0 !important }
 .display-file img {width:20px;height:22px;margin:auto;}
 .display-file-link {min-width: 30px; height: 40px; display: block; position: absolute; top: 0; left: 0; padding-left: 24px; line-height: 40px;}
 
+/** 구글 뷰어로 보기 링크 */
+a#embedFile {float: right; font-size: 13px; color: #113b88; text-decoration: none; font-weight: normal;}
+a#embedFile:hover,
+a#embedFile:focus {text-decoration: underline; font-weight: bold;}
+
 
 /*
 header

@@ -250,9 +250,9 @@ $(function() {
 						<%
 									} else {
 						%>
-						<div style="padding-top:30px;padding-bottom:40px;width:85%;">
+						<div style="padding-top:20px;padding-bottom:20px;width:85%;">
 						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
-						&nbsp;<a href="<%=image.getFileUri()%>"> <%=image.getFilename() %> </a>
+						&nbsp;<a href="<%=image.getFileUri()%>" target="blank"> <%=image.getFilename() %> </a>
 						</div>
 						<%
 									}

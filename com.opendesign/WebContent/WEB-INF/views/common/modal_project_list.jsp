@@ -244,18 +244,17 @@ function projShareShare() {
 						class="hide"
 						{{/if}}
 					/>
-					{{if fileUriDocuType}}
-						<a href="" id="embedFile"></a>
-					{{/if}}
 
-					{{if fileUriImageType || fileUriDocuType}}
+					{{if fileUriImageType}}
 					<div class="display-file hide">
 					{{else}}
 					<div class="display-file " style="position: relative;">
 					{{/if}}
 						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" />&nbsp;
 						<a class="display-file-link" data-nm="verFileUri" ori-src="{{:fileUri}}" href="javascript:projDetailImgDown();"> {{:filename}} </a>
-
+						{{if fileUriDocuType}}
+						<a href="" id="embedFile" target="blank">파일뷰어로 열기</a>
+						{{/if}}
 					</div>
 				{{/if}}
 			</div>
@@ -596,9 +595,10 @@ function goWorkDetailView(workSeq) {
 		    	// 첨부 소스가 doc, docx, pdf, ppt일 경우 구글 docs viewer 붙이기
 		    	if (workJson.verFileUriDocuType){
 		    		var viewTarget = $('a#embedFile');
+		    		var googleLocation = "https://docs.google.com/viewerng/viewer?url=";
 		    		var viewLocation = "http://opensrcdesign.kookmin.ac.kr" + workJson.verFileUri;
-		    		viewTarget.attr('href', viewLocation);
-		    		viewTarget.gdocsViewer({width: 600, height: 500}); 	
+		    		viewTarget.attr('href', googleLocation+viewLocation);
+		    		//viewTarget.gdocsViewer({width: 600, height: 500}); 	
 		    	}
 		    	
 		    	modalShow('#project-detail');
