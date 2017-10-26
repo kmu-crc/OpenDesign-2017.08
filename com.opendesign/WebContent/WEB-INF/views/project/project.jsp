@@ -73,12 +73,12 @@
 				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
 			<div class="sorting" id="sortingProj">
-				<a id="psort1" href="javascript:sortProduct();" class="first btn-red active">최신순</a>
+				<a id="psort1" href="javascript:sortProduct();" class="btn-red active">최신순</a>
 				<a id="psort2" href="javascript:sortProduct('LIKE');" class="btn-red">인기순</a>
 				<a id="psort3" href="javascript:sortProduct('MEMBER');" class="btn-red">멤버순</a>
 			</div>
 			<div class="sorting" id="sortingGroup" style="display: none">
-				<a id="gsort1" href="javascript:sortProject();" class="first btn-red active">최신순</a>
+				<a id="gsort1" href="javascript:sortProject();" class="btn-red active">최신순</a>
 				<a id="gsort2" href="javascript:sortProject('NAME');" class="btn-red">이름순</a>
 			</div>
 			<div class="clear"></div>
@@ -203,6 +203,7 @@
 		initParam();
 		
 		/* 이벤트 : 사용자 그룹 변경 */
+		var SelectedGroupName;
 		$('#sch_my_group select').on('change', function(){
 			var val = $(this).find('option:selected').val();			
 			listForm.find('input[name="schMyGroup"]').val(val);
@@ -265,16 +266,20 @@
 		var val = listForm.find('input[name="schMyGroup"]').val();
 		$('#sch_my_group select > option[value="' + val + '"]').prop('selected', true);
 		var name = $('#sch_my_group select > option:selected').text();
+		SelectedGroupName = $('#sch_my_group select > option:selected').text();
+		if (name.length > 7){
+			name = name.substr(0, 6) + "...";
+		}
 		$('#sch_my_group input:text').val(name);
 		
 		from.find('input[name="schPPage"]').val('<%=StringUtil.emptyToString(schPPage, "1") %>');
 		from.find('input[name="schCPage"]').val('<%=StringUtil.emptyToString(schCPage, "1") %>');
+		
 	}
 	
 	// sorting
     function sortProduct(sortType){
         sortType = sortType || '';
-
         var from = listForm;
         from.find('input[name="seq"]').val('');
         from.find('input[name="schPPage"]').val('<%=StringUtil.emptyToString(schPPage, "1") %>');
@@ -289,14 +294,11 @@
             cache: false,
             data : {'sortType':sortType},
             success : function(_data){
-
                 console.log('>>> _data: ');
                 console.log(_data);
-
                 var listData = _data.list;
                 var listCount = listData.length;
                 var existList = listCount > 0;
-
                 var allCount = _data.all_count;
                 groupListView.putData('existList', existList);
                 if( ! existList ){
@@ -329,6 +331,7 @@
 		<script> $("#psort3").addClass("active");</script>
 		<%}%>
 	<%}%>
+	
 	
 <script>
 	/**
@@ -654,7 +657,7 @@ function goGroupDetailView(seq) {
 				var listData = _data.list;
 				var listCount = listData.length;
 				var allCount = _data.all_count;
-				$('#project_all_cnt').html('프로젝트 (' + formatNumberCommaSeparate(allCount) + '건)');
+				$('#project_all_cnt').html(SelectedGroupName+'(' + formatNumberCommaSeparate(allCount) + '건)');
 				groupListView.addAll({keyName:'seq', data:listData, htmlTemplate: groupDetailTemplate });
 				
 			},

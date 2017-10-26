@@ -331,8 +331,8 @@ header
 
 .project-select{position:relative; float:left; width:140px; height:34px; font-size: 16px;}
 .project-select select{position:absolute; top:0; left:0; width:100%; height:32px; opacity:0;}
-.project-select input[type="text"]{width:100%; height:32px; box-sizing:border-box; padding:0 40px 0 10px; color:#666; border:none;}
-.project-select .fa-caret-down{position: absolute; top: 8px; right: 35px;}
+.project-select input[type="text"]{width:100%; height:32px; box-sizing:border-box; padding:0 20px 0 10px; color:#666; border:none;}
+.project-select .fa-caret-down{position: absolute; top: 8px; right: 30px;}
 .project-content .btn-area{float:right; font-size: 14px;}
 .project-content .btn-area .btn-red{float:left; height:34px; box-sizing:border-box; text-align:center; line-height:0.8; border-radius:4px; margin-right: 5px;}
 .project-content .btn-area .btn-help{margin-right: 0px;}
