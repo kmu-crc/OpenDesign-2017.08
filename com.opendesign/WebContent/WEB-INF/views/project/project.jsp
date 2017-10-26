@@ -69,7 +69,7 @@
 		<div class="tab-wrap">
 			<ul class="tab">
 				<li class="ing active btn-red"><a href="#ing-project">진행중인 프로젝트</a></li>
-				<!-- <li class="complete"><a href="#complete-project"><span></span>완료된 프로젝트</a></li> -->
+				<!-- <li class="done"><a href="#complete-project">완료된 프로젝트</a></li> -->
 				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
 			<div class="sorting" id="sortingProj">
@@ -87,8 +87,8 @@
 			<div id="ing-project" class="active">
 				<ul id="ing-project-list" class="project-list"></ul>
 			</div>
-			<!-- <div id="complete-project">
-				<ul id="complete-project-list" class="project-list"></ul>
+			<!--<div id="complete-project">
+				<ul id="done-project-list" class="project-list"></ul>
 			</div> -->
 			<div id="group-tab">
 				<div class="project-list-head" style="display: block;">
@@ -188,14 +188,13 @@
 			, data : {progressStatus:'<%=CmnConst.ProjectProgressStatus.PROGRESS%>'}
 		});
 		
-		/* 완료된 프로젝트 객체 생성 */
 		<%--
+		/* 완료된 프로젝트 객체 생성 */
 		designProjectComView = new ListView({
 			id : 'designProjectComView'
-			, htmlElement : $('#complete-project-list')
+			, htmlElement : $('#done-project-list')
 			, data : {progressStatus:'<%=CmnConst.ProjectProgressStatus.COMPLETE%>'}
-		});
-		--%>
+		}); --%>
 		
 		/* 프로젝트목록 조건 form */
 		listForm = $('#listParamForm');
@@ -366,9 +365,7 @@
 		var schProgressStatus = targetView.data('progressStatus');
 		
 		var from = listForm;
-		var pageTarget = targetView.id == 'designProjectIngView' 
-						 ? from.find('input[name="schPPage"]')
-						 : from.find('input[name="schCPage"]');
+		var pageTarget = targetView.id == 'designProjectIngView' ? from.find('input[name="schPPage"]') : from.find('input[name="schCPage"]');
 		from.find('input[name="schProgressStatus"]').val(schProgressStatus);
 		
 		$.ajax({
@@ -377,6 +374,7 @@
 	        cache: false,
 			data : from.serializeArray(),
 			success : function(_data){
+				console.log(_data);
 				if( flagScroll ) flagScrollLoad = false;		
 				
 				

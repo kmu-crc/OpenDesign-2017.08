@@ -664,7 +664,7 @@ function addGroupProject(opts){
         	}
         	
         	if( '200' == result ){
-        		alert('프로젝트 추가가 실패 하였씁니다.\n 다시 시도해 주세요.');       		
+        		alert('프로젝트 추가가 실패 하였습니다.\n 다시 시도해 주세요.');       		
         		return;
         	}
         	

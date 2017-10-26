@@ -921,14 +921,15 @@ tr.no-padding {height: 50px;}
 .rule-box h2{margin:0 0 20px; font-size:22px; font-weight:700;}
 .rule-box p{margin:0 0 20px;}
 .rule-box .txt{margin:0 0 40px;}
-#modal_contact .mailForm * {box-sizing: border-box;}
-#modal_contact .mailForm {padding: 0 20px;}
-#modal_contact .mailForm > div {width: 100%; padding-bottom: 14px; box-sizing: border-box; font-size: 14px;}
-#modal_contact .mailForm label {width: 100px; display: block; padding-bottom: 10px; float: left;}
-#modal_contact .mailForm input {width: 250px;}
-#modal_contact .mailForm .mailTitle {width: 100%; margin-top: 25px; height: 30px;}
-#modal_contact .mailForm .mailContent {width: 100%; height: 200px; margin-top: 15px;}
-#modal_contact .mailForm button {display: block; width: 100%; margin-top: 30px; margin-bottom: 50px; font-size: 18px;}
+#modal_contact form[name="mailForm"] * {box-sizing: border-box;}
+#modal_contact form[name="mailForm"] {padding: 0 20px;}
+#modal_contact form[name="mailForm"] > div {width: 100%; box-sizing: border-box; font-size: 14px;}
+#modal_contact form[name="mailForm"] label {width: 18%; height: 30px; line-height: 30px; display: block; float: left;}
+#modal_contact form[name="mailForm"] input {width: 82%; height: 30px;}
+#modal_contact #to_email {font-weight: bold;}
+#modal_contact form[name="mailForm"] .mailTitle {width: 100%; margin-top: 25px; height: 30px;}
+#modal_contact form[name="mailForm"] .mailContent {width: 100%; height: 200px; margin-top: 15px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;}
+#modal_contact form[name="mailForm"] button {display: block; width: 100%; margin-top: 30px; margin-bottom: 50px; font-size: 18px;}
 
 
 /* swiper */

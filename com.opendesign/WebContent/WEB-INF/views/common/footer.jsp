@@ -7,7 +7,7 @@
 			<li class="footer-li"><a href="javascript:modalShow('#modal_introduece');">오픈소스디자인 소개</a></li>
 			<li class="footer-li"><a href="javascript:modalShow('#modal_use');">이용약관</a></li>
 			<li class="footer-li"><a href="javascript:modalShow('#modal_personal');">개인정보처리방침</a></li>
-			<li class="footer-li"><a href="/mail/mail.do">Contact Us</a></li>
+			<li class="footer-li"><a href="javascript:modalShow('#modal_contact');">Contact Us</a></li>
 		</ul>
 	</div>
 </div>
@@ -442,6 +442,63 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal" id="modal_contact">
+	    <div class="bg"></div>
+		<div class="modal-inner">
+			<div class="rule-box">
+				<h1>Contact Us</h1>
+				<form name="mailForm">
+					<div>
+						<label for="to_email">받는 사람</label>
+						<input type="text" id="to_email" name="target" value="opensrcdesign@gmail.com" readonly>
+					</div>
+					<div>
+						<input type="text" class="mailTitle" maxlength="20" name="title" placeholder="제목">
+						<textarea class="mailContent" name="contents" maxlength="500" placeholder="내용을 입력해주세요"></textarea>
+					</div>
+					<button type="button" class="btn-red" onclick="javascript:sendMail();">보내기</button>
+				</form>
+				<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+			</div>
+		</div>
+	</div>
+	
+<script>
+	function sendMail(){
+		var myForm = $('form[name="mailForm"]');
+		var param = {
+				'mail.target' : 'opensrcdesign@gmail.com',
+				'mail.title' : $('input[name="title"]').val(),
+				'mail.contents' : $('textarea.mailContent').val().replace(/\n/g, "<br>"),
+				'mail.template' : 'contact_us.vm'
+		};
+
+		$.ajax({
+			url : "/mail/sendSimple.ajax",
+			type : "post",
+			data : param,
+			complete : function(_data){
+			},
+			error : function(_data) {
+				console.log(_data);
+		    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+		    	return;
+			},
+			success : function(_data) {
+				console.log(_data);
+				alert("메일이 전송되었습니다");
+				$('input[name="title"]').val('');
+				$('textarea[name="contents"]').val('');
+				
+				$('#modal_contact .btn-close').click();
+			}
+		});
+	}
+	
+
+</script>
 
 
 

@@ -21,6 +21,8 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.opendesign.utils.PropertyUtil;
@@ -83,20 +85,23 @@ public class MailService {
 		String globalHost = PropertyUtil.getProperty("global.host");
 		model.put("globalHost", globalHost);
 		
+		LOGGER.info(model+"this is model");
+		
 		/*
 		 * 템플릿 변수 바인딩 (*** 변수 적용시 dot[.] 기호는 사용하면 안됨! velocity에서 hierarchy 구조를 의미함)
 		 */
         String contents = VelocityEngineUtils.mergeTemplateIntoString(
                 velocityEngine,  mailTemplate, model);
         
+        LOGGER.info(contents+"this is velocity contents");
+
 		message.setSubject(mailTitle);
 		message.setText(contents, "UTF-8", "html");
 		message.setRecipient(RecipientType.TO , new InternetAddress(mailTarget));
 		
 		message.setFrom( new InternetAddress( mailSender ) );
 		mailDispatcher.send(message);
-		
-		System.out.println(message);
+
 		
 	}
 }
