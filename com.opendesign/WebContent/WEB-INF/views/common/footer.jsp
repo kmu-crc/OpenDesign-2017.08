@@ -468,6 +468,18 @@
 <script>
 	function sendMail(){
 		var myForm = $('form[name="mailForm"]');
+		var title = myForm.find('input[name="title"]');
+		var content = myForm.find('textarea.mailContent');
+		
+		if (title.val() == '' || title.val() == null){
+			alert("제목을 입력해주세요");
+			return;
+		}
+		if (content.val() == '' || content.val() == null){
+			alert("내용을 입력해주세요");
+			return;
+		}
+		
 		var param = {
 				'mail.target' : 'opensrcdesign@gmail.com',
 				'mail.title' : $('input[name="title"]').val(),

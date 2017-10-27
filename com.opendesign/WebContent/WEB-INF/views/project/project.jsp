@@ -69,7 +69,7 @@
 		<div class="tab-wrap">
 			<ul class="tab">
 				<li class="ing active btn-red"><a href="#ing-project">진행중인 프로젝트</a></li>
-				<!-- <li class="done"><a href="#complete-project">완료된 프로젝트</a></li> -->
+				<li class="done btn-red"><a href="#complete-project">완료된 프로젝트</a></li>
 				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
 			<div class="sorting" id="sortingProj">
@@ -87,9 +87,9 @@
 			<div id="ing-project" class="active">
 				<ul id="ing-project-list" class="project-list"></ul>
 			</div>
-			<!--<div id="complete-project">
+			<div id="complete-project">
 				<ul id="done-project-list" class="project-list"></ul>
-			</div> -->
+			</div> 
 			<div id="group-tab">
 				<div class="project-list-head" style="display: block;">
 					<p class="head-groupName">그룹명</p>
@@ -175,7 +175,7 @@
 	/* 진행중인 프로젝트 객체 */
 	var designProjectIngView = null;
 	/* 완료된 프로젝트 객체 */
-	//var designProjectComView = null;
+	var designProjectComView = null;
 	
 	/* 초기화 */
 	$(function(){
@@ -188,13 +188,12 @@
 			, data : {progressStatus:'<%=CmnConst.ProjectProgressStatus.PROGRESS%>'}
 		});
 		
-		<%--
 		/* 완료된 프로젝트 객체 생성 */
 		designProjectComView = new ListView({
 			id : 'designProjectComView'
 			, htmlElement : $('#done-project-list')
 			, data : {progressStatus:'<%=CmnConst.ProjectProgressStatus.COMPLETE%>'}
-		}); --%>
+		}); 
 		
 		/* 프로젝트목록 조건 form */
 		listForm = $('#listParamForm');
@@ -214,10 +213,9 @@
 			
 		});
 		
-		/* 진행중인 프로젝트 데이터 로드 */
-		//loadProject(designProjectIngView);
+		
 		/* 데이터 로드: 탭 click시  */
-		//groupLoadPage(groupListView);
+		
 		var projectTab = $('.tab-wrap li.ing');
 		$(projectTab).click(function(){
 			initParam();
@@ -225,8 +223,13 @@
 			loadProject(designProjectIngView); 
 		});
 		
-		/* 완료된 프로젝트 데이터 로딩 */
-		//loadProject(designProjectComView);
+		var projectDoneTab = $('.tab-wrap li.done');
+		$(projectDoneTab).click(function(){
+			initParam();
+			designProjectComView.clear();
+			loadProject(designProjectComView);
+		});
+		
 		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
 		$(window).on('mousewheel', function(e){
@@ -261,14 +264,7 @@
 		
 		/* 첫번째 option 선택 */
 		$('#sch_my_group select > option[value=""]').prop('selected', true);
-		/* 파라미터 option 선택 */
-		var val = listForm.find('input[name="schMyGroup"]').val();
-		$('#sch_my_group select > option[value="' + val + '"]').prop('selected', true);
 		var name = $('#sch_my_group select > option:selected').text();
-		SelectedGroupName = $('#sch_my_group select > option:selected').text();
-		if (name.length > 7){
-			name = name.substr(0, 6) + "...";
-		}
 		$('#sch_my_group input:text').val(name);
 		
 		from.find('input[name="schPPage"]').val('<%=StringUtil.emptyToString(schPPage, "1") %>');
@@ -320,16 +316,7 @@
 	
 	</script>
 	
-    <% if(schSort != null){ %>
-    <script> $("#sortingProj > .btn-red").removeClass("active");</script>
-		<% if (schSort == ""){ %>
-		<script> $("#psort1").addClass("active");</script>
-		<%} else if(schSort.equals("LIKE")){%>
-		<script> $("#psort2").addClass("active");</script>
-		<%} else if(schSort.equals("MEMBER")){%>
-		<script> $("#psort3").addClass("active");</script>
-		<%}%>
-	<%}%>
+
 	
 	
 <script>
@@ -352,7 +339,17 @@
 		
 		/* sorting 버튼 처리 */
 		$('#sortingGroup').css('display', 'none');
-		$('#sortingProj').css('display', 'block');
+		targetView.id == 'designProjectIngView' ? $('#sortingProj').css('display', 'block') : $('#sortingProj').css('display', 'none');
+		
+		var schSort = $('#listParamForm input[name="schSort"]').val();
+		 $("#sortingProj > .btn-red").removeClass("active");
+		if (schSort == 'null' || schSort == ''){
+			$('#psort1').addClass("active");
+		} else if (schSort == "LIKE") {
+			$('#psort2').addClass("active");
+		} else if (schSort == "MEMBER"){
+			$('#psort3').addClass("active");
+		} 
 		
 		/* 스크롤 */
 		if( flagScroll ){
@@ -376,17 +373,6 @@
 			success : function(_data){
 				console.log(_data);
 				if( flagScroll ) flagScrollLoad = false;		
-				
-				
-				
-				/*
-				* css 처리로 변경 하였음 2016.09.29
-				*
-				for( key in listData ) {
-					var project = listData[key];
-					project.projectName = addDots(project.projectName, 6);
-				}
-				*/
 				
 				var allCount = _data.all_count;
 				var item = _data.item;
@@ -426,6 +412,12 @@
 		});
 	}
 </script>
+
+
+
+
+
+
 
 <!-- ################# 그룹 탭  ###################### -->
 <%
@@ -522,6 +514,24 @@
 	function groupInitParam(){
 		var from = groupListForm;
 		from.find('input[name="schPage"]').val('<%=StringUtil.emptyToString(schPage, "1") %>');
+
+		var from = listForm;
+		from.find('input[name="projectSeq"]').val('');
+		
+		/* 첫번째 option 선택 */
+		$('#sch_my_group select > option[value=""]').prop('selected', true);
+		
+		/* 파라미터 option 선택 */
+		var val = listForm.find('input[name="schMyGroup"]').val();
+		$('#sch_my_group select > option[value="' + val + '"]').prop('selected', true);
+		
+		var name = $('#sch_my_group select > option:selected').text();
+		SelectedGroupName = $('#sch_my_group select > option:selected').text();
+		if (name.length > 7){
+			name = name.substr(0, 6) + "...";
+		}
+		$('#sch_my_group input:text').val(name);
+		
 	}
 	
 	
@@ -665,10 +675,14 @@ function goGroupDetailView(seq) {
 		});
 		
 		$('.project-list-head').css('display', 'none');
+		$('#sortingProj').css('display', 'none');
 	}
 
 </script>
+
+
 <script>
+
 /** 탭 페이지 init */
 $(function(){
 	var schMyGroup = '<%=StringUtils.stripToEmpty(schMyGroup)%>';
@@ -691,8 +705,10 @@ function changeTabActiveUI(tabLiObjSel) {
 	$(target).addClass('active').siblings().removeClass('active');
 }
 
+
 </script>
 <!-- ################# ]]그룹 탭  ###################### -->
+
 
 
 <!-- 도움말 모달 -->

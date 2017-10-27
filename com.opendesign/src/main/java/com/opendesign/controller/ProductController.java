@@ -90,8 +90,11 @@ public class ProductController {
 	@Autowired
 	CommonService commonService;
 
-	/* ================ 작품list(완료된 프로젝트 포함) ========================  */
+	/* ================ 작품list(완료된 프로젝트와 분리) ========================  */
 	/**
+	 * 2017.10.27
+	 * seoyeon.yeom
+	 * 
 	 * <pre>
 	 * 디자인(작품) 페이지 조회(이동) 
 	 * ID#OD02-01-01
@@ -151,9 +154,9 @@ public class ProductController {
 			paramMap.put("memberSeq", CmnUtil.getLoginUser(request).getSeq() );
 		}
 		
-		int allCount = service.selectProductWithProjCount(paramMap);
+		int allCount = service.selectProductCount(paramMap);
 
-		List<MainItemVO> list = service.selectProductWithProjList(paramMap);
+		List<DesignWorkVO> list = service.selectProductList(paramMap);
 		
 		MainItemVO item = new MainItemVO();
 		
@@ -169,7 +172,7 @@ public class ProductController {
 		return resultMap;
 	}
 	
-	/* ================ 작품list(완료된 프로젝트 포함)========================  */
+	/* ================ 작품list(완료된 프로젝트와 분리)========================  */
 	
 	
 	/**

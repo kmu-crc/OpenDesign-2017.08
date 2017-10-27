@@ -251,7 +251,7 @@ function projShareShare() {
 					<div class="display-file " style="position: relative;">
 					{{/if}}
 						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" />&nbsp;
-						<a class="display-file-link" id="embedFile" data-nm="verFileUri" ori-src="{{:fileUri}}" href=""> {{:filename}} </a>
+						<a class="display-file-link" id="embedFile" data-nm="verFileUri" ori-src="{{:fileUri}}" href="" target="blank"> {{:filename}} </a>
 					</div>
 				{{/if}}
 			</div>
