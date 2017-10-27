@@ -739,7 +739,7 @@ public class CmnUtil {
 		if(CmnUtil.isEmpty(fileName)) {
 			return false;
 		}
-		String[] validSuffixes = {"pdf", "ppt", "pptx", "doc", "docx"};
+		String[] validSuffixes = {"ppt", "pptx", "doc", "docx"};
 		for( String suffix : validSuffixes ) {
 			String filePath = fileName.toLowerCase();
 			if( filePath.endsWith(suffix) ) {

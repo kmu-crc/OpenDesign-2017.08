@@ -32,9 +32,9 @@ button:focus { outline: 0 !important }
 .display-file-link {min-width: 30px; height: 40px; display: block; position: absolute; top: 0; left: 0; padding-left: 24px; line-height: 40px;}
 
 /** 구글 뷰어로 보기 링크 */
-a#embedFile {float: right; font-size: 13px; color: #113b88; text-decoration: none; font-weight: normal;}
+a#embedFile {font-size: 14px; text-decoration: none; font-weight: normal;}
 a#embedFile:hover,
-a#embedFile:focus {text-decoration: underline; font-weight: bold;}
+a#embedFile:focus {text-decoration: underline;}
 
 
 /*
@@ -913,7 +913,6 @@ tr.no-padding {height: 50px;}
 #modal_introduece .modal-inner{top:0; width:1200px; margin:0 0 0 -600px; background:#fff;}
 #modal_use .modal-inner{top:0; width:1200px; margin:0 0 0 -600px; background:#fff;}
 #modal_personal .modal-inner{top:0; width:1200px; margin:0 0 0 -600px; background:#fff;}
-#modal_contact.modal {display: block;}
 #modal_contact .modal-inner{top:10px; width:600px; margin:0 0 0 -300px; background:#fff;}
 .rule-box{padding:0 50px; font-size:16px;}
 .rule-box > div{margin:0 0 80px;}

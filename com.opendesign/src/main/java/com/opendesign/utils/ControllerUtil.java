@@ -76,6 +76,17 @@ public class ControllerUtil {
 		return ThumbnailManager.isImageFile(file);
 	}
 	
+	// 문서 파일인지 확인
+	public static boolean isDocuFile(HttpServletRequest request, String filePathOnWebBase, String fileDomain) {
+		
+		String fileUploadDir = CmnUtil.getFileUploadDir(request, fileDomain);
+		//String fileName = filePathOnWebBase.substring(filePathOnWebBase.lastIndexOf(File.separator) );
+		String fileName = File.separator + FilenameUtils.getName(filePathOnWebBase);
+		File file = new File(fileUploadDir + fileName);
+		
+		return ThumbnailManager.isDocuFile(file);
+	}
+	
 	
 	public static String getHostName(HttpServletRequest request ) {
 		

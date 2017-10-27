@@ -243,19 +243,28 @@ $(function() {
 						<%
 							if(!CmnUtil.isEmpty(itemVO.getImageList())) {
 								for(DesignPreviewImageVO image : itemVO.getImageList()) {
+									
 									if( ControllerUtil.isImageFile(request, image.getFileUriL(), 
 											FileUploadDomain.PRODUCT)) {
 						%>
-						<img src="<%=image.getFileUriL()%>" alt="<%=image.getFilename()%>"> 
+							<img src="<%=image.getFileUriL()%>" alt="<%=image.getFilename()%>"> 
 						<%
 									} else {
 						%>
-						<div style="padding-top:20px;padding-bottom:20px;width:85%;">
-						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
-						&nbsp;<a href="<%=image.getFileUri()%>" target="blank"> <%=image.getFilename() %> </a>
-						</div>
+							<div style="padding-top:20px;padding-bottom:20px;width:85%;">
+							<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
+							&nbsp;
+										<% if ( ControllerUtil.isDocuFile(request, image.getFileUriL(), FileUploadDomain.PRODUCT)) { 
+											String googleLocation = "https://docs.google.com/viewerng/viewer?url=http://opensrcdesign.kookmin.ac.kr" + image.getFileUri(); 
+										%>
+								<a href=<%=googleLocation %> target="blank"> <%=image.getFilename() %> </a>
+										<% } else { %>
+								<a href= <%=image.getFileUri()%> target="blank"> <%=image.getFilename() %> </a>
+										<% } %>
+							</div>
 						<%
 									}
+									
 								}
 							}
 						%>
@@ -770,6 +779,7 @@ function producerPortfolio(seq) {
 
 </script>
 <!-- ******************** ]]댓글 ******************** -->
+
 
 
 </body>

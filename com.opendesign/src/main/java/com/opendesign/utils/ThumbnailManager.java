@@ -270,6 +270,19 @@ public class ThumbnailManager {
 		return false;
 	}
 	
+	// 문서 파일인지 확인
+	public static boolean isDocuFile(File file) {
+		
+		String[] validSuffixes = {"doc", "docx", "ppt", "pptx"};
+		for( String suffix : validSuffixes ) {
+			String filePath = file.getName().toLowerCase();
+			if( filePath.endsWith(suffix) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	public static void main(String[] args) {
 		
