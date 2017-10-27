@@ -202,6 +202,7 @@
 		
 		/* 이벤트 : 사용자 그룹 변경 */
 		var SelectedGroupName;
+		
 		$('#sch_my_group select').on('change', function(){
 			var val = $(this).find('option:selected').val();			
 			listForm.find('input[name="schMyGroup"]').val(val);
@@ -274,15 +275,19 @@
 	
 	// sorting
     function sortProduct(sortType){
+    	listForm.find('input[name="schMyGroup"]').val('');
+    	
         sortType = sortType || '';
         var from = listForm;
         from.find('input[name="seq"]').val('');
         from.find('input[name="schPPage"]').val('<%=StringUtil.emptyToString(schPPage, "1") %>');
         from.find('input[name="schSort"]').val(sortType);
         from.submit();
+        
     }
 	
     function sortProject(sortType){
+    	sortType = sortType || '';
     	$.ajax({
             url : "/project/selectGroupList.ajax",
             type: "GET",
@@ -690,7 +695,6 @@ $(function(){
 	if(schMyGroup != '') {
 		// tab ui 처리 :
 		changeTabActiveUI('.tab-wrap li.complete');
-		//
 		groupDetailLoadPage(schMyGroup);
 	} else {
 		changeTabActiveUI('.tab-wrap li.ing');
