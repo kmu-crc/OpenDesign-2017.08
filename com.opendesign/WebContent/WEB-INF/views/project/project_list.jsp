@@ -14,6 +14,7 @@
 	System.out.println(">>> isProjNotComplete=" + isProjNotComplete);
 	// 좋아요 기능 flag
 	Boolean liked = (Boolean)request.getAttribute("liked");
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -103,6 +104,7 @@ $(function(){
 	// load
 	loadPage();
 	
+	
 });
 
 /**
@@ -131,11 +133,22 @@ function loadPage() {
 		success : function(_data){
 			console.log(_data);
 	    	var subjectDatas = _data.subjectList;
+	    	var memberList = _data.member_list;
+			if( memberList ){
+				var memberArray = new Array();
+				for( var i = 0; i < memberList.length; i++ ){
+					var aMember = memberList[i];
+					memberArray.push('<span>['+aMember.uname+']</span>');	
+				}
+				$('#member_list_name').append(memberArray);
+			}
 	    	// load
 	    	loadPageWithData(subjectDatas);
 		}
     });
 }
+
+
 
 /**
  * 주제,디자인 load
@@ -374,6 +387,8 @@ function prodViewWorkLike(thisObj) {
 			<%}%>
 			
 			<%=projectVO.getProjectName()%></h2>
+			<div id="member_list_name"><span>구성원 :</span></div>
+
 			<div class="btn-area">
 				<button type="button" class="btn-red" onclick="javascript:modalShow('#modal_project_totalReply'); javascript:initPdrListTotalView();" >
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
@@ -397,6 +412,7 @@ function prodViewWorkLike(thisObj) {
 					</button>
 					<% } %>
 			</div>
+			<div class="clear"></div>
 
 			<div class="topic-container">
 				<button type="button" class="btn-topicPrev"><img src="/resources/image/sub/btn_projectPrev.png" alt="이전"></button>

@@ -60,6 +60,7 @@ public class ProjectVO {
 	/** 카테고리 목록 */
 	private List<CategoryVO> categoryList;
 	
+
 	// ==================================================
 	
 	/**
@@ -247,5 +248,5 @@ public class ProjectVO {
 	}
 	
 	
-	
+
 }

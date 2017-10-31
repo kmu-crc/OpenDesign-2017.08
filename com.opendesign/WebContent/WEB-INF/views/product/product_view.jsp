@@ -253,14 +253,7 @@ $(function() {
 						%>
 							<div style="padding-top:20px;padding-bottom:20px;width:85%;">
 							<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" style="width:20px;height:22px;margin:auto;">
-							&nbsp;
-										<% if ( ControllerUtil.isDocuFile(request, image.getFileUriL(), FileUploadDomain.PRODUCT)) { 
-											String googleLocation = "https://docs.google.com/viewerng/viewer?url=http://opensrcdesign.kookmin.ac.kr" + image.getFileUri(); 
-										%>
-								<a href=<%=googleLocation %> target="blank"> <%=image.getFilename() %> </a>
-										<% } else { %>
-								<a href= <%=image.getFileUri()%> target="blank"> <%=image.getFilename() %> </a>
-										<% } %>
+							&nbsp;<a href=<%=image.getFileUri() %> target="blank"> <%=image.getFilename() %> </a>
 							</div>
 						<%
 									}

@@ -252,7 +252,9 @@ public class ProjectController {
 			} catch (Exception e) {
 			}
 		}
+
 		paramMap.put("schProgressStatus", ProjectProgressStatus.PROGRESS);
+		System.out.println(paramMap+"this is paramMap");
 		
 		int allCount = service.selectProjectCount(paramMap);
 		List<ProjectVO> list = service.selectProjectList(paramMap);
@@ -854,7 +856,7 @@ public class ProjectController {
 			int memberSeq = Integer.parseInt(user.getSeq());
 			paramMap.put("memberSeq", memberSeq);
 		}
-
+		
 		ProjectVO projectVO = service.selectProjectInfo(paramMap);
 		request.setAttribute("projectVO", projectVO);
 		
@@ -864,8 +866,9 @@ public class ProjectController {
 		}else{
 			resultMap.put("liked", false);			
 		}
-
+		
 		return new ModelAndView("/project/project_list", resultMap);
+		
 	}
 
 	/**
@@ -890,6 +893,9 @@ public class ProjectController {
 		
 		List<ProjectSubjectVO> subjectList = service.selectProjectSubjectWholeList(paramMap);
 		resultMap.put("subjectList", subjectList);
+		
+		// 프로젝트 전체 멤버 조회
+		resultMap.put("member_list", service.selectProjectMemberList(Integer.parseInt(projectSeq)));
 
 		return new JsonModelAndView(resultMap);
 	}

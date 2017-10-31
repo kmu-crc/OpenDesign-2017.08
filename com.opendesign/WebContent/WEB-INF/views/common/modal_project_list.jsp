@@ -251,7 +251,7 @@ function projShareShare() {
 					<div class="display-file " style="position: relative;">
 					{{/if}}
 						<img src="/resources/image/common/ico_attachment.png" alt="파일첨부" />&nbsp;
-						<a class="display-file-link" id="embedFile" data-nm="verFileUri" ori-src="{{:fileUri}}" href="" target="blank"> {{:filename}} </a>
+						<a class="display-file-link" id="embedFile" data-nm="verFileUri" ori-src="{{:fileUri}}" href="{{:fileUri}}" target="blank"> {{:filename}} </a>
 					</div>
 				{{/if}}
 			</div>
@@ -590,14 +590,14 @@ function goWorkDetailView(workSeq) {
 		    	pdrLoadPage();
 		    	
 		    	// 첨부 소스가 doc, docx, ppt, pptx일 경우 구글 docs viewer + pdf인 경우 자동 뷰어 붙이기
-		    	var viewTarget = $('a#embedFile');
-		    	var googleLocation = "https://docs.google.com/viewerng/viewer?url=http://opensrcdesign.kookmin.ac.kr";
-		    	var pdfLocation = workJson.verFileUri;
-		    	if (workJson.verFileUriDocuType){
-		    		viewTarget.attr('href', googleLocation+pdfLocation);
-		    	} else if (!workJson.verFileUriImageType){
-		    		viewTarget.attr('href', pdfLocation);
-		    	}
+		    	//var viewTarget = $('a#embedFile');
+		    	//var googleLocation = "https://docs.google.com/viewerng/viewer?url=http://opensrcdesign.kookmin.ac.kr";
+		    	//var pdfLocation = workJson.verFileUri;
+		    	//if (workJson.verFileUriDocuType){
+		    		//viewTarget.attr('href', googleLocation+pdfLocation);
+		    	//} else if (!workJson.verFileUriImageType){
+		    		//viewTarget.attr('href', pdfLocation);
+		    	//}
 		    	
 		    	modalShow('#project-detail');
 		    	return;

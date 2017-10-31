@@ -623,6 +623,7 @@ function initProjectGroupRequestList() {
 	        cache: false,
 			data : {seq : projectSeq},
 			success : function(_data){
+				console.log(_data);
 				if( '100' == _data.result ){
 					if( confirm('로그인이 필요합니다. 로그인 하시겠습니까?') ){
 		    			modalShow('#login-modal');

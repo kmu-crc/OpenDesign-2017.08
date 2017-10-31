@@ -560,7 +560,9 @@ tr.no-padding {height: 50px;}
 
 /* project list */
 .list-content{padding:23px 0 67px; border-bottom:1px solid #f2f2f2;}
-.list-content .title{margin-bottom:80px; font-size:28px;}
+.list-content .title{margin-bottom:20px; font-size:28px; width: 100%;}
+.list-content #member_list_name {float: left;}
+.list-content #member_list_name span {margin-right: 5px;}
 .list-content .btn-area {float: right;}
 .list-content .btn-area > button,
 .list-content .btn-area > a {background-color: #fff; color: #414141;}
@@ -572,7 +574,7 @@ tr.no-padding {height: 50px;}
 .list-content .btn-area .project-like-btn.active {background-color: #f00; color: #fff;}
 .list-content .btn-area .project-like-btn.active:hover {background-color: #cc0000;}
 .list-content .btn-area .btn-red.project-add-btn {float: right;}
-.topic-container{clear:both; position:relative;}
+.topic-container{clear:both; position:relative; margin-top: 60px;}
 .topic-container button{position:absolute; top:140px; z-index:2; margin:-39px 0 0;}
 .topic-container .btn-topicPrev{left:-6%;}
 .topic-container .btn-topicNext{right:-6%;}
