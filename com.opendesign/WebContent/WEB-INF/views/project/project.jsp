@@ -124,12 +124,15 @@
 	String schMyGroup = request.getParameter("schMyGroup");
 	//sorting
 	String schSort = request.getParameter("schSort");
+	//그룹 이름 가져오기
+	String schMyGroupName = request.getParameter("schMyGroupName");
 %>
 <form id="listParamForm" name="listParamForm" method="GET" action="" >
 	<input type="hidden" name="schCate" value="<%=StringUtil.nullToBlank(schCate) %>" />
 	<input type="hidden" name="schPPage" value="" /> 
 	<input type="hidden" name="schCPage" value="" />
 	<input type="hidden" name="schMyGroup" value="<%=StringUtil.nullToBlank(schMyGroup) %>" />
+	<input type="hidden" name="schMyGroupName" value="" />
 	<input type="hidden" name="schProgressStatus" value="" />
 	<input type="hidden" name="projectSeq" value="" />
 	<input type="hidden" name="schSort" value="<%=schSort %>" />
@@ -201,11 +204,12 @@
 		initParam();
 		
 		/* 이벤트 : 사용자 그룹 변경 */
-		var SelectedGroupName;
 		
 		$('#sch_my_group select').on('change', function(){
-			var val = $(this).find('option:selected').val();			
+			var val = $(this).find('option:selected').val();
+			var text = $(this).find('option:selected').text();
 			listForm.find('input[name="schMyGroup"]').val(val);
+			listForm.find('input[name="schMyGroupName"]').val(text);
 			listForm.find('input[name="schPPage"]').val('1');
 			listForm.find('input[name="schCPage"]').val('1');
 			listForm.find('input[name="schProgressStatus"]').val('');
@@ -434,7 +438,7 @@
 	<input type="hidden" name="schLimitCount" value="100" />
 </form>
 <script id="tmpl-groupListView" type="text/x-jsrender">
-	<li class="group-list-li"><a href="javascript:goGroupDetailView({{:seq}});" >
+	<li class="group-list-li"><a href="javascript:void(0);" onclick="goGroupDetailView(this, {{:seq}});" data-nm="{{:groupName}}" >
 		<div class="project-info">
 			<div class="head-groupName">
 				<span>{{:groupName}}</span>
@@ -531,7 +535,6 @@
 		$('#sch_my_group select > option[value="' + val + '"]').prop('selected', true);
 		
 		var name = $('#sch_my_group select > option:selected').text();
-		SelectedGroupName = $('#sch_my_group select > option:selected').text();
 		if (name.length > 7){
 			name = name.substr(0, 6) + "...";
 		}
@@ -581,7 +584,6 @@
 					
 				}
 				
-				
 				var intPageCount = parseInt(pageTarget.val(), 10);
 				intPageCount++;
 				pageTarget.val(intPageCount);
@@ -604,8 +606,9 @@
 /**
  * group 상세 페이지
  */
-function goGroupDetailView(seq) {
-	window.location.href='/project/project.do?schMyGroup=' + seq;
+function goGroupDetailView(_this, seq) {
+	var name = $(_this).attr("data-nm");
+	window.location.href='/project/project.do?schMyGroup=' + seq + '&schMyGroupName=' + name;
 }
 </script>
 
@@ -655,12 +658,12 @@ function goGroupDetailView(seq) {
 <script>
 	var groupDetailTemplate = $('#tmpl-groupDetail').html();
 	/** 그룹 상세 */
-	function groupDetailLoadPage(schMyGroup){
+	function groupDetailLoadPage(schMyGroup, schMyGroupName){
 		$.ajax({
 			url : "/project/selectGroupDetail.ajax",
 	        type: "GET",
 	        cache: false,
-			data : {schMyGroup : schMyGroup},
+			data : {schMyGroup : schMyGroup, schMyGroupName: schMyGroupName},
 			success : function(_data){
 				console.log('>>> _data2: ');
 				console.log(_data);
@@ -670,7 +673,8 @@ function goGroupDetailView(seq) {
 				var listData = _data.list;
 				var listCount = listData.length;
 				var allCount = _data.all_count;
-				$('#project_all_cnt').html(SelectedGroupName+'(' + formatNumberCommaSeparate(allCount) + '건)');
+
+				$('#project_all_cnt').html(schMyGroupName+'(' + formatNumberCommaSeparate(allCount) + '건)');
 				groupListView.addAll({keyName:'seq', data:listData, htmlTemplate: groupDetailTemplate });
 				
 			},
@@ -691,11 +695,12 @@ function goGroupDetailView(seq) {
 /** 탭 페이지 init */
 $(function(){
 	var schMyGroup = '<%=StringUtils.stripToEmpty(schMyGroup)%>';
+	var schMyGroupName = '<%=StringUtils.stripToEmpty(schMyGroupName)%>';
 	console.log('>>> schMyGroup=' + schMyGroup);
 	if(schMyGroup != '') {
 		// tab ui 처리 :
 		changeTabActiveUI('.tab-wrap li.complete');
-		groupDetailLoadPage(schMyGroup);
+		groupDetailLoadPage(schMyGroup, schMyGroupName);
 	} else {
 		changeTabActiveUI('.tab-wrap li.ing');
 		$('.tab-wrap li.ing').trigger('click');

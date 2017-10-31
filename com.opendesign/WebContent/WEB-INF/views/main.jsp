@@ -31,7 +31,7 @@
 			        var active_div = slide_arr[count++ % slide_arr.length];
 			        var id = active_div.getAttribute('id');
 			        $('#'+id).css('display', 'block').addClass('active');
-			    }, 2000);
+			    }, 3000);
 			}
 		});
 	</script>

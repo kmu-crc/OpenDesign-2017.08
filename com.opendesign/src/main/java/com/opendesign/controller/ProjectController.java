@@ -252,9 +252,13 @@ public class ProjectController {
 			} catch (Exception e) {
 			}
 		}
+		
+		// group 이름 가져오기
+		String schMyGroupName = request.getParameter("schMyGroupName");
+		System.out.println(schMyGroupName+"this is GroupName");
+		paramMap.put("schMyGroupName", schMyGroupName);
 
 		paramMap.put("schProgressStatus", ProjectProgressStatus.PROGRESS);
-		System.out.println(paramMap+"this is paramMap");
 		
 		int allCount = service.selectProjectCount(paramMap);
 		List<ProjectVO> list = service.selectProjectList(paramMap);
