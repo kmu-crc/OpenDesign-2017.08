@@ -189,6 +189,7 @@ public class ThumbnailManager {
 			CmnUtil.fileCopy(imageFile.getAbsolutePath(), target);
 		}
 		
+		
 	}
 	
 	/**

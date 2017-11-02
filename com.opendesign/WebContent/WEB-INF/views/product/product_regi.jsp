@@ -526,7 +526,7 @@
 			},
 			error : function(_data) {
 				console.log(_data);
-		    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+		    	alert("this is error code. 오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 			},
 			success : function(_data) {
 				if(_data.result == '1') {
