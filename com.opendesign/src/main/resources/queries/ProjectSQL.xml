@@ -591,7 +591,7 @@
 		<![CDATA[
 		    WHERE
 		        T.project_subject_seq = #{projectSubjectSeq}
-		    ORDER BY T.register_time DESC
+		    ORDER BY T.register_time DESC, T.seq DESC
 		]]>
 	</select>
 	

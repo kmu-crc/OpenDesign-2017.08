@@ -134,14 +134,17 @@ function loadPage() {
 			console.log(_data);
 	    	var subjectDatas = _data.subjectList;
 	    	var memberList = _data.member_list;
-			if( memberList ){
-				var memberArray = new Array();
-				for( var i = 0; i < memberList.length; i++ ){
-					var aMember = memberList[i];
-					memberArray.push('<span>['+aMember.uname+']</span>');	
+	    	if ($('#member_list_name').attr('data-status') == "clear") {
+				if( memberList ){
+					var memberArray = new Array();
+					for( var i = 0; i < memberList.length; i++ ){
+						var aMember = memberList[i];
+						memberArray.push('<span title='+aMember.email+'>['+aMember.uname+']</span>');	
+					}
+					$('#member_list_name').append(memberArray);
+					$('#member_list_name').attr('data-status', ' ');
 				}
-				$('#member_list_name').append(memberArray);
-			}
+	    	}
 	    	// load
 	    	loadPageWithData(subjectDatas);
 		}
@@ -387,7 +390,7 @@ function prodViewWorkLike(thisObj) {
 			<%}%>
 			
 			<%=projectVO.getProjectName()%></h2>
-			<div id="member_list_name"><span>구성원 :</span></div>
+			<div id="member_list_name" data-status="clear"><span>구성원 :</span></div>
 
 			<div class="btn-area">
 				<button type="button" class="btn-red" onclick="javascript:modalShow('#modal_project_totalReply'); javascript:initPdrListTotalView();" >
