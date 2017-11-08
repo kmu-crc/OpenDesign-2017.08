@@ -778,7 +778,7 @@ function projDetailDelWork() {
 				<!--디자인 파일-->
 				<div style="height:60px; width: 600px;">
 					<div class="file-url">
-						<input type="text" readonly name="fileName" value="{{:verFilename}}" placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 100MB)" />
+						<input type="text" readonly name="fileName" value="" placeholder="첨부할 소스 업로드 (모든 파일 형식, 최대 100MB)" />
 					</div>
 				
 					<div class="file">
@@ -853,7 +853,6 @@ function goWorkModView() {
 		    	if(!workJson) {
 		    		return;
 		    	}
-		    	console.log(workJson); 
 		    	//
 		    	var htmlJ = $($.templates("#tmpl-project-edit").render(workJson)); 
 		    	$('#project-edit').replaceWith(htmlJ);
@@ -1208,11 +1207,16 @@ function newUpFormSubmit() {
 		url : "/project/insertProjectWork.ajax",
 		type : "post",
 		dataType : 'json',
+		beforeSubmit : function(_data){
+			console.log(_data+"this is beforeSubmit func");
+			console.log(typeof(_data));
+		},
 		complete : function(_data){
 			flag_newUpFormSubmit = false;
 		},
-		error : function(_data) {
-			console.log(_data);
+		error : function(request, status, error) {
+			//console.log(_data);
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 		},
 		success : function(_data) {

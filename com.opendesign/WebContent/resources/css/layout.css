@@ -575,9 +575,9 @@ tr.no-padding {height: 50px;}
 .list-content .btn-area .project-like-btn.active:hover {background-color: #cc0000;}
 .list-content .btn-area .btn-red.project-add-btn {float: right;}
 .topic-container{clear:both; position:relative; margin-top: 60px;}
-.topic-container button{position:absolute; top:140px; z-index:2; margin:-39px 0 0;}
-.topic-container .btn-topicPrev{left:-6%;}
-.topic-container .btn-topicNext{right:-6%;}
+.topic-container button{position:fixed; top:400px; z-index:2; margin:-39px 0 0;}
+.topic-container .btn-topicPrev{left:40px;}
+.topic-container .btn-topicNext{right:40px;}
 .swiper-button-disabled{display:none;}
 .topic-slide.swiper-container-horizontal .topic{margin:0;}
 .topic-slide{clear:both; overflow:hidden; margin:0 0 0 -7px;}
