@@ -59,7 +59,7 @@
 										<li><a href="javascript:goWorkDetailView('{{:seq}}')" class="btn-modal">
 											<div class="pic">
 												<!-- <img src="{{:verFileUriS}}" alt=""> --> 
-												<img src="{{:thumbUriS}}" onerror="setDefaultImg(this, 5);" alt="">
+												<img src="{{:thumbUriS}}" alt="">
 											</div>
 											<dl>
 												<dt>{{:title}}</dt>
@@ -137,11 +137,16 @@ function loadPage() {
 	    	if ($('#member_list_name').attr('data-status') == "clear") {
 				if( memberList ){
 					var memberArray = new Array();
+					var memberTotalArray = new Array();
 					for( var i = 0; i < memberList.length; i++ ){
 						var aMember = memberList[i];
-						memberArray.push('<span title='+aMember.email+'>['+aMember.uname+']</span>');	
+						memberTotalArray.push('  ' + aMember.uname + '/' + aMember.email);	
+						if (i < 8) {
+							memberArray.push('<span>['+aMember.uname+']</span>');	
+						}
 					}
 					$('#member_list_name').append(memberArray);
+					$('#member_list_name').attr('title', memberTotalArray);
 					$('#member_list_name').attr('data-status', ' ');
 				}
 	    	}

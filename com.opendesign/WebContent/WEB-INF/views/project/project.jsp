@@ -183,7 +183,6 @@
 	/* 초기화 */
 	$(function(){
 		
-		
 		/* 진행중인 프로젝트 객체 생성 */
 		designProjectIngView = new ListView({
 			id : 'designProjectIngView'
@@ -254,8 +253,6 @@
 	            }
 	        }
 		});
-		
-		
 		
 		
 	});
@@ -447,7 +444,7 @@
 				<span>{{:registerTime.substr(0, 4)+'-'+registerTime.substr(4, 2)+'-'+registerTime.substr(6, 2)}}</span>
 			</div>
 			<div class="head-updateDate">
-				<span>{{:updateTime.substr(0, 4)+'-'+updateTime.substr(4, 2)+'-'+updateTime.substr(6, 2)}}</span>
+				<span>{{:updateTime}}</span>
 			</div>
 			<div class="head-leader">
 				<span>{{:memberName}}</span>
@@ -587,8 +584,6 @@
 				var intPageCount = parseInt(pageTarget.val(), 10);
 				intPageCount++;
 				pageTarget.val(intPageCount);
-				
-				//$('#allCnt').html('(' + formatNumberCommaSeparate(allCount) + '건)');
 				
 				targetView.addAll({keyName:'seq', data:listData, htmlTemplate: groupListTemplete });
 				

@@ -590,7 +590,7 @@ tr.no-padding {height: 50px;}
 .topic li{overflow:hidden; margin:0 0 9px; font-size:12px; border-radius:5px; background:#fff;}
 .topic .pic img{width:192px;}
 .topic dl{padding:10px 8px; color:#a4a4a4; border-bottom:1px solid #b6b6b6;}
-.topic dt{margin:0 0 10px; font-size:14px; font-weight:bold;}
+.topic dt{margin:0 0 10px; font-size:14px; font-weight:bold; color: #113b88;}
 .topic .item-info{overflow:hidden; padding:6px 10px; color:#a4a4a4;}
 .topic .name{float:left;}
 .topic .item-info div{float:right; font-size:11px;}

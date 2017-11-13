@@ -1207,23 +1207,20 @@ function newUpFormSubmit() {
 		url : "/project/insertProjectWork.ajax",
 		type : "post",
 		dataType : 'json',
-		beforeSubmit : function(_data){
-			console.log(_data+"this is beforeSubmit func");
-			console.log(typeof(_data));
-		},
 		complete : function(_data){
 			flag_newUpFormSubmit = false;
 		},
-		error : function(request, status, error) {
-			//console.log(_data);
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+		error: function(request, status, error) {
+			console.log(request);
+			console.log(status);
+			console.log(error);
+			alert("업로드에 실패하였습니다.");
 		},
 		success : function(_data) {
 			console.log(_data);
 			if(_data.result == '1') {
 				//성공
-	    		//alert("디자인 업로드 완료하였습니다."); 
+	    		alert("디자인 업로드 완료하였습니다."); 
 	    		modalHide();
 	    		loadPage(); 
 	    	} else {

@@ -1200,7 +1200,6 @@ public class ProjectService {
 	public Map<String, Object> selectGroupList(SearchVO searchVO) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
-		// 
 		int allCount = dao.selectGroupAllCount(searchVO);
 		List<ProjectGroupVO> list = dao.selectGroupPagingList(searchVO);
 
