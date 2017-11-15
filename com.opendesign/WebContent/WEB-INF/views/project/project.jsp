@@ -94,7 +94,7 @@
 				<div class="project-list-head" style="display: block;">
 					<p class="head-groupName">그룹명</p>
 					<p class="head-writtenDate">등록날짜</p>
-					<p class="head-updateDate">최신업데이트 날짜</p>
+					<!-- <p class="head-updateDate">최신업데이트 날짜</p>  -->
 					<p class="head-leader">개설자</p>
 					<p class="head-projectNum">프로젝트 수</p>
 					<p class="head-memberNum">멤버수</p>
@@ -443,9 +443,9 @@
 			<div class="head-writtenDate">
 				<span>{{:registerTime.substr(0, 4)+'-'+registerTime.substr(4, 2)+'-'+registerTime.substr(6, 2)}}</span>
 			</div>
-			<div class="head-updateDate">
-				<span>{{:updateTime}}</span>
-			</div>
+			<!-- <div class="head-updateDate">
+				<span>{{:updateTime.substr(0, 4)+'-'+updateTime.substr(4, 2)+'-'+updateTime.substr(6, 2)}}</span>
+			</div> -->
 			<div class="head-leader">
 				<span>{{:memberName}}</span>
 			</div>

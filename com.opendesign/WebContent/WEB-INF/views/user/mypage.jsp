@@ -129,14 +129,16 @@
 
 <!-- ################## 나의그룹 ############################################# -->
 <script id="tmpl-groupTemplate" type="text/x-jsrender">
-    <li><a href="javascript:goGroupDetailView('{{:seq}}');">{{:groupName}}</a></li> 
+	<li><a href="javascript:void(0);" onclick="goGroupDetailView(this, {{:seq}});" data-nm="{{:groupName}}">{{:groupName}}</a></li>
 </script>
 <script>
 /**
  * group 상세 페이지
  */
-function goGroupDetailView(seq) {
-	window.location.href='/project/project.do?schMyGroup=' + seq;
+function goGroupDetailView(_this, seq) {
+	//window.location.href='/project/project.do?schMyGroup=' + seq;
+	var name = $(_this).attr("data-nm");
+	window.location.href='/project/project.do?schMyGroup=' + seq + '&schMyGroupName=' + name;
 }
 </script>
 <script>

@@ -963,12 +963,7 @@
 				,T.member_seq
 				,U.uname AS memberName
 				,T.register_time
-				,(
-					SELECT MAX(update_time)
-					FROM t_project TA
-					JOIN t_pgroup_project TB ON TA.seq = TB.project_seq
-					WHERE TB.project_group_seq = T.seq
-					) AS update_time /* 업데이트 날짜 */
+				,T.update_time
 				,(
 					SELECT COUNT(*)
 					FROM t_pgroup_project

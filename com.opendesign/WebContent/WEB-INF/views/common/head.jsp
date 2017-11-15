@@ -5,7 +5,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>open src Design</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1109">
+<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1115">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui-1.12.1.css">
 <!-- <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">-->
 <script src="/resources/js/jquery-3.1.0.min.js"></script> 	<!-- for product -->

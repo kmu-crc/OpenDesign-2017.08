@@ -202,7 +202,7 @@
 				<tr class="no-padding">
 					<th scope="row"></th>
 					<%if(!CmnUtil.isEmpty(tagList)) { for(int i = 0; i < tagList.size(); i++) {%>
-					<td style="display: inline-block; margin-right: 25px;"><button type="button" onclick="javascript:tagButtonClick(this.value);" style="background: #b5b5b5;  padding: 3px 6px 2px 6px; border-radius: 9px;" name="<%= tagList.get(i)%>" value="<%= tagList.get(i)%>"><%= tagList.get(i)%></button></td>
+					<td style="display: inline; margin-right: 15px;"><button type="button" onclick="javascript:tagButtonClick(this.value);" style="background: #b5b5b5;  padding: 3px 6px 2px 6px; border-radius: 9px;" name="<%= tagList.get(i)%>" value="<%= tagList.get(i)%>"><%= tagList.get(i)%></button></td>
 					<%} }%>
 				</tr>
 				<tr>
