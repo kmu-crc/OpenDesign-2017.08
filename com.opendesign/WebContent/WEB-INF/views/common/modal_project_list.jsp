@@ -870,7 +870,7 @@ function goWorkModView() {
  */
 function projEditFormInitEvents() {
 	projEditFormInitEventsFindMember();
-	projEditFormValidRuleInit(); 
+	//projEditFormValidRuleInit(); 
 }
  
 /**
@@ -1220,7 +1220,7 @@ function newUpFormSubmit() {
 			console.log(_data);
 			if(_data.result == '1') {
 				//성공
-	    		alert("디자인 업로드 완료하였습니다."); 
+	    		alert("디자인 업로드를 완료하였습니다."); 
 	    		modalHide();
 	    		loadPage(); 
 	    	} else {
@@ -1313,7 +1313,6 @@ function newUpFormValidRuleInit(){
  */
 function goSubjectAddView() {
 	checkedLogin(function(){
-		
 	 	modalShow('#new-topic');
 	 	
 	}); //end of checkedLogin

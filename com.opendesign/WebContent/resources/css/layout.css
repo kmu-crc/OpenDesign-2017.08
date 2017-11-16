@@ -238,7 +238,7 @@ header
 .main-content .visual .slideWrapper{position: absolute; top: 0; left: 0; height: 100%;}
 .main-content .visual .img-box{position: relative; float: left; height: 100%;}
 .main-content .visual .img-box > img{width: 100%; position: absolute; top: 0;}
-.main-content .visual button {background-color: rgba(255, 0, 0, 0.54); font-size: 28px; padding: 16px 30px; position: absolute; top: 50%; left: 180px; color: #fff; border-radius: 20px; margin-top: -40px;}
+.main-content .visual button {background-color: rgba(3,119,108, 0.79); font-size: 28px; padding: 16px 30px; position: absolute; top: 52%; left: 180px; color: #fff; border-radius: 20px; margin-top: -40px; box-shadow: 2px 2px 2px #343434;}
 .main-content .visual button:hover,
 .main-content .visual button:focus {background-color: rgba(255, 0, 0, 0.7);}
 .main-content .visual .img-box span {position: absolute; top: 30%; left: 150px; font-size: 50px; font-weight: 800; text-shadow: 5px 5px 5px #fff;}
@@ -590,7 +590,7 @@ tr.no-padding {height: 50px;}
 .topic li{overflow:hidden; margin:0 0 9px; font-size:12px; border-radius:5px; background:#fff;}
 .topic .pic img{width:192px;}
 .topic dl{padding:10px 8px; color:#a4a4a4; border-bottom:1px solid #b6b6b6;}
-.topic dt{margin:0 0 10px; font-size:14px; font-weight:bold; color: #113b88;}
+.topic dt{margin:0 0 10px; font-size:16px; font-weight:bold; color: #113b88;}
 .topic .item-info{overflow:hidden; padding:6px 10px; color:#a4a4a4;}
 .topic .name{float:left;}
 .topic .item-info div{float:right; font-size:11px;}

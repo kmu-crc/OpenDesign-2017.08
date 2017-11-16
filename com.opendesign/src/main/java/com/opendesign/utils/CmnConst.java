@@ -207,7 +207,7 @@ public class CmnConst {
 	 */
 	public static class TagList {
 		/** 태그 목록*/
-		public static final List<String> TAG_LIST = Arrays.asList("DIY", "Smartfashion", "wareable");
+		public static final List<String> TAG_LIST = Arrays.asList("DIY", "Smart fashion", "wareable");
 	}
 	
 	

@@ -5,8 +5,9 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>open src Design</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1115">
+<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1116">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui-1.12.1.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/transition.css">
 <!-- <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">-->
 <script src="/resources/js/jquery-3.1.0.min.js"></script> 	<!-- for product -->
 <!-- <script src="/resources/js/jquery-3.1.0.js"></script> -->				<!-- for develop -->
@@ -16,6 +17,7 @@
 <script src="/resources/js/jquery.form.js"></script>
 <script src="/resources/js/jquery-ui.js"></script>	
 <script src="/resources/js/jquery-ui-1.12.1.js"></script>	
+<script src="/resources/js/transition.js"></script>
 <script src="/resources/js/jsrender.min.js"></script> <!-- js template -->
 <script type="text/javascript" src="/resources/js/jquery.gdocsviewer.min.js"></script>
 

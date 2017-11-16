@@ -372,6 +372,7 @@ public class ProjectService {
 			if (ckFile.getSize() > CheckRule.LIMIT_FILE_SIZE) {
 				resultMap.put(RstConst.P_NAME, RstConst.V_FILE_SIZE);
 				resultMap.put("fileName", ckFile.getOriginalFilename());
+				LOGGER.info(resultMap+"ckFilesize is bigger than limit");
 				return resultMap;
 			}
 		}
@@ -397,11 +398,12 @@ public class ProjectService {
 		workVO.setMemberSeq(user.getSeq());
 		CmnUtil.setCmnDate(workVO);
 		dao.insertProjectWork(workVO);
+		LOGGER.info("1.works");
 
 		// === 2.workVer
 		// === 이미지 처리
 		String fileUploadDbPath = CmnUtil.handleFileUpload(request, "fileUriFile", FileUploadDomain.PROJECT_WORK_FILE);
-		
+		LOGGER.info(fileUploadDbPath+"---fileUploadDbPath");
 		/*
 		 * 디자인 프로젝트 주제 목록에서 보여지는 Thumbnail 과
 		 * 디자인 프로젝트 작업 상세 에서 보여지는 Thumbnail 저장 
@@ -410,6 +412,7 @@ public class ProjectService {
 		String fileUploadDir = CmnUtil.getFileUploadDir(request, FileUploadDomain.PROJECT_WORK_FILE);
 		String fileName = File.separator + FilenameUtils.getName(fileUploadDbPath);
 		if(CmnUtil.isImageFile(fileName)) {
+			LOGGER.info("IsImageFile == true");
 			ThumbnailManager.saveThumbProjectWorkSmall(fileUploadDir +  fileName);
 			ThumbnailManager.saveThumbProjectWorkLarge(fileUploadDir + fileName);
 		}
@@ -422,6 +425,7 @@ public class ProjectService {
 		verVO.setVer(VERSION_START);
 		CmnUtil.setCmnDate(verVO);
 		dao.insertProjectWorkVer(verVO);
+		LOGGER.info(verVO+"this is verVO");
 
 		// 2.1 작품 마지막 ver 변경
 		workVO.setLastVer(VERSION_START);

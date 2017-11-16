@@ -221,7 +221,7 @@
 				<tr class="no-padding">
 					<th scope="row"></th>
 					<%if(!CmnUtil.isEmpty(tagList)) { for(int i = 0; i < tagList.size(); i++) {%>
-					<td style="display: inline-block; margin-right: 25px;"><button type="button" onclick="javascript:tagButtonClick(this.value);" style="background: #b5b5b5; padding: 3px 6px 2px 6px; border-radius: 9px;" name="<%= tagList.get(i)%>" value="<%= tagList.get(i)%>"><%= tagList.get(i)%></button></td>
+					<td style="display: inline; margin-right: 15px;"><button type="button" onclick="javascript:tagButtonClick(this.value);" style="background: #b5b5b5; padding: 3px 6px 2px 6px; border-radius: 9px;" name="<%= tagList.get(i)%>" value="<%= tagList.get(i)%>"><%= tagList.get(i)%></button></td>
 					<%} }%>
 				</tr>
 				<tr>
@@ -650,7 +650,7 @@
 		    	} else if(_data.result == '202') { //이메일 중복
 		    		alert('썸네일 등록은 jpg,png만 등록 가능합니다.');
 		    	} else if(_data.result == '203') { //이메일 중복
-		    		alert('모든 파일 업로드는 최대 10MB까지 등록이 가능합니다.[' + _data.fileName + ']');
+		    		alert('모든 파일 업로드는 최대 100MB까지 등록이 가능합니다.[' + _data.fileName + ']');
 		    	} else if(_data.result == '301') {
 		    		alert('상업적 이용이  허락되지 않음으로 설정 되어 있는 경우 포인트를 숫자로 입력해야 합니다.');
 		    	} else {

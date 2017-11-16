@@ -31,8 +31,10 @@
 			        var active_div = slide_arr[count++ % slide_arr.length];
 			        var id = active_div.getAttribute('id');
 			        $('#'+id).css('display', 'block').addClass('active');
+			        $('.main-btn').transition('tada');
 			    }, 3000);
 			}
+
 		});
 	</script>
 		
@@ -42,17 +44,17 @@
 				<div class="img-box" id="slide-1">
 					<img src="/resources/image/new/design_open3.png ">
 					<span>Open Design</span>
-					<button onclick="javascript:modalShow('#main-opendesign-modal');">오픈 디자인</button>
+					<button class="main-btn" onclick="javascript:modalShow('#main-opendesign-modal');">오픈 디자인</button>
 				</div>
 				<div class="img-box" id="slide-2">
 					<img src="/resources/image/new/design_easy2.png" >
 					<span>Easy Design</span>
-					<button onclick="javascript:modalShow('#main-easydesign-modal');">쉬운 디자인</button>
+					<button class="main-btn" onclick="javascript:modalShow('#main-easydesign-modal');">쉬운 디자인</button>
 				</div>
 				<div class="img-box" id="slide-3">
 					<img src="/resources/image/new/design_with.png">
 					<span>Design Together</span>
-					<button onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
+					<button class="main-btn" onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
 				</div>
 			</div>
 		</div>
