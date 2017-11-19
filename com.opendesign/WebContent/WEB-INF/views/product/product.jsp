@@ -77,10 +77,12 @@
  --%>
 <script id="tmpl-listTemplete" type="text/x-jsrender">
 				<li><a href="javascript:void(0);" onclick="goDetailView('{{:itemType}}','{{:seq}}');" >
-					{{if itemType == '<%=MainItemType.PROJECT%>' }} 
-					<i class="label"><img src="/resources/image/common/label_project.png" alt="PROJECT"></i>
-					{{/if}}		
-					<img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 3);" alt="이미지" >
+					<div class="product-thumbWrapper">
+						{{if itemType == '<%=MainItemType.PROJECT%>' }} 
+						<i class="label"><img src="/resources/image/common/label_project.png" alt="PROJECT"></i>
+						{{/if}}		
+						<img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 3);" alt="이미지" >
+					</div>
 					<div class="product-info">
 						<p class="product-title">{{:title}}</p>
 						<p class="designer">{{:memberName}}</p>

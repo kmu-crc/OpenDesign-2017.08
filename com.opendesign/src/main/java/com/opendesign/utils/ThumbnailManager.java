@@ -121,6 +121,7 @@ public class ThumbnailManager {
 	 */
 	public static void saveThumbProjectWorkSmall(String filePath) {
 		try {
+			System.out.println(filePath+"---filePath");
 			resizeNSaveThumbnail(IMG_WIDTH_PROJECT_WORK_SMALL, new File(filePath), SUFFIX_PROJECT_WORK_SMALL);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,9 +165,17 @@ public class ThumbnailManager {
 	private static void resizeNSaveThumbnail(double width, 
 				File imageFile, String suffix) throws Exception {
 		
+		System.out.println(width+"---width");
+		System.out.println(imageFile+"---imageFile");
+		System.out.println(suffix+"---suffix");
+		
 		BufferedImage originalImage = ImageIO.read(imageFile);
+		System.out.println(originalImage+"---original Image");
 		double originalWidth = originalImage.getWidth();
+		System.out.println(originalWidth+"---originWid");
 		double originalHeight = originalImage.getHeight();
+		System.out.println(originalHeight+"---originHei");
+		System.out.println("working here");
 		
 		double resizableWidth = originalWidth;
 		double resizableHeight = originalHeight;
@@ -176,6 +185,9 @@ public class ThumbnailManager {
 		String target = imageFile.getAbsolutePath();
 		target = target.substring(0, target.lastIndexOf(File.separator) + 1) + fileName + suffix + "." + extension;
 		
+		System.out.println(extension+"---extension");
+		System.out.println(fileName+"---fileName");
+		System.out.println(target+"---target");
 		
 		if( originalWidth > width ) {
 			resizableWidth = width;
@@ -188,6 +200,8 @@ public class ThumbnailManager {
 		} else {
 			CmnUtil.fileCopy(imageFile.getAbsolutePath(), target);
 		}
+		
+		System.out.println("all done");
 		
 		
 	}

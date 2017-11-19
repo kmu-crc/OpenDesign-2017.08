@@ -368,6 +368,7 @@ public class ProjectService {
 		
 		// 00. 체크:
 		MultipartFile ckFile = request.getFile("fileUriFile");
+		LOGGER.info(ckFile+"---ckFile");
 		if(ckFile != null) {
 			if (ckFile.getSize() > CheckRule.LIMIT_FILE_SIZE) {
 				resultMap.put(RstConst.P_NAME, RstConst.V_FILE_SIZE);
@@ -376,6 +377,9 @@ public class ProjectService {
 				return resultMap;
 			}
 		}
+		
+		LOGGER.info(request+"---request");
+		LOGGER.info(request.getClass());
 		
 		
 		// 줄바꿈처리
@@ -415,14 +419,19 @@ public class ProjectService {
 			LOGGER.info("IsImageFile == true");
 			ThumbnailManager.saveThumbProjectWorkSmall(fileUploadDir +  fileName);
 			ThumbnailManager.saveThumbProjectWorkLarge(fileUploadDir + fileName);
+			LOGGER.info("done");
 		}
 		
+		LOGGER.info(request+"---request");
+		LOGGER.info(request.getClass()+"request class");
 		String oriFileName = CmnUtil.handleFileUploadGetOriFileName(request, "fileUriFile");
+		LOGGER.info(oriFileName+"---oriFileName");
 		ProjectWorkVerVO verVO = new ProjectWorkVerVO();
 		verVO.setProjectWorkSeq(workVO.getSeq());
 		verVO.setFileUri(fileUploadDbPath);
 		verVO.setFilename(oriFileName);
 		verVO.setVer(VERSION_START);
+		LOGGER.info(verVO+"---verVO");
 		CmnUtil.setCmnDate(verVO);
 		dao.insertProjectWorkVer(verVO);
 		LOGGER.info(verVO+"this is verVO");
@@ -430,6 +439,7 @@ public class ProjectService {
 		// 2.1 작품 마지막 ver 변경
 		workVO.setLastVer(VERSION_START);
 		dao.updateProjectWorkLastVer(workVO);
+		LOGGER.info(workVO+"this is version part.");
 
 		// === 3. workMember
 		// 참여자: (생성회원도 포함시킨다).

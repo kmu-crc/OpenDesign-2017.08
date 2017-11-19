@@ -193,10 +193,14 @@ public class CmnUtil {
 	 */
 	public static String handleFileUploadGetOriFileName(MultipartHttpServletRequest request, String fileParamName)
 			throws IOException {
+		LOGGER.info("cmnUtil");
+		LOGGER.info(fileParamName+"---fileParamName");
 		MultipartFile reqFile = request.getFile(fileParamName);
+		LOGGER.info(reqFile+"---reqFile");
 		String oriFileName = "";
 		if (reqFile != null) {
 			oriFileName = reqFile.getOriginalFilename();
+			LOGGER.info(oriFileName + "---oriFileName is not null");
 		}
 		return oriFileName;
 	}
