@@ -27,6 +27,7 @@ import com.opendesign.service.ProjectService;
 import com.opendesign.utils.CmnConst.MemberDiv;
 import com.opendesign.utils.ControllerUtil;
 import com.opendesign.vo.DesignWorkVO;
+import com.opendesign.vo.ProjectGroupVO;
 import com.opendesign.vo.ProjectVO;
 import com.opendesign.vo.SearchVO;
 import com.wdfall.spring.JsonModelAndView;
@@ -118,6 +119,7 @@ public class SearchController {
 
 		return resultMap;
 	}
+	
 	
 	
 	/**

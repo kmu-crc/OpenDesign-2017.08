@@ -1011,6 +1011,15 @@
 		) T
 	</select>
 	
+	<!-- 그룹 이름 바꾸기 -->
+	<update id="modifyMyGroup" parameterType="com.opendesign.vo.ProjectGroupVO" >
+		UPDATE t_pgroup 
+		SET 
+			group_name = #{groupName} 
+		WHERE seq = #{seq} AND member_seq = #{memberSeq}
+	</update>
+	
+	
 	
 	
 	<!-- ############# ]]그룹 new ###################### -->

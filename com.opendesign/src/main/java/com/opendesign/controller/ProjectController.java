@@ -1109,6 +1109,30 @@ public class ProjectController {
 
 		return new JsonModelAndView(resultMap);
 	}
+	
+	/**
+	 * 그룹 이름 변경
+	 * 
+	 * @param groupVO
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/modifyGroup.ajax")
+	public ModelAndView modifyGroup(ProjectGroupVO groupVO, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		UserVO loginUser = CmnUtil.getLoginUser(request);
+		if (loginUser == null || !StringUtil.isNotEmpty(loginUser.getSeq())) {
+			resultMap.put("result", "100");
+			return new JsonModelAndView(resultMap);
+
+		}
+		service.modifyMyGroup(Integer.parseInt(loginUser.getSeq()), groupVO);
+
+		resultMap.put(RstConst.P_NAME, RstConst.V_SUCESS);
+		LOGGER.info(resultMap+"---------resultMap");
+		return new JsonModelAndView(resultMap);
+	}
 
 	// =========================== ]]주제, 작품 ===========================
 

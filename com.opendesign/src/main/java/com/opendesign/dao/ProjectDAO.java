@@ -707,6 +707,36 @@ public class ProjectDAO {
 	public int selectGroupAllCount(SearchVO param) {
 		return sqlSession.selectOne(SQL_NS + "selectGroupAllCount", param);
 	}
+	
+	/**
+	 * 검색창에서 파라미터 받아서 그룹 목록 조회 (작성자 or 제목일때)
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public List<ProjectGroupVO> selectSearchGroupList(Map<String, Object> paramMap) {
+		return sqlSession.selectList(SQL_NS + "selectSearchGroupPagingList", paramMap);
+	}
+
+	/**
+	 * 검색창에서 파라미터 받아서 그룹 총개수 조회 (작성자 or 제목일때)
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public int selectSearchGroupCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne(SQL_NS + "selectSearchGroupAllCount", paramMap);
+	}
+	
+	/**
+	 * 그룹 이름 바꾸기
+	 * 
+	 * @param groupVO
+	 * @return
+	 */
+	public int modifyMyGroup(ProjectGroupVO groupVO) {
+		return sqlSession.delete(SQL_NS + "modifyMyGroup", groupVO);
+	}
 
 	// =================== ]]그룹new =======================
 

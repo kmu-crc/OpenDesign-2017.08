@@ -22,7 +22,7 @@ public class SearchVO extends PageVO {
 	private String schSeq;
 	/** 카테고리 */
 	private String schCate;
-	/** 정열순서 */
+	/** 정렬순서 */
 	private String schOrderType;
 	/** 내용 */
 	private String schContent;
@@ -39,7 +39,7 @@ public class SearchVO extends PageVO {
 	private String searchWord;
 
 	// ==================================================
-	/** 현제 로그인 회원 */
+	/** 현재 로그인 회원 */
 	private UserVO schLoginUser;
 	
 	// ==================================================

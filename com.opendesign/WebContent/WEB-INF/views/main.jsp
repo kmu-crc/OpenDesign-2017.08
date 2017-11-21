@@ -315,7 +315,9 @@
 
 <script id="tmpl-productListTemplete" type="text/x-jsrender">
 	<li ><a href="javascript:goProductView('{{:seq}}');" style="width:301px;height:271px;" >
-		<img src="{{:thumbUri}}" onerror="setDefaultImg(this, 3);" alt="" />
+		<div class="product-thumbWrapper">
+			<img src="{{:thumbUri}}" onerror="setDefaultImg(this, 3);" alt="" />
+		</div>
 		<div class="product-info">
 			<p class="product-title">{{:title}}</p>
 			<p class="designer">{{:memberName}}</p>

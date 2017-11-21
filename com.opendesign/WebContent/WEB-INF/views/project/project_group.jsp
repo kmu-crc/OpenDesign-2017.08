@@ -51,8 +51,9 @@
 
 <script id="tmpl-groupRow" type="text/x-jsrender">
 	<div class="item active" onclick="onClickGroupRow(event);" data-seq="{{:seq}}" >
-		{{:groupName}}
-		<button type="button" onclick="onClickGroupRow(event);" data-seq="{{:seq}}" >삭제</button>
+		<div class="item-name" style="display: inline" data-seq="{{:seq}}">{{:groupName}}</div>
+		<button type="button" class="item-del" onclick="onClickGroupRow(event);" data-seq="{{:seq}}" >삭제</button>
+		<button type="button" class="item-modi" onclick="onClickGroupRow(event);" data-seq="{{:seq}}" >수정</button>
 	</div>
 </script>
 
@@ -145,6 +146,7 @@ function loadGroup(){
 }
 
 function loadGroupProject(groupSeq){
+	console.log("woraking");
 	requestAjax({
 		url: '/project/groupProjectList.ajax',
         type: 'get',
@@ -347,6 +349,46 @@ function deleteGroup(thisObj){
 	});
 }
 
+function modifyGroup(thisObj){
+	var groupSeq = thisObj.data('seq');
+	var original = thisObj.siblings('.item-name');
+	
+	if ($('.group-list div.item.active > .item-modi.active').length !== 0){
+		if ($('.item-modi.active').attr('data-seq') == groupSeq) {
+			var value = original.find('input[name="newName"]').val();
+			
+			requestAjax({
+				url: '/project/modifyGroup.ajax',
+				type: 'POST',
+				dataType: 'JSON',
+				data: { seq : groupSeq, groupName : value },
+				success : function(_data){
+					console.log(_data);
+					var result = _data.result;
+		        	if( '100' == result ){
+		        		if( confirm('로그인이 필요합니다. 로그인 하시겠습니까?') ){
+		        			modalShow('#login-modal');
+		        		}       		
+		        		return;
+		        	}
+		        	original.html(value);
+		        	$('button.item-modi.active').removeClass('active');
+				},
+				error : function(_data){
+					alert("에러가 발생했습니다.");
+				}
+			});
+		} else {
+			return;
+		}
+	} else {
+		thisObj.addClass("active");
+		var inputBox = '<input type="text" name="newName" value="'+original.text()+'">';
+		original.html(inputBox);
+	}
+	
+}
+
 function deleteGroupProject(event){
 	if( ! confirm('정말 삭제하시겠습니까?') ){
 		return;
@@ -389,6 +431,7 @@ function onClickGroupRow(event){
 	flagRequsest = true;
 	
 	var thisObj = $(extractEventTarget(event));
+	
 	if( 'button' == thisObj.prop('type') ){
 		if(event.stopPropagation) {
 			event.stopPropagation();
@@ -396,13 +439,17 @@ function onClickGroupRow(event){
 	    	event.returnValue = false;
 	    }
 		
-		if( confirm('정말 삭제하시겠습니까?') ){
-			deleteGroup( thisObj );
-			return;
-		}
-		flagRequsest = false;
+	if(thisObj.hasClass('item-del') && confirm('정말 삭제하시겠습니까?')){
+		deleteGroup( thisObj );
 		return;
+	} else if ( thisObj.hasClass('item-modi')) {
+		modifyGroup( thisObj );
 	}
+	
+	flagRequsest = false;
+	return;
+	}
+	
 	onChangeGroupRow(thisObj);
 	
 	var groupSeq = thisObj.data('seq');
@@ -426,9 +473,7 @@ function modalShowProjectSearch(){
 
 function onChangeGroupRow(thisObj){
 	var defaultColor = '#b5b5b5';
-	
-	var divList = thisObj.parent();
-	var divs = divList.find('div.item');
+	var divs = $('div.item.active > div.item-name');
 	
 	divs.each(function(){
 		divs.css('color', defaultColor);

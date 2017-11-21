@@ -1221,6 +1221,22 @@ public class ProjectService {
 		resultMap.put("list", list);
 		return resultMap;
 	}
+	
+
+	/**
+	 * 그룹 이름 변경
+	 * 
+	 * @param memberSeq
+	 * @param groupVO
+	 */
+	@Transactional
+	public void modifyMyGroup(int memberSeq, ProjectGroupVO groupVO) {
+		groupVO.setMemberSeq(memberSeq);
+		dao.modifyMyGroup(groupVO);
+	}
+	
+	
+	
 
 	// ================================= ]]그룹 =================================
 

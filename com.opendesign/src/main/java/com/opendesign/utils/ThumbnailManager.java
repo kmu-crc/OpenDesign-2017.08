@@ -66,7 +66,7 @@ public class ThumbnailManager {
 	public static final String SUFFIX_DESIGN_WORK_MEDIUM = "_DE_M";
 	
 	/**
-	 * 썸네일(디자인/제작자 작업) 이름 Suffix - Big 사ㅣ즈
+	 * 썸네일(디자인/제작자 작업) 이름 Suffix - Big 사이즈
 	 */
 	public static final String SUFFIX_DESIGN_WORK_LARGE = "_DE_L";
 	

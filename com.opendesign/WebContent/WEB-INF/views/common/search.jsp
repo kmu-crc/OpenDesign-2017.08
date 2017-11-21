@@ -14,7 +14,9 @@ if( searchWord == null || "".equals(searchWord) ) {
 <!-- template: 디자인 -->
 <script id="tmpl-0" type="text/x-jsrender">
 					<li><a href="/product/productView.do?seq={{:seq}}">
-						<img src="{{:thumbUri}}" alt="" width="301" height="234">
+						<div class="imgWrapper">
+							<img src="{{:thumbUri}}" alt="" width="301" height="auto">
+						</div>
 						<div class="product-info">
 							<p class="product-title">{{:title}}</p>
 							<p class="designer">{{:memberName}}</p>
@@ -31,7 +33,9 @@ if( searchWord == null || "".equals(searchWord) ) {
 <script id="tmpl-1" type="text/x-jsrender">
 					<li><a href="/project/openProjectDetail.do?projectSeq={{:seq}}">
 						<i class="label"><img src="/resources/image/common/label_project.png" alt="PROJECT"></i>
-						<img src="{{:fileUrl}}" alt="">
+						<div class="imgWrapper">
+							<img src="{{:fileUrl}}" alt="프로젝트 이미지">
+						</div>
 						<div class="product-info">
 							<p class="product-title">{{:projectName}}</p>
 							<p class="designer">{{:ownerName}}</p>
@@ -111,8 +115,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 				<h3>디자인 검색 결과 <span id="all_count_0">(0)</span></h3>
 				<ul class="list-type1" id="ul_list_0">
 				</ul>
-				<button onclick="loadSearchResult(0);" type="button" class="btn-more2" >결과 더 보기</button></br>
-				
+				<button onclick="loadSearchResult(0);" type="button" class="btn-more2" >결과 더 보기</button></br>	
 			</div>
 			<div class="result-wrap">
 				<h3>프로젝트 검색 결과 <span id="all_count_1">(0)</span></h3>
@@ -125,6 +128,12 @@ if( searchWord == null || "".equals(searchWord) ) {
 				<ul class="list-type2" id="ul_list_2">
 				</ul>
 				<button onclick="loadSearchResult(2);" type="button" class="btn-more2" >결과 더 보기</button></br>
+			</div>
+			<div class="result-wrap">
+				<h3>그룹 검색 결과 <span id="all_count_4">(0)</span></h3>
+				<ul class="list-type2" id="ul_list_4">
+				</ul>
+				<button onclick="loadSearchResult(4);" type="button" class="btn-more2" >결과 더 보기</button></br>
 			</div>
 			<!-- 2017.07.28
 			<div class="result-wrap">
@@ -155,7 +164,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 	var actionUris = ['productList.ajax', 'projectList.ajax', 'designerList.ajax', 'producerList.ajax'];
 	
 	/* 각 메뉴별 현재 인덱스 */
-	var indices = [0, 0, 0, 0];
+	var indices = [0, 0, 0, 0, 0];
 
 	$(function(){
 		/*
@@ -173,6 +182,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 		loadSearchResult(1); //디자인 프로젝트 검색
 		loadSearchResult(2); //디자이너 검색
 		/*2017.07.08 loadSearchResult(3); */ //제작자 검색
+		//loadSearchResult(4); //그룹 검색
 		
 	});
 	

@@ -238,9 +238,9 @@ header
 .main-content .visual .slideWrapper{position: absolute; top: 0; left: 0; height: 100%;}
 .main-content .visual .img-box{position: relative; float: left; height: 100%;}
 .main-content .visual .img-box > img{width: 100%; position: absolute; top: 0;}
-.main-content .visual button {background-color: rgba(3,119,108, 0.79); font-size: 28px; padding: 16px 30px; position: absolute; top: 52%; left: 180px; color: #fff; border-radius: 20px; margin-top: -40px; box-shadow: 2px 2px 2px #343434;}
+.main-content .visual button {background-color: rgba(255,0,0, 0.73); font-size: 28px; padding: 16px 30px; position: absolute; top: 52%; left: 180px; color: #fff; border-radius: 20px; margin-top: -40px; box-shadow: 2px 2px 2px #343434;}
 .main-content .visual button:hover,
-.main-content .visual button:focus {background-color: rgba(255, 0, 0, 0.7);}
+.main-content .visual button:focus {background-color: rgba(3,119,108, 0.79);}
 .main-content .visual .img-box span {position: absolute; top: 30%; left: 150px; font-size: 50px; font-weight: 800; text-shadow: 5px 5px 5px #fff;}
 .main-content .visual #slide-2 span {text-shadow: 5px 5px 5px #000; color: #fff;} 
 
@@ -911,7 +911,9 @@ tr.no-padding {height: 50px;}
 .search-content .title{float:none; font-size:15px; color:#414141;}
 .result-wrap{clear:both; padding:18px 0 0; border-top:1px solid #b9b9b9;}
 .result-wrap h3{padding:0 0 18px; font-size:15px; color:#414141;}
-.result-wrap .none{padding:0 0 160px; font-size:15px; font-weight:700; color:#414141;}
+.result-wrap .none{padding:10px 0 30px; font-size:15px; font-weight:700; color:#414141;}
+.result-wrap #ul_list_0 .imgWrapper {width: 258px; height: 234px; overflow: hidden;}
+.result-wrap #ul_list_1 .imgWrapper {width: 258px; height: 180px; overflow: hidden;}
 
 /* terms */
 #modal_introduece .modal-inner{top:0; width:1200px; margin:0 0 0 -600px; background:#fff;}
