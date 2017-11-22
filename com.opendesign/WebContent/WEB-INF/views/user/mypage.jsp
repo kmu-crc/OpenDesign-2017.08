@@ -70,7 +70,9 @@
 
 <script id="tmpl-workTemplate" type="text/x-jsrender">
 	<li class="swiper-slide"><a href="javascript:goProductView({{:wseq}});">
-	 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
+	<div class="imgWrapper">
+		 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
+	</div>
 	 <div class="product-info">
 		<p class="product-title">{{:wtitle}}</p>
 		<p class="designer">{{:uname}}</p>
@@ -86,7 +88,9 @@
 
 <script id="tmpl-likeTemplate" type="text/x-jsrender">
 	<li class="swiper-slide"><a href="javascript:goProductView({{:wseq}});">
-	 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
+	<div class="imgWrapper">
+		 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
+	</div>
 	 <div class="product-info">
 		<p class="product-title">{{:wtitle}}</p>
 		<p class="designer">{{:uname}}</p>

@@ -995,7 +995,7 @@ function projEditFormSubmit() {
 		},
 		error : function(_data) {
 			console.log(_data);
-	    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+	    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.\n(4000픽셀 이상의 이미지는 등록하실 수 없습니다)");
 		},
 		success : function(_data) {
 			console.log(_data);
@@ -1214,7 +1214,7 @@ function newUpFormSubmit() {
 			console.log(request);
 			console.log(status);
 			console.log(error);
-			alert("업로드에 실패하였습니다.");
+			alert("업로드에 실패하였습니다.\n(4000픽셀 이상의 이미지는 등록하실 수 없습니다)");
 		},
 		success : function(_data) {
 			console.log(_data);
