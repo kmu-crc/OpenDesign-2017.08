@@ -415,6 +415,23 @@ public class UserService {
 
 		return likeList;
 	}
+	
+	/**
+	 * 2017.11.22
+	 * 마이페이지: 나의 관심 프로젝트 조회
+	 * 
+	 * @param projectSeq
+	 * @return
+	 */
+	public List<MyUserVO> selectMyProjectlikeList(String memberSeq) {
+
+		// 1. 작품 조회
+		List<MyUserVO> likeList = dao.selectMyProjectlikeList(memberSeq);
+
+		
+
+		return likeList;
+	}
 
 	/**
 	 * 마이페이지: 내가 구입한 디자인(작품) 조회

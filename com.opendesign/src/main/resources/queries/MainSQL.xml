@@ -298,7 +298,7 @@
 		        v_design_work T
 		    WHERE del_flag = 'N'
 		) T
-		ORDER BY T.like_cnt DESC LIMIT 40
+		ORDER BY T.view_cnt DESC LIMIT 40
 		ON DUPLICATE KEY UPDATE 
         update_time = T.update_time
 	</update>

@@ -398,6 +398,28 @@
 		]]>
 	</select>
 	
+	<!-- 나의 관심 프로젝트 리스트 -->
+	<select id="selectMyProjectLikelist" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
+		<![CDATA[
+		SELECT		    
+		        T.seq as "wseq",   		       
+		        T.project_name as "wtitle",
+		        T.file_url as "thumbUri",
+		        T.register_time as "wregistertime", 
+                U.uname as "uname",
+                (
+                	SELECT COUNT(*) FROM t_project_like WHERE project_seq = T.seq 
+                ) as "cntLike"
+		    FROM
+		        v_project T
+		        JOIN t_member U  ON T.owner_seq = U.seq
+		    WHERE
+		     T.seq IN ( SELECT project_seq FROM t_project_like Where member_seq = #{memberSeq} )		    
+		    ORDER BY
+		        T.seq Desc
+		]]>
+	</select>
+	
 	<!-- 나의 구입목록 리스트 -->
 	<select id="selectMyOrderlist" parameterType="hashmap" resultType="com.opendesign.vo.MyUserVO" > 
 		<![CDATA[

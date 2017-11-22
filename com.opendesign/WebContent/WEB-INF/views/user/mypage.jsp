@@ -104,6 +104,19 @@
     </a></li>
 </script>
 
+<script id="tmpl-projectLikeTemplate" type="text/x-jsrender">
+	<li class="swiper-slide"><a href="javascript:goProject({{:wseq}});">
+	<div class="imgWrapper">
+		 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
+	</div>
+	 <div class="project-info">
+		<p class="project-title">{{:wtitle}}</p>
+		<p class="designer"><i class="fa fa-user" aria-hidden="true"></i>팀장 : {{:uname}}</p>
+		<p class="hit"><i class="fa fa-heart" aria-hidden="true"></i>좋아요 : {{:cntLike}}</p>
+	 </div>
+    </a></li>
+</script>
+
 <script id="tmpl-orderTemplate" type="text/x-jsrender">
    <li class="swiper-slide"><a href="javascript:goProductView({{:wseq}});">
 	<img src="{{:thumbUri}}" alt="" onerror="setDefaultImg(this, 2);">
@@ -235,6 +248,9 @@ function goProductView(seq) {
 	
 	// 관심 탬플릿
 	var likeTemplate = $("#tmpl-likeTemplate").html();
+	
+	// 관심 프로젝트 템플릿
+	var likeProjectTemp = $('#tmpl-projectLikeTemplate').html();
 	
 	// 구입목록 템플릿
 	var orderTemplate = $("#tmpl-orderTemplate").html();
@@ -495,60 +511,107 @@ function goProductView(seq) {
 	
 	// ============== like ===================
 	var flag_loadLike = false; //flag
+	
 	function loadLike() {
-	  //뷰 컨트롤러 생성	
+	  //디자인 뷰 컨트롤러 생성	
 	  likeView = new ListView({
 		    htmlElement : $('#likeArea')
 		    ,htmlElementNoData: $('<p class="none">등록되어 있는 관심디자인이 없습니다.</p>')
 	   });
-	 // 디자인 조회 및 load	  
-	  $.ajax({				
-		url: '/selectProjectLike.ajax',
-        type: 'get',
-        data: { 'memberSeq' : memberSeq },
-		complete : function(_data){
-			flag_loadLike = false;
-		},
-		error : function(_data) {
-			console.log(_data);
-			//alert(_data);
-	    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
-		},
-		success : function(_data){
-			console.log(_data);
-	    	var likeDatas = _data.likeList;
-	    	// load
-	    	//alert(likeDatas.length);
-	    	loadLikeWithData(likeDatas);
-		}
-       });
-     }
+	  //프로젝트 뷰 컨트롤러 생성
+	  likeProjectView = new ListView({
+		  htmlElement : $('#likeProjectArea')
+		  ,htmlElementNoData: $('<p class="none">등록되어 있는 관심디자인이 없습니다.</p>')
+	  });
+	  
+	 callDesignLike();
+	 callProjectLike();
+	 
+}
 	
+	function callDesignLike(){
+		// 디자인 조회 및 load	  
+		  $.ajax({				
+			url: '/selectDesignLike.ajax',
+	        type: 'get',
+	        data: { 'memberSeq' : memberSeq },
+			complete : function(_data){
+				flag_loadLike = false;
+			},
+			error : function(_data) {
+				console.log(_data);
+				//alert(_data);
+		    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+			},
+			success : function(_data){
+				console.log(_data);
+		    	var likeDatas = _data.likeList;
+		    	console.log(likeDatas);
+		    	console.log("Design");
+		    	// load
+		    	//alert(likeDatas.length);
+		    	loadLikeWithData(likeDatas, 'design');
+			}
+	       });
+	}
+	
+	function callProjectLike(){
+		 // 프로젝트 조회 및 load
+		 $.ajax({
+			url: '/selectProjectLike.ajax',
+			type: 'get',
+			data: { 'memberSeq' : memberSeq },
+			complete : function(_data){
+				flag_loadLike = false;
+			},
+			error : function(_data) {
+				console.log(_data);
+		    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
+			},
+			success : function(_data){
+				console.log(_data);
+		    	var likeDatas2 = _data.likeList;
+		    	console.log(likeDatas2);
+		    	console.log("Project");
+		    	loadLikeWithData(likeDatas2, 'project');
+			}
+		 });
+	}
 		
-	function loadLikeWithData(likeDatas) {
-		likeView.clear();
-		//listView.htmlElement = $('#likeArea');
+	function loadLikeWithData(likeDatas, flag) {
 		if(!likeDatas || likeDatas.length == 0) {
-				//$('.favorite.product-list').append('<div style="width:100%;top:50%;position:absolute;text-align:center;">등록되어 있는 관심디자인이 없습니다.</div>');
 				console.log('>>> loadLikeWithData no data.');
 				return;
 		}
+		
+		if (flag == 'design'){
+			likeView.clear();
 			// 주제:
-		likeView.add({
-				keyName : "wseq",
+			likeView.add({
+					keyName : "wseq",
+					data : likeDatas,
+					htmlTemplate : likeTemplate,		
+			});
+		} else if (flag == 'project'){
+			likeProjectView.clear();
+			likeProjectView.add({
+				keyName: "wseq",
 				data : likeDatas,
-				htmlTemplate : likeTemplate,		
-		});				
-		swipeInitLike();
+				htmlTemplate : likeProjectTemp,
+			});
+		}
+		swipeInitLike(flag);
 	}
 	
 	var likeSwipe = null;
-	function swipeInitLike() {
-		var item2 = $('.favorite').find('li').length;		
+	function swipeInitLike(flag) {
+		var parent = $('.favorite.'+flag);
+		var item2 = parent.find('li').length;
 		if(item2 > 4){	
 			if(likeSwipe == null) {
-				$('.favorite').find('.slide-btn').show();
-				likeSwipe = new Swiper('.favorite-slide', {
+				parent.find('.slide-btn').show();
+				var slideLi = parent.find('.favorite-slide');
+				likeSwipe = new Swiper(slideLi, {
 			        slidesPerView: 4,
 			        spaceBetween: 23,
 			        nextButton: '.favorite-next',
@@ -832,13 +895,27 @@ function goProductView(seq) {
 					<button type="button" class="btn-nextSlide portfolio-next"><img src="/resources/image/mypage/btn_nextSlide.png" alt="다음"></button>
 				</div>
 			</div>
-			<div class="favorite product-list">
+			<div class="favorite design product-list">
 				<div class="best-head">
 					<span class="mainChar">D</span>
 					<span>관심 디자인</span>
 				</div>
 				<div class="slide favorite-slide">
 					<ul class="list-type1 swiper-wrapper" id="likeArea">						
+					</ul>
+				</div>
+				<div class="slide-btn">
+					<button type="button" class="btn-prevSlide favorite-prev"><img src="/resources/image/mypage/btn_prevSlide.png" alt="이전"></button>
+					<button type="button" class="btn-nextSlide favorite-next"><img src="/resources/image/mypage/btn_nextSlide.png" alt="다음"></button>
+				</div>
+			</div>
+			<div class="favorite project product-list">
+				<div class="best-head">
+					<span class="mainChar">P</span>
+					<span>관심 프로젝트</span>
+				</div>
+				<div class="slide favorite-slide">
+					<ul class="list-type1 swiper-wrapper" id="likeProjectArea">						
 					</ul>
 				</div>
 				<div class="slide-btn">

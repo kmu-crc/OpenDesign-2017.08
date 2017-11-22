@@ -428,6 +428,14 @@ header
 .product-list .imgWrapper > img {width: 100%; height: auto;}
 .product-list .list-type1{margin:0 -34px 0 0;}
 .product-list .list-type1 li{position: relative; float: left; width: 300px; height: 360px; overflow: hidden; box-sizing: border-box; padding: 20px; box-shadow: 0 1px 3px #e1e1e1; margin: 0 18px 24px 0px; font-size: 14px; border: 1px solid #ddd; border-bottom: 2.5px solid #f00; background: #fff;}
+.product-list.project .project-info {width: 100%; height: 120px; padding: 30px 0 0;}
+.product-list.project .project-info .project-title {font-size: 20px; color: #337ab7; padding-bottom: 10px; border-bottom: 1px solid #d5d5d5;}
+.product-list.project .project-info .designer {margin-right: 20px;}
+.product-list.project .project-info .designer,
+.product-list.project .project-info .hit {font-size: 13px; color: #a4a4a4; font-weight: normal; float: left; padding-top: 20px; text-align: right;}
+.product-list.project .project-info i.fa {color: #a4a4a4; margin-right: 5px;}
+.product-list.project .project-info i.fa.fa-heart {font-size: 11px;}
+
 .portfolio h3{background:#a4a4a4 url(../image/mypage/bg_portfolio.png) no-repeat center 170px;}
 .favorite h3{background:#a4a4a4 url(../image/mypage/bg_favorite.png) no-repeat center 170px;}
 .purchase h3{width:213px; height:54px; padding:0 0 0 40px; font-size:20px; font-weight:400; color:#fff; text-align:center; line-height:54px; background:#b1b1b1 url(../image/mypage/bg_purchase.png) no-repeat 45px center;}

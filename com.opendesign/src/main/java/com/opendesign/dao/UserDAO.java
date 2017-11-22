@@ -267,6 +267,21 @@ public class UserDAO {
 
 		return sqlSession.selectList(SQL_NS + "selectMyLikelist", paramMap);
 	}
+	
+	/**
+	 * 2017.11.22
+	 * 마이페이지: 나의 관심 프로젝트 조회
+	 * 
+	 * @param projectSeq
+	 * @return
+	 */
+	public List<MyUserVO> selectMyProjectlikeList(String memberSeq) {
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("memberSeq", memberSeq);
+
+		return sqlSession.selectList(SQL_NS + "selectMyProjectLikelist", paramMap);
+	}
 
 	/**
 	 * 나의 디자인(작품) 좋아요 개수 조회

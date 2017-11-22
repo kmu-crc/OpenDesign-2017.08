@@ -416,7 +416,27 @@ public class UserController {
 	}
 
 	/**
-	 * 마이페이지: 나의 관심 디자인(작품) 조회
+	 * 마이페이지: 나의 관심 디자인 조회
+	 * 
+	 * @param MyUserVO
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/selectDesignLike.ajax")
+	public ModelAndView selectDesignLike(@ModelAttribute("work") MyUserVO seqVO, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		String memberSeq = seqVO.getMemberSeq();
+		List<MyUserVO> likeList = service.selectMylikeList(memberSeq);
+		resultMap.put("likeList", likeList);
+
+		return new JsonModelAndView(resultMap);
+
+	}
+	
+	/**
+	 * 2017.11.22
+	 * 마이페이지: 나의 관심 프로젝트 조회
 	 * 
 	 * @param MyUserVO
 	 * @param request
@@ -427,7 +447,7 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		String memberSeq = seqVO.getMemberSeq();
-		List<MyUserVO> likeList = service.selectMylikeList(memberSeq);
+		List<MyUserVO> likeList = service.selectMyProjectlikeList(memberSeq);
 		resultMap.put("likeList", likeList);
 
 		return new JsonModelAndView(resultMap);
