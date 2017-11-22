@@ -42,17 +42,17 @@
 		<div class="visual">
 			<div class="slideWrapper">
 				<div class="img-box" id="slide-1">
-					<img src="/resources/image/new/design_open3.png ">
+					<img src="/resources/image/main/open.png ">
 					<span>Open Design</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-opendesign-modal');">오픈 디자인</button>
 				</div>
 				<div class="img-box" id="slide-2">
-					<img src="/resources/image/new/design_easy2.png" >
+					<img src="/resources/image/main/easy.png" >
 					<span>Easy Design</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-easydesign-modal');">쉬운 디자인</button>
 				</div>
 				<div class="img-box" id="slide-3">
-					<img src="/resources/image/new/design_with.png">
+					<img src="/resources/image/main/together.png">
 					<span>Design Together</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
 				</div>
