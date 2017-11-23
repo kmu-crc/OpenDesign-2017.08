@@ -5,7 +5,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>open src Design</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=11222">
+<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1123">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui-1.12.1.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/transition.css">
 <!-- <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">-->

@@ -714,8 +714,8 @@ public class ProjectDAO {
 	 * @param param
 	 * @return
 	 */
-	public List<ProjectGroupVO> selectSearchGroupList(Map<String, Object> paramMap) {
-		return sqlSession.selectList(SQL_NS + "selectSearchGroupPagingList", paramMap);
+	public List<ProjectGroupVO> selectSearchGroupList(SearchVO param) {
+		return sqlSession.selectList(SQL_NS + "selectSearchGroupPagingList", param);
 	}
 
 	/**
@@ -724,8 +724,8 @@ public class ProjectDAO {
 	 * @param param
 	 * @return
 	 */
-	public int selectSearchGroupCount(Map<String, Object> paramMap) {
-		return sqlSession.selectOne(SQL_NS + "selectSearchGroupAllCount", paramMap);
+	public int selectSearchGroupCount(SearchVO param) {
+		return sqlSession.selectOne(SQL_NS + "selectSearchGroupAllCount", param);
 	}
 	
 	/**

@@ -32,7 +32,6 @@ if( searchWord == null || "".equals(searchWord) ) {
 <!-- template: 프로젝트 -->
 <script id="tmpl-1" type="text/x-jsrender">
 					<li><a href="/project/openProjectDetail.do?projectSeq={{:seq}}">
-						<i class="label"><img src="/resources/image/common/label_project.png" alt="PROJECT"></i>
 						<div class="imgWrapper">
 							<img src="{{:fileUrl}}" alt="프로젝트 이미지">
 						</div>
@@ -42,9 +41,9 @@ if( searchWord == null || "".equals(searchWord) ) {
 						</div>
 						<p class="cate">{{:categories}}&nbsp;</p>
 						<div class="item-info">
-							<span class="member"><img src="/resources/image/common/ico_member.png" alt="멤버"> {{:projectMemberCnt}}</span>
-							<span><img src="/resources/image/main/blt_bbs.png" alt="게시글"> {{:projectWorkCntF}}</span>
-							<span><img src="/resources/image/main/blt_file.png" alt="파일"> {{:projectWorkFileCntF}}</span>
+							<span class="member"><i class="fa fa-user" aria-hidden="true"></i> {{:projectMemberCnt}}</span>
+							<span><i class="fa fa-window-restore" aria-hidden="true"></i> {{:projectWorkCntF}}</span>
+							<span><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCnt}}</span>
 							<span class="update">{{:displayTime}}</span>
 						</div>
 					</a></li>
@@ -60,9 +59,9 @@ if( searchWord == null || "".equals(searchWord) ) {
 								<p class="designer">{{:uname}}</p>
 								<p class="cate"  >{{:cateNames}}</p>
 								<div class="item-info">
-									<span class="portfolio"><img src="/resources/image/common/ico_portfolio.png" alt="포트폴리오"> {{:workCntF}}</span>
-									<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
-									<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+									<span class="portfolio"><i class="fa fa-list" aria-hidden="true"></i>{{:workCntF}}</span>
+									<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i>{{:likeCntF}}</span>
+									<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>{{:viewCntF}}</span>
 								</div>
 							</div>
 						</div>
@@ -97,6 +96,25 @@ if( searchWord == null || "".equals(searchWord) ) {
 						</ul>
 					</a></li>
 </script>
+<!-- template: 그룹 -->
+<script id="tmpl-4" type="text/x-jsrender">
+					<li class="group-list-li"><a href="javascript:void(0);" onclick="goGroupDetailView(this, {{:seq}});" data-nm="{{:groupName}}" >
+						<div class="project-info">
+							<div class="head-groupName">
+								<span>{{:groupName}}</span>
+							</div>
+							<div class="head-leader">
+								<span>{{:memberName}}</span>
+							</div>
+							<div class="head-memberNum">
+								<span><i class="fa fa-user" aria-hidden="true"></i>{{:memberCntF}}</span>
+							</div>
+							<div class="head-projectNum">
+								<span><i class="fa fa-window-restore" aria-hidden="true"></i>{{:projectCntF}}</span>
+							</div>
+						</div>
+					</a></li>
+</script>
 
 
 </head>
@@ -129,19 +147,18 @@ if( searchWord == null || "".equals(searchWord) ) {
 				</ul>
 				<button onclick="loadSearchResult(2);" type="button" class="btn-more2" >결과 더 보기</button></br>
 			</div>
-			<div class="result-wrap">
-				<h3>그룹 검색 결과 <span id="all_count_4">(0)</span></h3>
-				<ul class="list-type2" id="ul_list_4">
-				</ul>
-				<button onclick="loadSearchResult(4);" type="button" class="btn-more2" >결과 더 보기</button></br>
-			</div>
-			<!-- 2017.07.28
-			<div class="result-wrap">
+			<div class="result-wrap" style="display: none">
 				<h3>제작자 검색 결과 <span id="all_count_3">(0)</span></h3>
 				<ul class="list-type2" id="ul_list_3">
 				</ul>
 				<button onclick="loadSearchResult(3);" type="button" class="btn-more2" >결과 더 보기</button>
-			</div> -->
+			</div> 
+			<div class="result-wrap">
+				<h3>그룹 검색 결과 <span id="all_count_4">(0)</span></h3>
+				<ul class="list-group" id="ul_list_4">
+				</ul>
+				<button onclick="loadSearchResult(4);" type="button" class="btn-more2" >결과 더 보기</button></br>
+			</div>
 		</div>
 	</div>
 	<!-- //content -->
@@ -161,7 +178,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 	var listViews = [];
 	
 	/* 각 메뉴별 요청 uri */
-	var actionUris = ['productList.ajax', 'projectList.ajax', 'designerList.ajax', 'producerList.ajax'];
+	var actionUris = ['productList.ajax', 'projectList.ajax', 'designerList.ajax', 'producerList.ajax', 'pGroupList.ajax'];
 	
 	/* 각 메뉴별 현재 인덱스 */
 	var indices = [0, 0, 0, 0, 0];
@@ -182,7 +199,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 		loadSearchResult(1); //디자인 프로젝트 검색
 		loadSearchResult(2); //디자이너 검색
 		/*2017.07.08 loadSearchResult(3); */ //제작자 검색
-		//loadSearchResult(4); //그룹 검색
+		loadSearchResult(4); //그룹 검색
 		
 	});
 	
@@ -208,6 +225,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 	        	var listData = _data.list;
 	        	var allCount = _data.all_count;
 	        	var tamplateView = $('#tmpl-' + targetIndex).html();
+
 	        	<%--
 	        	if( listData.length > 0 ) {
 	        		listViews[targetIndex].addAll({keyName:'seq', data:listData, htmlTemplate:tamplateView });
@@ -252,6 +270,16 @@ if( searchWord == null || "".equals(searchWord) ) {
 		$('#all_count').text( formatNumberCommaSeparate(totalCount) );
 	}
 
+</script>
+
+<script>
+/**
+ * group 상세 페이지로 이동
+ */
+function goGroupDetailView(_this, seq) {
+	var name = $(_this).attr("data-nm");
+	window.location.href='/project/project.do?schMyGroup=' + seq + '&schMyGroupName=' + name;
+}
 </script>
 
 

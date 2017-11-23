@@ -151,6 +151,7 @@ public class ProjectService {
 	public List<ProjectGroupVO> selectMyProjectGroupList(int memberSeq) {
 		return dao.selectMyProjectGroupList(memberSeq);
 	}
+	
 
 	/**
 	 * 디자인 프로젝트 등록

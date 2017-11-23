@@ -987,6 +987,14 @@
 			FROM t_pgroup T
 			JOIN t_member U ON T.member_seq = U.seq
 		]]>
+		<if test=' searchWord != null and searchWord != "" ' >
+			WHERE 
+			( 
+				UPPER(T.group_name) LIKE CONCAT ( '%', UPPER(#{searchWord}), '%' )
+				OR 
+				UPPER(U.uname) LIKE CONCAT ( '%', UPPER(#{searchWord}), '%' )
+			)
+		</if>
 	</sql>
 	
 	<select id="selectGroupPagingList" parameterType="com.opendesign.vo.SearchVO" resultType="com.opendesign.vo.ProjectGroupVO" > 
@@ -995,7 +1003,7 @@
 				<when test=' schOrderType != null and schOrderType.equals("NAME") ' >
 				ORDER BY T.group_name
 				</when>
-
+				
 				<otherwise>
 				ORDER BY T.update_time DESC
 				</otherwise>

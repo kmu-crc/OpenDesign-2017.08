@@ -85,7 +85,7 @@ public class SearchController {
 	public @ResponseBody Map<String, Object> ajaxProductList(HttpServletRequest request) {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Map<String, Object> paramMap = createParameters(5, request);
+		Map<String, Object> paramMap = createParameters(4, request);
 
 		int allCount = productService.selectProductCount(paramMap);
 		
@@ -108,7 +108,7 @@ public class SearchController {
 	public @ResponseBody Map<String, Object> ajaxProjectList(HttpServletRequest request) {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Map<String, Object> paramMap = createParameters(5, request);
+		Map<String, Object> paramMap = createParameters(4, request);
 		
 		
 		int totalCount = projectService.selectProjectCount(paramMap);
@@ -174,6 +174,26 @@ public class SearchController {
 
 		return new JsonModelAndView(resultMap);
 	}
+	
+	/**
+	 * 프로젝트 그룹 목록 조회
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/pGroupList.ajax")
+	public @ResponseBody Map<String, Object> ajaxGroupList(HttpServletRequest request) {
+		
+		SearchVO searchWord = new SearchVO();
+		Map<String, Object> paramMap = createParameters(4, request);
+		searchWord.setSearchWord((String)paramMap.get("searchWord"));	
+		Map<String, Object> result = projectService.selectGroupList(searchWord);
+		
+		return result;
+	}
+	
+	
+	
 	
 	/**
 	 * 검색 파라미터 세팅
