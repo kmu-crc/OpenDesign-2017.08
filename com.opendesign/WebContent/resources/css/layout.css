@@ -57,8 +57,8 @@ header
 .util-area .alert.active a{background-position:0 bottom;}
 .util-area .number{display:none;}
 .util-area .active .number{display:block; position:absolute; top:0; right:5px; width:14px; height:12px; padding:2px 0 0 0; font-size:9px; color:#fff; text-align:center; text-indent:0; border-radius:50%; background:#113b88;}
-.totalsearch{float:left; border: 1px solid #e9e9e9; box-shadow: inset 1px 1px 1px; margin:0 20px 0 0;}
-.totalsearch input[type="text"]{float:left; width:160px; height:52px; border:0; background:none;}
+.totalsearch{float:left; background-color: #e9e9e9; margin:0 20px 0 0;}
+.totalsearch input[type="text"]{float:left; width:200px; border:0; background:none;}
 .btn-login{float:left; font-size:14px; border-radius: 4px;}
 .btn-logout{float:left; font-size:14px; border-radius: 4px;}
 
@@ -238,11 +238,10 @@ header
 .main-content .visual .slideWrapper{position: absolute; top: 0; left: 0; height: 100%;}
 .main-content .visual .img-box{position: relative; float: left; height: 100%;}
 .main-content .visual .img-box > img{width: 100%; position: absolute; top: 0;}
-.main-content .visual button {background-color: transparent; font-size: 28px; padding: 16px 30px; position: absolute; top: 54%; left: 700px; color: #fff; border: 3px solid #fff; margin-top: -40px; box-shadow: 5px 5px 0 #d80505; background-image: linear-gradient(#d80505, #d80505); background-repeat: no-repeat; background-position: 3px 3px;}
+.main-content .visual button {background-color: transparent; font-size: 24px; padding: 16px 30px; position: absolute; top: 50%; left: 800px; color: #fff; border: 3px solid #fff; box-shadow: 5px 5px 0 #d80505; background-image: linear-gradient(#d80505, #d80505); background-repeat: no-repeat; background-position: 3px 3px;}
 .main-content .visual button:hover,
 .main-content .visual button:focus {background-position: 0px 0px; border-color: #d80505; box-shadow: 0px 0px transparent; transition: all, 0.4s;}
-.main-content .visual .img-box span {color: #fff; position: absolute; top: 30%; left: 250px; font-size: 50px; font-weight: 800; border-bottom: 1px solid #fff; display: block; width: 600px;}
-/*.main-content .visual #slide-2 span {text-shadow: 5px 5px 5px #000; color: #fff;} */
+.main-content .visual .img-box span {font-family:'Gloria Hallelujah', cursive; color: #fff; position: absolute; top: 30%; left: 300px; font-size: 60px; border-bottom: 1px solid #fff; display: block; width: 600px;}
 
 .mainModal {width: 800px; margin: -380px 0 0 -400px; background-color: #fff; padding: 60px 40px 50px; box-sizing: border-box;}
 .mainModal h3{font-size: 22px; margin-bottom: 30px;}
@@ -923,7 +922,7 @@ tr.no-padding {height: 50px;}
 .result-wrap{clear:both; padding:18px 0 0; border-top:1px solid #b9b9b9;}
 .result-wrap h3{padding:0 0 18px; font-size:15px; color:#414141;}
 .result-wrap .none{padding:10px 0 30px; font-size:15px; font-weight:700; color:#414141;}
-.result-wrap #ul_list_0 .imgWrapper {width: 258px; height: 234px; overflow: hidden;}
+.result-wrap #ul_list_0 .imgWrapper {width: 258px; height: 180px; overflow: hidden;}
 .result-wrap #ul_list_1 .imgWrapper {width: 258px; height: 180px; overflow: hidden;}
 .result-wrap .list-type1 .item-info {color: #a2a1a1;}
 .result-wrap .list-group {margin-top: 20px;}

@@ -15,7 +15,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 <script id="tmpl-0" type="text/x-jsrender">
 					<li><a href="/product/productView.do?seq={{:seq}}">
 						<div class="imgWrapper">
-							<img src="{{:thumbUri}}" alt="" width="301" height="auto">
+							<img src="{{:thumbUri}}" alt="" width="100%" height="auto">
 						</div>
 						<div class="product-info">
 							<p class="product-title">{{:title}}</p>
@@ -23,8 +23,8 @@ if( searchWord == null || "".equals(searchWord) ) {
 						</div>
 						<p class="cate">{{:cateNames}}</p>
 						<div class="item-info">
-							<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
-							<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+							<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
+							<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>{{:viewCntF}}</span>
 							<span class="update">{{:displayTime}}</span>
 						</div>
 					</a></li>
@@ -33,7 +33,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 <script id="tmpl-1" type="text/x-jsrender">
 					<li><a href="/project/openProjectDetail.do?projectSeq={{:seq}}">
 						<div class="imgWrapper">
-							<img src="{{:fileUrl}}" alt="프로젝트 이미지">
+							<img src="{{:fileUrl}}" alt="프로젝트 이미지" width="100%" height="auto">
 						</div>
 						<div class="product-info">
 							<p class="product-title">{{:projectName}}</p>

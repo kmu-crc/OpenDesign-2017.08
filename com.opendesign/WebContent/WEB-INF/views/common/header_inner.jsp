@@ -12,12 +12,15 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 #searchWord {
 	height: 42px;
 	text-indent: 5px;
-	font-style: italic;
 	font-size: 14px;
 }
 .searchBtnWrap{
 	width: 42px;
 	height: 42px;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -21px;
 }
 #searchBtn {
 	line-height: 42px;
@@ -35,7 +38,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 			<h2 class="skip">통합검색</h2>
 			<div class="totalsearch">
 				<form name="inteSearchForm" id="inteSearchForm" action="/search/search.do">
-					<fieldset>
+					<fieldset style="position:relative">
 						<legend>통합검색</legend>
 						<input type="text" name="searchWord" id="searchWord" title="검색어 입력" onkeyup="inteSearch(true);" value="<%=searchWord%>" placeholder="search" />
 						<button class="searchBtnWrap" type="submit" onclick="return false;"><i id="searchBtn" class="fa fa-search" aria-hidden="true" onclick="inteSearch();" alt="검색"></i></button>

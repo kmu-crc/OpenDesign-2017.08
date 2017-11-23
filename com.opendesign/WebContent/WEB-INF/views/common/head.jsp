@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1123">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui-1.12.1.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/transition.css">
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
 <!-- <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">-->
 <script src="/resources/js/jquery-3.1.0.min.js"></script> 	<!-- for product -->
 <!-- <script src="/resources/js/jquery-3.1.0.js"></script> -->				<!-- for develop -->
