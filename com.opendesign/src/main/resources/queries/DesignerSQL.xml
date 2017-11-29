@@ -30,7 +30,6 @@
 			)
 		</if>
 		
-		
 		<if test=' searchWord != null and searchWord != "" ' >
 			AND 
 			( 

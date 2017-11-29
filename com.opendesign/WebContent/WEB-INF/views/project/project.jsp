@@ -68,9 +68,9 @@
 
 		<div class="tab-wrap">
 			<ul class="tab">
-				<li class="ing active btn-red"><a href="#ing-project">진행중인 프로젝트</a></li>
-				<li class="done btn-red"><a href="#complete-project">완료된 프로젝트</a></li>
-				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
+				<li class="ing active btn-red"><a href="#ing-project">프로젝트</a></li>
+				<!-- <li class="done btn-red"><a href="#complete-project">완료된 프로젝트</a></li>  -->
+				<li class="complete btn-red"><a href="#group-tab">그룹</a></li>
 			</ul>
 			<div class="sorting" id="sortingProj">
 				<a id="psort1" href="javascript:sortProduct();" class="btn-red active">최신순</a>
@@ -87,9 +87,9 @@
 			<div id="ing-project" class="active">
 				<ul id="ing-project-list" class="project-list"></ul>
 			</div>
-			<div id="complete-project">
+			<!-- <div id="complete-project">
 				<ul id="done-project-list" class="project-list"></ul>
-			</div> 
+			</div>  -->
 			<div id="group-tab">
 				<div class="project-list-head" style="display: block;">
 					<p class="head-groupName">그룹명</p>
@@ -227,12 +227,12 @@
 			loadProject(designProjectIngView); 
 		});
 		
-		var projectDoneTab = $('.tab-wrap li.done');
-		$(projectDoneTab).click(function(){
-			initParam();
-			designProjectComView.clear();
-			loadProject(designProjectComView);
-		});
+		//var projectDoneTab = $('.tab-wrap li.done');
+		//$(projectDoneTab).click(function(){
+			//initParam();
+			//designProjectComView.clear();
+			//loadProject(designProjectComView);
+		//});
 		
 		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
@@ -532,8 +532,8 @@
 		$('#sch_my_group select > option[value="' + val + '"]').prop('selected', true);
 		
 		var name = $('#sch_my_group select > option:selected').text();
-		if (name.length > 7){
-			name = name.substr(0, 6) + "...";
+		if (name.length > 9){
+			name = name.substr(0, 9) + "...";
 		}
 		$('#sch_my_group input:text').val(name);
 		

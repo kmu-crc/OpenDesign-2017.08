@@ -49,9 +49,7 @@
 			OR PC.category_code = '*'
 		)
 		</if>
-		<if test=' schProgressStatus != null and schProgressStatus != "" ' >
-		AND P.progress_status = #{schProgressStatus}
-		</if>
+
 		
 		<!-- 통합검색 -->
 		<if test=' searchWord != null and searchWord != "" ' >

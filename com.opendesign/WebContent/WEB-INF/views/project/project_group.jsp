@@ -356,6 +356,7 @@ function modifyGroup(thisObj){
 	if ($('.group-list div.item.active > .item-modi.active').length !== 0){
 		if ($('.item-modi.active').attr('data-seq') == groupSeq) {
 			var value = original.find('input[name="newName"]').val();
+			$('.item-modi.active').text('수정');
 			
 			requestAjax({
 				url: '/project/modifyGroup.ajax',
@@ -383,7 +384,8 @@ function modifyGroup(thisObj){
 		}
 	} else {
 		thisObj.addClass("active");
-		var inputBox = '<input type="text" name="newName" value="'+original.text()+'">';
+		$('.item-modi.active').text('확인');
+		var inputBox = '<input type="text" name="newName" maxlength="50" style="width: 550px" value="'+original.text()+'">';
 		original.html(inputBox);
 	}
 	

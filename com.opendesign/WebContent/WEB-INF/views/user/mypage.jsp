@@ -229,6 +229,13 @@ function swipeInitGroup() {
 function goProductView(seq) {
 	window.location.href='/product/productView.do?seq=' + seq;
 }
+
+/**
+ * 프로젝트 상세
+ */
+ function goProject(seq){
+	window.location.href='/project/project.do';
+}
 </script>
 <script>
 	var memberSeq = '<%=memberSeq%>';
@@ -546,8 +553,6 @@ function goProductView(seq) {
 			success : function(_data){
 				console.log(_data);
 		    	var likeDatas = _data.likeList;
-		    	console.log(likeDatas);
-		    	console.log("Design");
 		    	// load
 		    	//alert(likeDatas.length);
 		    	loadLikeWithData(likeDatas, 'design');
@@ -571,8 +576,6 @@ function goProductView(seq) {
 			success : function(_data){
 				console.log(_data);
 		    	var likeDatas2 = _data.likeList;
-		    	console.log(likeDatas2);
-		    	console.log("Project");
 		    	loadLikeWithData(likeDatas2, 'project');
 			}
 		 });
@@ -592,6 +595,7 @@ function goProductView(seq) {
 					data : likeDatas,
 					htmlTemplate : likeTemplate,		
 			});
+			swipeInitLike(flag);
 		} else if (flag == 'project'){
 			likeProjectView.clear();
 			likeProjectView.add({
@@ -599,18 +603,20 @@ function goProductView(seq) {
 				data : likeDatas,
 				htmlTemplate : likeProjectTemp,
 			});
+			swipeInitLike(flag);
 		}
-		swipeInitLike(flag);
+		
 	}
 	
-	var likeSwipe = null;
+	
 	function swipeInitLike(flag) {
+		var likeSwipe = null;
 		var parent = $('.favorite.'+flag);
 		var item2 = parent.find('li').length;
 		if(item2 > 4){	
 			if(likeSwipe == null) {
 				parent.find('.slide-btn').show();
-				var slideLi = parent.find('.favorite-slide');
+				var slideLi = parent.find('.favorite-slide.'+flag);
 				likeSwipe = new Swiper(slideLi, {
 			        slidesPerView: 4,
 			        spaceBetween: 23,
@@ -621,7 +627,7 @@ function goProductView(seq) {
 				likeSwipe.onResize();
 			}
 		} else{
-			$('.favorite').find('.slide-btn').hide();
+			parent.find('.slide-btn').hide();
 		}
 	}
 	
@@ -868,7 +874,7 @@ function goProductView(seq) {
 					</div>
 					
 					<!-- 나의 그룹 -->
-					</br>
+					
 					<h3>나의 그룹</h3>
 					<div class="my-group">
 						 <div class="swiper-wrapper" >						

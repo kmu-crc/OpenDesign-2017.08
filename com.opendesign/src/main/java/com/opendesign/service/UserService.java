@@ -428,8 +428,6 @@ public class UserService {
 		// 1. 작품 조회
 		List<MyUserVO> likeList = dao.selectMyProjectlikeList(memberSeq);
 
-		
-
 		return likeList;
 	}
 
@@ -634,7 +632,7 @@ public class UserService {
 	}
 
 	/**
-	 * 새 패스월드 생성
+	 * 새 패스워드 생성
 	 * 
 	 * @return
 	 */

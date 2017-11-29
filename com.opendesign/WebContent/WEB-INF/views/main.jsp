@@ -19,9 +19,9 @@
 	<script type="text/javascript">
 		$(function(){
 			var pageWidth = $('body').innerWidth();
-			$('.visual > .slideWrapper').css('width', pageWidth * 3);
-			$('.visual > .slideWrapper .img-box').css('width', pageWidth);
-			movingSlide(0);
+			//$('.visual > .slideWrapper').css('width', pageWidth * 3);
+			//$('.visual > .slideWrapper .img-box').css('width', pageWidth);
+			//movingSlide(0);
 			
 			function movingSlide(count){
 			    setInterval(function(){
@@ -42,17 +42,17 @@
 		<div class="visual">
 			<div class="slideWrapper">
 				<div class="img-box" id="slide-1">
-					<img src="/resources/image/main/open.png ">
+					<img src="/resources/image/main/openRe.png ">
 					<span>OPEN DESIGN</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-opendesign-modal');">오픈 디자인</button>
 				</div>
 				<div class="img-box" id="slide-2">
-					<img src="/resources/image/main/easy.png" >
+					<img src="/resources/image/main/easyRe.png" >
 					<span>EASY DESIGN</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-easydesign-modal');">쉬운 디자인</button>
 				</div>
 				<div class="img-box" id="slide-3">
-					<img src="/resources/image/main/together.png">
+					<img src="/resources/image/main/togetherRe.png">
 					<span>DESIGN TOGETHER</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
 				</div>
@@ -159,6 +159,7 @@
 	        cache: false,
 			data : {},
 			success : function(_data){
+				console.log(_data);
 				
 				// === designer
 				loadDesignerData(_data.designerList);
@@ -219,7 +220,7 @@
 	
 	var gb_productList = [];
 	var gb_product_start = 0;
-	var gb_product_limitCnt = 10;
+	var gb_product_limitCnt = 30;
 	function getProductData() {
 		var start = gb_product_start;
 		var end = gb_product_start + gb_product_limitCnt;
