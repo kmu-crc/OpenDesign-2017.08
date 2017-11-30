@@ -906,7 +906,7 @@ function goProductView(seq) {
 					<span class="mainChar">D</span>
 					<span>관심 디자인</span>
 				</div>
-				<div class="slide favorite-slide">
+				<div class="slide favorite-slide design">
 					<ul class="list-type1 swiper-wrapper" id="likeArea">						
 					</ul>
 				</div>
@@ -920,7 +920,7 @@ function goProductView(seq) {
 					<span class="mainChar">P</span>
 					<span>관심 프로젝트</span>
 				</div>
-				<div class="slide favorite-slide">
+				<div class="slide favorite-slide project">
 					<ul class="list-type1 swiper-wrapper" id="likeProjectArea">						
 					</ul>
 				</div>

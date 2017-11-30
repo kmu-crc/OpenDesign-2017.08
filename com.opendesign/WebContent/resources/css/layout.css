@@ -628,13 +628,13 @@ tr.no-padding {height: 50px;}
 #project-detail input[type="text"]{width:100%; height:32px; box-sizing:border-box; padding:0 40px 0 10px; color:#848484; border:1px solid #848484; border-radius:7px; background:#fff url(../image/common/bg_select.png) no-repeat right 0;}
 #project-detail .version{overflow:hidden; margin:0 0 10px; font-size:14px;}
 #project-detail .version strong{float:left; margin:8px 15px 0 0;}
-#project-detail .opinion{float:left; margin: 0 0 15px; font-size:12px;}
+#project-detail .opinion{float:left; margin: 5px 0 15px; font-size:14px;}
 #project-detail .btn-set{float:right;}
 #project-detail .btn-set a{margin:0 0 0 12px; padding:0 8px 0 18px; font-size:14px; color:#767676;}
 #project-detail .btn-modi{background:url(../image/sub/blt_modi.png) no-repeat 0 0;}
 #project-detail .btn-del{background:url(../image/sub/blt_trash.png) no-repeat 0 0;}
-#project-detail .project-detail-img-wrap {width: 620px; float: left;}
-#project-detail .project-detail-info-wrap {width: 260px; float: right;}
+#project-detail .project-detail-img-wrap {width: 900px; margin: 10px auto;}
+#project-detail .project-detail-info-wrap {width: 900px; margin: auto;}
 #project-detail .img{margin:0 0 6px; border-bottom:1px solid #F00;}
 #project-detail .img img{max-width:100%;}
 #project-detail .img > div{padding:12px;}
@@ -645,14 +645,14 @@ tr.no-padding {height: 50px;}
 #project-detail .img .btn-down{padding:0 0 0 21px; background:url(../image/sub/blt_down.png) no-repeat 0 0;}
 #project-detail .img .display-file {position: relative;}
 #project-detail .img .display-file a {width: 30px; height: 40px; position: absolute; top: 0; left: 0;}
-#project-detail textarea{width:100%; height:80px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:12px; border:1px solid #f00;}
+#project-detail textarea{width:100%; height:58px; margin:0 0 6px; box-sizing:border-box; padding:12px; font-size:14px; border:1px solid #f00;}
 #project-detail .reply-list{padding:14px 0 0;}
 #project-detail .reply-list li{width: 100%; position: relative; overflow:hidden; padding:0 10px 10px; font-size:14px; color:#767676;}
 #project-detail .reply-list .btn-cmmt-del {position: absolute; top: 0; right: 0; float: none; height: auto; }
-#project-detail .reply-list .name{float:left; min-width:60px; font-weight:700; color:#113b88;}
-#project-detail .reply-list .date{float:right; font-size:9px; display: inline;}
-#project-detail .reply-list p{float:left; width:180px; padding-top: 0px;}
-#project-detail .btn-red {margin-top: 5px; padding: 0; height: 24px; width: 50px; font-size: 12px;}
+#project-detail .reply-list .name{float:left; width:120px; font-weight:700; color:#113b88;}
+#project-detail .reply-list .date{float:left; font-size:9px; display: inline; color: #d6d6d6;}
+#project-detail .reply-list p{float:left; width:650px; padding-top: 0px;}
+#project-detail .btn-red {margin-top: 5px; padding: 0; height: 28px; width: 60px; font-size: 14px;}
 
 #project-edit .modal-inner{width:600px; margin: 0 0 0 -345px; padding:45px; color:#686868; background:#f6f6f6; top: 5%;}
 #project-edit input[type="text"]{padding:0 15px; font-size:16px; box-shadow: none;}

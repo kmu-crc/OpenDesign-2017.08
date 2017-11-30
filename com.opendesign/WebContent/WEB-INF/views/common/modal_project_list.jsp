@@ -173,7 +173,7 @@ function projShareShare() {
 			</div>
 		</div> 
 
-		<div style="height:50px;">
+		<div style="min-height:30px;">
 			<p class="opinion" data-nm="contents">{{:contents}}</p>
 			<div class="btn-set">
 				{{if <%=isProjNotComplete%> &&  curUserAuthYN }}
