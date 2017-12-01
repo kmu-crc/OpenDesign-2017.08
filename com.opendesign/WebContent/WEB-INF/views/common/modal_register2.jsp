@@ -70,9 +70,6 @@
 						<input type="checkbox" name="memberTypeCheck" value="d" id="designer">
 						<label for="designer">디자이너</label>
 					</div>
-					<p class="txt"">디자이너가 아니라면 체크하지 않아도 됩니다.
-						<span>* 체크를 하시면 디자이너 메뉴에 노출됩니다.</span>
-					</p>
 				</div>
 				<div class="clear"></div>
 				<div class="regi-btn-wrap btn-red">

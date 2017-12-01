@@ -438,12 +438,13 @@ header
 .product-list .list-type1{margin:0 -34px 0 0;}
 .product-list .list-type1 li{position: relative; float: left; width: 300px; height: 360px; overflow: hidden; box-sizing: border-box; padding: 20px; box-shadow: 0 1px 3px #e1e1e1; margin: 0 18px 24px 0px; font-size: 14px; border: 1px solid #ddd; border-bottom: 2.5px solid #f00; background: #fff;}
 .product-list.project .project-info {width: 100%; height: 120px; padding: 30px 0 0;}
-.product-list.project .project-info .project-title {font-size: 20px; color: #337ab7; padding-bottom: 10px; border-bottom: 1px solid #d5d5d5;}
+.product-list.project .project-info .project-title {font-size: 18px; color: #414141; padding-bottom: 10px; border-bottom: 1px solid #d5d5d5;}
 .product-list.project .project-info .designer {margin-right: 20px;}
 .product-list.project .project-info .designer,
-.product-list.project .project-info .hit {font-size: 13px; color: #a4a4a4; font-weight: normal; float: left; padding-top: 20px; text-align: right;}
-.product-list.project .project-info i.fa {color: #a4a4a4; margin-right: 5px;}
+.product-list.project .project-info .hit {font-size: 13px; color: #337ab7; font-weight: normal; float: left; padding-top: 20px; text-align: right;}
+.product-list.project .project-info i.fa {color: #337ab7; margin-right: 5px;}
 .product-list.project .project-info i.fa.fa-heart {font-size: 11px;}
+.product-list.project .project-info .powner {margin-top: 20px; float: right; }
 
 .portfolio h3{background:#a4a4a4 url(../image/mypage/bg_portfolio.png) no-repeat center 170px;}
 .favorite h3{background:#a4a4a4 url(../image/mypage/bg_favorite.png) no-repeat center 170px;}
@@ -491,7 +492,7 @@ header
 #modi-modal .base-info{overflow:hidden; margin:0 0 20px;}
 #modi-modal .base-info dd{float:left; margin-top: 10px;}
 #modi-modal dl{margin:0 0 10px;}
-#modi-modal dl.mail-default {margin-bottom: 0;}
+#modi-modal dl.mail-default {margin-bottom: 0; width: 50%; float: left;}
 #modi-modal dl.mail-default dd input.hide {border: 0; font-weight: 700; box-shadow: none; margin-top: 0;}
 #modi-modal dt{font-size:16px; color:#414141;}
 #modi-modal dd textarea{width:399px; height:62px; padding:5px 10px; font-size:14px; color:#a4a4a4; line-height:1.5; border:1px solid #ccc;}
@@ -506,6 +507,10 @@ header
 #modi-modal ul.cate-list {padding-top: 20px;}
 #modi-modal #cateWrapMemberMod ul.cate-list {padding-top: 0;}
 #modi-modal .btn-complete{display:block; width:100%; height:38px; font-size:18px; color:#fff; text-align:center; line-height:38px; border-radius:7px; background:#f00;}
+#modi-modal .memType {width: 50%; float: left;}
+#modi-modal .memType .custom-check-modi {margin-top: 10px; position: relative;}
+#modi-modal .memType .custom-check-modi label {display: inline-block; height: 17px; padding: 0 0 0 24px; background: url(../image/common/bg_checkbox.png) no-repeat 0 0;}
+#modi-modal .memType .custom-check-modi input {position: absolute; top: 0px; left: 2px; height: 20px; opacity: 0;}
 
 /* product regi */
 .regi-content{padding:70px 0 74px;}

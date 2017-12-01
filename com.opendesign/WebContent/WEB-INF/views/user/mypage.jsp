@@ -79,8 +79,8 @@
 	 </div>
 	 <p class="cate">{{:wcate}}</p>
 	 <div class="item-info">
-	 <span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:cntLikeF}}</span>
-	 <span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:wvcountF}}</span>
+	 <span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:cntLikeF}}</span>
+	 <span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:wvcountF}}</span>
 	 <span class="update">{{:displayTime}}</span>
 	 </div>
     </a></li>
@@ -97,8 +97,8 @@
 	 </div>
 	 <p class="cate">{{:wcate}}</p>
 	 <div class="item-info">
-	 <span class="like"><img src="/resources/image/common/ico_like_active.png" alt="좋아요"> {{:cntLikeF}}</span>
-	 <span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:wvcountF}}</span>
+	 <span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:cntLikeF}}</span>
+	 <span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:wvcountF}}</span>
 	 <span class="update">{{:displayTime}}</span>
 	 </div>
     </a></li>
@@ -111,8 +111,11 @@
 	</div>
 	 <div class="project-info">
 		<p class="project-title">{{:wtitle}}</p>
-		<p class="designer"><i class="fa fa-user" aria-hidden="true"></i>팀장 : {{:uname}}</p>
-		<p class="hit"><i class="fa fa-heart" aria-hidden="true"></i>좋아요 : {{:cntLike}}</p>
+		<p class="designer"><i class="fa fa-user" aria-hidden="true"></i>{{:pmcount}}</p>
+		<p class="designer"><i class="fa fa-window-restore" aria-hidden="true"></i>{{:pmworkcount}}</p>
+		<p class="hit"><i class="fa fa-heart" aria-hidden="true"></i>{{:cntLike}}</p>
+		<p class="clear"></p>
+		<p class="powner">팀장 : {{:uname}}</p>
 	 </div>
     </a></li>
 </script>

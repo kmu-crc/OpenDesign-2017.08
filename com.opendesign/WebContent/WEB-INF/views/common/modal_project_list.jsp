@@ -98,7 +98,6 @@ function goWorkShareView() {
 		    	var htmlJ = $($.templates("#tmpl-project-share").render(jsonData));
 		    	$('#project-share').replaceWith(htmlJ);
 		    	
-		    	
 		    	modalShow("#project-share");
 	        }
 	    });

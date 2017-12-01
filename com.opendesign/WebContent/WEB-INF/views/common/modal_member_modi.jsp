@@ -28,6 +28,14 @@
 						<input type="text" name="email" value="{{:email}}" readonly="readonly" class="hide">
 					</dd>
 				</dl>
+				<dl class="memType">
+					<dt class="km-required">회원구분</dt>
+					<div class="custom-check-modi">
+						<input type="checkbox" name="memberTypeCheck" value="d" id="designer">
+						<label for="designer">디자이너</label>
+					</div>
+				</dl>
+				<div class="clear"></div>
 				<dl>
 					<dt class="km-required">닉네임 (회사명)</dt>
 					<dd><input type="text" name="uname" value="{{:uname}}" maxlength="20"></dd>

@@ -61,6 +61,12 @@ public class MyUserVO {
 
 	/** 좋아요수 */
 	private String cntLike;
+	
+	/** 프로젝트 멤버수 */
+	private String pmcount;
+
+	/** 프로젝트 게시물 수 */
+	private String pmworkcount;
 
 	// ==================================================
 	
@@ -227,6 +233,22 @@ public class MyUserVO {
 
 	public void setUseq(String useq) {
 		this.useq = useq;
+	}
+
+	public String getPmworkcount() {
+		return pmworkcount;
+	}
+
+	public void setPmworkcount(String pmworkcount) {
+		this.pmworkcount = pmworkcount;
+	}
+
+	public String getPmcount() {
+		return pmcount;
+	}
+
+	public void setPmcount(String pmcount) {
+		this.pmcount = pmcount;
 	}
 	
 	/*

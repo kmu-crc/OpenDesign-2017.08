@@ -408,6 +408,14 @@
 		        T.register_time as "wregistertime", 
                 U.uname as "uname",
                 (
+					SELECT COUNT(*) FROM t_project_member WHERE project_seq = T.seq
+				) as "pmcount",
+				(
+					SELECT COUNT(*) FROM t_project_subject S1_PS
+						JOIN v_project_work S1_PW ON S1_PW.project_subject_seq = S1_PS.seq
+					WHERE S1_PS.project_seq = T.seq
+				) as "pmworkcount",
+                (
                 	SELECT COUNT(*) FROM t_project_like WHERE project_seq = T.seq 
                 ) as "cntLike"
 		    FROM
