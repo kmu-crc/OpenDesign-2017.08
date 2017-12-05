@@ -397,6 +397,7 @@
 				target_type = '2'
 			AND stat_month = ( SELECT MAX(stat_month) FROM t_stat_activities )
 		)
+		ORDER BY update_time DESC
 	</select>
 	
 	<!-- 카테고리 이름 -->

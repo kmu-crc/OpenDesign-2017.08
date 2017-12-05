@@ -127,7 +127,7 @@
 		<include refid="sql_where_selectWorkPagingList" />
 		
 		<![CDATA[
-		ORDER BY likeCnt DESC, T.update_time DESC
+		ORDER BY T.update_time ASC, likeCnt DESC
 		LIMIT #{pgPageCount}, #{pgLimitCount}
 		]]>
 	</select>
