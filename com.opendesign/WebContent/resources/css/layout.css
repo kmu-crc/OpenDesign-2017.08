@@ -510,7 +510,9 @@ header
 #modi-modal .memType {width: 50%; float: left;}
 #modi-modal .memType .custom-check-modi {margin-top: 10px; position: relative;}
 #modi-modal .memType .custom-check-modi label {display: inline-block; height: 17px; padding: 0 0 0 24px; background: url(../image/common/bg_checkbox.png) no-repeat 0 0;}
-#modi-modal .memType .custom-check-modi input {position: absolute; top: 0px; left: 2px; height: 20px; opacity: 0;}
+#modi-modal .memType .custom-check-modi input[type="checkbox"] {position: absolute; top: 0px; left: 2px; height: 20px; opacity: 0;}
+#modi-modal .memType .custom-check-modi input[type="checkbox"]:checked+label {color: #113b88; background-position: 0 bottom;}
+#modi-modal .memType .custom-check-modi input[type="checkbox"]+label {display: inline-block; height: 17px; padding: 0 0 0 24px; background: url(../image/common/bg_checkbox.png) no-repeat 0 0;}
 
 /* product regi */
 .regi-content{padding:70px 0 74px;}

@@ -31,8 +31,12 @@
 				<dl class="memType">
 					<dt class="km-required">회원구분</dt>
 					<div class="custom-check-modi">
-						<input type="checkbox" name="memberTypeCheck" value="d" id="designer">
-						<label for="designer">디자이너</label>
+						{{if memberType == '10'}}
+						<input type="checkbox" name="memberTypeCheck" value="d" id="designer-modi" checked="true">
+						{{else}}
+						<input type="checkbox" name="memberTypeCheck" value="d" id="designer-modi">
+						{{/if}}
+						<label for="designer-modi">디자이너</label>
 					</div>
 				</dl>
 				<div class="clear"></div>
@@ -162,6 +166,7 @@ function loadMyInfo(memberSeq) {
 		    	alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 			},
 			success : function(_data){
+				console.log(_data);
 		    	var myInfoDatas = _data.infoList;
 		    	// load
 		    	//alert(myInfoDatas.length);
