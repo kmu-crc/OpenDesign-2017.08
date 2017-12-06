@@ -127,13 +127,24 @@
 								{{else}}
 								<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 								{{/if}}
-								<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:viewCntF}}</span>
+								<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:cmmtCntF}}</span>
 							</div>
 						</div>
 					</div>
 					<ul class="portfolio-section">
+						{{if top3WorkList.length !== 0}}
+						<div class="section-name">디자인</div>
+						{{/if}}
 						{{for top3WorkList}}
-						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
+						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 1);" alt="포트폴리오" alt="포트폴리오"></li>
+						{{/for}}
+					</ul>
+					<ul class="portfolio-p-section">
+						{{if top2ProjectList.length !== 0}}
+						<div class="section-name">프로젝트</div>
+						{{/if}}
+						{{for top2ProjectList}}
+						<li><img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 1);" alt="포트폴리오" alt="포트폴리오"></li>
 						{{/for}}
 					</ul>
 				</a></li>

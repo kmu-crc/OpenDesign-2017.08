@@ -24,6 +24,7 @@ import com.opendesign.vo.DesignerVO;
 import com.opendesign.vo.MemberCategoryVO;
 import com.opendesign.vo.OrderVO;
 import com.opendesign.vo.PointHistoryVO;
+import com.opendesign.vo.ProjectVO;
 import com.opendesign.vo.RequestBoardCateVO;
 import com.opendesign.vo.RequestBoardCmmtVO;
 import com.opendesign.vo.RequestBoardFileVO;
@@ -78,7 +79,7 @@ public class DesignerDAO {
 	}
 
 	/**
-	 * 작품 목록
+	 * 작품 (디자인) 목록
 	 * 
 	 * @param seq
 	 * @return
@@ -87,6 +88,18 @@ public class DesignerDAO {
 		HashMap<String, Object> param = new HashMap<>();
 		param.put("memberSeq", memberSeq);
 		return sqlSession.selectList(SQL_NS + "selectDesignWorkList", param);
+	}
+	
+	/**
+	 * 작품 (프로젝트) 목록
+	 * 
+	 * @param seq
+	 * @return
+	 */
+	public List<ProjectVO> selectProjectWorkList(String memberSeq) {
+		HashMap<String, Object> param = new HashMap<>();
+		param.put("memberSeq", memberSeq);
+		return sqlSession.selectList(SQL_NS + "selectProjectWorkList", param);
 	}
 
 	/**

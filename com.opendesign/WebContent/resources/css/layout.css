@@ -334,10 +334,14 @@ header
 .profile-section .picture{width: 280px; height: 280px; overflow: hidden;}
 .profile-section .picture img{width:100%; height:auto;}
 .profile-section .profile{width:280px; padding-top: 15px;}
-.portfolio-section{clear:both; overflow:hidden; padding:15px 0 0;}
+.portfolio-section, .portfolio-p-section {clear:both; overflow:hidden; padding:15px 0;}
+.portfolio-p-section {}
+.portfolio-section .section-name, .portfolio-p-section .section-name {font-size: 13px; font-weight: bold; margin-bottom: 10px; }
 .portfolio-section li{float:left; margin:0 7px 0 0;}
 .portfolio-section li:last-child{margin:0;}
 .portfolio-section li img{width:89px; height:66px;}
+.portfolio-p-section li{float: left; margin-right: 24px; margin-left: 24px;}
+.portfolio-p-section li img{width: 104px; height: 91px;}
 
 .project-select{position:relative; float:left; width:180px; height:34px; font-size: 16px;}
 .project-select select{position:absolute; top:0; left:0; width:100%; height:32px; opacity:0;}

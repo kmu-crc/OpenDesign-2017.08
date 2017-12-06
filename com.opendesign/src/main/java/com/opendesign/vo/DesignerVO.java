@@ -39,6 +39,8 @@ public class DesignerVO extends UserVO {
 	private List<MemberCategoryVO> cateList;
 	/** 작품 list */
 	private List<DesignWorkVO> workList;
+	/** 프로젝트 list */
+	private List<ProjectVO> workPList;
 
 	/** 사용자 좋아요 했는지 판단 */
 	private boolean curUserLikedYN;
@@ -83,6 +85,22 @@ public class DesignerVO extends UserVO {
 			return workList;
 		} else {
 			return workList.subList(0, 3);
+		}
+	}
+	
+	/**
+	 * 인기순 2개 프로젝트 list
+	 * 
+	 * @return
+	 */
+	public List<ProjectVO> getTop2ProjectList() {
+		if (CmnUtil.isEmpty(workPList)) {
+			return new ArrayList<ProjectVO>();
+		}
+		if (workPList.size() < 2) {
+			return workPList;
+		} else {
+			return workPList.subList(0, 2);
 		}
 	}
 
@@ -157,6 +175,14 @@ public class DesignerVO extends UserVO {
 
 	public void setCurUserLikedYN(boolean curUserLikedYN) {
 		this.curUserLikedYN = curUserLikedYN;
+	}
+
+	public List<ProjectVO> getWorkPList() {
+		return workPList;
+	}
+
+	public void setWorkPList(List<ProjectVO> workPList) {
+		this.workPList = workPList;
 	}
 
 }

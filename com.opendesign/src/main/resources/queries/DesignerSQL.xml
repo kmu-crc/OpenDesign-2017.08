@@ -59,9 +59,11 @@
 			            SELECT
 			                    COUNT(*)
 			                FROM
-			                    v_design_work A
+			                    v_design_work A, v_project_work B
 			                WHERE
 			                    A.member_seq = T.seq
+			                    OR
+			                    B.member_seq = T.seq
 			        ) AS workCnt /* 작품수 */
 			FROM t_member T
 		) T
@@ -84,16 +86,32 @@
 			        ,T.register_time
 			        ,T.update_time
 			        ,(
-		            SELECT COUNT(*)
-		                FROM v_design_work A
-		                WHERE A.member_seq = T.seq
+		            	SELECT (
+			            	SELECT COUNT(*)
+			                FROM v_design_work A
+			                WHERE A.member_seq = T.seq	
+		            	) 
+		            	+ 
+		            	(
+		            		SELECT COUNT(*)
+			                FROM v_project_work B
+			                WHERE B.member_seq = T.seq
+		            	)
 			        ) AS workCnt /* 작품수 */
 			        ,(
-					SELECT COUNT(*)
-  							FROM v_design_work A
+						SELECT (
+							SELECT COUNT(*)
+	  							FROM v_design_work A
                					JOIN t_design_work_like B
                    					ON A.seq = B.design_work_seq
-       						WHERE A.member_seq = T.seq
+    	   						WHERE A.member_seq = T.seq
+						) + (
+							SELECT COUNT(*)
+  								FROM v_project_work C
+               					JOIN t_project_work_like D
+                   					ON C.seq = D.project_work_seq
+       							WHERE C.member_seq = T.seq
+						)
 			        ) AS likeCnt  /* 좋아요 */
 			        ,(
 			            SELECT
@@ -107,14 +125,21 @@
 			                    A.member_seq = T.seq
 			        ) AS viewCnt  /* 조회수 */
 			        ,(
-			            SELECT
-			                    COUNT(*)
-			                FROM
-			                    v_design_work A
-			                        JOIN t_design_work_comment B
-			                            ON A.seq = B.design_work_seq
-			                WHERE
-			                    A.member_seq = T.seq
+			        	SELECT (
+			        		SELECT COUNT(*)
+			                	FROM v_design_work A
+			                    JOIN t_design_work_comment B
+			                        ON A.seq = B.design_work_seq
+			                	WHERE A.member_seq = T.seq
+			        	)
+			        	+
+			        	(
+			        		SELECT COUNT(*)
+			        			FROM v_project_work C
+			        			JOIN t_project_work_comment D
+			        				ON C.seq = D.project_work_seq
+			        			WHERE C.member_seq = T.seq
+			        	)            
 			        ) AS cmmtCnt /* 댓글수 */
 			        
 			        <if test=' schLoginUser != null and schLoginUser != "" ' >
@@ -179,7 +204,7 @@
 		]]>
 	</select>
 	
-	<!-- sql_작품 -->
+	<!-- sql_디자인 작품 -->
 	<sql id="sql_selectDesignWork">
 		<![CDATA[
 		SELECT
@@ -223,7 +248,7 @@
 		]]>
 	</sql>
 	
-	<!-- 작품  list(인기순) -->
+	<!-- 디자인 작품  list(인기순) -->
 	<select id="selectDesignWorkList" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" > 
 		<include refid="sql_selectDesignWork" />
 		<![CDATA[
@@ -234,12 +259,71 @@
 		]]>
 	</select>
 	
-	<!-- 작품  조회 -->
-	<select id="selectDesignWorkBySeq" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" > 
-		<include refid="sql_selectDesignWork" />
+	
+	<!-- 프로젝트 부분 추가 (17.12.06) -->
+	<!-- sql_프로젝트 작품 -->
+	<sql id="sql_selectProjectWork">
+		<![CDATA[
+		SELECT DISTINCT
+		    P.seq
+			, P.owner_seq AS ownerSeq
+			, P.public_yn AS publicYn
+			, P.project_name AS projectName
+			, P.progress_status AS progressStatus
+			, P.file_url AS fileUrl
+			, P.file_name AS fileName
+			, P.register_time AS registerTime
+			, P.update_time AS updateTime
+			, (
+				SELECT COUNT(*) FROM t_project_member
+				WHERE project_seq = P.seq
+			) AS projectMemberCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S1_PS
+				JOIN v_project_work S1_PW ON S1_PW.project_subject_seq = S1_PS.seq
+				WHERE S1_PS.project_seq = P.seq
+			) AS projectWorkCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S2_PS
+				JOIN v_project_work S2_PW ON S2_PW.project_subject_seq = S2_PS.seq
+				JOIN t_project_work_ver S2_PWV ON S2_PWV.project_work_seq = S2_PW.seq
+				WHERE S2_PS.project_seq = P.seq
+			) AS projectWorkFileCnt
+			,(
+		        SELECT
+					COUNT(*)
+				FROM t_project_like A
+				WHERE
+		        	A.project_seq = P.seq
+		    ) AS likeCnt
+		  ]]>
+		  
+		<![CDATA[
+		    FROM
+		        v_project P
+		       			LEFT OUTER JOIN t_project_subject S ON P.seq = S.project_seq
+		       			LEFT OUTER JOIN t_project_work W ON S.seq = W.project_subject_seq
+		       			JOIN t_member U ON U.seq = W.member_seq
+		]]>
+	</sql>
+	
+	<!-- 프로젝트 작품  list(인기순) -->
+	<select id="selectProjectWorkList" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" > 
+		<include refid="sql_selectProjectWork" />
+		<![CDATA[
+		    WHERE
+		        U.seq = #{memberSeq}
+		    ORDER BY
+		        likeCnt DESC
+		]]>
+	</select>
+	
+	<!-- 프로젝트 작품  조회 -->
+	<select id="selectDesignWorkBySeq" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" > 
+		<include refid="sql_selectProjectWork" />
 		<![CDATA[
 			WHERE
-		        T.seq = #{seq}
+		        P.seq = #{seq}
 		]]>
 	</select>
 	

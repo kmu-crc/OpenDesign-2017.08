@@ -45,6 +45,7 @@ import com.opendesign.vo.MemberCategoryVO;
 import com.opendesign.vo.OrderVO;
 import com.opendesign.vo.PointHistoryVO;
 import com.opendesign.vo.PointHistoryVO.SignType;
+import com.opendesign.vo.ProjectVO;
 import com.opendesign.vo.RequestBoardCateVO;
 import com.opendesign.vo.RequestBoardCmmtVO;
 import com.opendesign.vo.RequestBoardFileVO;
@@ -151,10 +152,14 @@ public class DesignerService {
 			// 작품
 			List<DesignWorkVO> workList = dao.selectDesignWorkList(item.getSeq());
 			item.setWorkList(workList);
+			//프로젝트
+			List<ProjectVO> workPList = dao.selectProjectWorkList(item.getSeq());
+			item.setWorkPList(workPList);
 		}
 
 		return list;
 	}
+	
 
 	/**
 	 * 디자이너/제작자 포트폴리오: 디자인 정보만 조회
