@@ -85,7 +85,7 @@ header
 .nav-cate > ul > li > a:hover{font-weight: bold;}
 .nav-cate .btn-design,
 .nav-cate .btn-design:hover{border-radius:7px; background:#113b88 url(../image/common/blt_design.png) no-repeat 15px 7px;}
-.depth3{position:absolute; top:18px; left:-3px; display:none; width:138px; border:1px solid #dbdada; background:#fff; box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px; border: 1px solid rgba(0, 0, 0, 0.15);}
+.depth3{position:absolute; top:16px; left:-3px; display:none; width:138px; border:1px solid #dbdada; background:#fff; box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px; border: 1px solid rgba(0, 0, 0, 0.15);}
 .depth3 a{display:block; padding:10px 16px; font-size:14px; color:#666;}
 .depth3 > li.active > a,
 .depth3 a:hover{background:#e9e9e9;}
@@ -320,7 +320,7 @@ header
 .list-type1 .label{position:absolute; top:0; left:0;}
 
 .list-type2{clear:both; margin:0 0 0 -19px;}
-.list-type2 > li{position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 0 16px 19px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#fff;}
+.list-type2 > li{width: 560px; height: 260px; position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 30px 20px 20px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#e9e9e9;}
 .list-type2 > li a{display:block; color:#a4a4a4; transition:box-shadow .1s;}
 .list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#337ab7; text-overflow:ellipsis; white-space:nowrap;}
 .list-type2 .cate{margin:0 0 8px; font-size:12px; color:#f00; float: right;}
@@ -330,18 +330,20 @@ header
 .list-type2 .like img{width:10px;}
 .list-type2 .hit{margin:0;}
 .list-type2 .hit img{width:14px;}
-.profile-section{overflow:hidden; padding-bottom: 20px; border-bottom:1px solid #a4a4a4;}
-.profile-section .picture{width: 280px; height: 280px; overflow: hidden;}
+.profile-section {overflow:hidden; width: 240px; text-align: center; float: left; padding-top: 10px; padding-bottom: 10px; border-bottom:1px solid #a4a4a4;}
+.profile-section .picture{box-shadow: 2px 2px 2px #666; width: 180px; height: 180px; overflow: hidden; border-radius: 50% 50%; margin: auto;}
 .profile-section .picture img{width:100%; height:auto;}
-.profile-section .profile{width:280px; padding-top: 15px;}
-.portfolio-section, .portfolio-p-section {clear:both; overflow:hidden; padding:15px 0;}
-.portfolio-p-section {}
-.portfolio-section .section-name, .portfolio-p-section .section-name {font-size: 13px; font-weight: bold; margin-bottom: 10px; }
+.profile-section .profile{width:240px; padding-top: 15px;}
+.profile-section .profile .item-info {text-align: left;}
+.portfolio-section, .portfolio-p-section {overflow:hidden; padding:20px 0 20px 20px; width: 300px; float: left;}
+.portfolio-p-section {padding-top: 0;}
+.portfolio-section .section-name, .portfolio-p-section .section-name {font-size: 14px; margin-bottom: 10px; color: #f00; }
 .portfolio-section li{float:left; margin:0 7px 0 0;}
-.portfolio-section li:last-child{margin:0;}
+.portfolio-section li:last-child,
+.portfolio-p-section li:last-child{margin:0;}
 .portfolio-section li img{width:89px; height:66px;}
-.portfolio-p-section li{float: left; margin-right: 24px; margin-left: 24px;}
-.portfolio-p-section li img{width: 104px; height: 91px;}
+.portfolio-p-section li{float: left; }
+.portfolio-p-section li img{width: 91px; height: 80px; margin-right: 3px;}
 
 .project-select{position:relative; float:left; width:180px; height:34px; font-size: 16px;}
 .project-select select{position:absolute; top:0; left:0; width:100%; height:32px; opacity:0;}

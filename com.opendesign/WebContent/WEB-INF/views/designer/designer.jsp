@@ -127,7 +127,7 @@
 								{{else}}
 								<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 								{{/if}}
-								<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:cmmtCntF}}</span>
+								<span class="hit"><i class="fa fa-comment" aria-hidden="true"></i> {{:cmmtCntF}}</span>
 							</div>
 						</div>
 					</div>
