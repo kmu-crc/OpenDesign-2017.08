@@ -259,6 +259,15 @@
 		]]>
 	</select>
 	
+	<!-- 디자인 작품  조회 -->
+	<select id="selectDesignWorkBySeq" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" > 
+		<include refid="sql_selectDesignWork" />
+		<![CDATA[
+			WHERE
+		        T.seq = #{seq}
+		]]>
+	</select>
+	
 	
 	<!-- 프로젝트 부분 추가 (17.12.06) -->
 	<!-- sql_프로젝트 작품 -->
@@ -321,14 +330,7 @@
 		]]>
 	</select>
 	
-	<!-- 프로젝트 작품  조회 -->
-	<select id="selectDesignWorkBySeq" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" > 
-		<include refid="sql_selectProjectWork" />
-		<![CDATA[
-			WHERE
-		        P.seq = #{seq}
-		]]>
-	</select>
+
 	
 	<!-- 작품 카테고리 list -->
 	<select id="selectDesignWorkCategoryList" parameterType="hashmap" resultType="com.opendesign.vo.CategoryVO" > 

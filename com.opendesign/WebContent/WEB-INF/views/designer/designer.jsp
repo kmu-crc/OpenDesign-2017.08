@@ -136,7 +136,7 @@
 						<div class="section-name">디자인</div>
 						{{/if}}
 						{{for top3WorkList}}
-						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 1);" alt="포트폴리오" alt="포트폴리오"></li>
+						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
 						{{/for}}
 					</ul>
 					<ul class="portfolio-p-section">
@@ -144,7 +144,7 @@
 						<div class="section-name">프로젝트</div>
 						{{/if}}
 						{{for top2ProjectList}}
-						<li><img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 1);" alt="포트폴리오" alt="포트폴리오"></li>
+						<li><img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
 						{{/for}}
 					</ul>
 				</a></li>

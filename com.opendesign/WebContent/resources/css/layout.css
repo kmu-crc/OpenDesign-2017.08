@@ -320,7 +320,7 @@ header
 .list-type1 .label{position:absolute; top:0; left:0;}
 
 .list-type2{clear:both; margin:0 0 0 -19px;}
-.list-type2 > li{cursor: pointer; width: 560px; height: 250px; position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 30px 20px 20px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#e9e9e9;}
+.list-type2 > li{cursor: pointer; width: 560px; height: 220px; position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 30px 20px 20px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#e9e9e9;}
 .list-type2 > li:hover, .list-type2 > li:focus {background-color: #e3e2e2;}
 .list-type2 > li a{display:block; color:#a4a4a4; transition:box-shadow .1s;}
 .list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#337ab7; text-overflow:ellipsis; white-space:nowrap; padding-bottom: 8px; border-bottom: 1px solid #a4a4a4;}
@@ -331,20 +331,19 @@ header
 .list-type2 .like img{width:10px;}
 .list-type2 .hit{margin:0;}
 .list-type2 .hit img{width:14px;}
-.profile-section {overflow:hidden; width: 240px; text-align: center; float: left; padding-top: 10px; padding-bottom: 10px;}
-.profile-section .picture{background-color: #333641; box-shadow: 2px 2px 2px #666; width: 160px; height: 160px; overflow: hidden; border-radius: 50% 50%; margin: auto;}
+.profile-section {overflow:hidden; width: 240px; text-align: center; float: left; padding-top: 10px; margin-bottom: 10px; background-color: #fff;}
+.profile-section .picture{background-color: #333641; box-shadow: 2px 2px 2px #666; width: 130px; height: 130px; overflow: hidden; border-radius: 50% 50%; margin: auto;}
 .profile-section .picture img{width:100%; height:auto;}
 .profile-section .profile{width:240px; padding: 15px 10px 0; box-sizing: border-box;}
 .profile-section .profile .item-info {text-align: left;}
-.portfolio-section, .portfolio-p-section {overflow:hidden; padding:20px 0 20px 20px; width: 300px; float: left;}
+.portfolio-section, .portfolio-p-section {overflow:hidden; padding:20px 0 20px 20px; width: 300px; position: absolute; right: 0;}
+.portfolio-p-section {bottom: 0;}
 .portfolio-p-section {padding-top: 0;}
-.portfolio-section .section-name, .portfolio-p-section .section-name {font-size: 14px; margin-bottom: 10px; color: #f00; }
-.portfolio-section li{float:left; margin:0 7px 0 0;}
+.portfolio-section .section-name, .portfolio-p-section .section-name {font-size: 14px; margin-bottom: 4px; color: #f00; }
+.portfolio-section li, .portfolio-p-section li{float:left; margin:0 7px 0 0;}
 .portfolio-section li:last-child,
 .portfolio-p-section li:last-child{margin:0;}
-.portfolio-section li img{width:89px; height:66px;}
-.portfolio-p-section li{float: left; }
-.portfolio-p-section li img{width: 91px; height: 80px; margin-right: 3px;}
+.portfolio-section li img, .portfolio-p-section li img {width:89px; height:66px;}
 
 .project-select{position:relative; float:left; width:180px; height:34px; font-size: 16px;}
 .project-select select{position:absolute; top:0; left:0; width:100%; height:32px; opacity:0;}

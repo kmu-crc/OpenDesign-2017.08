@@ -114,7 +114,9 @@
 <!-- //modal -->
 <script id="tmpl-listTemplete" type="text/x-jsrender">
 				<li><a href="javascript:goProductView('{{:seq}}');"  >
-					<img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 2);" alt=""  width="100%" height="auto" />
+					<div class="product-thumbWrapper">
+						<img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 2);" alt=""  width="100%" height="auto" />
+					</div>
 					<div class="product-info">
 						<p class="product-title">{{:title}}</p>
 						<p class="designer">{{:memberName}}</p>

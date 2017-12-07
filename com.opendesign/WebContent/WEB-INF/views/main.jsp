@@ -304,7 +304,8 @@
 							</div>
 						</div>
 					</div>
-					<ul class="portfolio-section">
+					<div class="section-name" style="font-size: 14px; margin-bottom: 10px; color: #f00; margin-left: 280px; padding-top: 30px;">디자인</div>
+					<ul class="portfolio-section" style="padding-top: 0;">
 						{{for top3WorkList}}
 						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
 						{{/for}}

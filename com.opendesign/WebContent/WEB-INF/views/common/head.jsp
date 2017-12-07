@@ -5,7 +5,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>open src Design</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1205">
+<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=1208">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui-1.12.1.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/transition.css">
 <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
@@ -31,7 +31,7 @@
 </style>
 <!-- ]]readonly -->
 
-<script src="/resources/js/common.js"></script> <!-- util -->
+<script src="/resources/js/common.js?ver=1208"></script> <!-- util -->
 <script src="/resources/js/wd-components.js"></script> <!-- custom template -->
 <script src="/resources/js/wd-project-view.js"></script> <!-- project view -->
 <script src="/resources/js/wd-category-view.js"></script> <!-- 카테고리 view -->

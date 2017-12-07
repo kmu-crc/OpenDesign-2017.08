@@ -113,10 +113,11 @@ function goDetailView(itemType, seq) {
 	console.log('itemType=' + itemType + ', seq=' + seq);
 	if(itemType == '<%=MainItemType.PROJECT%>') {
 		//프로젝트
-		window.location.href='/project/openProjectDetail.do?projectSeq=' + seq;
+		//window.location.href='/project/openProjectDetail.do?projectSeq=' + seq;
 	} else {
 		//디자인
 		window.location.href='/product/productView.do?seq=' + seq;
+		console.log(seq);
 	}
 }
 </script>

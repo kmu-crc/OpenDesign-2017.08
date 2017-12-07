@@ -290,7 +290,7 @@ function setDefaultImg(obj, num) {
 	var url = "";
 	
 	if(num == 1) {
-		url = "../resources/image/sub/noimg_profile.png";
+		url = "../resources/image/sub/pfi2.png";
 	} else if(num == 2) {
 		url = "../resources/image/sub/noimg_design_work_main.png";
 	} else if(num == 3) {
