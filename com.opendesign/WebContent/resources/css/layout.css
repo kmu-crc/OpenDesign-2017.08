@@ -320,9 +320,10 @@ header
 .list-type1 .label{position:absolute; top:0; left:0;}
 
 .list-type2{clear:both; margin:0 0 0 -19px;}
-.list-type2 > li{width: 560px; height: 260px; position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 30px 20px 20px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#e9e9e9;}
+.list-type2 > li{cursor: pointer; width: 560px; height: 250px; position:relative; float:left; padding: 10px; overflow:hidden; box-shadow:0 1px 3px #e1e1e1; margin:0 30px 20px 20px; border:1px solid #d8d8d8; border-bottom: 2px solid #f00; background:#e9e9e9;}
+.list-type2 > li:hover, .list-type2 > li:focus {background-color: #e3e2e2;}
 .list-type2 > li a{display:block; color:#a4a4a4; transition:box-shadow .1s;}
-.list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#337ab7; text-overflow:ellipsis; white-space:nowrap;}
+.list-type2 .designer{overflow:hidden; margin:5px 0 8px; font-size:16px; font-weight:700; color:#337ab7; text-overflow:ellipsis; white-space:nowrap; padding-bottom: 8px; border-bottom: 1px solid #a4a4a4;}
 .list-type2 .cate{margin:0 0 8px; font-size:12px; color:#f00; float: right;}
 .list-type2 span{margin:0 24px 0 0; font-size:12px; color:#6a6a6a;}
 .list-type2 span img{margin:-3px 0 0 0;}
@@ -330,10 +331,10 @@ header
 .list-type2 .like img{width:10px;}
 .list-type2 .hit{margin:0;}
 .list-type2 .hit img{width:14px;}
-.profile-section {overflow:hidden; width: 240px; text-align: center; float: left; padding-top: 10px; padding-bottom: 10px; border-bottom:1px solid #a4a4a4;}
-.profile-section .picture{box-shadow: 2px 2px 2px #666; width: 180px; height: 180px; overflow: hidden; border-radius: 50% 50%; margin: auto;}
+.profile-section {overflow:hidden; width: 240px; text-align: center; float: left; padding-top: 10px; padding-bottom: 10px;}
+.profile-section .picture{background-color: #333641; box-shadow: 2px 2px 2px #666; width: 160px; height: 160px; overflow: hidden; border-radius: 50% 50%; margin: auto;}
 .profile-section .picture img{width:100%; height:auto;}
-.profile-section .profile{width:240px; padding-top: 15px;}
+.profile-section .profile{width:240px; padding: 15px 10px 0; box-sizing: border-box;}
 .profile-section .profile .item-info {text-align: left;}
 .portfolio-section, .portfolio-p-section {overflow:hidden; padding:20px 0 20px 20px; width: 300px; float: left;}
 .portfolio-p-section {padding-top: 0;}
@@ -741,19 +742,25 @@ tr.no-padding {height: 50px;}
 #modify-topic .btn-add{float:none; width:65px; height:28px; font-size:15px; line-height:28px; color:#fff; border-radius:5px; background:#f00;}
 
 .portfolio-content{padding:40px 55px 28px; border-bottom:1px solid #bcbcbc;}
-.portfolio-content .profile-pic{float:left; width:76px; height:76px; overflow:hidden; margin:0 12px 0 0;}
+.portfolio-content .profile-pic{background-color: #333641; float:left; width:180px; height:180px; overflow:hidden; margin:0 30px 0 0; border-radius: 50% 50%;}
 .portfolio-content .profile-pic img{width:100%;}
-.portfolio-content h2{margin:0 0 15px; font-size:34px; font-weight:400; position: relative;}
+.portfolio-content h2{margin:0; line-height: 76px; height: 76px; font-size:34px; font-weight:400; position: relative;}
 .portfolio-content h2 > span {float: left;}
-.portfolio-content h2 .btn-red {padding: 8px 12px; border-radius: 4px; font-size: 14px; float: left; margin-left: 15px;}
+.portfolio-content h2 .btn-red {padding: 8px 12px; border-radius: 4px; font-size: 14px; float: left; margin-left: 18px; margin-top: 20px;}
 .portfolio-content .title-area{overflow:hidden; margin:0 0 30px;}
-.portfolio-content .title-area p{font-size:16px; margin-left: 90px;}
+.portfolio-content .title-area p{font-size:16px; margin-left: 220px; color: #f00;}
 .portfolio-content .txt{margin:0 0 35px; line-height:1.5; color:#737373;}
-.designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; border-top:1px solid #f00; border-bottom:1px solid #f00;}
-.designer-info li{float:left; width:25%; box-sizing:border-box; text-align:center; color:#a4a4a4; border-right:1.2px solid #f00;}
-.designer-info li span{padding:0 25px 0 15px; font-weight:700;}
-.designer-info li span.icon {padding: 0; }
-.designer-info .reply{border:0;}
+.designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; background-color: rgba(230,0,0,.1); box-shadow: 1px 1px 5px;}
+.designer-info li.info-list {width: 25%; float: left; border-right:1.2px solid #999; box-sizing: border-box;}
+.designer-info li.info-list > div{box-sizing:border-box; color:#666;}
+.designer-info li.info-list .mainChar {width: 40px; height: 40px; background-color: #fff; display: inline-block; line-height: 40px; text-align: center; color: #f00; font-size: 24px; font-weight: bold; float: left; margin-right: 20px; margin-left: 30px;}
+.designer-info li.info-list .like .fa{font-weight: 700;}
+.designer-info li.info-list .like,
+.designer-info li.info-list .reply {height: 40px; line-height: 40px;} 
+.designer-info li.info-list .like .mainChar,
+.designer-info li.info-list .reply .mainChar {background-color: #FCE5E5; font-size: 20px;}
+.designer-info li.info-list:last-of-type {border: 0;}
+.designer-info li.info-list > div > span {margin-right: 20px;}
 
 .detail-content .product-section {width: 75%; float: left;}
 .detail-content .info-section {width: 24%; float: left; margin-left: 1px; border: 1px solid #e9e9e9; padding: 20px 0;}

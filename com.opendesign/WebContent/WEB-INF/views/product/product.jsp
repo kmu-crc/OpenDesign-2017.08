@@ -56,7 +56,7 @@
 	<input type="hidden" name="schPage" value="" />
 	<input type="hidden" name="schSort" value="" />
 	<input type="hidden" name="seq" value="" />
-	<input type="hidden" name="schLimitCount" value="20" />
+	<input type="hidden" name="schLimitCount" value="100" />
 </form>
 <%--
 <script id="tmpl-listTemplete" type="text/x-jsrender">

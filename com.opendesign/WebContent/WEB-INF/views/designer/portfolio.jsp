@@ -35,31 +35,46 @@
 				<h2>
 					<span><%=item.getUname()%>님의 <%=portfolioName%> </span>
 					<button type="button" class="btn-red" onclick="goShowMsgView('<%=item.getSeq()%>');">메시지보내기</button>
+					<div class="clear"></div>
 				</h2>
-				<div class="clear"></div>
-				<p style="color: #113b88;"><%=item.getCateNames()%></p> 
+				<p><%=item.getCateNames()%></p> 
 			</div>
 			<p class="txt"><%=item.getComments()%></p>
 			<ul class="designer-info">
-				<li class="item">
-					<span class="icon"><i class="fa fa-list" aria-hidden="true"></i></span>
-					<span>총 디자인 수</span><%=item.getWorkCntF()%>
+				<li class="info-list">
+					<span class="mainChar">D</span>
+					<div class="item">
+						<span>총 디자인 수</span><%=item.getWorkCntF()%>
+					</div>
+					<div class="hit">
+						<span>디자인 총 조회수</span><%=item.getViewCntF()%>
+					</div>
 				</li>
 				
-				<li class="like">
-					<span class="icon"><i class="fa fa-heart" aria-hidden="true"></i></span>
-					<span>총 좋아요 수</span><%=item.getLikeCntF()%>
+				<li class="info-list">
+					<span class="mainChar">P</span>
+					<div class="project">
+						<span>참여 프로젝트 수</span>0
+					</div>
+					<div class="projectWork">
+						<span>프로젝트 업로드 수</span>10
+					</div>
 				</li>
 				
-				<li class="hit">
-					<span class="icon"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></span>
-					<span>총 조회수</span><%=item.getViewCntF()%>
+				<li class="info-list">
+					<div class="like">
+						<span class="mainChar"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+						<span>총 좋아요 수</span><%=item.getLikeCntF()%>
+					</div>
 				</li>
 				
-				<li class="reply">
-					<span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
-					<span>총 댓글수</span><%=item.getCmmtCntF()%>
+				<li class="info-list">
+					<div class="reply">
+						<span class="mainChar"><i class="fa fa-comment" aria-hidden="true"></i></span>
+						<span>총 댓글수</span><%=item.getCmmtCntF()%>
+					</div>
 				</li>
+		
 			</ul>
 			<ul id="listViewId" class="list-type1">
 				
@@ -95,7 +110,7 @@
 <!-- //modal -->
 <script id="tmpl-listTemplete" type="text/x-jsrender">
 				<li><a href="javascript:goProductView('{{:seq}}');"  >
-					<img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 2);" alt=""  />
+					<img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 2);" alt=""  width="100%" height="auto" />
 					<div class="product-info">
 						<p class="product-title">{{:title}}</p>
 						<p class="designer">{{:memberName}}</p>

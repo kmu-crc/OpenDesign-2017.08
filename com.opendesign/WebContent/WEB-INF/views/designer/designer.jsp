@@ -91,7 +91,7 @@
 	<input type="hidden" name="schPage" value="" /> 	<!-- 페이지번호 --> 
 	<input type="hidden" name="schOrderType" value="<%=SchOrderType.LATEST%>" /> <!-- 최신순 --> 
 	<input type="hidden" name="schMemberDiv" value="<%=schMemberDiv%>" /> <!-- 회원구분 --> 
-	<input type="hidden" name="schLimitCount" value="16" />
+	<input type="hidden" name="schLimitCount" value="100" />
 </form>
 <script>
 	/**
