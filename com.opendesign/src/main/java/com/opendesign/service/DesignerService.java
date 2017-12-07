@@ -211,6 +211,8 @@ public class DesignerService {
 
 		// 작품
 		List<DesignWorkVO> workList = dao.selectDesignWorkList(desiVO.getSeq());
+		// 프로젝트
+		List<ProjectVO> workPList = dao.selectProjectWorkList(desiVO.getSeq());
 		// 작품 카테고리
 		// if (!CmnUtil.isEmpty(workList)) {
 		// for (DesignWorkVO item : workList) {
@@ -238,6 +240,7 @@ public class DesignerService {
 		}
 		
 		resultMap.put("workList", workList);
+		resultMap.put("workPList", workPList);
 		return resultMap;
 	}
 

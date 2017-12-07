@@ -267,6 +267,7 @@
 		SELECT DISTINCT
 		    P.seq
 			, P.owner_seq AS ownerSeq
+			, PM.uname AS ownerName
 			, P.public_yn AS publicYn
 			, P.project_name AS projectName
 			, P.progress_status AS progressStatus
@@ -304,6 +305,8 @@
 		       			LEFT OUTER JOIN t_project_subject S ON P.seq = S.project_seq
 		       			LEFT OUTER JOIN t_project_work W ON S.seq = W.project_subject_seq
 		       			JOIN t_member U ON U.seq = W.member_seq
+		    JOIN t_member PM
+			ON P.owner_seq = PM.seq
 		]]>
 	</sql>
 	

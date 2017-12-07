@@ -105,18 +105,20 @@
 </script>
 
 <script id="tmpl-projectLikeTemplate" type="text/x-jsrender">
-	<li class="swiper-slide"><a href="javascript:goProject({{:wseq}});">
+	<li class="swiper-slide"><a href="/project/openProjectDetail.do?projectSeq={{:wseq}}">
 	<div class="imgWrapper">
 		 <img src="{{:thumbUri}}" onerror="setDefaultImg(this, 2);" alt="">
 	</div>
-	 <div class="project-info">
-		<p class="project-title">{{:wtitle}}</p>
-		<p class="designer"><i class="fa fa-user" aria-hidden="true"></i>{{:pmcount}}</p>
-		<p class="designer"><i class="fa fa-window-restore" aria-hidden="true"></i>{{:pmworkcount}}</p>
-		<p class="hit"><i class="fa fa-heart" aria-hidden="true"></i>{{:cntLike}}</p>
-		<p class="clear"></p>
-		<p class="powner">팀장 : {{:uname}}</p>
-	 </div>
+	<div class="product-info">
+		<p class="product-title">{{:wtitle}}</p>
+		<p class="designer">{{:uname}}</p>
+	</div>
+	<div class="item-info">
+		<span class="member"><i class="fa fa-user" aria-hidden="true"></i>{{:pmcount}}</span>
+		<span><i class="fa fa-window-restore" aria-hidden="true"></i>{{:pmworkcount}}</span>
+		<span><i class="fa fa-heart" aria-hidden="true"></i>{{:cntLike}}</span>
+		<span class="update">{{:displayTime}}</span>	
+	</div>
     </a></li>
 </script>
 

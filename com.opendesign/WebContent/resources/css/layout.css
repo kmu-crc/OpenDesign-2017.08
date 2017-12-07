@@ -446,12 +446,9 @@ header
 .product-list .list-type1 li{position: relative; float: left; width: 300px; height: 360px; overflow: hidden; box-sizing: border-box; padding: 20px; box-shadow: 0 1px 3px #e1e1e1; margin: 0 18px 24px 0px; font-size: 14px; border: 1px solid #ddd; border-bottom: 2.5px solid #f00; background: #fff;}
 .product-list.project .project-info {width: 100%; height: 120px; padding: 30px 0 0;}
 .product-list.project .project-info .project-title {font-size: 18px; color: #414141; padding-bottom: 10px; border-bottom: 1px solid #d5d5d5;}
-.product-list.project .project-info .designer {margin-right: 20px;}
-.product-list.project .project-info .designer,
-.product-list.project .project-info .hit {font-size: 13px; color: #337ab7; font-weight: normal; float: left; padding-top: 20px; text-align: right;}
-.product-list.project .project-info i.fa {color: #337ab7; margin-right: 5px;}
-.product-list.project .project-info i.fa.fa-heart {font-size: 11px;}
-.product-list.project .project-info .powner {margin-top: 20px; float: right; }
+.favorite.product-list.project .product-info {padding-bottom: 35px; border-bottom: 1px solid #d5d5d5;}
+.favorite.product-list.project .item-info {padding-top: 20px; color: #a2a1a1;}
+.favorite.product-list.project .item-info .fa{margin-right: 5px; }
 
 .portfolio h3{background:#a4a4a4 url(../image/mypage/bg_portfolio.png) no-repeat center 170px;}
 .favorite h3{background:#a4a4a4 url(../image/mypage/bg_favorite.png) no-repeat center 170px;}
@@ -751,16 +748,21 @@ tr.no-padding {height: 50px;}
 .portfolio-content .title-area p{font-size:16px; margin-left: 220px; color: #f00;}
 .portfolio-content .txt{margin:0 0 35px; line-height:1.5; color:#737373;}
 .designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; background-color: rgba(230,0,0,.1); box-shadow: 1px 1px 5px;}
-.designer-info li.info-list {width: 25%; float: left; border-right:1.2px solid #999; box-sizing: border-box;}
-.designer-info li.info-list > div{box-sizing:border-box; color:#666;}
+.designer-info li.info-list {width: 20%; float: left; border-right:1.2px solid #999; box-sizing: border-box;}
+.designer-info li.info-list > div{box-sizing:border-box; color:#666; height: 40px; line-height: 40px;}
 .designer-info li.info-list .mainChar {width: 40px; height: 40px; background-color: #fff; display: inline-block; line-height: 40px; text-align: center; color: #f00; font-size: 24px; font-weight: bold; float: left; margin-right: 20px; margin-left: 30px;}
 .designer-info li.info-list .like .fa{font-weight: 700;}
-.designer-info li.info-list .like,
-.designer-info li.info-list .reply {height: 40px; line-height: 40px;} 
 .designer-info li.info-list .like .mainChar,
 .designer-info li.info-list .reply .mainChar {background-color: #FCE5E5; font-size: 20px;}
 .designer-info li.info-list:last-of-type {border: 0;}
 .designer-info li.info-list > div > span {margin-right: 20px;}
+#listPViewId .imgWrapper {width: 258px; height: 180px; overflow: hidden;}
+#listViewId, #listPViewId {min-height: 400px;}
+.portfolio-content h3 {margin: 0px 10px 10px; font-size: 24px; padding-top: 20px;}
+.portfolio-content .none {margin-bottom: 40px;}
+.portfolio-content #listPViewId .product-title {margin-bottom: 15px;}
+.portfolio-content #listPViewId .product-info {padding-bottom: 35px;}
+.portfolio-content #listPViewId .item-info {border-top: 1px solid #d5d5d5; padding-top: 20px; color: #a2a1a1;}
 
 .detail-content .product-section {width: 75%; float: left;}
 .detail-content .info-section {width: 24%; float: left; margin-left: 1px; border: 1px solid #e9e9e9; padding: 20px 0;}

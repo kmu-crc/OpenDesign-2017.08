@@ -42,10 +42,14 @@
 			<p class="txt"><%=item.getComments()%></p>
 			<ul class="designer-info">
 				<li class="info-list">
-					<span class="mainChar">D</span>
+					<span class="mainChar">T</span>
 					<div class="item">
-						<span>총 디자인 수</span><%=item.getWorkCntF()%>
+						<span>총 게시물</span><%=item.getWorkCntF()%>
 					</div>
+				</li>
+				
+				<li class="info-list">
+					<span class="mainChar">D</span>
 					<div class="hit">
 						<span>디자인 총 조회수</span><%=item.getViewCntF()%>
 					</div>
@@ -54,10 +58,7 @@
 				<li class="info-list">
 					<span class="mainChar">P</span>
 					<div class="project">
-						<span>참여 프로젝트 수</span>0
-					</div>
-					<div class="projectWork">
-						<span>프로젝트 업로드 수</span>10
+						<span>참여 프로젝트 수</span>
 					</div>
 				</li>
 				
@@ -71,11 +72,12 @@
 				<li class="info-list">
 					<div class="reply">
 						<span class="mainChar"><i class="fa fa-comment" aria-hidden="true"></i></span>
-						<span>총 댓글수</span><%=item.getCmmtCntF()%>
+						<span>받은 댓글 수</span><%=item.getCmmtCntF()%>
 					</div>
 				</li>
 		
 			</ul>
+			<h3>디자인</h3>
 			<ul id="listViewId" class="list-type1">
 				
 				<!-- template -->
@@ -96,6 +98,8 @@
 				-->
 				 
 			</ul>
+			<h3>참여 프로젝트</h3>
+			<ul id="listPViewId" class="list-type1"></ul>
 		</div>
 	</div>
 	<!-- //content -->
@@ -129,6 +133,23 @@
 					</div>
 				</a></li>
 </script>
+<script id="tmpl-listPTemplete" type="text/x-jsrender">
+				<li><a href="/project/openProjectDetail.do?projectSeq={{:seq}}">
+						<div class="imgWrapper">
+							<img src="{{:fileUrl}}" alt="프로젝트 이미지" width="100%" height="auto">
+						</div>
+						<div class="product-info">
+							<p class="product-title">{{:projectName}}</p>
+							<p class="designer">{{:ownerName}}</p>
+						</div>
+						<div class="item-info">
+							<span class="member"><i class="fa fa-user" aria-hidden="true"></i> {{:projectMemberCnt}}</span>
+							<span><i class="fa fa-window-restore" aria-hidden="true"></i> {{:projectWorkCntF}}</span>
+							<span><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCnt}}</span>
+							<span class="update">{{:displayTime}}</span>
+						</div>
+					</a></li>
+</script>
 <script>
 /**
  * 디자인 상세
@@ -147,6 +168,7 @@ function goProductView(seq) {
 
 //뷰 컨트롤러 생성	
 var listView = null;
+var listPView = null;
 //seq
 var seq = '<%=item.getSeq()%>';
 
@@ -158,6 +180,10 @@ $(function(){
 	//뷰 컨트롤러 생성	
 	listView = new ListView({
 		htmlElement : $('#listViewId')
+	});
+	//프로젝트 뷰 컨트롤러 생성
+	listPView = new ListView({
+		htmlElement : $('#listPViewId')
 	});
 	
 	// load
@@ -192,8 +218,11 @@ function loadPage() {
 		success : function(_data){
 			console.log(_data);
 	    	var workList = _data.workList;
+	    	var workPList = _data.workPList;
+	    	$('li.info-list > .project').append(workPList.length);
 	    	// load
-	    	loadPageWithData(workList);
+	    	loadPageWithData(workList, 1);
+	    	loadPageWithData(workPList, 2);
 		}
     });
 }
@@ -201,18 +230,35 @@ function loadPage() {
 /**
  *  loadPageWithData
  */
-function loadPageWithData(itemList) {
-	listView.clear();
+function loadPageWithData(itemList, flag) {
+	if (flag == 1){
+		listView.clear();
+	} else if (flag == 2) {
+		listPView.clear();
+	}
+	
 	if(!itemList || itemList.length == 0) {
 		console.log('>>> loadPageWithData no data.');
+		if (flag == 1){
+			$('#listViewId').after('<p class="none" nodata="1">결과가 없습니다.</p>');
+		}
 		return;
 	}
-	// 
-	listView.addAll({
-		keyName: 'seq'
-		,data: itemList
-		,htmlTemplate: $('#tmpl-listTemplete').html()
-	});
+	
+	if (flag == 1){
+		listView.addAll({
+			keyName: 'seq'
+			,data: itemList
+			,htmlTemplate: $('#tmpl-listTemplete').html()
+		});	
+	} else if (flag == 2) {
+		listPView.addAll({
+			keyName: 'seq'
+			,data: itemList
+			,htmlTemplate: $('#tmpl-listPTemplete').html()
+		});
+	}
+	
 }
 
 
