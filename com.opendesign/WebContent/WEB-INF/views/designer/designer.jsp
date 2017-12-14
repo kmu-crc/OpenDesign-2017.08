@@ -95,7 +95,7 @@
 </form>
 <script>
 	/**
-	 * 정열된 page load
+	 * 정렬된 page load
 	 */
 	function goPageOrdered(thisObj) {
 		//ui
@@ -131,22 +131,13 @@
 							</div>
 						</div>
 					</div>
-					<ul class="portfolio-section">
-						{{if top3WorkList.length !== 0}}
-						<div class="section-name">디자인</div>
-						{{/if}}
-						{{for top3WorkList}}
-						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
-						{{/for}}
-					</ul>
-					<ul class="portfolio-p-section">
-						{{if top2ProjectList.length !== 0}}
-						<div class="section-name">프로젝트</div>
-						{{/if}}
-						{{for top2ProjectList}}
-						<li><img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
-						{{/for}}
-					</ul>
+					<div class="work-section">
+						<ul class="portfolio-section">
+							{{for totalList}}
+							<li><img src="{{:myThumb}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
+							{{/for}}
+						</ul>
+					</div>
 				</a></li>
 </script>
 <script>

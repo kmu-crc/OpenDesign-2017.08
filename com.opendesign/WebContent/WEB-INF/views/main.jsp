@@ -184,7 +184,7 @@
 		designView.putData('existList', hasDesigners);
 		designView.addAll({keyName:'seq', data:designerList, htmlTemplate:designerListTemplete });
 		
-		//특수처리: 한번에 8개씩 움직이게: loading할때 한번 처리
+		//특수처리: 한번에 4개씩 움직이게: loading할때 한번 처리
 		while($('#designView > li').length != 0) {
 			$('#designView > li').slice(0,8).wrapAll('<ul class="list-type2 swiper-slide"></ul>');
 		}
@@ -256,7 +256,7 @@
 			designerSwipe.onResize();
 		}
 		
-		if(item > 4*2){
+		if(item > 4){
 			slideBtn.show();
 		} else{
 			slideBtn.hide();
@@ -294,22 +294,23 @@
 							<p class="designer">{{:uname}}</p>
 							<p class="cate"  >{{:cateNames}}</p>
 							<div class="item-info">
-								<span class="portfolio"><img src="/resources/image/common/ico_portfolio.png" alt="포트폴리오"> {{:workCntF}}</span>
+								<span class="portfolio"><i class="fa fa-list" aria-hidden="true"></i> {{:workCntF}}</span>
 								{{if !curUserLikedYN }}
-								<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
+								<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 								{{else}}
-								<span class="like"><img src="/resources/image/common/ico_like_active.png" alt="좋아요"> {{:likeCntF}}</span>
+								<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 								{{/if}}
-								<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+								<span class="hit"><i class="fa fa-comment" aria-hidden="true"></i> {{:viewCntF}}</span>
 							</div>
 						</div>
 					</div>
-					<div class="section-name" style="font-size: 14px; margin-bottom: 10px; color: #f00; margin-left: 280px; padding-top: 30px;">디자인</div>
-					<ul class="portfolio-section" style="padding-top: 0;">
-						{{for top3WorkList}}
-						<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
-						{{/for}}
-					</ul>
+					<div class="work-section">
+						<ul class="portfolio-section" style="padding-top: 0;">
+							{{for totalList}}
+							<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
+							{{/for}}
+						</ul>
+					</div>
 					</a>
 				</li>
 </script>
@@ -323,15 +324,15 @@
 		<div class="product-info">
 			<p class="product-title">{{:title}}</p>
 			<p class="designer">{{:memberName}}</p>
+			<p class="cate" >{{:cateNames}}&nbsp;</p>
 		</div>
-		<p class="cate" >{{:cateNames}}&nbsp;</p>
 		<div class="item-info">
 			{{if !curUserLikedYN }}
-			<span class="like"><img src="/resources/image/common/ico_like.png" alt="좋아요"> {{:likeCntF}}</span>
+			<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 			{{else}}
-			<span class="like"><img src="/resources/image/common/ico_like_active.png" alt="좋아요"> {{:likeCntF}}</span>
+			<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
 			{{/if}}
-			<span class="hit"><img src="/resources/image/common/ico_hit.png" alt="열람"> {{:viewCntF}}</span>
+			<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:viewCntF}}</span>
 			<span class="update">{{:displayTime}}</span>
 		</div>
 	</a></li>

@@ -20,8 +20,8 @@ if( searchWord == null || "".equals(searchWord) ) {
 						<div class="product-info">
 							<p class="product-title">{{:title}}</p>
 							<p class="designer">{{:memberName}}</p>
+							<p class="cate">{{:cateNames}}</p>
 						</div>
-						<p class="cate">{{:cateNames}}</p>
 						<div class="item-info">
 							<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 							<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>{{:viewCntF}}</span>
@@ -38,8 +38,8 @@ if( searchWord == null || "".equals(searchWord) ) {
 						<div class="product-info">
 							<p class="product-title">{{:projectName}}</p>
 							<p class="designer">{{:ownerName}}</p>
+							<p class="cate">{{:categories}}&nbsp;</p>
 						</div>
-						<p class="cate">{{:categories}}&nbsp;</p>
 						<div class="item-info">
 							<span class="member"><i class="fa fa-user" aria-hidden="true"></i> {{:projectMemberCnt}}</span>
 							<span><i class="fa fa-window-restore" aria-hidden="true"></i> {{:projectWorkCntF}}</span>

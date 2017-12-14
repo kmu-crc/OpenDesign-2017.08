@@ -101,6 +101,18 @@ public class DesignerDAO {
 		param.put("memberSeq", memberSeq);
 		return sqlSession.selectList(SQL_NS + "selectProjectWorkList", param);
 	}
+	
+	/**
+	 * 전체 작품 - top3를 위한 전체 리스트 목록 
+	 * 
+	 * @param seq
+	 * @return
+	 */
+	public List<Object> selectTotalWorkList(String memberSeq) {
+		HashMap<String, Object> param = new HashMap<>();
+		param.put("memberSeq", memberSeq);
+		return sqlSession.selectList(SQL_NS + "selectTotalWorkList", param);
+	}
 
 	/**
 	 * 디자이너 조회

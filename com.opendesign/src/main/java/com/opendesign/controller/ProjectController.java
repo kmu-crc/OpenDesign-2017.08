@@ -1130,7 +1130,6 @@ public class ProjectController {
 		service.modifyMyGroup(Integer.parseInt(loginUser.getSeq()), groupVO);
 
 		resultMap.put(RstConst.P_NAME, RstConst.V_SUCESS);
-		LOGGER.info(resultMap+"---------resultMap");
 		return new JsonModelAndView(resultMap);
 	}
 

@@ -76,8 +76,8 @@
 	 <div class="product-info">
 		<p class="product-title">{{:wtitle}}</p>
 		<p class="designer">{{:uname}}</p>
+		<p class="cate">{{:wcate}}</p>
 	 </div>
-	 <p class="cate">{{:wcate}}</p>
 	 <div class="item-info">
 	 <span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:cntLikeF}}</span>
 	 <span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:wvcountF}}</span>
@@ -94,8 +94,8 @@
 	 <div class="product-info">
 		<p class="product-title">{{:wtitle}}</p>
 		<p class="designer">{{:uname}}</p>
+		<p class="cate">{{:wcate}}</p>
 	 </div>
-	 <p class="cate">{{:wcate}}</p>
 	 <div class="item-info">
 	 <span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:cntLikeF}}</span>
 	 <span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> {{:wvcountF}}</span>

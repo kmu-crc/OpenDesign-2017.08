@@ -155,6 +155,9 @@ public class DesignerService {
 			//프로젝트
 			List<ProjectVO> workPList = dao.selectProjectWorkList(item.getSeq());
 			item.setWorkPList(workPList);
+			// 전체 작품 리스트
+			List<Object> totalList = dao.selectTotalWorkList(item.getSeq());
+			item.settotalList(totalList);
 		}
 
 		return list;
@@ -795,6 +798,13 @@ public class DesignerService {
 			// 작품
 			List<DesignWorkVO> workList = dao.selectDesignWorkList(item.getSeq());
 			item.setWorkList(workList);
+			// 프로젝트
+			List<ProjectVO> workPList = dao.selectProjectWorkList(item.getSeq());
+			item.setWorkPList(workPList);
+			
+			// 전체 작품 리스트
+			List<Object> totalList = dao.selectTotalWorkList(item.getSeq());
+			item.settotalList(totalList);
 		}
 
 		return list;

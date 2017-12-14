@@ -86,10 +86,9 @@
 					<div class="product-info">
 						<p class="product-title">{{:title}}</p>
 						<p class="designer">{{:memberName}}</p>
+						<p class="cate" >{{:cateNames}} &nbsp;</p>
 					</div>
-					<p class="cate" >{{:cateName}} &nbsp;</p>
-					<div class="item-info">
-						
+					<div class="item-info">					
 						{{if !curUserLikedYN }}	
 						<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
 						{{else}}

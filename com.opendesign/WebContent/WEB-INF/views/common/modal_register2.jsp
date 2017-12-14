@@ -27,7 +27,7 @@
 				</div>
 				<div class="clear"></div>
 				<div class="base-info">
-					<input type="text" name="uname" style="border: 2px solid #f5acac;" placeholder="닉네임 또는 회사명 (필수 최대 20자)" maxlength="20">
+					<input type="text" name="uname" style="border: 2px solid #f5acac;" placeholder="닉네임 또는 회사명 (필수 최대 10자)" maxlength="10">
 					<textarea name="comments" placeholder="자기소개 또는 회사소개 등록(최대 1,000자)" maxlength="1000"></textarea>
 				</div>
 

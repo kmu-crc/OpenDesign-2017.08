@@ -70,7 +70,7 @@
 			<ul class="tab">
 				<li class="ing active btn-red"><a href="#ing-project">프로젝트</a></li>
 				<!-- <li class="done btn-red"><a href="#complete-project">완료된 프로젝트</a></li>  -->
-				<li class="complete btn-red"><a href="#group-tab">그룹</a></li>
+				<li class="complete btn-red"><a href="#group-tab">프로젝트 그룹</a></li>
 			</ul>
 			<div class="sorting" id="sortingProj">
 				<a id="psort1" href="javascript:sortProduct();" class="btn-red active">최신순</a>
@@ -164,6 +164,7 @@
             	<i></i>
                 <span>파일 : {{:projectWorkFileCntF}}</span>
 			</div>-->
+			<span class="update">{{:displayTime}}</span>
 		</div>
 	</a></li>
 </script>

@@ -248,14 +248,14 @@
 		]]>
 	</sql>
 	
-	<!-- 디자인 작품  list(인기순) -->
+	<!-- 디자인 작품  list(최신순) -->
 	<select id="selectDesignWorkList" parameterType="hashmap" resultType="com.opendesign.vo.DesignWorkVO" > 
 		<include refid="sql_selectDesignWork" />
 		<![CDATA[
 		    WHERE
 		        T.member_seq = #{memberSeq}
 		    ORDER BY
-		        likeCnt DESC
+		        update_time DESC
 		]]>
 	</select>
 	
@@ -319,18 +319,38 @@
 		]]>
 	</sql>
 	
-	<!-- 프로젝트 작품  list(인기순) -->
+	<!-- 프로젝트 작품  list(최신순) -->
 	<select id="selectProjectWorkList" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" > 
 		<include refid="sql_selectProjectWork" />
 		<![CDATA[
 		    WHERE
 		        U.seq = #{memberSeq}
 		    ORDER BY
-		        likeCnt DESC
+		        updateTime DESC
 		]]>
 	</select>
 	
-
+	<!-- 전체 작품 - top3를 위한 전체 list 목록 조회 -->
+	<select id="selectTotalWorkList" parameterType="hashmap" resultType="com.opendesign.vo.DesignerVO" >
+				SELECT
+					P.seq AS mySeq
+					,P.file_url AS myThumb
+					,P.update_time AS myUpdate
+			    FROM v_project P
+	       			LEFT OUTER JOIN t_project_subject S ON P.seq = S.project_seq
+	       			LEFT OUTER JOIN t_project_work W ON S.seq = W.project_subject_seq
+	       			JOIN t_member U ON U.seq = W.member_seq WHERE U.seq = #{memberSeq}
+	       		UNION
+	       		SELECT
+					T.seq AS mySeq
+		        	,T.thumb_uri AS myThumb
+		      		,T.update_time AS myUpdate
+		    	FROM v_design_work T
+		        	LEFT JOIN t_member U ON T.member_seq = U.seq
+		        WHERE
+		        	T.member_seq = #{memberSeq}
+			ORDER BY myUpdate DESC
+	</select>
 	
 	<!-- 작품 카테고리 list -->
 	<select id="selectDesignWorkCategoryList" parameterType="hashmap" resultType="com.opendesign.vo.CategoryVO" > 
