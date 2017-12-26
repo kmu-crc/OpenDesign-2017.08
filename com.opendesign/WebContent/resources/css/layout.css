@@ -252,6 +252,9 @@ header
 .main-content .visual .img-box#slide-3 button {top: 60%;}
 .main-content .visual .img-box span {font-family:'Gloria Hallelujah', cursive; color: #fff; position: absolute; top: 30%; right: 0px; font-size: 35px; display: block; width: 80%;}
 .main-content .visual .img-box#slide-1 span {font-size: 70px;}
+.main-content .visual #slide-1 .main-helpWrapper {position: absolute; bottom: 60px; right: 100px;}
+.main-content .visual #slide-1 .main-helpWrapper > div {display: inline; color: #fff;}
+.main-content .visual #slide-1 .main-helpWrapper > button {margin-left: 5px; font-size: 14px; padding: 10px; position: relative; background: none; top: 0; right: 0;}
 
 .mainModal {width: 800px; margin: -380px 0 0 -400px; background-color: #fff; padding: 60px 40px 50px; box-sizing: border-box;}
 .mainModal h3{font-size: 22px; margin-bottom: 30px;}
@@ -261,6 +264,10 @@ header
 .mainModal .row img {width: 100%; height: auto; margin-bottom: 30px; margin-top: 30px;}
 .mainModal .row ul {margin-top: 15px; margin-bottom: 15px; font-size: 14px;}
 .mainModal .row p {margin-bottom: 20px;}
+
+#main-help-modal .mainModal {padding: 60px 0; margin-top: -320px;}
+#main-help-modal .mainModal .modal-body h3 {padding left: 40px; padding-right: 40px;}
+#main-help-modal .mainModal .videoWrapper {width: 720px; height: 405px; margin: auto;}
 
 .main-content .best{position:relative; margin:0 0 57px; padding:34px 0 0;}
 .best-head, .content .best-head {width: 250px; height: 42px; background-color: #f00; color: #fff; box-sizing: border-box; padding: 10px;}

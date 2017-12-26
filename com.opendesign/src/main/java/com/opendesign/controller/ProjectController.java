@@ -987,7 +987,6 @@ public class ProjectController {
 			MultipartHttpServletRequest request) throws IOException {
 
 		Map<String, Object> resultMap = service.insertProjectWork(workVO, request);
-		LOGGER.info(resultMap+"---this is resultMap");
 
 		// === websocket 처리
 		ProjectVO proj = service.selectProjectByTypeAndSeq(TYPE_WORK, workVO.getSeq());

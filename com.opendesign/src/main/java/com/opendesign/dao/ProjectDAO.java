@@ -433,6 +433,15 @@ public class ProjectDAO {
 		param.setLogonUserSeq((String)paramMap.get("logonUserSeq"));
 		return sqlSession.selectList(SQL_NS + "selectProjectWorkList", param);
 	}
+	
+	/**
+	 * 프로젝트 work 업데이트시 전체 프로젝트 수정 날짜도 업데이트 (17.12.19)
+	 * 
+	 * @param ProjectWorkVO
+	 */
+	public void updateProjectDate(ProjectWorkVO workVO) {
+		sqlSession.insert(SQL_NS + "updateProjectDate", workVO);
+	}
 
 	/**
 	 * <pre>

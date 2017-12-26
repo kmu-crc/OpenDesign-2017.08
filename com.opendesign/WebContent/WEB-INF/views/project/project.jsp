@@ -648,6 +648,7 @@ function goGroupDetailView(_this, seq) {
             	<i>{{:projectWorkFileCntF}}</i>
                 <span>파일</span>
 			</div> -->
+			<span class="update">{{:displayTime}}</span>
 		</div>
 	</a></li>
 </script>

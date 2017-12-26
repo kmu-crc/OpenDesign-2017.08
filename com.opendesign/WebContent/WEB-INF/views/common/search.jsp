@@ -53,7 +53,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 					<li><a href="/designer/portfolio.do?seq={{:seq}}">
 						<div class="profile-section">
 							<div class="picture">
-								<img src="{{:imageUrl}}" alt="{{:uname}}">
+								<img src="{{:imageUrl}}" onerror="setDefaultImg(this, 1);" alt="{{:uname}}">
 							</div>
 							<div class="profile">
 								<p class="designer">{{:uname}}</p>
@@ -65,11 +65,13 @@ if( searchWord == null || "".equals(searchWord) ) {
 								</div>
 							</div>
 						</div>
-						<ul class="portfolio-section">
-							{{for top3WorkList}}
-							<li><img src="{{:thumbUri}}"   alt="포트폴리오"></li>
-							{{/for}}
-						</ul>
+						<div class="work-section">
+							<ul class="portfolio-section">
+								{{for totalList}}
+								<li><img src="{{:myThumb}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
+								{{/for}}
+							</ul>
+						</div>
 					</a></li>
 </script>
 <!-- template: 제작자 -->
@@ -221,6 +223,7 @@ if( searchWord == null || "".equals(searchWord) ) {
 				alert("오류가 발생 하였습니다.\n관리자에게 문의 하세요.");
 	        },
 	        success : function(_data){
+	        	console.log(_data);
 	        	
 	        	var listData = _data.list;
 	        	var allCount = _data.all_count;

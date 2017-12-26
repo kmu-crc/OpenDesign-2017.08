@@ -193,7 +193,7 @@
 				SELECT
 					design_work_seq
 				FROM t_design_work_category DC
-				WHERE DC.category_code = #{schCate}
+				WHERE DC.category_code LIKE CONCAT( #{schCate}, '%' )
 				OR DC.category_code = '*'
 			)
 			</if>

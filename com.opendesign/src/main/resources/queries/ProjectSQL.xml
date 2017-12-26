@@ -770,6 +770,19 @@
 	</select>
 	
 	
+	<!-- 프로젝트 work 업데이트시 전체 프로젝트 수정 날짜도 업데이트 -->
+	<update id="updateProjectDate" parameterType="com.opendesign.vo.ProjectWorkVO" > 
+		<![CDATA[
+		UPDATE
+		        t_project T
+		        	JOIN t_project_subject S ON T.seq = S.project_seq
+		        	JOIN t_project_work W ON W.project_subject_seq = S.seq AND W.seq = #{seq}
+		    SET
+		        T.update_time = #{registerTime}
+		]]>
+	</update>
+	
+	
 	<!-- ############# 그룹 new ###################### -->
 	
 	<sql id="sql_selectProjectGroupRequest">

@@ -369,19 +369,13 @@ public class ProjectService {
 		
 		// 00. 체크:
 		MultipartFile ckFile = request.getFile("fileUriFile");
-		LOGGER.info(ckFile+"---ckFile");
 		if(ckFile != null) {
 			if (ckFile.getSize() > CheckRule.LIMIT_FILE_SIZE) {
 				resultMap.put(RstConst.P_NAME, RstConst.V_FILE_SIZE);
 				resultMap.put("fileName", ckFile.getOriginalFilename());
-				LOGGER.info(resultMap+"ckFilesize is bigger than limit");
 				return resultMap;
 			}
 		}
-		
-		LOGGER.info(request+"---request");
-		LOGGER.info(request.getClass());
-		
 		
 		// 줄바꿈처리
 		CmnUtil.handleHtmlEnterRN2BR(workVO, "contents");
@@ -403,12 +397,11 @@ public class ProjectService {
 		workVO.setMemberSeq(user.getSeq());
 		CmnUtil.setCmnDate(workVO);
 		dao.insertProjectWork(workVO);
-		LOGGER.info("1.works");
 
 		// === 2.workVer
 		// === 이미지 처리
 		String fileUploadDbPath = CmnUtil.handleFileUpload(request, "fileUriFile", FileUploadDomain.PROJECT_WORK_FILE);
-		LOGGER.info(fileUploadDbPath+"---fileUploadDbPath");
+
 		/*
 		 * 디자인 프로젝트 주제 목록에서 보여지는 Thumbnail 과
 		 * 디자인 프로젝트 작업 상세 에서 보여지는 Thumbnail 저장 
@@ -417,30 +410,26 @@ public class ProjectService {
 		String fileUploadDir = CmnUtil.getFileUploadDir(request, FileUploadDomain.PROJECT_WORK_FILE);
 		String fileName = File.separator + FilenameUtils.getName(fileUploadDbPath);
 		if(CmnUtil.isImageFile(fileName)) {
-			LOGGER.info("IsImageFile == true");
 			ThumbnailManager.saveThumbProjectWorkSmall(fileUploadDir +  fileName);
 			ThumbnailManager.saveThumbProjectWorkLarge(fileUploadDir + fileName);
-			LOGGER.info("done");
 		}
 		
-		LOGGER.info(request+"---request");
-		LOGGER.info(request.getClass()+"request class");
 		String oriFileName = CmnUtil.handleFileUploadGetOriFileName(request, "fileUriFile");
-		LOGGER.info(oriFileName+"---oriFileName");
 		ProjectWorkVerVO verVO = new ProjectWorkVerVO();
 		verVO.setProjectWorkSeq(workVO.getSeq());
 		verVO.setFileUri(fileUploadDbPath);
 		verVO.setFilename(oriFileName);
 		verVO.setVer(VERSION_START);
-		LOGGER.info(verVO+"---verVO");
 		CmnUtil.setCmnDate(verVO);
 		dao.insertProjectWorkVer(verVO);
-		LOGGER.info(verVO+"this is verVO");
 
 		// 2.1 작품 마지막 ver 변경
 		workVO.setLastVer(VERSION_START);
 		dao.updateProjectWorkLastVer(workVO);
-		LOGGER.info(workVO+"this is version part.");
+		
+		// 포함된 프로젝트의 업데이트 날짜 변경
+		dao.updateProjectDate(workVO);
+		
 
 		// === 3. workMember
 		// 참여자: (생성회원도 포함시킨다).

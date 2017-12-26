@@ -45,6 +45,10 @@
 					<img src="/resources/image/main/openRe.png ">
 					<span>OPEN DESIGN</span>
 					<button class="main-btn" onclick="javascript:modalShow('#main-opendesign-modal');">오픈 디자인</button>
+					<div class="main-helpWrapper">
+						<div>오픈디자인 서비스가 처음이신가요?</div>
+						<button onclick="javascript:modalShow('#main-help-modal');">웹사이트 설명 보러가기</button>
+					</div>
 				</div>
 				<div class="img-box" id="slide-2">
 					<img src="/resources/image/main/easyRe.png" >
@@ -186,7 +190,7 @@
 		
 		//특수처리: 한번에 4개씩 움직이게: loading할때 한번 처리
 		while($('#designView > li').length != 0) {
-			$('#designView > li').slice(0,8).wrapAll('<ul class="list-type2 swiper-slide"></ul>');
+			$('#designView > li').slice(0,4).wrapAll('<ul class="list-type2 swiper-slide"></ul>');
 		}
 		
 		//swiper:
@@ -242,6 +246,12 @@
 		var slideBtn = $(swipeContSel).find('.slide-btn');
 		var item = $(swipeContSel).find('li').length;
 		
+		if(item > 3){
+			slideBtn.show();
+		} else{
+			slideBtn.hide();
+		}
+		
 		if(designerSwipe == null) {
 			designerSwipe = new Swiper(swipeContSel, {
 		        //slidesPerView: 4,
@@ -254,12 +264,6 @@
 		    });
 		} else {
 			designerSwipe.onResize();
-		}
-		
-		if(item > 4){
-			slideBtn.show();
-		} else{
-			slideBtn.hide();
 		}
 	}
 	
@@ -287,7 +291,7 @@
 				<li >
 					<a href="javascript:goPortfolioView('{{:seq}}', '{{:memberType}}');"  >
 					<div class="profile-section">
-						<div class="picture"  >
+						<div class="picture" >
 							<img src="{{:imageUrl}}" onerror="setDefaultImg(this, 1);" alt="{{:uname}}">
 						</div>
 						<div class="profile">
@@ -307,7 +311,7 @@
 					<div class="work-section">
 						<ul class="portfolio-section" style="padding-top: 0;">
 							{{for totalList}}
-							<li><img src="{{:thumbUriM}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
+							<li><img src="{{:myThumb}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
 							{{/for}}
 						</ul>
 					</div>
@@ -471,6 +475,21 @@
                     <img src="/resources/image/new/group5.png">
                     <p>그룹장이 그룹 관리및 생성 페이지에서 승인을 누르면 해당 프로젝트가 그룹에 가입됩니다.</p>
                     <img src="/resources/image/new/group6.png">
+				</div>
+			</div>
+			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+		</div>
+</div>
+
+
+<!-- 웹사이트 설명 보러가기 모달창 -->
+<div class="modal" id="main-help-modal">
+	<div class="bg"></div>
+		<div class="modal-inner mainModal">
+			<div class="modal-body">
+				<h3 align="center">오픈디자인 사이트 소개 영상</h3>
+				<div class="videoWrapper">
+					<iframe width="100%" height="100%" src="/resources/video/HowToUse.mp4" frameborder="0" allowfullscreen></iframe>
 				</div>
 			</div>
 			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
