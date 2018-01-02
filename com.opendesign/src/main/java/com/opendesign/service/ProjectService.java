@@ -42,6 +42,8 @@ import com.opendesign.vo.CategoryVO;
 import com.opendesign.vo.ItemLikeVO.ItemType;
 import com.opendesign.vo.ProjectGroupReqVO;
 import com.opendesign.vo.ProjectGroupReqVO.ProjectGroupReqStatus;
+import com.opendesign.vo.ItemLikeVO;
+import com.opendesign.vo.ItemWorkVO;
 import com.opendesign.vo.ProjectGroupVO;
 import com.opendesign.vo.ProjectMemberVO;
 import com.opendesign.vo.ProjectSubjectVO;
@@ -429,6 +431,9 @@ public class ProjectService {
 		
 		// 포함된 프로젝트의 업데이트 날짜 변경
 		dao.updateProjectDate(workVO);
+		
+		// 포함된 프로젝트 seq 찾아서 알람 설정
+		setProjectFromWork(workVO, user);
 		
 
 		// === 3. workMember
@@ -1229,5 +1234,47 @@ public class ProjectService {
 	
 
 	// ================================= ]]그룹 =================================
+	
+	// =============================[[프로젝트 관련 알람 기능 (18.01.02 추가) =====================
+	
+	/** 
+	 * 프로젝트 work에서 프로젝트 seq 찾아오기
+	 * 
+	 * @param WorkVO
+	 * @param userVO
+	 */
+	private void setProjectFromWork(ProjectWorkVO WorkVO, UserVO userVO) {
+		ProjectVO projectVO = dao.setProjectFromWork(WorkVO);
+		notifyAlarmChangedForProject(projectVO, userVO);
+	}
+	
+	/**
+	 * 프로젝트 work 업데이트에 대한 알림정보 등록
+	 * 
+	 * @param itemVO
+	 * @param userVO
+	 * @return
+	 */
+	private AlarmVO notifyAlarmChangedForProject(ProjectVO projectVO, UserVO userVO) {
+		String alarmContents = "";
+		alarmContents = String.format("나의 그룹 \"%s\"의 내용을 변경하였습니다.", projectVO.getProjectName());
+		String memberSeq = "";
+		memberSeq = Integer.toString(projectVO.getOwnerSeq());
+
+		//
+		AlarmVO alarmVO = new AlarmVO();
+		alarmVO.setMemberSeq(memberSeq);
+		alarmVO.setContents(alarmContents);
+		alarmVO.setActionUri("");
+		alarmVO.setActorSeq(userVO.getSeq());
+		CmnUtil.setCmnDate(alarmVO);
+		commonDao.insertAlarm(alarmVO);
+
+		// ===== 알림 추가 ====
+		websocketHandler.notifyAlarmChanged(alarmVO.getMemberSeq());
+		// ===== ]]알림 추가 ====
+
+		return alarmVO;
+	}
 
 }

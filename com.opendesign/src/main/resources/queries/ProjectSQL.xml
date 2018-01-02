@@ -782,6 +782,19 @@
 		]]>
 	</update>
 	
+	<!-- 프로젝트 work에서 프로젝트 정보 찾아오기 -->
+	<select id="setProjectFromWork" parameterType="com.opendesign.vo.ProjectWorkVO" resultType="com.opendesign.vo.ProjectVO"> 
+		<![CDATA[
+		SELECT
+				V.seq
+				,V.project_name AS projectName
+				,V.owner_seq AS ownerSeq
+			FROM v_project V
+		        	JOIN t_project_subject S ON V.seq = S.project_seq
+		        	JOIN t_project_work W ON W.project_subject_seq = S.seq AND W.seq = #{seq}
+		]]>
+	</select>
+	
 	
 	<!-- ############# 그룹 new ###################### -->
 	

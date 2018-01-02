@@ -554,6 +554,18 @@ public class ProjectDAO {
 		param.put("seq", seq);
 		return sqlSession.selectOne(SQL_NS + "selectProjectByTypeAndSeq", param);
 	}
+	
+	/**
+	 * 프로젝트 work에서 프로젝트 정보 찾아오기
+	 * 
+	 * @param projectWorkVO
+	 */
+	public ProjectVO setProjectFromWork(ProjectWorkVO WorkVO) {
+		return sqlSession.selectOne(SQL_NS + "setProjectFromWork", WorkVO);
+	}
+
+	
+	
 
 	// =================== 그룹new =======================
 	/**

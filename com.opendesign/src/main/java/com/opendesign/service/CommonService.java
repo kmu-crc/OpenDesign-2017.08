@@ -190,7 +190,7 @@ public class CommonService {
 		ItemWorkVO itemWorkVO = dao.selectItemWorkBySeq(itemVO.getItemSeq(), itemVO.getItemType());
 		String alarmContents = String.format("나의 게시물 \"%s\"에 좋아요를 남겼습니다.", itemWorkVO.getItemTitle());
 		// 
-		//
+		
 		AlarmVO alarmVO = new AlarmVO();
 		alarmVO.setMemberSeq(itemWorkVO.getMemberSeq());
 		alarmVO.setContents(alarmContents);
@@ -631,4 +631,6 @@ public class CommonService {
 	}
 
 	// =========================]] 메시지 =========================================
+	
+	
 }
