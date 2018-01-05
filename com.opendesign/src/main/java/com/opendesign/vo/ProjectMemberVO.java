@@ -20,6 +20,8 @@ public class ProjectMemberVO {
 	private String uname;
 	/** 멤버 이메일 */
 	private String email;
+	/** 멤버 seq */
+	private String seq;
 	
 	// ==================================================
 	public String getUname() {
@@ -33,6 +35,13 @@ public class ProjectMemberVO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSeq() {
+		return seq;
+	}
+	public void setSeq(String seq) {
+		this.seq = seq;
 	}
 	
 }

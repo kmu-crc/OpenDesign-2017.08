@@ -8,6 +8,8 @@
  */
 package com.opendesign.vo;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.opendesign.utils.CmnUtil;
@@ -40,6 +42,8 @@ public class AlarmVO {
 	private String actionUri;
 	/** 확인일시 */
 	private String confirmTime;
+	/** 프로젝트 수정 시, 프로젝트 참여하는 회원 seq 전체 */
+	private List <ProjectMemberVO> memberSeqList;
 
 	// ============================================
 
@@ -147,6 +151,14 @@ public class AlarmVO {
 		return String.format(
 				"AlarmVO [seq=%s, memberSeq=%s, actorSeq=%s, actorName=%s, actorUrl=%s, contents=%s, registerTime=%s, actionUri=%s, confirmTime=%s]",
 				seq, memberSeq, actorSeq, actorName, actorUrl, contents, registerTime, actionUri, confirmTime);
+	}
+
+	public List<ProjectMemberVO> getMemberSeqList() {
+		return memberSeqList;
+	}
+
+	public void setMemberSeqList(List<ProjectMemberVO> memberSeqList) {
+		this.memberSeqList = memberSeqList;
 	}
 
 }

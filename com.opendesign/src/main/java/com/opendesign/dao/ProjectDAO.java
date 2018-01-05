@@ -242,7 +242,7 @@ public class ProjectDAO {
 	 * @param projectSeq
 	 * @return
 	 */
-	public Object selectProjectMemberList(int projectSeq) {
+	public List<ProjectMemberVO> selectProjectMemberList(int projectSeq) {
 		return sqlSession.selectList(SQL_NS + "selectProjectMemberByProjectSeq", projectSeq);
 	}
 

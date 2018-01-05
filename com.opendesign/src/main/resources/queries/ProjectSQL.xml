@@ -208,6 +208,7 @@
 		SELECT
 			M.uname
 			, M.email
+			, M.seq
 		FROM t_project_member PM
 		JOIN v_project P
 			ON PM.project_seq = P.seq

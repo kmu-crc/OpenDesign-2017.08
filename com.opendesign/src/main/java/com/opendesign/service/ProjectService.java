@@ -272,7 +272,7 @@ public class ProjectService {
 	 * @param projectSeq
 	 * @return
 	 */
-	public Object selectProjectMemberList(int projectSeq) {
+	public List<ProjectMemberVO> selectProjectMemberList(int projectSeq) {
 		return dao.selectProjectMemberList(projectSeq);
 	}
 
@@ -656,8 +656,13 @@ public class ProjectService {
 			insertWorkMember(workVO.getSeq(), seq);
 		}
 
+		// 포함된 프로젝트 seq 찾아서 알람 설정
+		setProjectFromWork(workVO, user);
+		
+		
 		resultMap.put(RstConst.P_NAME, RstConst.V_SUCESS);
 		return resultMap;
+		
 	}
 
 	/**
@@ -1257,21 +1262,30 @@ public class ProjectService {
 	 */
 	private AlarmVO notifyAlarmChangedForProject(ProjectVO projectVO, UserVO userVO) {
 		String alarmContents = "";
-		alarmContents = String.format("나의 그룹 \"%s\"의 내용을 변경하였습니다.", projectVO.getProjectName());
-		String memberSeq = "";
-		memberSeq = Integer.toString(projectVO.getOwnerSeq());
-
-		//
+		alarmContents = String.format("프로젝트 \"%s\"의 내용을 변경하였습니다.", projectVO.getProjectName());
+		List<ProjectMemberVO> memberSeqList = null;
+		memberSeqList = selectProjectMemberList(projectVO.getSeq());
 		AlarmVO alarmVO = new AlarmVO();
-		alarmVO.setMemberSeq(memberSeq);
-		alarmVO.setContents(alarmContents);
-		alarmVO.setActionUri("");
-		alarmVO.setActorSeq(userVO.getSeq());
-		CmnUtil.setCmnDate(alarmVO);
-		commonDao.insertAlarm(alarmVO);
+		for (ProjectMemberVO mem : memberSeqList){
+			String memberSeq = mem.getSeq();
+			
+			alarmVO.setMemberSeq(memberSeq);
+			alarmVO.setContents(alarmContents);
+			alarmVO.setActionUri("");
+			alarmVO.setActorSeq(userVO.getSeq());
+			CmnUtil.setCmnDate(alarmVO);
+			commonDao.insertAlarm(alarmVO);		
+		}
 
 		// ===== 알림 추가 ====
-		websocketHandler.notifyAlarmChanged(alarmVO.getMemberSeq());
+		for (ProjectMemberVO member : memberSeqList){
+			LOGGER.info(member);
+			LOGGER.info(member.getSeq());
+			LOGGER.info(memberSeqList);
+			String member_seq = member.getSeq();
+			websocketHandler.notifyAlarmChanged(member_seq);
+		}
+		
 		// ===== ]]알림 추가 ====
 
 		return alarmVO;
