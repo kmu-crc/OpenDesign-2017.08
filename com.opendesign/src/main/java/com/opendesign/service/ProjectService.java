@@ -471,7 +471,7 @@ public class ProjectService {
 	/**
 	 * <pre>
 	 * 프로젝트 작품 수정/삭제 할수 있는 회원인지 판단
-	 * 생성회원만 가능하다.
+	 * 생성회원 & 프로젝트 팀장만 가능하다.
 	 * </pre>
 	 * 
 	 * @param workVO
@@ -483,9 +483,11 @@ public class ProjectService {
 
 		UserVO userVO = CmnUtil.getLoginUser(request);
 		ProjectWorkVO workVO = dao.selectProjectWork(workSeq);
+		ProjectVO projectVO = dao.setProjectFromWork(workVO);
 		if (userVO != null && workVO != null) {
 			String memberSeq = StringUtils.stripToEmpty(workVO.getMemberSeq()); // 생성회원
-			if (memberSeq.equals(userVO.getSeq())) {
+			String ownerSeq = StringUtils.stripToEmpty(Integer.toString(projectVO.getOwnerSeq())); // 프로젝트 팀장
+			if (memberSeq.equals(userVO.getSeq()) || ownerSeq.equals(userVO.getSeq())) {
 				result = true;
 			}
 		}
@@ -849,10 +851,23 @@ public class ProjectService {
 	@Transactional
 	public void deleteMyGroup(int memberSeq, ProjectGroupVO groupVO) {
 		groupVO.setMemberSeq(memberSeq);
+		List<ProjectVO> List = dao.selectMyGroupProjectList(groupVO);
+		// 각 프로젝트가 속한 그룹 개수 미리 가져오기
+		for (ProjectVO pro : List){
+			int Count = dao.selectGroupforProjectCount(pro);
+			pro.setGroupCount(Count);
+		}
 		dao.deleteMyGroup(groupVO);
 		dao.deleteProjectGroupRequestByGroupSeq(String.valueOf(groupVO.getSeq())); // 그룹
 																					// 신청도
 																					// 지워줌
+		// 그룹 삭제 시 해당 그룹 안에 있는 프로젝트들 삭제 (1개의 그룹에만 속했을 경우) 
+		for (ProjectVO pj : List){
+			int Count = pj.getGroupCount();
+			if (Count == 1){
+				dao.deleteProject(pj);	
+			}
+		}
 	}
 
 	/**

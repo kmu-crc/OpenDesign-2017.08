@@ -245,6 +245,16 @@ public class ProjectDAO {
 	public List<ProjectMemberVO> selectProjectMemberList(int projectSeq) {
 		return sqlSession.selectList(SQL_NS + "selectProjectMemberByProjectSeq", projectSeq);
 	}
+	
+	/**
+	 * 프로젝트가 속한 그룹 개수 조회 (18.01.10)
+	 * 
+	 * @param projectVO
+	 * @return
+	 */
+	public int selectGroupforProjectCount(ProjectVO projectVO){
+		return sqlSession.selectOne(SQL_NS + "selectGroupforProjectCount", projectVO);
+	}
 
 	/**
 	 * 프로젝트 주제 등록

@@ -267,6 +267,12 @@
 		ORDER BY P.update_time ASC
 	</select>
 	
+	<!-- 프로젝트가 속한 그룹 개수 조회 (18.01.10) -->
+	<select id="selectGroupforProjectCount" parameterType="com.opendesign.vo.ProjectVO" resultType="Integer">
+		SELECT COUNT(*) FROM t_pgroup_project
+			WHERE project_seq = #{seq}
+	</select>
+	
 	<insert id="insertMyGroup" parameterType="com.opendesign.vo.ProjectGroupVO" >
 		INSERT INTO t_pgroup (
 			group_name, member_seq, register_time, update_time

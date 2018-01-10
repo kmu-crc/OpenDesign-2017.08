@@ -392,7 +392,7 @@ function modifyGroup(thisObj){
 }
 
 function deleteGroupProject(event){
-	if( ! confirm('정말 삭제하시겠습니까?') ){
+	if( ! confirm('해당 그룹에서 이 프로젝트를 제외하시겠습니까?') ){
 		return;
 	}
 	
@@ -441,7 +441,7 @@ function onClickGroupRow(event){
 	    	event.returnValue = false;
 	    }
 		
-	if(thisObj.hasClass('item-del') && confirm('정말 삭제하시겠습니까?')){
+	if(thisObj.hasClass('item-del') && confirm('해당 그룹에 속한 모든 프로젝트가 삭제됩니다. 정말 그룹을 삭제하시겠습니까?')){
 		deleteGroup( thisObj );
 		return;
 	} else if ( thisObj.hasClass('item-modi')) {
@@ -475,13 +475,20 @@ function modalShowProjectSearch(){
 
 function onChangeGroupRow(thisObj){
 	var defaultColor = '#b5b5b5';
+	var weight = 'normal';
 	var divs = $('div.item.active > div.item-name');
 	
 	divs.each(function(){
-		divs.css('color', defaultColor);
+		divs.css({
+			'color': defaultColor,
+			'fontWeight': weight
+		});
 	});
 	
-	thisObj.css('color', '#113b88');
+	thisObj.css({
+		'color': '#113b88',
+		'fontWeight': 'bold'
+	});
 	
 }
 </script>

@@ -60,6 +60,9 @@ public class ProjectVO {
 	/** 카테고리 목록 */
 	private List<CategoryVO> categoryList;
 	
+	/** 속한 그룹 수 (18.01.10) */
+	private int groupCount;
+	
 
 	// ==================================================
 	
@@ -245,6 +248,14 @@ public class ProjectVO {
 	
 	public String getFileUrlM() {
 		return ThumbnailManager.getThumbnail(fileUrl, ThumbnailManager.SUFFIX_DESIGN_WORK_MEDIUM);
+	}
+
+	public int getGroupCount() {
+		return groupCount;
+	}
+
+	public void setGroupCount(int groupCount) {
+		this.groupCount = groupCount;
 	}
 	
 	
