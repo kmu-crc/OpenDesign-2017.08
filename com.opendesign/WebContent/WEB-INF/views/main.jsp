@@ -64,6 +64,17 @@
 		</div>
 
 		<div class="inner">
+			<div class="recommend">
+				<div class="best-head">
+					<span class="mainChar">D</span>
+					<span>추천 디자인</span>
+				</div>
+				<div class="best-inner">
+					<ul class="list-type1 " id="productView">
+						
+					</ul>
+				</div>
+			</div>
 			<div class="best">
 				<div class="best-head">
 					<span class="mainChar">D</span>
@@ -77,17 +88,6 @@
 						<button type="button" class="btn-prevSlide purchase-prev"><img src="../resources/image/mypage/btn_prevSlide.png" alt="이전"></button>
 						<button type="button" class="btn-nextSlide purchase-next"><img src="../resources/image/mypage/btn_nextSlide.png" alt="다음"></button>
 					</div>
-				</div>
-			</div>
-			<div class="recommend">
-				<div class="best-head">
-					<span class="mainChar">D</span>
-					<span>추천 디자인</span>
-				</div>
-				<div class="best-inner">
-					<ul class="list-type1 " id="productView">
-						
-					</ul>
 				</div>
 			</div>
 		</div>
