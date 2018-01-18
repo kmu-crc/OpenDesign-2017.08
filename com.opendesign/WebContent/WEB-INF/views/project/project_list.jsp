@@ -14,6 +14,9 @@
 	System.out.println(">>> isProjNotComplete=" + isProjNotComplete);
 	// 좋아요 기능 flag
 	Boolean liked = (Boolean)request.getAttribute("liked");
+	// 모든 사람이 업로드 가능한 프로젝트 flag:
+	Boolean isPublicAll = projectVO.getPublicYn().equals("A");
+
 	
 %>
 <!DOCTYPE html>
@@ -43,7 +46,7 @@
 <script id="tmpl-subjectTemplate" type="text/x-jsrender">
 								<div class="topic swiper-slide">
 									<div class="btn-set">
-										{{if <%= isProjNotComplete && projectVO.getIsProjectMember()%>}}
+										{{if ((<%= isProjNotComplete && projectVO.getIsProjectMember()%>) || (<%=isProjNotComplete && isPublicAll%>)) }}
 										<a href="javascript:goWorkUploadView('{{:seq}}')" class="btn-modal">업로드</a>
 										<a href="javascript:goSubjectModifyView('{{:seq}}');" class="btn-modal">수정</a>
 										<a href="javascript:delProjectSubject('{{:seq}}')" >삭제</a>
@@ -402,7 +405,7 @@ function prodViewWorkLike(thisObj) {
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
 					댓글
 				</button>
-				<%if( isProjNotComplete && projectVO.getIsProjectMember() ) { %>
+				<%if( (isProjNotComplete && projectVO.getIsProjectMember()) || (isProjNotComplete && isPublicAll) ) { %>
 				<a href="javascript:goSubjectAddView();" class="btn-modal btn-red project-add-btn">
 					<i class="fa fa-plus" aria-hidden="true"></i>새 주제
 				</a>

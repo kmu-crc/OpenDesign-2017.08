@@ -63,6 +63,7 @@ public class ProjectVO {
 	/** 속한 그룹 수 (18.01.10) */
 	private int groupCount;
 	
+	
 
 	// ==================================================
 	

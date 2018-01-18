@@ -9,7 +9,7 @@
 		<!-- 그룹상세 페이지 처리 -->
 		<if test=' schMyGroup == null or schMyGroup == "" '>
 		AND ( 
-			public_yn = 'Y'
+			public_yn = 'Y' OR public_yn= 'A'
 			<if test=' memberSeq != null ' >
 			OR P.seq IN (
 				SELECT
