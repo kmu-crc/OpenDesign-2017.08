@@ -67,13 +67,17 @@
 				<tr>
 					<th scope="row" class="km-required">공개 여부</th>
 					<td colspan="3">
-						<div class="checkbox ">
-							<input type="checkbox" name="publicYn" value="Y" id="open">
-							<label for="open">공개</label>
-						</div>
-						<div class="checkbox ">
+						<div class="checkbox">
 							<input type="checkbox" name="publicYn" value="N" id="close">
-							<label for="close">비공개</label>
+							<label for="close">비공개(팀원들만 프로젝트 접근이 가능합니다)</label>
+						</div>
+						<div class="checkbox">
+							<input type="checkbox" name="publicYn" value="Y" id="open">
+							<label for="open">읽기만 공개(모든 이용자가 프로젝트 내용을 볼 수 있지만, 업로드는 허용하지 않습니다)</label>
+						</div>
+						<div class="checkbox">
+							<input type="checkbox" name="publicYn" value="A" id="openAll">
+							<label for="openAll">공개(모든 이용자가 프로젝트 내용을 읽고 업로드할 수 있습니다)</label> 
 						</div>
 					</td>
 				</tr>

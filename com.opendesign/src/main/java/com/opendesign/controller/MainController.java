@@ -25,10 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.opendesign.service.DesignerService;
 import com.opendesign.service.MainService;
 import com.opendesign.service.ProductService;
+import com.opendesign.service.UserService;
 import com.opendesign.utils.CmnUtil;
 import com.opendesign.utils.ControllerUtil;
 import com.opendesign.vo.DesignWorkVO;
 import com.opendesign.vo.DesignerVO;
+import com.opendesign.vo.MyUserVO;
 import com.opendesign.vo.SearchVO;
 import com.opendesign.vo.UserVO;
 import com.wdfall.spring.JsonModelAndView;
@@ -138,5 +140,30 @@ public class MainController {
 		
 		return new JsonModelAndView(resultMap);
 	}
+	
+	
+	/**
+	 * 메인 페이지에서 로그인 했을 때, 개인 정보를 가져온다.
+	 * 
+	 * @param userSeq
+	 * 
+	 * @return userInfo
+	 */
+//	@RequestMapping(value = "/selectMainMyInfo.ajax")
+//	public ModelAndView selectMainMyInfo(@ModelAttribute SearchVO searchVO, HttpServletRequest request) {
+//
+//		String userSeq = request.getParameter("userSeq");
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//
+//		/*
+//		 * 해당 seq 회원의 작품 수 조회
+//		 */
+//		List<MyUserVO> userWork = UserService.selectMyProjectList(userSeq);
+//		resultMap.put("designerList", designerList);
+//
+//		
+//		
+//		return new JsonModelAndView(resultMap);
+//	}
 
 }

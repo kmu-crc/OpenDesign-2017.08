@@ -170,7 +170,6 @@
 </script>
 <script type="text/javascript">
 	
-	
 	/* project list 탬플릿 */
 	var projectLitTemplete = $('#tmpl-listView').html();
 
@@ -463,6 +462,8 @@
 		</div>
 	</a></li>
 </script>
+
+
 <script type="text/javascript">
 	
 	/* list 탬플릿 */
@@ -611,18 +612,23 @@ function goGroupDetailView(_this, seq) {
 
 <!-- 공개일때만 상세조회 가능 -->
 <script id="tmpl-groupDetail" type="text/x-jsrender">
-	{{if publicYn == 'Y' }} 
+	{{if publicYn !== 'N' }} 
 	<li><a href="javascript:goProject({{:seq}});" >
 	{{else}}
-	<li><a href="javascript:void(0);" >
+		{{if isProjectMember }}
+		<li><a href="javascript:goProject({{:seq}});" >
+		{{else}}
+		<li style="display: none">
+		{{/if}}
 	{{/if}}
+ 		<div class="img-area">
+        	<img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 5);" alt="">
+		</div>
     	<dl>
         	<dt>{{:projectName}}</dt>
 			<dd>{{:ownerName}}님의 프로젝트</dd>
 		</dl>
-        <div class="img-area">
-        	<img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 5);" alt="">
-		</div>
+       
         <div class="project-info">
 			<div class="member">
             	<i class="fa fa-user" aria-hidden="true"></i>
@@ -634,17 +640,10 @@ function goGroupDetailView(_this, seq) {
 			</div>
 			<div class="member">
             	<i class="fa fa-heart-o" aria-hidden="true" style="font-weight: bold"></i>
-                <span>{{:likeCnt}}</span>
+               	<span>{{:likeCnt}}</span>
 			</div>
-        	<!-- <div class="member">
-            	<i>{{:projectMemberCntF}}</i>
-                <span>멤버</span>
-			</div>
-            <div class="bbs">
-            	<i>{{:projectWorkCntF}}</i>
-                <span>게시글</span>
-			</div>
-            <div class="file-num">
+
+            <!-- <div class="file-num">
             	<i>{{:projectWorkFileCntF}}</i>
                 <span>파일</span>
 			</div> -->

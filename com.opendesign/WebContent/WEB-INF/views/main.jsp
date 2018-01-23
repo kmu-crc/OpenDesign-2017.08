@@ -1,7 +1,13 @@
 <%-- 화면ID : OD 01-01-01 --%>
 <%@page import="com.opendesign.utils.CmnConst.RstConst"%>
 <%@page import="com.opendesign.utils.StringUtil"%>
+<%@page import="com.opendesign.utils.CmnUtil"%>
+<%@page import="com.opendesign.vo.MyUserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String userSeq = null;
+	userSeq = (String)request.getAttribute("schLoginUserSeq");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,6 +46,12 @@
 		
 	<div class="main-content">
 		<div class="visual">
+	<!-- 로그인 했을때는 개인화된 영역이 보임 -->
+	<%	if(CmnUtil.isUserLogin(request)) {	%>
+		<div class="myInfoWrapper" style="display: none"></div>
+	<%} else if(!CmnUtil.isUserLogin(request)) {}%>
+		<!-- 로그인 전에는 메인 이미지 & 도움말 버튼 보임 -->
+		
 			<div class="slideWrapper">
 				<div class="img-box" id="slide-1">
 					<img src="/resources/image/main/openRe.png ">
@@ -61,20 +73,11 @@
 					<button class="main-btn" onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
 				</div>
 			</div>
+		
+			
 		</div>
 
 		<div class="inner">
-			<div class="recommend">
-				<div class="best-head">
-					<span class="mainChar">D</span>
-					<span>추천 디자인</span>
-				</div>
-				<div class="best-inner">
-					<ul class="list-type1 " id="productView">
-						
-					</ul>
-				</div>
-			</div>
 			<div class="best">
 				<div class="best-head">
 					<span class="mainChar">D</span>
@@ -88,6 +91,17 @@
 						<button type="button" class="btn-prevSlide purchase-prev"><img src="../resources/image/mypage/btn_prevSlide.png" alt="이전"></button>
 						<button type="button" class="btn-nextSlide purchase-next"><img src="../resources/image/mypage/btn_nextSlide.png" alt="다음"></button>
 					</div>
+				</div>
+			</div>
+			<div class="recommend">
+				<div class="best-head">
+					<span class="mainChar">D</span>
+					<span>추천 디자인</span>
+				</div>
+				<div class="best-inner">
+					<ul class="list-type1 " id="productView">
+						
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -133,6 +147,13 @@
 		
 		loadPage();
 		
+		// 로그인 했을 때 내 정보 불러오기 함수
+		if ($('.myInfoWrapper').length > 0) {
+			//loadMyInfo();	
+		} else {
+			
+		}
+		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
 		$(window).on('mousewheel', function(e){
 			if( e.originalEvent.wheelDelta / 120 > 0 ) {
@@ -150,6 +171,24 @@
 		});
 		
 	});
+	
+	
+	/**
+	 * 로그인 했을 때 내 정보 불러오기 함수
+	 */
+	 function loadMyInfo(){
+		$.ajax({
+			url: "/selectMainMyInfo.ajax",
+			type: "GET",
+			data: {},
+			success: function(_data){
+				console.log(_data);
+			},
+			error: function(){
+				console.log("error");
+			}
+		});
+	}
 	
 	
 	/**
