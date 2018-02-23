@@ -146,23 +146,41 @@
 	
 	<select id="selectMyProject" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO" >
 		SELECT 
-			seq
-			, owner_seq AS ownerSeq
-			, public_yn AS publicYn
-			, project_name AS projectName
-			, progress_status AS progressStatus
-			, file_url AS fileUrl
-			, file_name AS fileName
-			, register_time AS registerTime
-			, update_time AS updateTime
-		FROM v_project
-		WHERE owner_seq = #{memberSeq}
+			P.seq
+			, P.owner_seq AS ownerSeq
+			, M.uname AS ownerName
+			, P.public_yn AS publicYn
+			, P.project_name AS projectName
+			, P.progress_status AS progressStatus
+			, P.file_url AS fileUrl
+			, P.file_name AS fileName
+			, P.register_time AS registerTime
+			, P.update_time AS updateTime
+			,(
+				SELECT COUNT(*) FROM t_project_member
+				WHERE project_seq = P.seq
+			) AS projectMemberCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S1_PS
+				JOIN v_project_work S1_PW ON S1_PW.project_subject_seq = S1_PS.seq
+				WHERE S1_PS.project_seq = P.seq
+			) AS projectWorkCnt
+			,(
+		        SELECT
+					COUNT(*)
+				FROM t_project_like A
+				WHERE
+		        	A.project_seq = P.seq
+		    ) AS likeCnt
+		FROM v_project P 
+		JOIN t_member M ON P.owner_seq = M.seq
+		WHERE P.owner_seq = #{memberSeq}
 		<choose>
 			<when test=" projectSeq != null " >
-			AND seq = #{projectSeq}
+			AND P.seq = #{projectSeq}
 			</when>
 			<otherwise>
-			ORDER BY update_time ASC
+			ORDER BY P.update_time ASC
 			</otherwise>
 		</choose>
 	</select>
@@ -646,6 +664,7 @@
 		    SET
 		        title = #{title}
 		        ,contents = #{contents}
+		        ,register_time = #{registerTime}
 		        <if test=" thumbUri != null and thumbUri != '' ">
 		        ,thumb_uri = #{thumbUri}
 		        </if>

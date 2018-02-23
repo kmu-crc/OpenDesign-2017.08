@@ -285,7 +285,7 @@ $(function() {
 								if(!CmnUtil.isEmpty(itemVO.getFileList())) {
 									for(DesignWorkFileVO fItem : itemVO.getFileList()) {
 							%>
-							<li style="cursor:pointer" onclick="fileDownload('<%=fItem.getFileUri()%>', '<%=fItem.getFilename()%>');"><%=fItem.getFilename()%> <span>(<%=fItem.getFileSize()%>KB)</span></li>
+							<li style="cursor:pointer; display: inline-block; margin-right: 10px;" onclick="fileDownload('<%=fItem.getFileUri()%>', '<%=fItem.getFilename()%>');"><%=fItem.getFilename()%> <span>(<%=fItem.getFileSize()%>KB)</span></li>
 							<%
 									}
 								}

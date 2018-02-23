@@ -661,6 +661,9 @@ public class ProjectService {
 		// 포함된 프로젝트 seq 찾아서 알람 설정
 		setProjectFromWork(workVO, user);
 		
+		// 포함된 프로젝트의 업데이트 날짜 변경
+		dao.updateProjectDate(workVO);
+		
 		
 		resultMap.put(RstConst.P_NAME, RstConst.V_SUCESS);
 		return resultMap;

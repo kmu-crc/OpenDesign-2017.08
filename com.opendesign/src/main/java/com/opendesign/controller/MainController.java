@@ -8,6 +8,7 @@
  */
 package com.opendesign.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +26,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.opendesign.service.DesignerService;
 import com.opendesign.service.MainService;
 import com.opendesign.service.ProductService;
+import com.opendesign.service.ProjectService;
 import com.opendesign.service.UserService;
 import com.opendesign.utils.CmnUtil;
 import com.opendesign.utils.ControllerUtil;
+import com.opendesign.utils.StringUtil;
 import com.opendesign.vo.DesignWorkVO;
 import com.opendesign.vo.DesignerVO;
+import com.opendesign.vo.MemberCategoryVO;
 import com.opendesign.vo.MyUserVO;
+import com.opendesign.vo.ProjectVO;
 import com.opendesign.vo.SearchVO;
 import com.opendesign.vo.UserVO;
 import com.wdfall.spring.JsonModelAndView;
@@ -71,6 +76,18 @@ public class MainController {
 	 */
 	@Autowired
 	ProductService productService;
+	
+	/**
+	 * 유저 서비스 인스턴스
+	 */
+	@Autowired
+	UserService userService;
+	
+	/**
+	 * 프로젝트 서비스 인스턴스
+	 */
+	@Autowired
+	ProjectService projectService;
 	
 	/**
 	 * 메인 페이지 조회(이동)
@@ -145,25 +162,47 @@ public class MainController {
 	/**
 	 * 메인 페이지에서 로그인 했을 때, 개인 정보를 가져온다.
 	 * 
-	 * @param userSeq
+	 * @param request
+	 * @return
 	 * 
-	 * @return userInfo
 	 */
-//	@RequestMapping(value = "/selectMainMyInfo.ajax")
-//	public ModelAndView selectMainMyInfo(@ModelAttribute SearchVO searchVO, HttpServletRequest request) {
-//
-//		String userSeq = request.getParameter("userSeq");
-//		Map<String, Object> resultMap = new HashMap<String, Object>();
-//
-//		/*
-//		 * 해당 seq 회원의 작품 수 조회
-//		 */
-//		List<MyUserVO> userWork = UserService.selectMyProjectList(userSeq);
-//		resultMap.put("designerList", designerList);
-//
-//		
-//		
-//		return new JsonModelAndView(resultMap);
-//	}
+	@RequestMapping(value = "/selectMainMyInfo.ajax")
+	public ModelAndView selectMainMyInfo(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		UserVO loginUser = (UserVO) CmnUtil.getLoginUser(request);
+
+		if (loginUser == null || !StringUtil.isNotEmpty(loginUser.getSeq())) {
+			return new ModelAndView("redirect:/main.do");
+		}
+		
+		int memberSeq = Integer.parseInt(loginUser.getSeq());
+		String memseq = Integer.toString(memberSeq);
+		
+		// 회원 기본 정보 가져오기
+		List<UserVO> myInfoList = userService.selectMyInfoList(memseq);
+		//int cntWork = userService.selectWorkCount(memberSeq);
+		//int cntLike = userService.selectLikeCount(memberSeq);
+		
+		// 디자인 정보 가져오기
+		List<MyUserVO> designList = userService.selectMyWorkList(memseq);
+		if (designList == null) {
+			designList = new ArrayList<MyUserVO>();
+		}
+		
+		// 프로젝트 정보 가져오기
+		List<ProjectVO> projectList = projectService.selectMyProjectList(memberSeq);
+		if (projectList == null) {
+			projectList = new ArrayList<ProjectVO>();
+		}
+		
+		resultMap.put("memberSeq", memberSeq);
+		resultMap.put("info", myInfoList);
+		resultMap.put("myDesignList", designList);
+		resultMap.put("myProjectList", projectList);
+		
+		return new JsonModelAndView(resultMap);
+	}
+
 
 }

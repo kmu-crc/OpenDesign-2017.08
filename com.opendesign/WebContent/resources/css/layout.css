@@ -255,6 +255,16 @@ header
 .main-content .visual #slide-1 .main-helpWrapper > div {display: inline; color: #fff;}
 .main-content .visual #slide-1 .main-helpWrapper > button {margin-left: 5px; font-size: 14px; padding: 10px; position: relative; background: none; top: 0; right: 0;}
 
+/* 메인 페이지 안에 있는 개인화 영역 (18.01) */
+.main-content .myInfoWrapper {width: 1286px; margin: 30px auto 0;}
+.main-content .myInfoWrapper > h3 {font-size: 22px; margin-bottom: 20px;}
+.main-content .myInfoWrapper > .infoWrapper {width: 100%; padding: 10px;}
+.main-content .myInfoWrapper .infoWrapper ul {padding-top: 0px; margin: 0;}
+.main-content .myInfoWrapper .infoWrapper div[class*="wrapper"] {}
+.main-content .myInfoWrapper .infoWrapper div[class*="wrapper"] li .info-img img {width: 100%; height: auto;}
+.main-content .myInfoWrapper .project-list li {margin-left: 10px;}
+
+
 .mainModal {width: 800px; margin: -380px 0 0 -400px; background-color: #fff; padding: 60px 40px 50px; box-sizing: border-box;}
 .mainModal h3{font-size: 22px; margin-bottom: 30px;}
 .mainModal .row {line-height: 24px;}
@@ -268,13 +278,19 @@ header
 #main-help-modal .mainModal .modal-body h3 {padding left: 40px; padding-right: 40px;}
 #main-help-modal .mainModal .videoWrapper {width: 720px; height: 405px; margin: auto;}
 
-.main-content .best{position:relative; margin:0 0 57px; padding:34px 0 0;}
+.main-content .best{position:relative; margin:0 0 25px; padding:0; padding-top: 20px;}
 .best-head, .content .best-head {width: 250px; height: 42px; background-color: #f00; color: #fff; box-sizing: border-box; padding: 10px;}
 .best-head .mainChar, .content .best-head .mainChar {color: red; background-color: white; font-weight: 600; font-size: 20px; padding: 3px 6px 0px 6px; margin-right: 10px;}
 .main-content .best-inner {width:1320px; overflow:hidden;}
 .main-content .best .list-type2.list1{margin:0px; padding-top: 30px;}
 .main-content .best .list-type2 .list-type2{margin:0; }
-.main-content .best .list-type2 .list-type2 > li{margin:0 30px 20px 0;}
+.main-content .best .list-type2 .list-type2 > li{margin:0 6px 20px; width: 220px; height: 210px;}
+.main-content .best .profile-section, 
+.main-content .best .work-section,
+.main-content .best .profile-section .profile {width: 220px; padding-top: 0;}
+.main-content .best .profile-section {padding-top: 0;}
+.main-content .best .profile-section .picture {width: 100%; height: 150px; border-radius: 0;}
+.main-content .best .profile-section .profile .designer {margin: 10px 0 0;}
 .main-content .best .work-section {height: 120px;}
 .best button{position:absolute; top:50%; z-index:2; margin:0;}
 .best .btn-prevSlide{left:-20px;}
@@ -308,8 +324,8 @@ header
 .helpModal .row img {width: 500px; height: auto; margin-top: 5px; margin-bottom: 5px;}
 .helpModal .row p {margin-bottom: 14px; margin-top: 14px; text-align: left;}
 
-.list-type1{clear:both; margin:0 0 0 -34px; padding-top: 30px;}
-.list-type1 li{position:relative; float:left; width:300px; height:360px; overflow:hidden; box-sizing: border-box; padding: 20px; box-shadow:0 1px 3px #e1e1e1; margin:0 0 24px 30px; font-size:14px; border:1px solid #ddd; border-bottom: 2.5px solid #f00; background:#fff;}
+.list-type1{clear:both; padding-top: 30px;}
+.list-type1 li{position:relative; float:left; width:300px; height:360px; overflow:hidden; box-sizing: border-box; padding: 20px; box-shadow:0 1px 3px #e1e1e1; margin:0 0 40px 15px; font-size:14px; border:1px solid #ddd; border-bottom: 2.5px solid #f00; background:#fff;}
 .list-type1 a > div.product-thumbWrapper{width:100%; height:192px; overflow: hidden;}
 .list-type1 a .product-thumbWrapper > img {width: 100%; height: auto;}
 .list-type1 li:hover{}
@@ -636,16 +652,16 @@ tr.no-padding {height: 50px;}
 .topic .item-info span:last-child img{margin:-2px 0 0;}
 .topic ul .item-info span .fa {font-size: 14px;}
 
-#project-detail .modal-inner{top:10%; width:956px; margin:0 0 50px -520px; padding:20px 45px 50px; color:#686868; background:#fff; min-height: 450px;}
+#project-detail .modal-inner{top:8%; width:956px; margin:0 0 50px -520px; padding:20px 45px 50px; color:#686868; background:#fff; min-height: 450px;}
 #project-detail h1{font-size:28px; font-weight:700; color:#113b88; text-align: left; margin-top: 20px; margin-bottom: 20px; border-bottom: 1px solid #f00;}
 #project-detail h1 span{font-size:12px; font-weight:bold; color:#686868;}
-#project-detail .designer{margin:0 0 5px; font-size:18px; font-weight:bold;}
+#project-detail .designer{margin:0 0 20px; font-size:18px; font-weight:bold;}
 #project-detail .custom-select{width:150px;}
 #project-detail select{position:absolute; top:0; left:0; width:100%; height:32px; opacity:0;}
 #project-detail input[type="text"]{width:100%; height:32px; box-sizing:border-box; padding:0 40px 0 10px; color:#848484; border:1px solid #848484; border-radius:7px; background:#fff url(../image/common/bg_select.png) no-repeat right 0;}
 #project-detail .version{overflow:hidden; margin:0 0 10px; font-size:14px;}
 #project-detail .version strong{float:left; margin:8px 15px 0 0;}
-#project-detail .opinion{float:left; margin: 5px 0 15px; font-size:14px;}
+#project-detail .opinion{float:left; margin: 5px 0 15px; font-size:16px; line-height: 1.5; width: 900px;}
 #project-detail .btn-set{float:right;}
 #project-detail .btn-set a{margin:0 0 0 12px; padding:0 8px 0 18px; font-size:14px; color:#767676;}
 #project-detail .btn-modi{background:url(../image/sub/blt_modi.png) no-repeat 0 0;}
@@ -753,13 +769,13 @@ tr.no-padding {height: 50px;}
 .portfolio-content .title-area{overflow:hidden; margin:0 0 30px;}
 .portfolio-content .title-area p{font-size:16px; margin-left: 220px; color: #f00;}
 .portfolio-content .txt{margin:0 0 35px; line-height:1.5; color:#737373;}
-.designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; background-color: rgba(230,0,0,.1); box-shadow: 1px 1px 5px;}
+.designer-info{overflow:hidden; margin:0 0 45px; padding:20px 0; background-color: #e7e7e7; box-shadow: 1px 1px 5px;}
 .designer-info li.info-list {width: 20%; float: left; border-right:1.2px solid #999; box-sizing: border-box;}
 .designer-info li.info-list > div{box-sizing:border-box; color:#666; height: 40px; line-height: 40px;}
 .designer-info li.info-list .mainChar {width: 40px; height: 40px; background-color: #fff; display: inline-block; line-height: 40px; text-align: center; color: #f00; font-size: 24px; font-weight: bold; float: left; margin-right: 20px; margin-left: 30px;}
 .designer-info li.info-list .like .fa{font-weight: 700;}
 .designer-info li.info-list .like .mainChar,
-.designer-info li.info-list .reply .mainChar {background-color: #FCE5E5; font-size: 20px;}
+.designer-info li.info-list .reply .mainChar {background-color: #fff; font-size: 20px;}
 .designer-info li.info-list:last-of-type {border: 0;}
 .designer-info li.info-list > div > span {margin-right: 20px;}
 #listPViewId .imgWrapper {width: 258px; height: 180px; overflow: hidden;}

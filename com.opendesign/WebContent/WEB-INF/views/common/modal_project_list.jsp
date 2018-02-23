@@ -157,7 +157,7 @@ function projShareShare() {
 	<div class="modal-inner">
 		<div id="spinner"></div>
 		<h1 data-nm="title">{{:title}} <span>{{:displayTime}}</span></h1>
-		<p class="designer" data-nm="memberName">{{:workMemberNameList}}</p>
+		<p class="designer" data-nm="memberName">등록자 : {{:workMemberNameList}}</p>
 	
 	 <div class="version" style="display: none">
 			<strong data-nm="lastVer">ver {{:lastVer}}</strong>
@@ -173,6 +173,7 @@ function projShareShare() {
 		</div> 
 
 		<div style="min-height:30px;">
+			<div style="margin: 0 0 5px; font-size: 18px; font-weight: bold;">작품설명</div>
 			<p class="opinion" data-nm="contents">{{:contents}}</p>
 			<div class="btn-set">
 				{{if <%=isProjNotComplete%> &&  curUserAuthYN }}
@@ -183,6 +184,7 @@ function projShareShare() {
 				<input type="hidden" name="dispName" value="{{:title}}" /><!-- dispName -->
 				<input type="hidden" name="curVerSeq" value="{{:lastVerSeq}}" /><!-- 보는 버전 -->
 			</div>
+			<div class="clear"></div>
 		</div>
 
 		<div class="project-detail-img-wrap">

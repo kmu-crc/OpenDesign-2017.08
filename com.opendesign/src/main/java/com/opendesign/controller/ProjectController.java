@@ -255,9 +255,7 @@ public class ProjectController {
 		
 		// group 이름 가져오기
 		String schMyGroupName = request.getParameter("schMyGroupName");
-		System.out.println(schMyGroupName+"this is GroupName");
 		paramMap.put("schMyGroupName", schMyGroupName);
-
 		paramMap.put("schProgressStatus", ProjectProgressStatus.PROGRESS);
 		
 		int allCount = service.selectProjectCount(paramMap);
@@ -1036,6 +1034,10 @@ public class ProjectController {
 	@RequestMapping(value = "/updateProjectWork.ajax")
 	public ModelAndView updateProjectWork(@ModelAttribute("work") ProjectWorkVO workVO,
 			MultipartHttpServletRequest request) throws IOException {
+		
+		// 작품 수정시 registerDate를 업데이트 해버림
+		String currentDate = Day.getCurrentTimestamp().substring(0, 12);
+		workVO.setRegisterTime(currentDate);
 
 		Map<String, Object> resultMap = service.updateProjectWork(workVO, request);
 

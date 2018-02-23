@@ -45,13 +45,32 @@
 	</script>
 		
 	<div class="main-content">
-		<div class="visual">
+
 	<!-- 로그인 했을때는 개인화된 영역이 보임 -->
 	<%	if(CmnUtil.isUserLogin(request)) {	%>
-		<div class="myInfoWrapper" style="display: none"></div>
-	<%} else if(!CmnUtil.isUserLogin(request)) {}%>
-		<!-- 로그인 전에는 메인 이미지 & 도움말 버튼 보임 -->
-		
+		<div class="myInfoWrapper">
+			<h3 class="greeting"></h3>
+			<div class="infoWrapper">
+				<div class="D-wrapper best-inner">
+					<div class="best-head" style="background-color: #2A2D4A; margin-bottom: 20px;">
+						<span class="mainChar" style="color: #27282F;">M</span>
+						<span>나의 디자인 <span class="myDesignCount"></span> 건</span>
+					</div>
+					<ul class="list-type1" id="designInfoView"></ul>
+				</div>
+				<div class="P-wrapper project-list">
+					<div class="best-head" style="background-color: #2A2D4A; margin-bottom: 20px;">
+						<span class="mainChar" style="color: #27282F;">M</span>
+						<span>나의 프로젝트 <span class="myProjectCount"></span> 건</span>
+					</div>
+					<ul id="projectInfoView"></ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	<!-- 로그인 전에는 메인 이미지 & 도움말 버튼 보임 -->
+	<%} else if(!CmnUtil.isUserLogin(request)) { %> 
+		<div class="visual">
 			<div class="slideWrapper">
 				<div class="img-box" id="slide-1">
 					<img src="/resources/image/main/openRe.png ">
@@ -73,9 +92,9 @@
 					<button class="main-btn" onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
 				</div>
 			</div>
-		
-			
 		</div>
+	<% }%>
+		
 
 		<div class="inner">
 			<div class="best">
@@ -149,7 +168,17 @@
 		
 		// 로그인 했을 때 내 정보 불러오기 함수
 		if ($('.myInfoWrapper').length > 0) {
-			//loadMyInfo();	
+			designInfoListTemplete = $("#tmpl-designInfoListTemplete").html();			
+			designInfoView = new ListView({
+				htmlElement : $('#designInfoView')
+			});
+			projectInfoListTemplete = $("#tmpl-projectInfoListTemplete").html();
+			
+			projectInfoView = new ListView({
+				htmlElement : $('#projectInfoView')
+			});
+			
+			loadMyInfo();	
 		} else {
 			
 		}
@@ -174,7 +203,7 @@
 	
 	
 	/**
-	 * 로그인 했을 때 내 정보 불러오기 함수
+	 * 로그인 했을 때 내 정보 불러오기
 	 */
 	 function loadMyInfo(){
 		$.ajax({
@@ -183,11 +212,45 @@
 			data: {},
 			success: function(_data){
 				console.log(_data);
+				var username = _data.info[0].uname;
+				$('.greeting').text(username+"님 환영합니다!");
+				
+				var myDesignCount = _data.myDesignList.length;
+				var myProjectCount = _data.myProjectList.length;
+				$('.myDesignCount').text(myDesignCount);
+				$('.myProjectCount').text(myProjectCount);
+				
+				// 디자인이 있으면 로딩
+				if (myDesignCount == 0){
+					$('.infoWrapper > .D-wrapper').css('display', 'none');
+					return;
+				} else if (myDesignCount !== 0){
+					loadMyDesignList(_data.myDesignList, myDesignCount);
+				}
+				// 프로젝트가 있으면 로딩
+				if (myProjectCount == 0){
+					$('.infoWrapper > .P-wrapper').css('display', 'none');
+					return;
+				} else if (myProjectCount !== 0){
+					loadMyProjectList(_data.myProjectList, myProjectCount);
+				}
 			},
 			error: function(){
 				console.log("error");
 			}
 		});
+	}
+	
+	function loadMyDesignList(myDesignList, count){
+
+		designInfoView.putData('existList', count);
+		designInfoView.addAll({keyName:'seq', data:myDesignList, htmlTemplate:designInfoListTemplete });
+	}
+	
+	function loadMyProjectList(myProjectList, count){
+
+		projectInfoView.putData('existList', count);
+		projectInfoView.addAll({keyName:'seq', data:myProjectList, htmlTemplate:projectInfoListTemplete });
 	}
 	
 	
@@ -227,9 +290,9 @@
 		designView.putData('existList', hasDesigners);
 		designView.addAll({keyName:'seq', data:designerList, htmlTemplate:designerListTemplete });
 		
-		//특수처리: 한번에 4개씩 움직이게: loading할때 한번 처리
+		//특수처리: 한번에 5개씩 움직이게: loading할때 한번 처리
 		while($('#designView > li').length != 0) {
-			$('#designView > li').slice(0,4).wrapAll('<ul class="list-type2 swiper-slide"></ul>');
+			$('#designView > li').slice(0,5).wrapAll('<ul class="list-type2 swiper-slide"></ul>');
 		}
 		
 		//swiper:
@@ -281,11 +344,11 @@
 	 */
 	var designerSwipe = null;
 	function swipeInitDesigner() {
-		var swipeContSel = '.best-inner';
+		var swipeContSel = '.inner .best-inner';
 		var slideBtn = $(swipeContSel).find('.slide-btn');
 		var item = $(swipeContSel).find('li').length;
 		
-		if(item > 3){
+		if(item > 4){
 			slideBtn.show();
 		} else{
 			slideBtn.hide();
@@ -347,13 +410,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="work-section">
+					<!-- <div class="work-section">
 						<ul class="portfolio-section" style="padding-top: 0;">
 							{{for totalList}}
 							<li><img src="{{:myThumb}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오"></li>
 							{{/for}}
 						</ul>
-					</div>
+					</div> -->
 					</a>
 				</li>
 </script>
@@ -381,6 +444,62 @@
 	</a></li>
 </script>
 
+
+
+<!-- 로그인 했을 때 내 정보 개인화 영역 -->
+
+<script id="tmpl-designInfoListTemplete" type="text/x-jsrender">
+	<li ><a href="javascript:goProductView('{{:wseq}}');" >
+		<div class="info-img">
+			<img src="{{:thumbUri}}" onerror="setDefaultImg(this, 3);" alt="" />
+		</div>
+		<div class="product-info">
+			<p class="product-title">{{:wtitle}}</p>
+			<!-- <p class="designer">{{:uname}}</p> -->
+			<p class="cate" >{{:wcate}}&nbsp;</p>
+		</div>
+		<div class="item-info">
+			{{if !curUserLikedYN }}
+			<span class="like"><i class="fa fa-heart-o" aria-hidden="true" style="font-weight: bold"></i> {{:cntLikeF}}</span>
+			{{else}}
+			<span class="like"><i class="fa fa-heart" aria-hidden="true" style="font-weight: bold"></i> {{:cntLikeF}}</span>
+			{{/if}}
+			<span class="hit"><i class="fa fa-hand-pointer-o" aria-hidden="true" style="font-weight: bold"></i> {{:wvcount}}</span>
+			<span class="update">{{:displayTime}}</span>
+		</div>
+	</a></li>
+</script>
+
+<script id="tmpl-projectInfoListTemplete" type="text/x-jsrender">
+	<li><a href="/project/openProjectDetail.do?projectSeq={{:seq}}" >
+        <div class="img-area">
+        	<img src="{{:fileUrlM}}" onerror="setDefaultImg(this, 5);" alt="" >
+		</div>
+    	<dl>
+        	<dt>{{:projectName}}</dt>
+			<dd>{{:ownerName}}님의 프로젝트</dd>
+		</dl>
+        <div class="project-info item-info">
+        	<div class="member">
+            	<i class="fa fa-user" aria-hidden="true"></i>
+                <span>{{:projectMemberCntF}}</span>
+			</div>
+            <div class="bbs">
+            	<i class="fa fa-window-restore" aria-hidden="true"></i>
+                <span>{{:projectWorkCntF}}</span>
+			</div>
+			<div class="member">
+            	<i class="fa fa-heart-o" aria-hidden="true"></i>
+                <span>{{:likeCnt}}</span>
+			</div>
+            <!--<div class="file-num">
+            	<i></i>
+                <span>파일 : {{:projectWorkFileCntF}}</span>
+			</div>-->
+			<span class="update">{{:displayTime}}</span>
+		</div>
+	</a></li>
+</script>
 
 
 <!-- 오픈디자인 모달창 -->
