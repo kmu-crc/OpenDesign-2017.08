@@ -257,8 +257,8 @@ header
 
 /* 메인 페이지 안에 있는 개인화 영역 (18.01) */
 .main-content .myInfoWrapper {width: 1286px; margin: 30px auto 0;}
-.main-content .myInfoWrapper > h3 {font-size: 22px; margin-bottom: 20px;}
-.main-content .myInfoWrapper > .infoWrapper {width: 100%; padding: 10px;}
+.main-content .myInfoWrapper > h3 {font-size: 18px; margin-bottom: 20px;}
+.main-content .myInfoWrapper > .infoWrapper {width: 100%;}
 .main-content .myInfoWrapper .infoWrapper ul {padding-top: 0px; margin: 0;}
 .main-content .myInfoWrapper .infoWrapper div[class*="wrapper"] {}
 .main-content .myInfoWrapper .infoWrapper div[class*="wrapper"] li .info-img img {width: 100%; height: auto;}

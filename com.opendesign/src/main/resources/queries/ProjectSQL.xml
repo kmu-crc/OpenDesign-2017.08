@@ -180,7 +180,7 @@
 			AND P.seq = #{projectSeq}
 			</when>
 			<otherwise>
-			ORDER BY P.update_time ASC
+			ORDER BY P.update_time DESC
 			</otherwise>
 		</choose>
 	</select>
