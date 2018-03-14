@@ -158,6 +158,7 @@ public class ProjectController {
 		String schSort = request.getParameter("schSort");
 
 		int pageIndex = getPageIndex(schPPage, schCPage, progressStatus);
+
 		if (pageIndex <= 0) {
 			pageIndex = 1;
 		}
@@ -174,6 +175,7 @@ public class ProjectController {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page_count", (pageIndex - 1) * limitCount);
+		System.out.println(paramMap+"------------------pageIndex");
 		paramMap.put("limit_count", limitCount);
 		paramMap.put("schCate", request.getParameter("schCate"));
 		paramMap.put("schSort", schSort);

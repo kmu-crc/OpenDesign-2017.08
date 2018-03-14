@@ -40,27 +40,6 @@
 			        $('.main-btn').transition('tada');
 			    }, 3000);
 			}
-			
-			var status = false;
-			
-			function showAlarm(){
-				<% if(CmnUtil.isUserLogin(request)) {%>
-					status = true;
-				<% } %>
-				if (status == false){
-					setTimeout(function(){
-						modalShow('#alarm-server');	
-						$('body').on('click', '#alarm-btn', function(){
-							var btn = $('#alarm-server .btn-close');
-							btn.click();
-						});
-					}, 1000);	
-				} else {
-					return;
-				}
-			}
-			
-			showAlarm();
 
 		});
 	</script>
@@ -669,27 +648,6 @@
 			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 		</div>
 </div>
-
-
-<!-- 서버 점검 알람 -->
-<div class="modal" id="alarm-server">
-	<div class="bg"></div>
-		<div class="modal-inner mainModal" style="width: 350px; height: 250px; margin: -200px -175px 0; padding: 40px 30px; box-shadow: 2px 2px 6px #343434;">
-			<div class="modal-body">
-				<h3 align="center" style="margin-bottom: 30px;">서버 점검 안내</h3>
-				<p>
-					3/10(토) ~ 3/11(일) 까지 서버 점검이 진행될 예정입니다.
-					사이트 이용이 제한되거나 접속이 원활하지 않을 수 있습니다.
-				</p>
-				<div style="text-align: center; margin: auto; margin-top: 30px;">
-					<!-- <span style="margin-right: 10px; font-weight: bold;">오늘 다시보지 않기</span>  -->
-					<button id="alarm-btn" class="btn-red" style="padding: 7px 25px; font-size: 14px; background-color: #113b88;">확인</button>
-				</div>
-			</div>
-			<button type="button" class="btn-close" style="opacity: 0;"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
-		</div>
-</div>
-
 
 
 

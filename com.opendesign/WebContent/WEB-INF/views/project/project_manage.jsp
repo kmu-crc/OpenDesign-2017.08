@@ -121,7 +121,7 @@
 							<!-- button type="btn-del">x</button-->
 						</div>
 						<div class="file ">
-							<input type="file" name="fileUrlFile">
+							<input type="file" name="fileUrlFile" accept="image/x-png, image/jpeg, image/jpg">
 							<button type="button">검색</button>
 						</div>
 					</td>
