@@ -1459,7 +1459,7 @@ function modifyTopicFormSubmit() {
 	<div class="bg"></div>
 	<div class="modal-inner">
 		<div class="contents">
-			<h2 class="totalReplyHead">프로젝트 댓글</h2>
+			<h2 class="totalReplyHead">프로젝트 댓글  <span style="font-size: 16px;"> (총 <span id="totalReplyCount"></span>건)</span></h2>
 			<ul class="project_totalReplyList" id="project_totalReply" data-seq="<%=projectVO.getSeq()%>"></ul>
 			<form name="project_totalReplyForm">
 				<input type="hidden" name="itemSeq" value="<%=projectVO.getSeq()%>" /> <!-- itemSeq -->
@@ -1556,6 +1556,8 @@ function pdrLoadTotalPage() {
 		},
 		success : function(_data){
 			console.log(_data);
+			var count = _data.all_count;
+			$('#totalReplyCount').html(count);
 	    	pdrLoadTotalPageWithData(_data);
 		}
     });

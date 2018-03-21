@@ -197,6 +197,20 @@
 			, file_name AS fileName
 			, register_time AS registerTime
 			, update_time AS updateTime
+			, (
+		        SELECT
+					COUNT(*)
+				FROM t_project_like A
+				WHERE
+		        	A.project_seq = P.seq
+		    ) AS likeCnt
+		    , (
+		        SELECT
+					COUNT(*)
+				FROM t_project_comment C
+				WHERE
+		        	C.project_seq = P.seq
+		    ) AS commentCnt
 			<if test=" memberSeq != null " >
 			, (CASE 
 				WHEN owner_seq = ${memberSeq} THEN 1

@@ -296,6 +296,9 @@ $(function() {
 				
 				<div class="product-reply">
 					<h3>댓글쓰기</h3>
+					<%if(loginUser == null){ %>
+					<p>댓글은 로그인 후에 작성 가능합니다.</p>
+					<%} %>
 					<form name="projDetailAddCmmtForm">
 						<input type="hidden" name="itemSeq" value="<%=itemVO.getSeq()%>" /> <!-- itemSeq -->
 						<input type="hidden" name="itemCmmtType" value="<%=ItemCmmtType.DESIGN_CMMT%>" /> <!-- 댓글 구분 -->

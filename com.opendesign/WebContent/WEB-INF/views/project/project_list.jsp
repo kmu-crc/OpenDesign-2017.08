@@ -403,7 +403,7 @@ function prodViewWorkLike(thisObj) {
 			<div class="btn-area">
 				<button type="button" class="btn-red" onclick="javascript:modalShow('#modal_project_totalReply'); javascript:initPdrListTotalView();" >
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
-					댓글
+					댓글<span>(<%=projectVO.getCommentCnt() %>)</span>
 				</button>
 				<%if( (isProjNotComplete && projectVO.getIsProjectMember()) || (isProjNotComplete && isPublicAll) ) { %>
 				<a href="javascript:goSubjectAddView();" class="btn-modal btn-red project-add-btn">
@@ -414,12 +414,12 @@ function prodViewWorkLike(thisObj) {
 				<% if( !liked ) { %>
 					<button type="button" class="project-like-btn btn-red" onclick="prodViewWorkLike(this);">
 						<i class="fa fa-heart-o" aria-hidden="true"></i>
-						좋아요
+						좋아요<span>(<%=projectVO.getLikeCnt() %>)</span>
 					</button>
 					<% } else { %>
 					<button type="button" class="project-like-btn btn-red active" onclick="prodViewWorkLike(this);">
 						<i class="fa fa-heart" aria-hidden="true"></i>
-						좋아요
+						좋아요<span>(<%=projectVO.getLikeCnt() %>)</span>
 					</button>
 					<% } %>
 			</div>

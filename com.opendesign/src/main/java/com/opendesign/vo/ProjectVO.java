@@ -50,6 +50,8 @@ public class ProjectVO {
 	private int projectWorkFileCnt;
 	/** 좋아요 개수 */
 	private int likeCnt;
+	/** 댓글 수 */
+	private int commentCnt;
 	
 	/** 소유자 이름 */
 	private String ownerName;
@@ -257,6 +259,14 @@ public class ProjectVO {
 
 	public void setGroupCount(int groupCount) {
 		this.groupCount = groupCount;
+	}
+
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
 	}
 	
 	

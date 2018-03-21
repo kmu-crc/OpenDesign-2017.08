@@ -290,7 +290,7 @@ header
 .main-content .best .profile-section .profile {width: 220px; padding-top: 0;}
 .main-content .best .profile-section {padding-top: 0;}
 .main-content .best .profile-section .picture {width: 100%; height: 150px; border-radius: 0;}
-.main-content .best .profile-section .profile .designer {margin: 10px 0 0;}
+.main-content .best .profile-section .profile .designer {margin: 10px 0 3px;}
 .main-content .best .work-section {height: 120px;}
 .best button{position:absolute; top:50%; z-index:2; margin:0;}
 .best .btn-prevSlide{left:-20px;}
@@ -652,7 +652,8 @@ tr.no-padding {height: 50px;}
 .topic .item-info span:last-child img{margin:-2px 0 0;}
 .topic ul .item-info span .fa {font-size: 14px;}
 
-#project-detail .modal-inner{top:8%; width:956px; margin:0 0 50px -520px; padding:20px 45px 50px; color:#686868; background:#fff; min-height: 450px;}
+#project-detail {overflow: initial;}
+#project-detail .modal-inner{overflow-y: scroll; top:8%; width:956px; margin:0 0 50px -520px; padding:20px 45px 50px; color:#686868; background:#fff; min-height: 450px;}
 #project-detail h1{font-size:28px; font-weight:700; color:#113b88; text-align: left; margin-top: 20px; margin-bottom: 20px; border-bottom: 1px solid #f00;}
 #project-detail h1 span{font-size:12px; font-weight:bold; color:#686868;}
 #project-detail .designer{margin:0 0 20px; font-size:18px; font-weight:bold;}
@@ -703,7 +704,8 @@ tr.no-padding {height: 50px;}
 
 
 /* project Total reply modal*/
-#modal_project_totalReply .modal-inner{width: 700px; height: 600px; background-color: #fff; margin-top: -300px; margin-left: -350px; border-radius: 2px; box-sizing: border-box; padding: 70px 30px;}
+#modal_project_totalReply {overflow: initial;}
+#modal_project_totalReply .modal-inner{overflow-y: scroll; width: 700px; height: 600px; background-color: #fff; margin-top: -300px; margin-left: -350px; border-radius: 2px; box-sizing: border-box; padding: 70px 30px;}
 #modal_project_totalReply .totalReplyHead{font-size: 24px; margin-bottom: 25px; margin-left: 5px;}
 #modal_project_totalReply .project_totalReplyList{width: 100%; height: 300px; background-color: #e9e9e9; overflow-y: scroll;}
 #modal_project_totalReply form[name='project_totalReplyForm'] {margin-top: 20px;}
