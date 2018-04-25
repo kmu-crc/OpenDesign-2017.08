@@ -27,7 +27,7 @@
 		<div class="inner">
 			<div class="best-head">
 				<span class="mainChar">P</span>
-				<span>프로젝트 생성</span>
+				<span>프로젝트 등록</span>
 			</div>
 			<form name="projectForm" id="projectForm" enctype="multipart/form-data" onsubmit="return false;" >
 			<table class="tbl-regi">

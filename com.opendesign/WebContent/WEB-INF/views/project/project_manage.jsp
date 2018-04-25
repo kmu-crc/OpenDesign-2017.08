@@ -48,7 +48,7 @@
 						<div id="div_select_project" class="my-select custom-select">
 							<input id="txt_select_project" type="text"  >
 							<select id="select_project" name="select_project">
-								<option value="">내가 생성한 프로젝트</option>
+								<option value="">내가 등록한 프로젝트</option>
 							<%if( projectList != null ){ %>
 							<%	for( ProjectVO aProject : projectList){ %>
 								<option value="<%=aProject.getSeq() %>"><%=aProject.getProjectName() %></option>

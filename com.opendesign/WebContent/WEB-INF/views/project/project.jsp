@@ -53,7 +53,7 @@
 				<%} %>
 				
 			
-				<a class="btn-red" href="javascript:goPage('/project/projectGroup.do', true);">그룹 생성 및 관리</a>
+				<a class="btn-red" href="javascript:goPage('/project/projectGroup.do', true);">그룹 등록 및 관리</a>
 				<%
 				if( isLogin && myProjectList.size() > 0 ) {
 				%>
@@ -61,7 +61,7 @@
 				<%
 				}
 				%>
-				<a class="btn-red" href="javascript:goPage('/project/projectRegi.do', true);" class="btn-product">프로젝트 생성</a>
+				<a class="btn-red" href="javascript:goPage('/project/projectRegi.do', true);" class="btn-product">프로젝트 등록</a>
 				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal-project');">도움말</button>
 			</div>
 		</div>
@@ -136,7 +136,7 @@
 	<input type="hidden" name="schProgressStatus" value="" />
 	<input type="hidden" name="projectSeq" value="" />
 	<input type="hidden" name="schSort" value="<%=schSort %>" />
-	<input type="hidden" name="schLimitCount" value="50" />
+	<input type="hidden" name="schLimitCount" value="500" />
 </form>
 <script id="tmpl-listView" type="text/x-jsrender">
 	<li><a href="javascript:goProject({{:seq}});" >
@@ -241,7 +241,7 @@
 	        } else {
 	        	/* 스크롤이 최하단일 경우 프로젝트 로드 */
 	        	if ( $(window).scrollTop() > $(document).height() - $(window).height()) {
-
+					console.log("work");
 	        		var targetView = $('#ing-project').hasClass('active') ? designProjectIngView : null;
 	        		if( !targetView || ! targetView.data('existList') ){
 	        			return;
@@ -725,9 +725,9 @@ function changeTabActiveUI(tabLiObjSel) {
 					<h4>1. 프로젝트</h4>
 					<p>상단 메뉴에서 프로젝트 버튼을 눌러 프로젝트 페이지로 넘어갑니다.</p>
 					<img src="/resources/image/help/pro1.png">
-					<p>프로젝트 생성 버튼을 클릭하여 새로운 프로젝트를 생성합니다.</p>
+					<p>프로젝트 등록 버튼을 클릭하여 새로운 프로젝트를 등록합니다.</p>
 					<img src="/resources/image/help/proprocess1.png">
-					<p>프로젝트 생성 페이지에서 양식에 맞추어 프로젝트 생성을 진행합니다.</p>
+					<p>프로젝트 등록 페이지에서 양식에 맞추어 프로젝트 등록을 진행합니다.</p>
 					<p>멤버를 검색해 프로젝트 멤버로 초대할 수 있습니다.</p>
 					<p>프로젝트 서비스를 통해 여러 사람이 공동으로 디자인 프로젝트를 진행 할 수 있습니다.</p>
 					<img src="/resources/image/help/proprocess2.png">

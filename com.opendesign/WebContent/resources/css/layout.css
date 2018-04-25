@@ -256,13 +256,12 @@ header
 .main-content .visual #slide-1 .main-helpWrapper > button {margin-left: 5px; font-size: 14px; padding: 10px; position: relative; background: none; top: 0; right: 0;}
 
 /* 메인 페이지 안에 있는 개인화 영역 (18.01) */
-.main-content .myInfoWrapper {width: 1286px; margin: 30px auto 0;}
+.main-content .myInfoWrapper {width: 1320px; margin: 30px auto 0;}
 .main-content .myInfoWrapper > h3 {font-size: 18px; margin-bottom: 20px;}
 .main-content .myInfoWrapper > .infoWrapper {width: 100%;}
-.main-content .myInfoWrapper .infoWrapper ul {padding-top: 0px; margin: 0;}
-.main-content .myInfoWrapper .infoWrapper div[class*="wrapper"] {}
+.main-content .myInfoWrapper .infoWrapper ul {padding-top: 0px; margin: 0; width: 100%;}
 .main-content .myInfoWrapper .infoWrapper div[class*="wrapper"] li .info-img img {width: 100%; height: auto;}
-.main-content .myInfoWrapper .project-list li {margin-left: 10px;}
+.main-content .myInfoWrapper .project-list li {}
 
 
 .mainModal {width: 800px; margin: -380px 0 0 -400px; background-color: #fff; padding: 60px 40px 50px; box-sizing: border-box;}
@@ -282,6 +281,7 @@ header
 .best-head, .content .best-head {width: 250px; height: 42px; background-color: #f00; color: #fff; box-sizing: border-box; padding: 10px;}
 .best-head .mainChar, .content .best-head .mainChar {color: red; background-color: white; font-weight: 600; font-size: 20px; padding: 3px 6px 0px 6px; margin-right: 10px;}
 .main-content .best-inner {width:1320px; overflow:hidden;}
+.main-content .best-inner .project-list {padding-top: 30px;}
 .main-content .best .list-type2.list1{margin:0px; padding-top: 30px;}
 .main-content .best .list-type2 .list-type2{margin:0; }
 .main-content .best .list-type2 .list-type2 > li{margin:0 6px 20px; width: 220px; height: 210px;}
@@ -292,9 +292,13 @@ header
 .main-content .best .profile-section .picture {width: 100%; height: 150px; border-radius: 0;}
 .main-content .best .profile-section .profile .designer {margin: 10px 0 3px;}
 .main-content .best .work-section {height: 120px;}
-.best button{position:absolute; top:50%; z-index:2; margin:0;}
-.best .btn-prevSlide{left:-20px;}
-.best .btn-nextSlide{right:-20px;}
+.P-wrapper {position: relative;}
+.best button,
+.P-wrapper button{position:absolute; top:50%; z-index:2; margin:0;}
+.best .btn-prevSlide {left:0px;}
+.P-wrapper .btn-prevSlide {left:0px;}
+.best .btn-nextSlide {right:-20px;}
+.P-wrapper .btn-nextSlide {right:15px;}
 /*.main-content .recommend{overflow:hidden;} */
 
 .project-content{padding:28px 0 50px; border-bottom:1px solid #bcbcbc;}
@@ -652,7 +656,6 @@ tr.no-padding {height: 50px;}
 .topic .item-info span:last-child img{margin:-2px 0 0;}
 .topic ul .item-info span .fa {font-size: 14px;}
 
-#project-detail {overflow: initial;}
 #project-detail .modal-inner{overflow-y: scroll; top:8%; width:956px; margin:0 0 50px -520px; padding:20px 45px 50px; color:#686868; background:#fff; min-height: 450px;}
 #project-detail h1{font-size:28px; font-weight:700; color:#113b88; text-align: left; margin-top: 20px; margin-bottom: 20px; border-bottom: 1px solid #f00;}
 #project-detail h1 span{font-size:12px; font-weight:bold; color:#686868;}

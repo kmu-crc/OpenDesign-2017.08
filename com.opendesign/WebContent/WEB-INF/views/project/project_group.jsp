@@ -18,17 +18,17 @@
 		<div class="inner">
 			<div class="best-head">
 				<span class="mainChar">G</span>
-				<span>그룹 생성 및 관리</span>
+				<span>그룹 등록 및 관리</span>
 			</div>
 			<div class="tbl-regi">
-					<div class="regi-head">그룹 목록 및 생성</div>
+					<div class="regi-head">그룹 목록 및 등록</div>
 					<div class="add-area">
 						<input type="text" name="group_name" placeholder="추가할 그룹명 입력">
-						<button type="button" class="btn-red" onclick="insertGroup();" >생성</button>
+						<button type="button" class="btn-red" onclick="insertGroup();" >등록</button>
 					</div>
 					<div class="group-list" id="showGroup"></div>
 					<div class="regi-head">프로젝트 목록</div>
-					<div class="add-area">
+					<div class="add-area" style="display: none;">
 						<a href="javascript:modalShowProjectSearch();" class="btn-projectAdd btn-modal">추가할 프로젝트 조회</a>
 					</div>
 					<div class="group-list" id="showProject"></div>

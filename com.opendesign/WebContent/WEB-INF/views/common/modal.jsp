@@ -58,6 +58,8 @@
 $(function(){
 	$('body').on('click', '.modal .bg, .btn-close', function(){ //$('.modal .bg, .btn-close').click(function(){ 
 		modalHide();
+		$('html, body').css({'overflow': 'initial', 'height': '100%'}); 
+		$('#element').off('scroll mousewheel');
 	});
 });
 	
@@ -69,6 +71,12 @@ function modalShow(modalIdSel, opts) {
 	$('.modal').fadeOut();
 	var modalObj = $(modalIdSel); 
 	modalObj.fadeIn();
+	$('html, body').css({'overflow': 'hidden', 'height': '100%'});
+	$('#element').on('scroll mousewheel', function(event) { 
+		event.preventDefault();
+		event.stopPropagation();     
+		return false; 
+	});
 	
 	/* 이벤트 처리 */
 	if( '#login-modal' == modalIdSel ){

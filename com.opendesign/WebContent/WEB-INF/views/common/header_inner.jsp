@@ -68,7 +68,8 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 				<!-- 마이페이지 -->
 				<div id="mypageDiv" class="mypage">
 						<a href="/user/myPage.do" class="btn-mypage">
-							<i class="fa fa-user" aria-hidden="true"></i> 
+							<i class="fa fa-user" aria-hidden="true"></i>
+							<div id="mypageName"></div> 
 						</a>
 				</div>
 			</div>

@@ -564,7 +564,6 @@
 	
 	<!-- sql 작품 상세 조회 -->
 	<sql id="sql_selectProjectWork">
-		
 		SELECT
 		        T.title
 		        ,T.contents
@@ -833,6 +832,63 @@
 		        	JOIN t_project_subject S ON V.seq = S.project_seq
 		        	JOIN t_project_work W ON W.project_subject_seq = S.seq AND W.seq = #{seq}
 		]]>
+	</select>
+	
+		<!--메인 페이지에서 인기 프로젝트 조회 (18.04.25) -->
+	<select id="selectBestProjectList" parameterType="hashmap" resultType="com.opendesign.vo.ProjectVO">
+		SELECT
+			P.seq
+			, P.owner_seq AS ownerSeq
+			, PM.uname AS ownerName
+			, P.public_yn AS publicYn
+			, P.project_name AS projectName
+			, P.progress_status AS progressStatus
+			, P.file_url AS fileUrl
+			, P.file_name AS fileName
+			, P.register_time AS registerTime
+			, P.update_time AS updateTime
+			<if test=" memberSeq != null " >
+			, (CASE 
+				WHEN owner_seq = ${memberSeq} THEN 1
+				ELSE  0
+			  END) AS isProjectOwner
+            , IFNULL( (SELECT 1 FROM t_project_member WHERE member_seq = ${memberSeq} AND project_seq = P.seq ), 0 ) AS isProjectMember
+			</if>
+			, (
+				SELECT COUNT(*) FROM t_project_member
+				WHERE project_seq = P.seq
+			) AS projectMemberCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S1_PS
+				JOIN v_project_work S1_PW ON S1_PW.project_subject_seq = S1_PS.seq
+				WHERE S1_PS.project_seq = P.seq
+			) AS projectWorkCnt
+			, (
+				SELECT COUNT(*) FROM t_project_subject S2_PS
+				JOIN v_project_work S2_PW ON S2_PW.project_subject_seq = S2_PS.seq
+				JOIN t_project_work_ver S2_PWV ON S2_PWV.project_work_seq = S2_PW.seq
+				WHERE S2_PS.project_seq = P.seq
+			) AS projectWorkFileCnt
+			,(
+		        SELECT
+					COUNT(*)
+				FROM t_project_like A
+				WHERE
+		        	A.project_seq = P.seq
+		    ) AS likeCnt
+		FROM v_project P
+		JOIN t_member PM
+			ON P.owner_seq = PM.seq
+		WHERE
+		P.seq IN (
+			SELECT 
+				target_seq
+			FROM
+				t_stat_activities
+			WHERE
+				target_type = '3'
+			AND stat_month = ( SELECT MAX(stat_month) FROM t_stat_activities )
+		)
 	</select>
 	
 	

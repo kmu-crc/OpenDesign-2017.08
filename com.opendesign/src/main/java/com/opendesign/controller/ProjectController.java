@@ -259,6 +259,8 @@ public class ProjectController {
 		String schMyGroupName = request.getParameter("schMyGroupName");
 		paramMap.put("schMyGroupName", schMyGroupName);
 		paramMap.put("schProgressStatus", ProjectProgressStatus.PROGRESS);
+		LOGGER.info(paramMap+"----------");
+		System.out.println(paramMap);
 		
 		int allCount = service.selectProjectCount(paramMap);
 		List<ProjectVO> list = service.selectProjectList(paramMap);

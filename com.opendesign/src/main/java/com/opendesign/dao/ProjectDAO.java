@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.opendesign.utils.CmnUtil;
 import com.opendesign.vo.CategoryVO;
+import com.opendesign.vo.DesignerVO;
 import com.opendesign.vo.ProjectGroupReqVO;
 import com.opendesign.vo.ProjectGroupVO;
 import com.opendesign.vo.ProjectMemberVO;
@@ -573,6 +574,16 @@ public class ProjectDAO {
 	public ProjectVO setProjectFromWork(ProjectWorkVO WorkVO) {
 		return sqlSession.selectOne(SQL_NS + "setProjectFromWork", WorkVO);
 	}
+	
+	/**
+	 * 이달의 Best 프로젝트 목록 조회 (18.04.25) 
+	 * @param paramMap
+	 * @return
+	 */
+	public List<ProjectVO> selectBestProjectList(Map<String, Object> paramMap) {
+		return sqlSession.selectList(SQL_NS + "selectBestProjectList", paramMap);
+	}
+	
 
 	
 	

@@ -42,8 +42,11 @@ import com.opendesign.vo.CategoryVO;
 import com.opendesign.vo.ItemLikeVO.ItemType;
 import com.opendesign.vo.ProjectGroupReqVO;
 import com.opendesign.vo.ProjectGroupReqVO.ProjectGroupReqStatus;
+import com.opendesign.vo.DesignWorkVO;
+import com.opendesign.vo.DesignerVO;
 import com.opendesign.vo.ItemLikeVO;
 import com.opendesign.vo.ItemWorkVO;
+import com.opendesign.vo.MemberCategoryVO;
 import com.opendesign.vo.ProjectGroupVO;
 import com.opendesign.vo.ProjectMemberVO;
 import com.opendesign.vo.ProjectSubjectVO;
@@ -941,6 +944,16 @@ public class ProjectService {
 	 */
 	public ProjectVO selectProjectByTypeAndSeq(String type, String seq) {
 		return dao.selectProjectByTypeAndSeq(type, seq);
+	}
+	
+	/**
+	 * 이달의 Best 프로젝트 목록 조회
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	public List<ProjectVO> selectBestProjectList(Map<String, Object> paramMap) {
+		return dao.selectBestProjectList(paramMap);
 	}
 
 	// ================================= 그룹 =================================

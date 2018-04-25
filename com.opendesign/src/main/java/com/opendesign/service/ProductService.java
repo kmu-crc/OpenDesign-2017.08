@@ -259,7 +259,6 @@ public class ProductService {
 	 * @return
 	 */
 	public List<DesignWorkVO> selectBestProductList(Map<String, Object> paramMap) {
-		
 		return dao.selectBestProductList(paramMap);
 	}
 	

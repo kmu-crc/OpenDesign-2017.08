@@ -110,7 +110,7 @@ public class MainController {
 	 * 
 	 * @param schPage
 	 * @param schLimitCount
-	 *            default 16
+	 *            default 60
 	 * @return all_count
 	 * @return list
 	 */
@@ -118,7 +118,7 @@ public class MainController {
 	public ModelAndView selectMainList(@ModelAttribute SearchVO searchVO, HttpServletRequest request) {
 
 		Map<String, Object> paramMap = ControllerUtil.createParamMap(request);
-		Map<String, Object> resultMap = new HashMap<String, Object>();//service.selectMainList(searchVO, request);
+		Map<String, Object> resultMap = new HashMap<String, Object>(); //service.selectMainList(searchVO, request);
 
 		/*
 		 * 베스트 디자이너 리스트 조회
@@ -131,13 +131,26 @@ public class MainController {
 		 */
 		List<DesignWorkVO> productList = productService.selectBestProductList(paramMap);
 		resultMap.put("productList", productList);
+		LOGGER.info(productList);
+		LOGGER.info("productList!!!!!!");
+		LOGGER.info(productList.getClass());
+	
+		/**
+		 * 베스트 프로젝트 리스트 조회
+		 */
+		List<ProjectVO> projectList = projectService.selectBestProjectList(paramMap);
+		resultMap.put("projectList", projectList);
+		LOGGER.info(projectList);
+		LOGGER.info("projectList!!!!!!");
+		LOGGER.info(projectList.getClass());
 		
+		LOGGER.info(resultMap);
+		LOGGER.info("haha");
 		
 		/*
 		 * 로그인 되어 있다면, 디자이너 / 디자인(작품별) 좋아요 여부 세팅
 		 */
 		if( CmnUtil.isUserLogin(request) ) {
-			
 			UserVO user = CmnUtil.getLoginUser(request);
 			
 			for( DesignerVO designer : designerList ) {
@@ -151,9 +164,7 @@ public class MainController {
 				paramMap.put("designWorkSeq", product.getSeq());
 				product.setCurUserLikedYN( designerService.isLogonUserLikesDesignWork(paramMap) );
 			}
-			
 		}
-		
 		
 		return new JsonModelAndView(resultMap);
 	}
