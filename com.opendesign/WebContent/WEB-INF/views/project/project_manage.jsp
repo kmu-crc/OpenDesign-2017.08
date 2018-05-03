@@ -165,6 +165,8 @@
 							<input type="checkbox" name="progressStatus" value="<%=CmnConst.ProjectProgressStatus.COMPLETE %>" id="complete">
 							<label for="complete">완료</label>
 						</div>
+						<div class="clear"></div>
+						<p style="font-size: 13px; margin-top: 15px;">* 완료에 체크되어 있으면 프로젝트 내용을 수정하거나 삭제할 수 없습니다.</p>
 					</td>
 				</tr>
 			</table>

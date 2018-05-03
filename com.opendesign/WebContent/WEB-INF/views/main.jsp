@@ -95,7 +95,7 @@
 			<div class="best">
 				<div class="best-head">
 					<span class="mainChar">P</span>
-					<span>이달의 프로젝트</span>
+					<span>추천 프로젝트</span>
 				</div>
 				<div class="best-inner">
 					<ul class="list1 swiper-wrapper" id="projectView">
