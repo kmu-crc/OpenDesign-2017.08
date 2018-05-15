@@ -136,7 +136,7 @@
 	<input type="hidden" name="schProgressStatus" value="" />
 	<input type="hidden" name="projectSeq" value="" />
 	<input type="hidden" name="schSort" value="<%=schSort %>" />
-	<input type="hidden" name="schLimitCount" value="500" />
+	<input type="hidden" name="schLimitCount" value="30" />
 </form>
 <script id="tmpl-listView" type="text/x-jsrender">
 	<li><a href="javascript:goProject({{:seq}});" >
@@ -236,20 +236,17 @@
 		
 		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
-		$(window).on('mousewheel', function(e){
-			if( e.originalEvent.wheelDelta / 120 > 0 ) {
-	        } else {
-	        	/* 스크롤이 최하단일 경우 프로젝트 로드 */
-	        	if ( $(window).scrollTop() > $(document).height() - $(window).height()) {
-					console.log("work");
-	        		var targetView = $('#ing-project').hasClass('active') ? designProjectIngView : null;
-	        		if( !targetView || ! targetView.data('existList') ){
-	        			return;
-	        		}
-	        		
-	        		loadProject(targetView, true);
-	            }
-	        }
+		$(window).on('scroll', function(e){
+			/* 스크롤이 최하단일 경우 프로젝트 로드 */
+        	if ( $(window).scrollTop() > $(document).height() - $(window).height() - 10) {
+				console.log("work");
+        		var targetView = $('#ing-project').hasClass('active') ? designProjectIngView : null;
+        		if( !targetView || ! targetView.data('existList') ){
+        			return;
+        		}
+        		
+        		loadProject(targetView, true);
+            }
 		});
 		
 		

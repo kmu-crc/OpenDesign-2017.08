@@ -332,6 +332,7 @@ function swipeInit() {
 			topicSwipe = new Swiper('.topic-slide', {
 		        slidesPerView: 6,
 		        spaceBetween: 7,
+		        simulateTouch: false,
 		        nextButton: '.btn-topicNext',
 		    	prevButton: '.btn-topicPrev'
 		    });
