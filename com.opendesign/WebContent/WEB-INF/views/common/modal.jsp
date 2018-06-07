@@ -58,8 +58,7 @@
 $(function(){
 	$('body').on('click', '.modal .bg, .btn-close', function(){ //$('.modal .bg, .btn-close').click(function(){ 
 		modalHide();
-		$('html, body').css({'overflow': 'initial', 'height': '100%'}); 
-		$('#element').off('scroll mousewheel');
+		
 	});
 });
 	
@@ -138,6 +137,8 @@ function modalShow(modalIdSel, opts) {
 function modalHide() {
 	$('body').removeClass('lock');
 	$('.modal').fadeOut();
+	$('html, body').css({'overflow': 'initial', 'height': '100%'}); 
+	$('#element').off('scroll mousewheel');
 }
 
 /** 로그인 */

@@ -5,7 +5,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>open src Design</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=0424">
+<link rel="stylesheet" type="text/css" href="/resources/css/layout.css?ver=06072">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui-1.12.1.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/transition.css">
 <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">

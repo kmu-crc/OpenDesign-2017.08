@@ -42,30 +42,7 @@
 							<%	} 	%>
 				<button class="btn-help btn-red" type="button" onclick="javascript:modalShow('#help-modal-designer');">도움말</button>
 			</div>
-			<ul class="list-type2" id="designView">
-				<!--  template
-				<li><a href="portfolio.html">
-					<div class="profile-section">
-						<div class="picture">
-							<img src="../resources/image/main/pic_profile.jpg" alt="김민희">
-						</div>
-						<div class="profile">
-							<p class="designer">천재비행소년</p>
-							<p class="cate">의상디자인</p>
-							<div class="item-info">
-								<span><img src="../resources/image/common/ico_portfolio.png" alt="포트폴리오"> 38</span>
-								<span><img src="../resources/image/common/ico_like.png" alt="좋아요"> 380</span>
-								<span><img src="../resources/image/common/ico_hit.png" alt="열람"> 181</span>
-							</div>
-						</div>
-					</div>
-					<ul class="portfolio-section">
-						<li><img src="../resources/image/main/img_portfolio1.jpg" alt="포트폴리오"></li>
-						<li><img src="../resources/image/main/img_portfolio2.jpg" alt="포트폴리오"></li>
-						<li><img src="../resources/image/main/img_portfolio3.jpg" alt="포트폴리오"></li>
-					</ul>
-				</a></li>
-				-->
+			<ul class="list-type1" id="designView">
 				 
 			</ul>
 		</div>
@@ -91,7 +68,7 @@
 	<input type="hidden" name="schPage" value="" /> 	<!-- 페이지번호 --> 
 	<input type="hidden" name="schOrderType" value="<%=SchOrderType.LATEST%>" /> <!-- 최신순 --> 
 	<input type="hidden" name="schMemberDiv" value="<%=schMemberDiv%>" /> <!-- 회원구분 --> 
-	<input type="hidden" name="schLimitCount" value="100" />
+	<input type="hidden" name="schLimitCount" value="50" />
 </form>
 <script>
 	/**
@@ -113,31 +90,30 @@
 </script>
 <script id="tmpl-listTemplete" type="text/x-jsrender">
 				<li><a href="javascript:goPortfolioView('{{:seq}}');"  >
-					<div class="profile-section">
-						<div class="picture"  >
-							<img src="{{:imageUrl}}" onerror="setDefaultImg(this, 1);" alt="{{:uname}}">
-						</div>
-						<div class="profile">
-							<p class="designer">{{:uname}}</p>
-							<p class="cate"  >{{:cateNames}}</p>
-							<div class="item-info">
-								<span class="portfolio"><i class="fa fa-list" aria-hidden="true"></i> {{:workCntF}}</span>
-								{{if !curUserLikedYN }}
-								<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
-								{{else}}
-								<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
-								{{/if}}
-								<span class="hit"><i class="fa fa-comment" aria-hidden="true"></i> {{:cmmtCntF}}</span>
-							</div>
-						</div>
+					<div class="product-thumbWrapper">
+						<img src="{{:imageUrl}}" onerror="setDefaultImg(this, 3);" alt="{{:uname}}">
 					</div>
-					<div class="work-section">
+					<div class="profile">
+						<p class="product-title">{{:uname}}</p>
+						<p class="cate">{{:cateNames}}</p>
+					</div>
+					<div class="item-info">
+						<span class="portfolio"><i class="fa fa-list" aria-hidden="true"></i> {{:workCntF}}</span>
+						{{if !curUserLikedYN }}
+						<span class="like"><i class="fa fa-heart-o" aria-hidden="true"></i> {{:likeCntF}}</span>
+						{{else}}
+						<span class="like"><i class="fa fa-heart" aria-hidden="true"></i> {{:likeCntF}}</span>
+						{{/if}}
+						<span class="hit"><i class="fa fa-comment" aria-hidden="true"></i> {{:cmmtCntF}}</span>
+					</div>
+					
+					<!-- <div class="work-section">
 						<ul class="portfolio-section">
 							{{for totalList}}
 							<li><img src="{{:myThumb}}" onerror="setDefaultImg(this, 4);" alt="포트폴리오" alt="포트폴리오"></li>
 							{{/for}}
 						</ul>
-					</div>
+					</div> -->
 				</a></li>
 </script>
 <script>
@@ -178,22 +154,18 @@ function goPortfolioView(seq) {
 		loadPage(designView);
 		
 		/* 윈도우 스크롤 이벤트 : 프로젝트 로드 */
-		$(window).on('mousewheel', function(e){
-			if( e.originalEvent.wheelDelta / 120 > 0 ) {
-				// to do nothing...
-	        } else {
-	        	/* 스크롤이 최하단일 경우 프로젝트 로드 */
-	        	if ( $(window).scrollTop() == $(document).height() - $(window).height()) {
-	        		var targetView = designView;
-	        		if( ! targetView.data('existList') ){
-	        			return;
-	        		}
-	        		
-	        		loadPage(targetView, true);
-	            }
-	        }
-		});
+		//$(window).on('scroll', function(e){
+			//if ( $(window).scrollTop() > $(document).height() - $(window).height() - 10) {
+				//console.log("work");
+				//var targetView = designView;
+				//if( ! targetView.data('existList') ){
+	    			//return;
+	    		//}
+	        	//loadPage(targetView, true);
+	       	//}
+		//});
 	});
+
 	
 	/**
 	 * 검색 파라미터 초기화

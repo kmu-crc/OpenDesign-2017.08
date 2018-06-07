@@ -51,7 +51,7 @@ public class DesignerVO extends UserVO {
 	/** 프로젝트 list */
 	private List<ProjectVO> workPList;
 	/** 전체 작품 - top3를 위한 전체 리스트 */
-	private List<Object> totalList;
+	//private List<Object> totalList;
 
 	/** 사용자 좋아요 했는지 판단 */
 	private boolean curUserLikedYN;
@@ -88,48 +88,48 @@ public class DesignerVO extends UserVO {
 	 * 
 	 * @return
 	 */
-	public List<DesignWorkVO> getTop3WorkList() {
-		if (CmnUtil.isEmpty(workList)) {
-			return new ArrayList<DesignWorkVO>();
-		}
-		if (workList.size() < 3) {
-			return workList;
-		} else {
-			return workList.subList(0, 3);
-		}
-	}
+//	public List<DesignWorkVO> getTop3WorkList() {
+//		if (CmnUtil.isEmpty(workList)) {
+//			return new ArrayList<DesignWorkVO>();
+//		}
+//		if (workList.size() < 3) {
+//			return workList;
+//		} else {
+//			return workList.subList(0, 3);
+//		}
+//	}
 	
 	/**
 	 * 최신순 3개 프로젝트 list
 	 * 
 	 * @return
 	 */
-	public List<ProjectVO> getTop3ProjectList() {
-		if (CmnUtil.isEmpty(workPList)) {
-			return new ArrayList<ProjectVO>();
-		}
-		if (workPList.size() < 3) {
-			return workPList;
-		} else {
-			return workPList.subList(0, 3);
-		}
-	}
+//	public List<ProjectVO> getTop3ProjectList() {
+//		if (CmnUtil.isEmpty(workPList)) {
+//			return new ArrayList<ProjectVO>();
+//		}
+//		if (workPList.size() < 3) {
+//			return workPList;
+//		} else {
+//			return workPList.subList(0, 3);
+//		}
+//	}
 	
 	/**
 	 * 최신순 전체 3개 작품 list
 	 * 
 	 * @return
 	 */
-	public List<Object> getTotalList() {
-		if (CmnUtil.isEmpty(totalList)) {
-			return new ArrayList<Object>();
-		}
-		if (totalList.size() < 3) {
-			return totalList;
-		} else {
-			return totalList.subList(0, 3);
-		}
-	}
+//	public List<Object> getTotalList() {
+//		if (CmnUtil.isEmpty(totalList)) {
+//			return new ArrayList<Object>();
+//		}
+//		if (totalList.size() < 3) {
+//			return totalList;
+//		} else {
+//			return totalList.subList(0, 3);
+//		}
+//	}
 
 	
 
@@ -218,9 +218,9 @@ public class DesignerVO extends UserVO {
 		//return totalList;
 	//}
 
-	public void settotalList(List<Object> totalList) {
-		this.totalList = totalList;
-	}
+//	public void settotalList(List<Object> totalList) {
+//		this.totalList = totalList;
+//	}
 
 	public int getMySeq() {
 		return mySeq;

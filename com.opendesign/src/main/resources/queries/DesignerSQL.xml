@@ -81,7 +81,6 @@
 			        ,T.image_url
 			        ,T.comments
 			        ,T.member_type
-			        ,T.point
 			        ,T.fb_access_token
 			        ,T.register_time
 			        ,T.update_time

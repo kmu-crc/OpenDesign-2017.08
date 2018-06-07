@@ -150,14 +150,14 @@ public class DesignerService {
 			List<MemberCategoryVO> cateList = dao.selectMemberCategoryList(item.getSeq());
 			item.setCateList(cateList);
 			// 작품
-			List<DesignWorkVO> workList = dao.selectDesignWorkList(item.getSeq());
-			item.setWorkList(workList);
+			//List<DesignWorkVO> workList = dao.selectDesignWorkList(item.getSeq());
+			//item.setWorkList(workList);
 			//프로젝트
-			List<ProjectVO> workPList = dao.selectProjectWorkList(item.getSeq());
-			item.setWorkPList(workPList);
+			//List<ProjectVO> workPList = dao.selectProjectWorkList(item.getSeq());
+			//item.setWorkPList(workPList);
 			// 전체 작품 리스트
-			List<Object> totalList = dao.selectTotalWorkList(item.getSeq());
-			item.settotalList(totalList);
+			//List<Object> totalList = dao.selectTotalWorkList(item.getSeq());
+			//item.settotalList(totalList);
 		}
 
 		return list;
@@ -803,8 +803,8 @@ public class DesignerService {
 			item.setWorkPList(workPList);
 			
 			// 전체 작품 리스트
-			List<Object> totalList = dao.selectTotalWorkList(item.getSeq());
-			item.settotalList(totalList);
+			//List<Object> totalList = dao.selectTotalWorkList(item.getSeq());
+			//item.settotalList(totalList);
 		}
 
 		return list;
