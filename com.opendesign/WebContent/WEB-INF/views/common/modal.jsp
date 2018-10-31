@@ -486,7 +486,7 @@ function regFormValidRuleInit(){
 		rules:{
 			agree : { required: true } 
 			, email : { required: true, email: true }
-			, passwd : { required: true, passwdValidate: true }
+			, passwd : { required: true, passwdValidate: false }
 			, passwdCheck : { equalTo: "#passwd" } 
 		},
 		messages: {
@@ -830,6 +830,21 @@ function findPassword() {
 		</form>
 		<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 	</div>
+</div>
+
+<!-- 비밀번호 안내 모달창 (2018.08) -->
+<div class="modal" id="pw-info-modal">
+	<div class="bg"></div>
+		<div class="modal-inner pwInfoModal">
+			<div class="modal-body">
+				<h3 align="center">오픈디자인 기존 계정 비밀번호 변경 안내</h3>
+				<div class="pwInfoWrapper">
+					<p>오픈디자인의 기존 계정 비밀번호가 초기화 되었습니다. </p>
+					<p>계정이 있으신 회원들은</p><span>1234</span><p>로 로그인 후, 비밀번호를 재설정 해주시기 바랍니다.</p>
+				</div>
+			</div>
+			<button type="button" onClick="javascript:modalShow('#login-modal');">확인</button>
+		</div>
 </div>
 
 <script>

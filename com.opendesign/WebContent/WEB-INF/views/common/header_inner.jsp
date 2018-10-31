@@ -24,9 +24,36 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 }
 #searchBtn {
 	line-height: 42px;
-	color: #f00;
-	
+	color: #f00;	
 }
+
+#pw-info-modal .pwInfoModal {
+	padding: 30px;
+    background: #fff;
+    width: 360px;
+    margin-left: -180px;
+    height: 160px;
+    margin-top: -120px;
+    border-radius: 5px;
+}
+
+#pw-info-modal .pwInfoModal h3 {
+	margin-bottom: 20px;
+}
+
+#pw-info-modal .pwInfoModal button {
+    background: #f00;
+    color: #fff;
+    padding: 7px 15px;
+    margin-left: 160px;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+#pw-info-modal .pwInfoModal span {
+	font-weight: bold;
+}
+
 </style>
 	<div class="inner">
 		<h1>
@@ -79,7 +106,7 @@ String searchWord = StringUtils.stripToEmpty(request.getParameter("searchWord"))
 			<%	if(CmnUtil.isUserLogin(request)) {	%>
 			<a href="/logout.do" class="btn-logout btn-red">로그아웃</a>
 			<% 	} else { %>
-			<a href="javascript:modalShow('#login-modal');" class="btn-login btn-modal btn-red">로그인/회원가입</a>
+			<a href="javascript:modalShow('#pw-info-modal');" class="btn-login btn-modal btn-red">로그인/회원가입</a>
 			<% 	} %>
 			
 			<%	if(CmnUtil.isUserLogin(request)) {	%> 

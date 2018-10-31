@@ -48,25 +48,14 @@
 	
 		<div class="visual">
 			<div class="slideWrapper">
-				<div class="img-box" id="slide-1">
-					<img src="/resources/image/main/openRe.png ">
-					<span>OPEN DESIGN</span>
-					<button class="main-btn" onclick="javascript:modalShow('#main-opendesign-modal');">오픈 디자인</button>
-					<div class="main-helpWrapper">
-						<div>오픈디자인 서비스가 처음이신가요?</div>
-						<button onclick="javascript:modalShow('#main-help-modal');">웹사이트 설명 보러가기</button>
+				<a href="https://opensrcdesign.com">
+					<div>
+						오픈디자인 홈페이지가 변경되었습니다.<br>
+						새로운 홈페이지를 이용해 주시기 바랍니다.
 					</div>
-				</div>
-				<div class="img-box" id="slide-2">
-					<img src="/resources/image/main/easyRe.png" >
-					<span>EASY DESIGN</span>
-					<button class="main-btn" onclick="javascript:modalShow('#main-easydesign-modal');">쉬운 디자인</button>
-				</div>
-				<div class="img-box" id="slide-3">
-					<img src="/resources/image/main/togetherRe.png">
-					<span>DESIGN TOGETHER</span>
-					<button class="main-btn" onclick="javascript:modalShow('#main-designwith-modal');">함께하는 디자인</button>
-				</div>
+					<div style="font-size: 2rem;">클릭하면 새 페이지로 이동합니다.</div>
+					<div style="font-size: 1rem; color: #f00;">기존에 사용하던 이메일 계정으로 로그인하실 수 있으며, 초기 비밀번호는 1234입니다. <br>로그인 후 비밀번호를 재설정 해주시기 바랍니다.</div>
+				</a>
 			</div>
 		</div>
 
@@ -758,6 +747,8 @@
 			<button type="button" class="btn-close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
 		</div>
 </div>
+
+
 
 
 
